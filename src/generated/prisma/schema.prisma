@@ -1,0 +1,610 @@
+// AQUALIFE SERVIS – Evidencia
+// Prisma schema. Money is stored as Decimal(12,2) / rates as Decimal(6,3).
+// Document snapshots (revisions) store denormalized JSON so historical
+// documents remain valid even if the source customer / catalog item changes.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Auth (BetterAuth compatible)
+// ---------------------------------------------------------------------------
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  role          UserRole @default(ADMIN)
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions   Session[]
+  accounts   Account[]
+  activities ActivityLog[] @relation("ActivityActor")
+  emailLogs  EmailLog[]    @relation("EmailSender")
+
+  @@index([email])
+  @@index([role])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ---------------------------------------------------------------------------
+// Customers
+// ---------------------------------------------------------------------------
+
+enum CustomerType {
+  PERSON
+  SOLE_TRADER
+  COMPANY
+}
+
+model Customer {
+  id             String       @id @default(cuid())
+  type           CustomerType
+  // Person
+  firstName      String?
+  lastName       String?
+  // Business
+  businessName   String?
+  contactPerson  String?
+  ico            String?
+  dic            String?
+  icDph          String?
+  vatPayer       Boolean      @default(false)
+  // Contact
+  email          String?
+  phone          String?
+  phoneSecondary String?
+  // Address (billing / permanent / registered)
+  street         String?
+  city           String?
+  postalCode     String?
+  country        String       @default("Slovensko")
+  // Meta
+  internalNote   String?
+  archivedAt     DateTime?
+  createdById    String?
+  updatedById    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  serviceAddresses CustomerServiceAddress[]
+  notes            CustomerNote[]
+  quotations       Quotation[]
+  protocols        RepairProtocol[]
+  activities       ActivityLog[]
+
+  @@index([type])
+  @@index([email])
+  @@index([phone])
+  @@index([ico])
+  @@index([businessName])
+  @@index([lastName])
+  @@index([archivedAt])
+  @@index([createdAt])
+  @@map("customer")
+}
+
+model CustomerServiceAddress {
+  id         String    @id @default(cuid())
+  customerId String
+  customer   Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  label      String
+  street     String?
+  city       String?
+  postalCode String?
+  country    String    @default("Slovensko")
+  objectType String?
+  apartment  String?
+  note       String?
+  isDefault  Boolean   @default(false)
+  archivedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([customerId])
+  @@map("customer_service_address")
+}
+
+model CustomerNote {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  body        String
+  createdById String?
+  createdAt   DateTime @default(now())
+
+  @@index([customerId])
+  @@map("customer_note")
+}
+
+// ---------------------------------------------------------------------------
+// Catalog
+// ---------------------------------------------------------------------------
+
+enum CatalogItemType {
+  SERVICE
+  MATERIAL
+}
+
+model CatalogItem {
+  id             String          @id @default(cuid())
+  name           String
+  type           CatalogItemType
+  description    String?
+  defaultUnit    String          @default("ks")
+  defaultPrice   Decimal         @default(0) @db.Decimal(12, 2)
+  defaultVatRate Decimal         @default(23) @db.Decimal(6, 3)
+  usageCount     Int             @default(0)
+  archivedAt     DateTime?
+  createdById    String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([type])
+  @@index([name])
+  @@index([archivedAt])
+  @@map("catalog_item")
+}
+
+// ---------------------------------------------------------------------------
+// Document numbering (concurrency-safe)
+// ---------------------------------------------------------------------------
+
+enum SequenceKind {
+  QUOTATION
+  PROTOCOL
+}
+
+model DocumentSequence {
+  id        String       @id @default(cuid())
+  kind      SequenceKind
+  year      Int
+  lastValue Int          @default(0)
+  updatedAt DateTime     @updatedAt
+
+  @@unique([kind, year])
+  @@map("document_sequence")
+}
+
+// ---------------------------------------------------------------------------
+// Quotations
+// ---------------------------------------------------------------------------
+
+enum QuotationStatus {
+  DRAFT
+  READY
+  SENT
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CANCELLED
+  ARCHIVED
+}
+
+enum TaxMode {
+  STANDARD
+  REVERSE_CHARGE
+  NO_VAT
+}
+
+model Quotation {
+  id       String          @id @default(cuid())
+  number   String          @unique // CP-2026-0001
+  year     Int
+  seq      Int
+  revision Int             @default(1)
+  status   QuotationStatus @default(DRAFT)
+  locked   Boolean         @default(false)
+
+  customerId             String
+  customer               Customer @relation(fields: [customerId], references: [id])
+  // Snapshot of customer / addresses at edit time (kept current while DRAFT)
+  customerSnapshot       Json
+  serviceAddressSnapshot Json?
+
+  issueDate  DateTime @default(now())
+  validUntil DateTime
+  currency   String   @default("EUR")
+  taxMode    TaxMode  @default(STANDARD)
+  noVatNote  String?
+
+  documentDiscountType  DiscountType @default(NONE)
+  documentDiscountValue Decimal      @default(0) @db.Decimal(12, 3)
+
+  internalNote String?
+  customerNote String?
+
+  // Computed totals (persisted for listing / integrity)
+  subtotal      Decimal @default(0) @db.Decimal(12, 2)
+  discountTotal Decimal @default(0) @db.Decimal(12, 2)
+  taxBase       Decimal @default(0) @db.Decimal(12, 2)
+  vatTotal      Decimal @default(0) @db.Decimal(12, 2)
+  grandTotal    Decimal @default(0) @db.Decimal(12, 2)
+  vatBreakdown  Json    @default("[]")
+
+  createdById String?
+  updatedById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  finalizedAt DateTime?
+  sentAt      DateTime?
+
+  items     QuotationItem[]
+  revisions QuotationRevision[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([year])
+  @@index([createdAt])
+  @@index([number])
+  @@map("quotation")
+}
+
+enum DiscountType {
+  NONE
+  PERCENT
+  FIXED
+}
+
+model QuotationItem {
+  id            String    @id @default(cuid())
+  quotationId   String
+  quotation     Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  position      Int
+  description   String
+  detail        String?
+  quantity      Decimal   @db.Decimal(12, 3)
+  unit          String    @default("ks")
+  unitPrice     Decimal   @db.Decimal(12, 2)
+  discountPct   Decimal   @default(0) @db.Decimal(6, 3)
+  vatRate       Decimal   @default(23) @db.Decimal(6, 3)
+  catalogItemId String?
+  // computed
+  lineNet       Decimal   @db.Decimal(12, 2)
+  lineVat       Decimal   @db.Decimal(12, 2)
+  lineGross     Decimal   @db.Decimal(12, 2)
+
+  @@index([quotationId])
+  @@map("quotation_item")
+}
+
+model QuotationRevision {
+  id               String          @id @default(cuid())
+  quotationId      String
+  quotation        Quotation       @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  revision         Int
+  // Full immutable snapshot of the document at finalization
+  snapshot         Json
+  storedDocumentId String?
+  storedDocument   StoredDocument? @relation(fields: [storedDocumentId], references: [id])
+  createdById      String?
+  createdAt        DateTime        @default(now())
+
+  @@unique([quotationId, revision])
+  @@index([quotationId])
+  @@map("quotation_revision")
+}
+
+// ---------------------------------------------------------------------------
+// Repair protocols
+// ---------------------------------------------------------------------------
+
+enum ProtocolStatus {
+  DRAFT
+  FINAL
+  SENT
+  ARCHIVED
+}
+
+model RepairProtocol {
+  id       String         @id @default(cuid())
+  number   String         @unique // PRO-2026-0001
+  year     Int
+  seq      Int
+  revision Int            @default(1)
+  status   ProtocolStatus @default(DRAFT)
+  locked   Boolean        @default(false)
+
+  customerId             String
+  customer               Customer @relation(fields: [customerId], references: [id])
+  customerSnapshot       Json
+  serviceAddressSnapshot Json?
+
+  // 1. Identification
+  insuranceEventNumber String?
+  documentDate         DateTime  @default(now())
+  faultDate            DateTime?
+  repairDate           DateTime?
+
+  // 3. Place & object
+  objectStreet            String?
+  objectCity              String?
+  objectPostalCode        String?
+  objectType              String?
+  objectApartment         String?
+  insuranceContractNumber String?
+  insurer                 String?
+  objectNote              String?
+
+  // 4. Diagnostics
+  faultType        String?
+  faultCause       String?
+  faultDescription String?
+  damageExtent     String?
+
+  // 6. Technician statement
+  technicianStatement String?
+  notes               String?
+  recommendations     String?
+
+  createdById String?
+  updatedById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  finalizedAt DateTime?
+  sentAt      DateTime?
+
+  workItems ProtocolWorkItem[]
+  photos    ProtocolPhoto[]
+  revisions RepairProtocolRevision[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([year])
+  @@index([createdAt])
+  @@index([number])
+  @@map("repair_protocol")
+}
+
+model ProtocolWorkItem {
+  id            String         @id @default(cuid())
+  protocolId    String
+  protocol      RepairProtocol @relation(fields: [protocolId], references: [id], onDelete: Cascade)
+  position      Int
+  description   String
+  quantity      Decimal?       @db.Decimal(12, 3)
+  unit          String?
+  internalNote  String?
+  catalogItemId String?
+
+  @@index([protocolId])
+  @@map("protocol_work_item")
+}
+
+enum PhotoCategory {
+  BEFORE
+  AFTER
+  OTHER
+}
+
+model ProtocolPhoto {
+  id           String         @id @default(cuid())
+  protocolId   String
+  protocol     RepairProtocol @relation(fields: [protocolId], references: [id], onDelete: Cascade)
+  blobUrl      String
+  blobPath     String
+  fileName     String
+  contentType  String
+  size         Int
+  category     PhotoCategory  @default(OTHER)
+  caption      String?
+  position     Int            @default(0)
+  includeInPdf Boolean        @default(true)
+  uploadedById String?
+  createdAt    DateTime       @default(now())
+
+  @@index([protocolId])
+  @@map("protocol_photo")
+}
+
+model RepairProtocolRevision {
+  id               String          @id @default(cuid())
+  protocolId       String
+  protocol         RepairProtocol  @relation(fields: [protocolId], references: [id], onDelete: Cascade)
+  revision         Int
+  snapshot         Json
+  storedDocumentId String?
+  storedDocument   StoredDocument? @relation(fields: [storedDocumentId], references: [id])
+  createdById      String?
+  createdAt        DateTime        @default(now())
+
+  @@unique([protocolId, revision])
+  @@index([protocolId])
+  @@map("repair_protocol_revision")
+}
+
+// ---------------------------------------------------------------------------
+// Stored documents (generated PDFs in Vercel Blob)
+// ---------------------------------------------------------------------------
+
+enum DocumentType {
+  QUOTATION
+  PROTOCOL
+}
+
+model StoredDocument {
+  id             String       @id @default(cuid())
+  type           DocumentType
+  documentNumber String
+  revision       Int
+  blobUrl        String
+  blobPath       String
+  fileName       String
+  size           Int
+  createdById    String?
+  createdAt      DateTime     @default(now())
+
+  quotationRevisions QuotationRevision[]
+  protocolRevisions  RepairProtocolRevision[]
+  emailLogs          EmailLog[]
+
+  @@index([documentNumber])
+  @@map("stored_document")
+}
+
+// ---------------------------------------------------------------------------
+// Email log
+// ---------------------------------------------------------------------------
+
+model EmailLog {
+  id               String          @id @default(cuid())
+  documentType     DocumentType
+  documentId       String
+  documentNumber   String
+  revision         Int
+  recipient        String
+  subject          String
+  senderId         String?
+  sender           User?           @relation("EmailSender", fields: [senderId], references: [id])
+  success          Boolean
+  errorMessage     String?
+  messageId        String?
+  storedDocumentId String?
+  storedDocument   StoredDocument? @relation(fields: [storedDocumentId], references: [id])
+  createdAt        DateTime        @default(now())
+
+  @@index([documentType, documentId])
+  @@index([recipient])
+  @@index([createdAt])
+  @@map("email_log")
+}
+
+// ---------------------------------------------------------------------------
+// Activity / audit log (append-only)
+// ---------------------------------------------------------------------------
+
+model ActivityLog {
+  id             String        @id @default(cuid())
+  type           String // e.g. CUSTOMER_CREATED, QUOTATION_SENT
+  description    String // human readable Slovak
+  customerId     String?
+  customer       Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  documentType   DocumentType?
+  documentId     String?
+  documentNumber String?
+  actorId        String?
+  actor          User?         @relation("ActivityActor", fields: [actorId], references: [id], onDelete: SetNull)
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+
+  @@index([customerId])
+  @@index([documentType, documentId])
+  @@index([actorId])
+  @@index([createdAt])
+  @@map("activity_log")
+}
+
+// ---------------------------------------------------------------------------
+// Settings
+// ---------------------------------------------------------------------------
+
+model CompanySettings {
+  id                    String    @id @default("company")
+  name                  String
+  street                String
+  city                  String
+  postalCode            String
+  country               String    @default("Slovensko")
+  ico                   String
+  dic                   String
+  icDph                 String?
+  vatPayer              Boolean   @default(true)
+  vatPayerSince         DateTime?
+  email                 String
+  phone                 String
+  website               String?
+  logoUrl               String?
+  logoBlobPath          String?
+  brandLight            String    @default("#2FA0E4")
+  brandDark             String    @default("#114EA9")
+  defaultVatRate        Decimal   @default(23) @db.Decimal(6, 3)
+  quotationValidityDays Int       @default(30)
+  quotationPrefix       String    @default("CP")
+  protocolPrefix        String    @default("PRO")
+  quotationEmailSubject String    @default("Cenová ponuka č. {{documentNumber}} – AQUALIFE SERVIS")
+  quotationEmailBody    String    @default("")
+  protocolEmailSubject  String    @default("Protokol o oprave č. {{documentNumber}} – AQUALIFE SERVIS")
+  protocolEmailBody     String    @default("")
+  updatedAt             DateTime  @updatedAt
+
+  @@map("company_settings")
+}
+
+model SmtpSettings {
+  id          String   @id @default("smtp")
+  host        String?
+  port        Int      @default(587)
+  secure      Boolean  @default(false)
+  username    String?
+  // Encrypted with APP_ENCRYPTION_KEY. Never returned to the browser.
+  passwordEnc String?
+  senderName  String   @default("AQUALIFE SERVIS s. r. o.")
+  senderEmail String   @default("info@aqualife.sk")
+  replyTo     String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("smtp_settings")
+}
