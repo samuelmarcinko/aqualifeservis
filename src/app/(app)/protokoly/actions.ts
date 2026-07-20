@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { assertUser } from "@/lib/session";
-import { protocolSchema, sendDocumentSchema } from "@/lib/validation";
+import { protocolSchema, sendDocumentSchema, zodErrorMessage } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 import {
   createProtocol,
@@ -24,7 +24,7 @@ export async function saveProtocol(input: unknown, id?: string): Promise<ActionR
     const user = await assertUser();
     const parsed = protocolSchema.safeParse(input);
     if (!parsed.success)
-      return fail("Skontrolujte zadané údaje.", parsed.error.flatten().fieldErrors);
+      return fail(zodErrorMessage(parsed.error), parsed.error.flatten().fieldErrors);
     if (id) {
       await updateProtocol(id, parsed.data, user.id);
       revalidatePath(`/protokoly/${id}`);
@@ -77,7 +77,7 @@ export async function sendProtocolAction(id: string, input: unknown): Promise<Ac
     const user = await assertUser();
     const parsed = sendDocumentSchema.safeParse(input);
     if (!parsed.success)
-      return fail("Skontrolujte zadané údaje.", parsed.error.flatten().fieldErrors);
+      return fail(zodErrorMessage(parsed.error), parsed.error.flatten().fieldErrors);
     const res = await sendProtocolEmail(id, parsed.data, user.id);
     if (!res.success) return fail(res.error ?? "Odoslanie zlyhalo.");
     revalidatePath(`/protokoly/${id}`);

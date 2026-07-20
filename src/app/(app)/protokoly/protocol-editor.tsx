@@ -62,6 +62,7 @@ export function ProtocolEditor({
   const router = useRouter();
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const today = new Date().toISOString().slice(0, 10);
 
   const [f, setF] = useState({
@@ -108,7 +109,11 @@ export function ProtocolEditor({
   }
 
   async function submit() {
-    if (!f.customerId) return toast("Vyberte zákazníka.", "error");
+    setFormError(null);
+    if (!f.customerId) {
+      setFormError("Vyberte zákazníka.");
+      return toast("Vyberte zákazníka.", "error");
+    }
     setSaving(true);
     const payload = {
       ...f,
@@ -131,7 +136,10 @@ export function ProtocolEditor({
       toast("Protokol uložený.", "success");
       router.push(`/protokoly/${res.data.id}`);
       router.refresh();
-    } else toast(res.error, "error");
+    } else {
+      setFormError(res.error);
+      toast(res.error, "error");
+    }
   }
 
   return (
@@ -280,6 +288,12 @@ export function ProtocolEditor({
         <p className="rounded-lg bg-brand/5 px-4 py-3 text-sm text-brand-dark">
           Fotodokumentáciu môžete pridať po uložení protokolu na jeho detailnej stránke.
         </p>
+      )}
+
+      {formError && (
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+          {formError}
+        </div>
       )}
 
       <div className="sticky bottom-0 flex justify-end gap-2 border-t border-slate-200 bg-slate-50/80 py-3 backdrop-blur">

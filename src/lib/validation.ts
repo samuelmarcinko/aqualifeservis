@@ -4,15 +4,23 @@ const optionalStr = z
   .string()
   .trim()
   .max(500)
-  .optional()
-  .transform((v) => (v === "" ? undefined : v));
+  .nullish()
+  .transform((v) => (v == null || v === "" ? undefined : v));
 
 const optionalLongStr = z
   .string()
   .trim()
   .max(10000)
-  .optional()
-  .transform((v) => (v === "" ? undefined : v));
+  .nullish()
+  .transform((v) => (v == null || v === "" ? undefined : v));
+
+/** Build a readable Slovak message from a ZodError (unique messages, first few). */
+export function zodErrorMessage(err: z.ZodError): string {
+  const msgs = [...new Set(err.issues.map((i) => i.message))]
+    .filter((m) => m && m !== "Required")
+    .slice(0, 4);
+  return msgs.length ? msgs.join(" · ") : "Skontrolujte zadané údaje.";
+}
 
 // ---------------------------------------------------------------------------
 // Customer

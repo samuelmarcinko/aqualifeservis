@@ -18,15 +18,16 @@ export function PdfHeader({
       <View style={styles.logoRow}>
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         {company.logoUrl ? <Image style={styles.logoImg} src={company.logoUrl} /> : null}
-        <View>
+        <View style={styles.companyText}>
           <Text style={styles.companyName}>{company.name}</Text>
+          <Text style={styles.companyMeta}>{company.street}</Text>
           <Text style={styles.companyMeta}>
-            {company.street}, {company.postalCode} {company.city}
+            {company.postalCode} {company.city}
           </Text>
-          <Text style={styles.companyMeta}>
-            IČO: {company.ico} · DIČ: {company.dic}
-            {company.icDph ? ` · IČ DPH: ${company.icDph}` : ""}
-          </Text>
+          <Text style={styles.companyMeta}>IČO: {company.ico} · DIČ: {company.dic}</Text>
+          {company.icDph ? (
+            <Text style={styles.companyMeta}>IČ DPH: {company.icDph}</Text>
+          ) : null}
         </View>
       </View>
       <View style={styles.docTitleBox}>

@@ -8,10 +8,14 @@ import { cn } from "@/lib/utils";
 
 export function Sidebar({
   role,
+  logoUrl,
+  companyName,
   open,
   onClose,
 }: {
   role: string;
+  logoUrl?: string | null;
+  companyName?: string;
   open: boolean;
   onClose: () => void;
 }) {
@@ -30,7 +34,7 @@ export function Sidebar({
         )}
       >
         <div className="flex h-16 items-center border-b border-slate-200 px-5">
-          <Logo />
+          <Logo logoUrl={logoUrl} />
         </div>
         <nav className="flex flex-col gap-1 p-3">
           {items.map((item) => {
@@ -65,7 +69,7 @@ export function Sidebar({
           })}
         </nav>
         <div className="mt-auto px-5 py-4 text-[11px] text-slate-400">
-          AQUALIFE SERVIS s. r. o.
+          {companyName ?? "AQUALIFE SERVIS s. r. o."}
         </div>
       </aside>
     </>

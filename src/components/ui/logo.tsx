@@ -1,7 +1,25 @@
 import { cn } from "@/lib/utils";
 
-/** AQUALIFE brand wordmark (droplet + text). Used in the app shell. */
-export function Logo({ className, compact }: { className?: string; compact?: boolean }) {
+/** AQUALIFE brand wordmark (droplet + text), or the uploaded company logo. */
+export function Logo({
+  className,
+  compact,
+  logoUrl,
+}: {
+  className?: string;
+  compact?: boolean;
+  logoUrl?: string | null;
+}) {
+  if (logoUrl) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={logoUrl}
+        alt="AQUALIFE SERVIS"
+        className={cn("h-9 w-auto max-w-[170px] object-contain", className)}
+      />
+    );
+  }
   return (
     <div className={cn("flex items-center gap-2.5", className)}>
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>

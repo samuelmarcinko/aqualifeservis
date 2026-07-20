@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { assertUser } from "@/lib/session";
-import { quotationSchema, sendDocumentSchema } from "@/lib/validation";
+import { quotationSchema, sendDocumentSchema, zodErrorMessage } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 import {
   createQuotation,
@@ -22,7 +22,7 @@ export async function saveQuotation(
     const user = await assertUser();
     const parsed = quotationSchema.safeParse(input);
     if (!parsed.success)
-      return fail("Skontrolujte zadané údaje.", parsed.error.flatten().fieldErrors);
+      return fail(zodErrorMessage(parsed.error), parsed.error.flatten().fieldErrors);
     if (id) {
       await updateQuotation(id, parsed.data, user.id);
       revalidatePath(`/cenove-ponuky/${id}`);
@@ -75,7 +75,7 @@ export async function sendQuotationAction(id: string, input: unknown): Promise<A
     const user = await assertUser();
     const parsed = sendDocumentSchema.safeParse(input);
     if (!parsed.success)
-      return fail("Skontrolujte zadané údaje.", parsed.error.flatten().fieldErrors);
+      return fail(zodErrorMessage(parsed.error), parsed.error.flatten().fieldErrors);
     const res = await sendQuotationEmail(id, parsed.data, user.id);
     if (!res.success) return fail(res.error ?? "Odoslanie zlyhalo.");
     revalidatePath(`/cenove-ponuky/${id}`);
