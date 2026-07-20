@@ -33,8 +33,11 @@ export function Sidebar({
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="flex h-16 items-center border-b border-slate-200 px-5">
-          <Logo logoUrl={logoUrl} />
+        <div className="flex items-center justify-center border-b border-slate-200 px-3 py-4">
+          <Logo
+            logoUrl={logoUrl}
+            className={logoUrl ? "h-auto w-full max-w-full max-h-24 object-contain" : undefined}
+          />
         </div>
         <nav className="flex flex-col gap-1 p-3">
           {items.map((item) => {
