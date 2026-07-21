@@ -146,13 +146,28 @@ export function ProtocolDocument({ data }: { data: ProtocolPdfData }) {
         <View style={styles.sigRow} wrap={false}>
           <View style={styles.sigBox}>
             <Text style={styles.sigLabel}>Dodávateľ opravy</Text>
-            <View style={styles.sigLine}>
-              <Text style={styles.sigName}>{c.name}</Text>
-              <Text style={styles.fieldValue}>
-                {c.street}, {c.postalCode} {c.city}
-              </Text>
-              <Text style={styles.fieldValue}>Dátum: ______________</Text>
-            </View>
+            {data.signedAt ? (
+              <>
+                {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                {c.stampUrl ? <Image style={styles.sigStamp} src={c.stampUrl} /> : null}
+                <View style={styles.sigLineSigned}>
+                  <Text style={styles.sigName}>{c.name}</Text>
+                  <Text style={styles.fieldValue}>
+                    {c.street}, {c.postalCode} {c.city}
+                  </Text>
+                  <Text style={styles.sigSigned}>Elektronicky podpísané</Text>
+                  <Text style={styles.fieldValue}>Dátum: {formatDate(data.signedAt)}</Text>
+                </View>
+              </>
+            ) : (
+              <View style={styles.sigLine}>
+                <Text style={styles.sigName}>{c.name}</Text>
+                <Text style={styles.fieldValue}>
+                  {c.street}, {c.postalCode} {c.city}
+                </Text>
+                <Text style={styles.fieldValue}>Dátum: ______________</Text>
+              </View>
+            )}
           </View>
           <View style={styles.sigBox}>
             <Text style={styles.sigLabel}>Klient / odberateľ</Text>

@@ -3,11 +3,10 @@ import type { Prisma } from "@/generated/prisma";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 import { PageHeader, EmptyState, Pagination } from "@/components/ui/page";
-import { QuotationStatusBadge } from "@/components/ui/badges";
-import { formatCurrency, formatDate } from "@/lib/format";
 import { effectiveQuotationStatus } from "@/lib/services/quotations";
 import { customerDisplayName } from "@/lib/snapshots";
 import { QUOTATION_STATUS_LABELS } from "@/lib/constants";
+import { QuotationsTable } from "./quotations-table";
 
 export const dynamic = "force-dynamic";
 const PAGE_SIZE = 20;
@@ -83,39 +82,18 @@ export default async function QuotationsPage({
           }
         />
       ) : (
-        <div className="table-wrap">
-          <table className="tbl">
-            <thead>
-              <tr>
-                <th>Číslo</th>
-                <th>Zákazník</th>
-                <th>Stav</th>
-                <th>Vystavená</th>
-                <th>Platnosť do</th>
-                <th className="text-right">Suma s DPH</th>
-              </tr>
-            </thead>
-            <tbody>
-              {quotations.map((qq) => (
-                <tr key={qq.id}>
-                  <td>
-                    <Link href={`/cenove-ponuky/${qq.id}`} className="font-semibold text-brand-dark hover:underline">
-                      {qq.number}
-                      {qq.revision > 1 && <span className="text-slate-400"> · rev. {qq.revision}</span>}
-                    </Link>
-                  </td>
-                  <td>{customerDisplayName(qq.customer)}</td>
-                  <td>
-                    <QuotationStatusBadge status={effectiveQuotationStatus(qq)} />
-                  </td>
-                  <td>{formatDate(qq.issueDate)}</td>
-                  <td>{formatDate(qq.validUntil)}</td>
-                  <td className="text-right font-medium">{formatCurrency(qq.grandTotal)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <QuotationsTable
+          rows={quotations.map((qq) => ({
+            id: qq.id,
+            number: qq.number,
+            revision: qq.revision,
+            status: effectiveQuotationStatus(qq),
+            customerName: customerDisplayName(qq.customer),
+            issueDate: qq.issueDate.toISOString(),
+            validUntil: qq.validUntil.toISOString(),
+            grandTotal: qq.grandTotal.toString(),
+          }))}
+        />
       )}
 
       <Pagination basePath="/cenove-ponuky" page={page} totalPages={totalPages} query={{ q, status }} />

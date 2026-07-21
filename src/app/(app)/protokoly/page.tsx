@@ -3,10 +3,9 @@ import type { Prisma } from "@/generated/prisma";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 import { PageHeader, EmptyState, Pagination } from "@/components/ui/page";
-import { ProtocolStatusBadge } from "@/components/ui/badges";
-import { formatDate } from "@/lib/format";
 import { customerDisplayName } from "@/lib/snapshots";
 import { PROTOCOL_STATUS_LABELS } from "@/lib/constants";
+import { ProtocolsTable } from "./protocols-table";
 
 export const dynamic = "force-dynamic";
 const PAGE_SIZE = 20;
@@ -82,37 +81,17 @@ export default async function ProtocolsPage({
           }
         />
       ) : (
-        <div className="table-wrap">
-          <table className="tbl">
-            <thead>
-              <tr>
-                <th>Číslo</th>
-                <th>Zákazník</th>
-                <th>Stav</th>
-                <th>Dátum</th>
-                <th className="text-center">Foto</th>
-              </tr>
-            </thead>
-            <tbody>
-              {protocols.map((p) => (
-                <tr key={p.id}>
-                  <td>
-                    <Link href={`/protokoly/${p.id}`} className="font-semibold text-brand-dark hover:underline">
-                      {p.number}
-                      {p.revision > 1 && <span className="text-slate-400"> · rev. {p.revision}</span>}
-                    </Link>
-                  </td>
-                  <td>{customerDisplayName(p.customer)}</td>
-                  <td>
-                    <ProtocolStatusBadge status={p.status} />
-                  </td>
-                  <td>{formatDate(p.documentDate)}</td>
-                  <td className="text-center">{p._count.photos}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ProtocolsTable
+          rows={protocols.map((p) => ({
+            id: p.id,
+            number: p.number,
+            revision: p.revision,
+            status: p.status,
+            customerName: customerDisplayName(p.customer),
+            documentDate: p.documentDate.toISOString(),
+            photoCount: p._count.photos,
+          }))}
+        />
       )}
 
       <Pagination basePath="/protokoly" page={page} totalPages={totalPages} query={{ q, status }} />

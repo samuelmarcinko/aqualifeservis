@@ -12,6 +12,7 @@ export interface PdfCompany {
   phone: string;
   website: string | null;
   logoUrl: string | null;
+  stampUrl: string | null;
   brandLight: string;
   brandDark: string;
 }
@@ -96,6 +97,8 @@ export interface ProtocolPdfData {
   company: PdfCompany;
   number: string;
   revision: number;
+  /** Set when finalized → renders the supplier's electronic signature + stamp. */
+  signedAt: string | null;
   insuranceEventNumber: string | null;
   documentDate: string;
   faultDate: string | null;

@@ -4,12 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
+import { ConfirmDialog } from "@/components/ui/confirm";
 import {
   saveCompanySettings,
   saveSmtpSettings,
   uploadLogo,
+  uploadStamp,
+  removeStamp,
   testSmtpConnection,
   sendTestEmail,
+  deleteAllQuotationsAction,
+  deleteAllProtocolsAction,
+  resetNumberingAction,
 } from "./actions";
 
 interface CompanyForm {
@@ -27,6 +33,7 @@ interface CompanyForm {
   phone: string;
   website: string;
   logoUrl: string | null;
+  stampUrl: string | null;
   brandLight: string;
   brandDark: string;
   defaultVatRate: string;
@@ -59,6 +66,7 @@ const TABS = [
   "E-mailové šablóny",
   "Používatelia",
   "Systémové informácie",
+  "Údržba",
 ];
 
 export function SettingsClient({ company, smtp }: { company: CompanyForm; smtp: SmtpForm }) {
@@ -126,8 +134,18 @@ export function SettingsClient({ company, smtp }: { company: CompanyForm; smtp: 
 
       {tab === 1 && (
         <div className="card space-y-5 p-6">
-          <LogoUploader logoUrl={c.logoUrl} />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <h3 className="mb-2 text-sm font-semibold text-slate-700">Logo</h3>
+            <LogoUploader logoUrl={c.logoUrl} />
+          </div>
+          <div className="border-t border-slate-100 pt-5">
+            <h3 className="mb-1 text-sm font-semibold text-slate-700">Pečiatka / elektronický podpis</h3>
+            <p className="mb-2 text-xs text-slate-400">
+              Použije sa na strane dodávateľa vo finalizovanom PDF protokole. Ideálne PNG s priehľadným pozadím.
+            </p>
+            <StampUploader stampUrl={c.stampUrl} />
+          </div>
+          <div className="grid grid-cols-1 gap-4 border-t border-slate-100 pt-5 sm:grid-cols-2">
             <div>
               <label className="label">Svetlá farba</label>
               <div className="flex gap-2">
@@ -207,6 +225,134 @@ export function SettingsClient({ company, smtp }: { company: CompanyForm; smtp: 
           <Row label="Úložisko dokumentov" value="Vercel Blob" />
         </div>
       )}
+
+      {tab === 7 && <DangerZone />}
+    </div>
+  );
+}
+
+function DangerZone() {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [confirm, setConfirm] = useState<null | "quotations" | "protocols" | "numbering">(null);
+  const [busy, setBusy] = useState(false);
+
+  async function run() {
+    setBusy(true);
+    let res;
+    if (confirm === "quotations") res = await deleteAllQuotationsAction();
+    else if (confirm === "protocols") res = await deleteAllProtocolsAction();
+    else if (confirm === "numbering") res = await resetNumberingAction();
+    setBusy(false);
+    if (res?.ok) {
+      toast("Hotovo.", "success");
+      router.refresh();
+    } else toast(res?.error ?? "Chyba", "error");
+    setConfirm(null);
+  }
+
+  return (
+    <div className="card border-red-200 p-6">
+      <h3 className="text-base font-semibold text-red-700">Nebezpečná zóna</h3>
+      <p className="mb-4 text-sm text-slate-500">
+        Tieto akcie sú nevratné. Slúžia na vyčistenie testovacích údajov.
+      </p>
+      <div className="divide-y divide-slate-100">
+        <DangerRow
+          title="Vymazať všetky cenové ponuky"
+          desc="Odstráni všetky cenové ponuky vrátane revízií a PDF."
+          onClick={() => setConfirm("quotations")}
+        />
+        <DangerRow
+          title="Vymazať všetky protokoly"
+          desc="Odstráni všetky protokoly vrátane fotografií a PDF."
+          onClick={() => setConfirm("protocols")}
+        />
+        <DangerRow
+          title="Vynulovať číslovanie dokumentov"
+          desc="Číslovanie začne opäť od 0001. Možné až po vymazaní všetkých ponúk aj protokolov."
+          onClick={() => setConfirm("numbering")}
+        />
+      </div>
+
+      <ConfirmDialog
+        open={!!confirm}
+        title="Naozaj pokračovať?"
+        message={
+          confirm === "quotations"
+            ? "Natrvalo budú vymazané VŠETKY cenové ponuky. Túto akciu nie je možné vrátiť späť."
+            : confirm === "protocols"
+              ? "Natrvalo budú vymazané VŠETKY protokoly vrátane fotografií. Túto akciu nie je možné vrátiť späť."
+              : "Číslovanie sa vynuluje na 0001."
+        }
+        danger
+        confirmLabel={busy ? "Spracúvam…" : "Áno, pokračovať"}
+        onConfirm={run}
+        onCancel={() => setConfirm(null)}
+      />
+    </div>
+  );
+}
+
+function DangerRow({ title, desc, onClick }: { title: string; desc: string; onClick: () => void }) {
+  return (
+    <div className="flex items-center justify-between gap-4 py-3">
+      <div>
+        <div className="text-sm font-medium text-slate-800">{title}</div>
+        <div className="text-xs text-slate-400">{desc}</div>
+      </div>
+      <button className="btn-danger py-1.5 text-xs" onClick={onClick}>
+        Vymazať
+      </button>
+    </div>
+  );
+}
+
+function StampUploader({ stampUrl }: { stampUrl: string | null }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [uploading, setUploading] = useState(false);
+
+  async function upload(file: File) {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("stamp", file);
+    const res = await uploadStamp(fd);
+    setUploading(false);
+    if (res.ok) {
+      toast("Pečiatka nahraná.", "success");
+      router.refresh();
+    } else toast(res.error, "error");
+  }
+  async function remove() {
+    const res = await removeStamp();
+    if (res.ok) {
+      toast("Pečiatka odstránená.", "success");
+      router.refresh();
+    } else toast(res.error, "error");
+  }
+
+  return (
+    <div className="flex items-center gap-4">
+      <div className="flex h-20 w-28 items-center justify-center rounded-lg border border-slate-200 bg-slate-50">
+        {stampUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={stampUrl} alt="Pečiatka" className="max-h-16 max-w-24 object-contain" />
+        ) : (
+          <span className="text-xs text-slate-400">Bez pečiatky</span>
+        )}
+      </div>
+      <div className="flex flex-col gap-2">
+        <label className="btn-secondary cursor-pointer">
+          {uploading ? "Nahrávam…" : "Nahrať pečiatku"}
+          <input type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
+        </label>
+        {stampUrl && (
+          <button className="btn-ghost py-1 text-xs text-red-600" onClick={remove}>
+            Odstrániť pečiatku
+          </button>
+        )}
+      </div>
     </div>
   );
 }

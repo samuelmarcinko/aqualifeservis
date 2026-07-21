@@ -11,6 +11,8 @@ import {
   createProtocolRevision,
   changeProtocolStatus,
   sendProtocolEmail,
+  deleteProtocol,
+  deleteProtocols,
 } from "@/lib/services/protocols";
 import {
   updateProtocolPhoto,
@@ -81,6 +83,29 @@ export async function sendProtocolAction(id: string, input: unknown): Promise<Ac
     const res = await sendProtocolEmail(id, parsed.data, user.id);
     if (!res.success) return fail(res.error ?? "Odoslanie zlyhalo.");
     revalidatePath(`/protokoly/${id}`);
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteProtocolAction(id: string): Promise<ActionResult> {
+  try {
+    const user = await assertUser();
+    await deleteProtocol(id, user.id);
+    revalidatePath("/protokoly");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteProtocolsAction(ids: string[]): Promise<ActionResult> {
+  try {
+    const user = await assertUser();
+    if (!ids.length) return fail("Nie sú vybrané žiadne položky.");
+    await deleteProtocols(ids, user.id);
+    revalidatePath("/protokoly");
     return ok(null);
   } catch (e) {
     return fail(toSafeError(e));

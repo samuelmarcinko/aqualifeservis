@@ -25968,6 +25968,8 @@ export namespace Prisma {
     website: string | null
     logoUrl: string | null
     logoBlobPath: string | null
+    stampUrl: string | null
+    stampBlobPath: string | null
     brandLight: string | null
     brandDark: string | null
     defaultVatRate: Decimal | null
@@ -25998,6 +26000,8 @@ export namespace Prisma {
     website: string | null
     logoUrl: string | null
     logoBlobPath: string | null
+    stampUrl: string | null
+    stampBlobPath: string | null
     brandLight: string | null
     brandDark: string | null
     defaultVatRate: Decimal | null
@@ -26028,6 +26032,8 @@ export namespace Prisma {
     website: number
     logoUrl: number
     logoBlobPath: number
+    stampUrl: number
+    stampBlobPath: number
     brandLight: number
     brandDark: number
     defaultVatRate: number
@@ -26070,6 +26076,8 @@ export namespace Prisma {
     website?: true
     logoUrl?: true
     logoBlobPath?: true
+    stampUrl?: true
+    stampBlobPath?: true
     brandLight?: true
     brandDark?: true
     defaultVatRate?: true
@@ -26100,6 +26108,8 @@ export namespace Prisma {
     website?: true
     logoUrl?: true
     logoBlobPath?: true
+    stampUrl?: true
+    stampBlobPath?: true
     brandLight?: true
     brandDark?: true
     defaultVatRate?: true
@@ -26130,6 +26140,8 @@ export namespace Prisma {
     website?: true
     logoUrl?: true
     logoBlobPath?: true
+    stampUrl?: true
+    stampBlobPath?: true
     brandLight?: true
     brandDark?: true
     defaultVatRate?: true
@@ -26247,6 +26259,8 @@ export namespace Prisma {
     website: string | null
     logoUrl: string | null
     logoBlobPath: string | null
+    stampUrl: string | null
+    stampBlobPath: string | null
     brandLight: string
     brandDark: string
     defaultVatRate: Decimal
@@ -26296,6 +26310,8 @@ export namespace Prisma {
     website?: boolean
     logoUrl?: boolean
     logoBlobPath?: boolean
+    stampUrl?: boolean
+    stampBlobPath?: boolean
     brandLight?: boolean
     brandDark?: boolean
     defaultVatRate?: boolean
@@ -26326,6 +26342,8 @@ export namespace Prisma {
     website?: boolean
     logoUrl?: boolean
     logoBlobPath?: boolean
+    stampUrl?: boolean
+    stampBlobPath?: boolean
     brandLight?: boolean
     brandDark?: boolean
     defaultVatRate?: boolean
@@ -26356,6 +26374,8 @@ export namespace Prisma {
     website?: boolean
     logoUrl?: boolean
     logoBlobPath?: boolean
+    stampUrl?: boolean
+    stampBlobPath?: boolean
     brandLight?: boolean
     brandDark?: boolean
     defaultVatRate?: boolean
@@ -26386,6 +26406,8 @@ export namespace Prisma {
     website?: boolean
     logoUrl?: boolean
     logoBlobPath?: boolean
+    stampUrl?: boolean
+    stampBlobPath?: boolean
     brandLight?: boolean
     brandDark?: boolean
     defaultVatRate?: boolean
@@ -26399,7 +26421,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CompanySettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "street" | "city" | "postalCode" | "country" | "ico" | "dic" | "icDph" | "vatPayer" | "vatPayerSince" | "email" | "phone" | "website" | "logoUrl" | "logoBlobPath" | "brandLight" | "brandDark" | "defaultVatRate" | "quotationValidityDays" | "quotationPrefix" | "protocolPrefix" | "quotationEmailSubject" | "quotationEmailBody" | "protocolEmailSubject" | "protocolEmailBody" | "updatedAt", ExtArgs["result"]["companySettings"]>
+  export type CompanySettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "street" | "city" | "postalCode" | "country" | "ico" | "dic" | "icDph" | "vatPayer" | "vatPayerSince" | "email" | "phone" | "website" | "logoUrl" | "logoBlobPath" | "stampUrl" | "stampBlobPath" | "brandLight" | "brandDark" | "defaultVatRate" | "quotationValidityDays" | "quotationPrefix" | "protocolPrefix" | "quotationEmailSubject" | "quotationEmailBody" | "protocolEmailSubject" | "protocolEmailBody" | "updatedAt", ExtArgs["result"]["companySettings"]>
 
   export type $CompanySettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CompanySettings"
@@ -26421,6 +26443,8 @@ export namespace Prisma {
       website: string | null
       logoUrl: string | null
       logoBlobPath: string | null
+      stampUrl: string | null
+      stampBlobPath: string | null
       brandLight: string
       brandDark: string
       defaultVatRate: Prisma.Decimal
@@ -26871,6 +26895,8 @@ export namespace Prisma {
     readonly website: FieldRef<"CompanySettings", 'String'>
     readonly logoUrl: FieldRef<"CompanySettings", 'String'>
     readonly logoBlobPath: FieldRef<"CompanySettings", 'String'>
+    readonly stampUrl: FieldRef<"CompanySettings", 'String'>
+    readonly stampBlobPath: FieldRef<"CompanySettings", 'String'>
     readonly brandLight: FieldRef<"CompanySettings", 'String'>
     readonly brandDark: FieldRef<"CompanySettings", 'String'>
     readonly defaultVatRate: FieldRef<"CompanySettings", 'Decimal'>
@@ -28730,6 +28756,8 @@ export namespace Prisma {
     website: 'website',
     logoUrl: 'logoUrl',
     logoBlobPath: 'logoBlobPath',
+    stampUrl: 'stampUrl',
+    stampBlobPath: 'stampBlobPath',
     brandLight: 'brandLight',
     brandDark: 'brandDark',
     defaultVatRate: 'defaultVatRate',
@@ -30924,6 +30952,8 @@ export namespace Prisma {
     website?: StringNullableFilter<"CompanySettings"> | string | null
     logoUrl?: StringNullableFilter<"CompanySettings"> | string | null
     logoBlobPath?: StringNullableFilter<"CompanySettings"> | string | null
+    stampUrl?: StringNullableFilter<"CompanySettings"> | string | null
+    stampBlobPath?: StringNullableFilter<"CompanySettings"> | string | null
     brandLight?: StringFilter<"CompanySettings"> | string
     brandDark?: StringFilter<"CompanySettings"> | string
     defaultVatRate?: DecimalFilter<"CompanySettings"> | Decimal | DecimalJsLike | number | string
@@ -30954,6 +30984,8 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     logoUrl?: SortOrderInput | SortOrder
     logoBlobPath?: SortOrderInput | SortOrder
+    stampUrl?: SortOrderInput | SortOrder
+    stampBlobPath?: SortOrderInput | SortOrder
     brandLight?: SortOrder
     brandDark?: SortOrder
     defaultVatRate?: SortOrder
@@ -30987,6 +31019,8 @@ export namespace Prisma {
     website?: StringNullableFilter<"CompanySettings"> | string | null
     logoUrl?: StringNullableFilter<"CompanySettings"> | string | null
     logoBlobPath?: StringNullableFilter<"CompanySettings"> | string | null
+    stampUrl?: StringNullableFilter<"CompanySettings"> | string | null
+    stampBlobPath?: StringNullableFilter<"CompanySettings"> | string | null
     brandLight?: StringFilter<"CompanySettings"> | string
     brandDark?: StringFilter<"CompanySettings"> | string
     defaultVatRate?: DecimalFilter<"CompanySettings"> | Decimal | DecimalJsLike | number | string
@@ -31017,6 +31051,8 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     logoUrl?: SortOrderInput | SortOrder
     logoBlobPath?: SortOrderInput | SortOrder
+    stampUrl?: SortOrderInput | SortOrder
+    stampBlobPath?: SortOrderInput | SortOrder
     brandLight?: SortOrder
     brandDark?: SortOrder
     defaultVatRate?: SortOrder
@@ -31055,6 +31091,8 @@ export namespace Prisma {
     website?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
     logoUrl?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
     logoBlobPath?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    stampUrl?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    stampBlobPath?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
     brandLight?: StringWithAggregatesFilter<"CompanySettings"> | string
     brandDark?: StringWithAggregatesFilter<"CompanySettings"> | string
     defaultVatRate?: DecimalWithAggregatesFilter<"CompanySettings"> | Decimal | DecimalJsLike | number | string
@@ -33315,6 +33353,8 @@ export namespace Prisma {
     website?: string | null
     logoUrl?: string | null
     logoBlobPath?: string | null
+    stampUrl?: string | null
+    stampBlobPath?: string | null
     brandLight?: string
     brandDark?: string
     defaultVatRate?: Decimal | DecimalJsLike | number | string
@@ -33345,6 +33385,8 @@ export namespace Prisma {
     website?: string | null
     logoUrl?: string | null
     logoBlobPath?: string | null
+    stampUrl?: string | null
+    stampBlobPath?: string | null
     brandLight?: string
     brandDark?: string
     defaultVatRate?: Decimal | DecimalJsLike | number | string
@@ -33375,6 +33417,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     logoBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    stampUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    stampBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
     brandLight?: StringFieldUpdateOperationsInput | string
     brandDark?: StringFieldUpdateOperationsInput | string
     defaultVatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -33405,6 +33449,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     logoBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    stampUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    stampBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
     brandLight?: StringFieldUpdateOperationsInput | string
     brandDark?: StringFieldUpdateOperationsInput | string
     defaultVatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -33435,6 +33481,8 @@ export namespace Prisma {
     website?: string | null
     logoUrl?: string | null
     logoBlobPath?: string | null
+    stampUrl?: string | null
+    stampBlobPath?: string | null
     brandLight?: string
     brandDark?: string
     defaultVatRate?: Decimal | DecimalJsLike | number | string
@@ -33465,6 +33513,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     logoBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    stampUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    stampBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
     brandLight?: StringFieldUpdateOperationsInput | string
     brandDark?: StringFieldUpdateOperationsInput | string
     defaultVatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -33495,6 +33545,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     logoBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    stampUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    stampBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
     brandLight?: StringFieldUpdateOperationsInput | string
     brandDark?: StringFieldUpdateOperationsInput | string
     defaultVatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -35314,6 +35366,8 @@ export namespace Prisma {
     website?: SortOrder
     logoUrl?: SortOrder
     logoBlobPath?: SortOrder
+    stampUrl?: SortOrder
+    stampBlobPath?: SortOrder
     brandLight?: SortOrder
     brandDark?: SortOrder
     defaultVatRate?: SortOrder
@@ -35349,6 +35403,8 @@ export namespace Prisma {
     website?: SortOrder
     logoUrl?: SortOrder
     logoBlobPath?: SortOrder
+    stampUrl?: SortOrder
+    stampBlobPath?: SortOrder
     brandLight?: SortOrder
     brandDark?: SortOrder
     defaultVatRate?: SortOrder
@@ -35379,6 +35435,8 @@ export namespace Prisma {
     website?: SortOrder
     logoUrl?: SortOrder
     logoBlobPath?: SortOrder
+    stampUrl?: SortOrder
+    stampBlobPath?: SortOrder
     brandLight?: SortOrder
     brandDark?: SortOrder
     defaultVatRate?: SortOrder

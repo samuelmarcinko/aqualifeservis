@@ -438,6 +438,8 @@ exports.Prisma.CompanySettingsScalarFieldEnum = {
   website: 'website',
   logoUrl: 'logoUrl',
   logoBlobPath: 'logoBlobPath',
+  stampUrl: 'stampUrl',
+  stampBlobPath: 'stampBlobPath',
   brandLight: 'brandLight',
   brandDark: 'brandDark',
   defaultVatRate: 'defaultVatRate',

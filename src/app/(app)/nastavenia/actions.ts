@@ -15,6 +15,11 @@ import { verifySmtp, sendMail } from "@/lib/services/email";
 import { wrapEmailHtml } from "@/lib/services/email-templates";
 import { uploadBlob, deleteBlob } from "@/lib/services/blob";
 import { logActivity } from "@/lib/services/activity";
+import {
+  deleteAllQuotations,
+  deleteAllProtocols,
+  resetNumbering,
+} from "@/lib/services/maintenance";
 
 export async function saveCompanySettings(input: unknown): Promise<ActionResult> {
   try {
@@ -55,6 +60,81 @@ export async function uploadLogo(formData: FormData): Promise<ActionResult<{ url
     });
     revalidatePath("/nastavenia");
     return ok({ url: blob.url });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function uploadStamp(formData: FormData): Promise<ActionResult<{ url: string }>> {
+  try {
+    await assertSuperAdmin();
+    const file = formData.get("stamp");
+    if (!(file instanceof File)) return fail("Chýba súbor.");
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
+      return fail("Nepodporovaný formát pečiatky (PNG, JPG, WEBP).");
+    if (file.size > 2 * 1024 * 1024) return fail("Pečiatka presahuje 2 MB.");
+
+    const current = await getCompanySettings();
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const blob = await uploadBlob(`branding/stamp-${file.name}`, buffer, file.type);
+    if (current.stampUrl) await deleteBlob(current.stampUrl);
+    await prisma.companySettings.update({
+      where: { id: "company" },
+      data: { stampUrl: blob.url, stampBlobPath: blob.pathname },
+    });
+    revalidatePath("/nastavenia");
+    return ok({ url: blob.url });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function removeStamp(): Promise<ActionResult> {
+  try {
+    await assertSuperAdmin();
+    const current = await getCompanySettings();
+    if (current.stampUrl) await deleteBlob(current.stampUrl);
+    await prisma.companySettings.update({
+      where: { id: "company" },
+      data: { stampUrl: null, stampBlobPath: null },
+    });
+    revalidatePath("/nastavenia");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteAllQuotationsAction(): Promise<ActionResult<{ count: number }>> {
+  try {
+    const user = await assertSuperAdmin();
+    const count = await deleteAllQuotations(user.id);
+    revalidatePath("/cenove-ponuky");
+    revalidatePath("/nastavenia");
+    return ok({ count });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteAllProtocolsAction(): Promise<ActionResult<{ count: number }>> {
+  try {
+    const user = await assertSuperAdmin();
+    const count = await deleteAllProtocols(user.id);
+    revalidatePath("/protokoly");
+    revalidatePath("/nastavenia");
+    return ok({ count });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function resetNumberingAction(): Promise<ActionResult> {
+  try {
+    const user = await assertSuperAdmin();
+    await resetNumbering(user.id);
+    revalidatePath("/nastavenia");
+    return ok(null);
   } catch (e) {
     return fail(toSafeError(e));
   }

@@ -69,6 +69,9 @@ export function PhotoManager({
   }
 
   async function patch(photoId: string, p: { category?: string; caption?: string; includeInPdf?: boolean }) {
+    // Optimistically update local state so the control reflects the change
+    // immediately (the list renders from `order`, not the server prop).
+    setOrder((prev) => prev.map((x) => (x.id === photoId ? { ...x, ...p } : x)));
     const res = await updatePhotoAction(protocolId, photoId, p);
     if (res.ok) router.refresh();
     else toast(res.error, "error");

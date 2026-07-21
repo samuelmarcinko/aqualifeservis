@@ -7,10 +7,19 @@ import { ItemAutocomplete } from "@/components/editor/item-autocomplete";
 import { DEFAULT_UNITS } from "@/lib/constants";
 import { saveProtocol } from "./actions";
 
+interface CustomerAddress {
+  id: string;
+  label: string;
+  street: string | null;
+  city: string | null;
+  postalCode: string | null;
+  objectType: string | null;
+  apartment: string | null;
+}
 interface CustomerOption {
   id: string;
   name: string;
-  addresses: { id: string; label: string }[];
+  addresses: CustomerAddress[];
 }
 
 interface WorkItem {
@@ -104,6 +113,24 @@ export function ProtocolEditor({
 
   const selectedCustomer = customers.find((c) => c.id === f.customerId);
 
+  // Selecting a service address prefills the object fields from that address.
+  function onSelectAddress(id: string) {
+    const addr = selectedCustomer?.addresses.find((a) => a.id === id);
+    setF((prev) => ({
+      ...prev,
+      serviceAddressId: id,
+      ...(addr
+        ? {
+            objectStreet: addr.street ?? "",
+            objectCity: addr.city ?? "",
+            objectPostalCode: addr.postalCode ?? "",
+            objectType: addr.objectType ?? "",
+            objectApartment: addr.apartment ?? "",
+          }
+        : {}),
+    }));
+  }
+
   function updateWork(key: string, patch: Partial<WorkItem>) {
     setWorkItems((p) => p.map((w) => (w.key === key ? { ...w, ...patch } : w)));
   }
@@ -179,14 +206,22 @@ export function ProtocolEditor({
       <Section title="3. Miesto a objekt opravy">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Field label="Servisná adresa">
-            <select className="input" value={f.serviceAddressId} onChange={set("serviceAddressId")} disabled={!selectedCustomer?.addresses.length}>
-              <option value="">— žiadna —</option>
+            <select
+              className="input"
+              value={f.serviceAddressId}
+              onChange={(e) => onSelectAddress(e.target.value)}
+              disabled={!selectedCustomer?.addresses.length}
+            >
+              <option value="">— vlastná adresa (vyplňte nižšie) —</option>
               {selectedCustomer?.addresses.map((a) => (
                 <option key={a.id} value={a.id}>
                   {a.label}
                 </option>
               ))}
             </select>
+            {f.serviceAddressId && (
+              <p className="mt-1 text-xs text-slate-400">Polia objektu sú predvyplnené z adresy, môžete ich upraviť.</p>
+            )}
           </Field>
           <Field label="Ulica a číslo objektu">
             <input className="input" value={f.objectStreet} onChange={set("objectStreet")} />

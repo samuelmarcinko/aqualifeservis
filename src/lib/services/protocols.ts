@@ -4,7 +4,7 @@ import type { RepairProtocol, ProtocolWorkItem, ProtocolPhoto, CompanySettings }
 import { allocateDocumentNumber } from "./numbering";
 import { getCompanySettings } from "./settings";
 import { logActivity } from "./activity";
-import { uploadBlob } from "./blob";
+import { uploadBlob, deleteBlob } from "./blob";
 import { sendMail, fetchStoredPdf, logEmail } from "./email";
 import { wrapEmailHtml } from "./email-templates";
 import { renderProtocolPdf } from "@/lib/pdf/render";
@@ -149,6 +149,7 @@ export async function updateProtocol(id: string, input: ProtocolInput, userId: s
 export function buildProtocolPdfData(
   p: RepairProtocol & { workItems: ProtocolWorkItem[]; photos: ProtocolPhoto[] },
   company: CompanySettings,
+  signedAt?: Date | null,
 ): ProtocolPdfData {
   const snap = p.customerSnapshot as unknown as CustomerSnapshot;
   const addr = p.serviceAddressSnapshot as unknown as ServiceAddressSnapshot | null;
@@ -156,6 +157,7 @@ export function buildProtocolPdfData(
     company: companyToPdf(company),
     number: p.number,
     revision: p.revision,
+    signedAt: signedAt ? signedAt.toISOString() : null,
     insuranceEventNumber: p.insuranceEventNumber,
     documentDate: p.documentDate.toISOString(),
     faultDate: p.faultDate?.toISOString() ?? null,
@@ -234,7 +236,8 @@ export async function finalizeProtocol(id: string, userId: string) {
     include: { workItems: true, photos: true },
   });
   const company = await getCompanySettings();
-  const data = buildProtocolPdfData(p, company);
+  const signedAt = new Date();
+  const data = buildProtocolPdfData(p, company, signedAt);
   const pdf = await renderProtocolPdf(data);
   const fileName = `${p.number}-rev${p.revision}.pdf`;
 
@@ -277,7 +280,7 @@ export async function finalizeProtocol(id: string, userId: string) {
       data: {
         locked: true,
         status: p.status === "DRAFT" ? "FINAL" : p.status,
-        finalizedAt: new Date(),
+        finalizedAt: signedAt,
         updatedById: userId,
       },
     });
@@ -334,6 +337,40 @@ export async function changeProtocolStatus(id: string, status: RepairProtocol["s
     metadata: { status },
   });
   return p;
+}
+
+/** Permanently delete a protocol, its revisions, photos, stored PDFs and email logs (blobs incl.). */
+export async function deleteProtocol(id: string, userId: string) {
+  const p = await prisma.repairProtocol.findUniqueOrThrow({
+    where: { id },
+    include: { revisions: { include: { storedDocument: true } }, photos: true },
+  });
+
+  for (const rev of p.revisions) {
+    if (rev.storedDocument) await deleteBlob(rev.storedDocument.blobUrl);
+  }
+  for (const photo of p.photos) await deleteBlob(photo.blobUrl);
+
+  const storedIds = p.revisions
+    .map((r) => r.storedDocumentId)
+    .filter((v): v is string => !!v);
+
+  await prisma.$transaction(async (tx) => {
+    await tx.repairProtocol.delete({ where: { id } }); // cascades workItems + photos + revisions
+    if (storedIds.length) await tx.storedDocument.deleteMany({ where: { id: { in: storedIds } } });
+    await tx.emailLog.deleteMany({ where: { documentType: "PROTOCOL", documentId: id } });
+  });
+
+  await logActivity({
+    type: "PROTOCOL_DELETED",
+    description: `Vymazaný protokol ${p.number}`,
+    customerId: p.customerId,
+    actorId: userId,
+  });
+}
+
+export async function deleteProtocols(ids: string[], userId: string) {
+  for (const id of ids) await deleteProtocol(id, userId);
 }
 
 export interface SendProtocolInput {

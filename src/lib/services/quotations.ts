@@ -5,7 +5,7 @@ import { computeLine, computeDocumentTotals, type LineInput } from "./money";
 import { allocateDocumentNumber } from "./numbering";
 import { getCompanySettings } from "./settings";
 import { logActivity } from "./activity";
-import { uploadBlob } from "./blob";
+import { uploadBlob, deleteBlob } from "./blob";
 import { sendMail, fetchStoredPdf, logEmail } from "./email";
 import { wrapEmailHtml } from "./email-templates";
 import { renderQuotationPdf } from "@/lib/pdf/render";
@@ -29,6 +29,7 @@ export function companyToPdf(c: CompanySettings): PdfCompany {
     phone: c.phone,
     website: c.website,
     logoUrl: c.logoUrl,
+    stampUrl: c.stampUrl,
     brandLight: c.brandLight,
     brandDark: c.brandDark,
   };
@@ -456,6 +457,39 @@ export async function sendQuotationEmail(
     });
   }
   return { success: result.success, error: result.error };
+}
+
+/** Permanently delete a quotation, its revisions, stored PDFs (blobs) and email logs. */
+export async function deleteQuotation(id: string, userId: string) {
+  const q = await prisma.quotation.findUniqueOrThrow({
+    where: { id },
+    include: { revisions: { include: { storedDocument: true } } },
+  });
+
+  // Best-effort blob cleanup for every stored revision PDF.
+  for (const rev of q.revisions) {
+    if (rev.storedDocument) await deleteBlob(rev.storedDocument.blobUrl);
+  }
+  const storedIds = q.revisions
+    .map((r) => r.storedDocumentId)
+    .filter((v): v is string => !!v);
+
+  await prisma.$transaction(async (tx) => {
+    await tx.quotation.delete({ where: { id } }); // cascades items + revisions
+    if (storedIds.length) await tx.storedDocument.deleteMany({ where: { id: { in: storedIds } } });
+    await tx.emailLog.deleteMany({ where: { documentType: "QUOTATION", documentId: id } });
+  });
+
+  await logActivity({
+    type: "QUOTATION_DELETED",
+    description: `Vymazaná cenová ponuka ${q.number}`,
+    customerId: q.customerId,
+    actorId: userId,
+  });
+}
+
+export async function deleteQuotations(ids: string[], userId: string) {
+  for (const id of ids) await deleteQuotation(id, userId);
 }
 
 /** Derive the display status, marking overdue quotations as EXPIRED. */

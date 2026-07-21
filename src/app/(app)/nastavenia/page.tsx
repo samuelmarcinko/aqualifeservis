@@ -29,6 +29,7 @@ export default async function SettingsPage() {
           phone: company.phone,
           website: company.website ?? "",
           logoUrl: company.logoUrl,
+          stampUrl: company.stampUrl,
           brandLight: company.brandLight,
           brandDark: company.brandDark,
           defaultVatRate: company.defaultVatRate.toString(),

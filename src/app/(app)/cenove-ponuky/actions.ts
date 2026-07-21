@@ -11,6 +11,8 @@ import {
   createQuotationRevision,
   changeQuotationStatus,
   sendQuotationEmail,
+  deleteQuotation,
+  deleteQuotations,
 } from "@/lib/services/quotations";
 import type { QuotationStatus } from "@/generated/prisma";
 
@@ -63,6 +65,29 @@ export async function changeStatusAction(id: string, status: string): Promise<Ac
     const user = await assertUser();
     await changeQuotationStatus(id, status as QuotationStatus, user.id);
     revalidatePath(`/cenove-ponuky/${id}`);
+    revalidatePath("/cenove-ponuky");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteQuotationAction(id: string): Promise<ActionResult> {
+  try {
+    const user = await assertUser();
+    await deleteQuotation(id, user.id);
+    revalidatePath("/cenove-ponuky");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteQuotationsAction(ids: string[]): Promise<ActionResult> {
+  try {
+    const user = await assertUser();
+    if (!ids.length) return fail("Nie sú vybrané žiadne položky.");
+    await deleteQuotations(ids, user.id);
     revalidatePath("/cenove-ponuky");
     return ok(null);
   } catch (e) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -39,10 +40,21 @@ export function CustomerForm({
   const type = watch("type");
   const isBusiness = type === "SOLE_TRADER" || type === "COMPANY";
 
+  const [addr, setAddr] = useState({
+    label: "",
+    street: "",
+    city: "",
+    postalCode: "",
+    objectType: "",
+    apartment: "",
+  });
+  const setAddrField = (k: keyof typeof addr) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setAddr({ ...addr, [k]: e.target.value });
+
   async function onSubmit(values: FormValues) {
     const res = customerId
       ? await updateCustomer(customerId, values)
-      : await createCustomer(values);
+      : await createCustomer(values, addr.label.trim() ? addr : undefined);
     if (res.ok) {
       toast(customerId ? "Zákazník upravený." : "Zákazník vytvorený.", "success");
       router.push(`/zakaznici/${res.data.id}`);
@@ -150,6 +162,48 @@ export function CustomerForm({
           <textarea rows={3} className="input" {...register("internalNote")} />
         </Field>
       </div>
+
+      {!customerId && (
+        <div className="card p-6">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Servisná adresa / objekt (voliteľné)
+          </h2>
+          <p className="mb-4 mt-1 text-xs text-slate-400">
+            Ak zadáte označenie, vytvorí sa hneď prvá servisná adresa. Neskôr ju viete predvyplniť pri cenovej ponuke alebo protokole. Ďalšie adresy pridáte v profile zákazníka.
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <label className="label">Označenie</label>
+              <input
+                className="input"
+                placeholder="napr. Rodinný dom Kamenica"
+                value={addr.label}
+                onChange={setAddrField("label")}
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label">Ulica a číslo</label>
+              <input className="input" value={addr.street} onChange={setAddrField("street")} />
+            </div>
+            <div>
+              <label className="label">Mesto</label>
+              <input className="input" value={addr.city} onChange={setAddrField("city")} />
+            </div>
+            <div>
+              <label className="label">PSČ</label>
+              <input className="input" value={addr.postalCode} onChange={setAddrField("postalCode")} />
+            </div>
+            <div>
+              <label className="label">Typ objektu</label>
+              <input className="input" placeholder="Byt / Rodinný dom…" value={addr.objectType} onChange={setAddrField("objectType")} />
+            </div>
+            <div>
+              <label className="label">Číslo bytu / poschodie</label>
+              <input className="input" value={addr.apartment} onChange={setAddrField("apartment")} />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-end gap-2">
         <button type="button" className="btn-secondary" onClick={() => router.back()}>

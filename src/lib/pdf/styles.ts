@@ -36,8 +36,8 @@ export const styles = StyleSheet.create({
   companyName: { fontSize: 12, fontWeight: 700, color: COLORS.navy, marginBottom: 5 },
   companyMeta: { fontSize: 7.5, color: COLORS.muted, lineHeight: 1.6, marginBottom: 1 },
   docTitleBox: { alignItems: "flex-end", paddingTop: 4 },
-  docTitle: { fontSize: 21, fontWeight: 700, color: COLORS.dark, marginBottom: 6, letterSpacing: 0.5 },
-  docNumber: { fontSize: 11, fontWeight: 500, color: COLORS.text },
+  docTitle: { fontSize: 20, fontWeight: 700, color: COLORS.dark, marginBottom: 12, letterSpacing: 0.5 },
+  docNumber: { fontSize: 11, fontWeight: 500, color: COLORS.muted },
   docRevision: { fontSize: 8, color: COLORS.muted, marginTop: 3 },
 
   // Party boxes
@@ -180,6 +180,9 @@ export const styles = StyleSheet.create({
   sigRow: { flexDirection: "row", gap: 24, marginTop: 30 },
   sigBox: { flex: 1 },
   sigLine: { borderTopWidth: 1, borderTopColor: COLORS.text, marginTop: 40, paddingTop: 4 },
+  sigLineSigned: { borderTopWidth: 1, borderTopColor: COLORS.text, marginTop: 6, paddingTop: 4 },
   sigLabel: { fontSize: 7, fontWeight: 700, color: COLORS.muted, textTransform: "uppercase" },
   sigName: { fontSize: 9, color: COLORS.text },
+  sigStamp: { height: 64, width: 128, objectFit: "contain", marginTop: 6, marginBottom: 2 },
+  sigSigned: { fontSize: 8, fontWeight: 700, color: COLORS.dark, marginTop: 4 },
 });

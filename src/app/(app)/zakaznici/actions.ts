@@ -12,7 +12,10 @@ import {
 } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 
-export async function createCustomer(input: unknown): Promise<ActionResult<{ id: string }>> {
+export async function createCustomer(
+  input: unknown,
+  address?: unknown,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const user = await assertUser();
     const parsed = customerSchema.safeParse(input);
@@ -50,6 +53,23 @@ export async function createCustomer(input: unknown): Promise<ActionResult<{ id:
       customerId: customer.id,
       actorId: user.id,
     });
+
+    // Optional first service address created together with the customer.
+    const addrObj = address as { label?: string } | undefined;
+    if (addrObj && typeof addrObj.label === "string" && addrObj.label.trim()) {
+      const addrParsed = serviceAddressSchema.safeParse(address);
+      if (addrParsed.success) {
+        await prisma.customerServiceAddress.create({
+          data: { ...addrParsed.data, isDefault: true, customerId: customer.id },
+        });
+        await logActivity({
+          type: "SERVICE_ADDRESS_CREATED",
+          description: `Pridaná servisná adresa „${addrParsed.data.label}“`,
+          customerId: customer.id,
+          actorId: user.id,
+        });
+      }
+    }
 
     revalidatePath("/zakaznici");
     return ok({ id: customer.id });
