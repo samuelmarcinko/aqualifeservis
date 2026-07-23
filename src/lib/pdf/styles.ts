@@ -179,10 +179,14 @@ export const styles = StyleSheet.create({
   // Signatures
   sigRow: { flexDirection: "row", gap: 24, marginTop: 30 },
   sigBox: { flex: 1 },
-  sigLine: { borderTopWidth: 1, borderTopColor: COLORS.text, marginTop: 40, paddingTop: 4 },
-  sigLineSigned: { borderTopWidth: 1, borderTopColor: COLORS.text, marginTop: 6, paddingTop: 4 },
+  // Fixed-height area above the signature line — keeps both lines aligned
+  // whether or not a stamp is present.
+  sigArea: { height: 74, justifyContent: "flex-end", marginTop: 4 },
+  sigLineTop: { borderTopWidth: 1, borderTopColor: COLORS.text, paddingTop: 4 },
   sigLabel: { fontSize: 7, fontWeight: 700, color: COLORS.muted, textTransform: "uppercase" },
   sigName: { fontSize: 9, color: COLORS.text },
-  sigStamp: { height: 64, width: 128, objectFit: "contain", marginTop: 6, marginBottom: 2 },
+  sigStamp: { height: 66, width: 132, objectFit: "contain", marginBottom: 2 },
   sigSigned: { fontSize: 8, fontWeight: 700, color: COLORS.dark, marginTop: 4 },
+  dateLineWrap: { flexDirection: "row", alignItems: "flex-end", marginTop: 3 },
+  dateLine: { flex: 1, borderBottomWidth: 0.7, borderBottomColor: COLORS.text, height: 11, marginLeft: 4 },
 });
