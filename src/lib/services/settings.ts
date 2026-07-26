@@ -1,5 +1,25 @@
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import type { CompanySettings, SmtpSettings } from "@/generated/prisma";
+
+export const BRANDING_CACHE_TAG = "branding";
+
+/**
+ * Lightweight, cross-request cached branding (logo + name) for the app shell.
+ * Avoids a DB round-trip on every navigation; invalidated via
+ * revalidateTag(BRANDING_CACHE_TAG) whenever branding changes.
+ */
+export const getCachedBranding = unstable_cache(
+  async (): Promise<{ logoUrl: string | null; name: string }> => {
+    const c = await prisma.companySettings.findUnique({
+      where: { id: "company" },
+      select: { logoUrl: true, name: true },
+    });
+    return { logoUrl: c?.logoUrl ?? null, name: c?.name ?? "AQUALIFE SERVIS s. r. o." };
+  },
+  ["branding-v1"],
+  { tags: [BRANDING_CACHE_TAG], revalidate: 3600 },
+);
 import {
   COMPANY_DEFAULTS,
   DEFAULT_PROTOCOL_EMAIL_BODY,

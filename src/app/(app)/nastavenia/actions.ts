@@ -1,8 +1,9 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/db";
 import { assertSuperAdmin } from "@/lib/session";
+import { BRANDING_CACHE_TAG } from "@/lib/services/settings";
 import {
   companySettingsSchema,
   smtpSettingsSchema,
@@ -35,6 +36,7 @@ export async function saveCompanySettings(input: unknown): Promise<ActionResult>
     });
     await logActivity({ type: "SETTINGS_UPDATED", description: "Aktualizované firemné údaje", actorId: user.id });
     revalidatePath("/nastavenia");
+    revalidateTag(BRANDING_CACHE_TAG);
     return ok(null);
   } catch (e) {
     return fail(toSafeError(e));
@@ -59,6 +61,7 @@ export async function uploadLogo(formData: FormData): Promise<ActionResult<{ url
       data: { logoUrl: blob.url, logoBlobPath: blob.pathname },
     });
     revalidatePath("/nastavenia");
+    revalidateTag(BRANDING_CACHE_TAG);
     return ok({ url: blob.url });
   } catch (e) {
     return fail(toSafeError(e));
