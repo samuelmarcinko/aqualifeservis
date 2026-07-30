@@ -211,6 +211,7 @@ async function incrementCatalogUsage(
 export function buildQuotationPdfData(
   q: Quotation & { items: QuotationItem[] },
   company: CompanySettings,
+  signedAt?: Date | null,
 ): QuotationPdfData {
   const snap = q.customerSnapshot as unknown as CustomerSnapshot;
   const addr = q.serviceAddressSnapshot as unknown as ServiceAddressSnapshot | null;
@@ -219,6 +220,7 @@ export function buildQuotationPdfData(
     company: companyToPdf(company),
     number: q.number,
     revision: q.revision,
+    signedAt: signedAt ? signedAt.toISOString() : null,
     issueDate: q.issueDate.toISOString(),
     validUntil: q.validUntil.toISOString(),
     taxMode: q.taxMode,
@@ -281,7 +283,8 @@ export async function generateQuotationPreview(id: string): Promise<Buffer> {
 export async function finalizeQuotation(id: string, userId: string) {
   const q = await prisma.quotation.findUniqueOrThrow({ where: { id }, include: { items: true } });
   const company = await getCompanySettings();
-  const data = buildQuotationPdfData(q, company);
+  const signedAt = new Date();
+  const data = buildQuotationPdfData(q, company, signedAt);
   const pdf = await renderQuotationPdf(data);
   const fileName = `${q.number}-rev${q.revision}.pdf`;
 
@@ -325,7 +328,7 @@ export async function finalizeQuotation(id: string, userId: string) {
       data: {
         locked: true,
         status: q.status === "DRAFT" ? "READY" : q.status,
-        finalizedAt: new Date(),
+        finalizedAt: signedAt,
         updatedById: userId,
       },
     });

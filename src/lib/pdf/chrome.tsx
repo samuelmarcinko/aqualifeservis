@@ -1,6 +1,81 @@
 import { View, Text, Image } from "@react-pdf/renderer";
 import { styles } from "./styles";
 import type { PdfCompany } from "./types";
+import { formatDate } from "@/lib/format";
+
+interface SignatureClient {
+  displayName: string;
+  street: string | null;
+  postalCode: string | null;
+  city: string | null;
+}
+
+/**
+ * Shared supplier + client signature block used identically by both the
+ * quotation and protocol PDFs. When `signedAt` is set (finalized) the supplier
+ * side renders the company stamp (if uploaded) plus an automatic date. Both
+ * columns reserve the same fixed-height area above the line so the two
+ * signature lines stay vertically aligned regardless of the stamp.
+ */
+export function PdfSignatures({
+  company,
+  signedAt,
+  client,
+  supplierLabel = "Dodávateľ",
+  clientLabel = "Klient / odberateľ",
+}: {
+  company: PdfCompany;
+  signedAt: string | null;
+  client: SignatureClient;
+  supplierLabel?: string;
+  clientLabel?: string;
+}) {
+  const clientAddress = [client.street, `${client.postalCode ?? ""} ${client.city ?? ""}`.trim()]
+    .filter(Boolean)
+    .join(", ");
+
+  return (
+    <View style={styles.sigRow} wrap={false}>
+      <View style={styles.sigBox}>
+        <Text style={styles.sigLabel}>{supplierLabel}</Text>
+        <View style={styles.sigArea}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          {signedAt && company.stampUrl ? <Image style={styles.sigStamp} src={company.stampUrl} /> : null}
+        </View>
+        <View style={styles.sigLineTop}>
+          <Text style={styles.sigName}>{company.name}</Text>
+          <Text style={styles.fieldValue}>
+            {company.street}, {company.postalCode} {company.city}
+          </Text>
+          {signedAt ? (
+            <>
+              <Text style={styles.sigSigned}>Elektronicky podpísané</Text>
+              <Text style={styles.fieldValue}>Dátum: {formatDate(signedAt)}</Text>
+            </>
+          ) : (
+            <View style={styles.dateLineWrap}>
+              <Text style={styles.fieldValue}>Dátum:</Text>
+              <View style={styles.dateLine} />
+            </View>
+          )}
+        </View>
+      </View>
+
+      <View style={styles.sigBox}>
+        <Text style={styles.sigLabel}>{clientLabel}</Text>
+        <View style={styles.sigArea} />
+        <View style={styles.sigLineTop}>
+          <Text style={styles.sigName}>{client.displayName}</Text>
+          <Text style={styles.fieldValue}>{clientAddress}</Text>
+          <View style={styles.dateLineWrap}>
+            <Text style={styles.fieldValue}>Dátum:</Text>
+            <View style={styles.dateLine} />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+}
 
 export function PdfHeader({
   company,

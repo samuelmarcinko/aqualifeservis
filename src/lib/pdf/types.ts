@@ -64,6 +64,8 @@ export interface QuotationPdfData {
   company: PdfCompany;
   number: string;
   revision: number;
+  /** Set when finalized → renders the supplier's electronic signature + stamp. */
+  signedAt: string | null;
   issueDate: string;
   validUntil: string;
   taxMode: "STANDARD" | "REVERSE_CHARGE" | "NO_VAT";

@@ -1,6 +1,6 @@
 import { Document, Page, View, Text } from "@react-pdf/renderer";
 import { styles } from "./styles";
-import { PdfHeader, PdfFooter } from "./chrome";
+import { PdfHeader, PdfFooter, PdfSignatures } from "./chrome";
 import type { QuotationPdfData } from "./types";
 import { formatCurrency, formatDate, formatDecimal, formatPercent } from "@/lib/format";
 
@@ -168,6 +168,19 @@ export function QuotationDocument({ data }: { data: QuotationPdfData }) {
             <Text>{data.customerNote}</Text>
           </View>
         ) : null}
+
+        <PdfSignatures
+          company={c}
+          signedAt={data.signedAt}
+          client={{
+            displayName: k.displayName,
+            street: k.street,
+            postalCode: k.postalCode,
+            city: k.city,
+          }}
+          supplierLabel="Dodávateľ"
+          clientLabel="Odberateľ"
+        />
 
         <PdfFooter company={c} />
       </Page>

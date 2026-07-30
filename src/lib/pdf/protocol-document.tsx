@@ -1,6 +1,6 @@
 import { Document, Page, View, Text, Image } from "@react-pdf/renderer";
 import { styles } from "./styles";
-import { PdfHeader, PdfFooter } from "./chrome";
+import { PdfHeader, PdfFooter, PdfSignatures } from "./chrome";
 import type { ProtocolPdfData } from "./types";
 import { formatDate, formatDecimal } from "@/lib/format";
 
@@ -143,47 +143,17 @@ export function ProtocolDocument({ data }: { data: ProtocolPdfData }) {
         )}
 
         {/* 8. Signatures — kept on the same/last text page */}
-        <View style={styles.sigRow} wrap={false}>
-          <View style={styles.sigBox}>
-            <Text style={styles.sigLabel}>Dodávateľ opravy</Text>
-            <View style={styles.sigArea}>
-              {/* eslint-disable-next-line jsx-a11y/alt-text */}
-              {data.signedAt && c.stampUrl ? <Image style={styles.sigStamp} src={c.stampUrl} /> : null}
-            </View>
-            <View style={styles.sigLineTop}>
-              <Text style={styles.sigName}>{c.name}</Text>
-              <Text style={styles.fieldValue}>
-                {c.street}, {c.postalCode} {c.city}
-              </Text>
-              {data.signedAt ? (
-                <>
-                  <Text style={styles.sigSigned}>Elektronicky podpísané</Text>
-                  <Text style={styles.fieldValue}>Dátum: {formatDate(data.signedAt)}</Text>
-                </>
-              ) : (
-                <View style={styles.dateLineWrap}>
-                  <Text style={styles.fieldValue}>Dátum:</Text>
-                  <View style={styles.dateLine} />
-                </View>
-              )}
-            </View>
-          </View>
-
-          <View style={styles.sigBox}>
-            <Text style={styles.sigLabel}>Klient / odberateľ</Text>
-            <View style={styles.sigArea} />
-            <View style={styles.sigLineTop}>
-              <Text style={styles.sigName}>{k.displayName}</Text>
-              <Text style={styles.fieldValue}>
-                {[k.street, `${k.postalCode ?? ""} ${k.city ?? ""}`.trim()].filter(Boolean).join(", ")}
-              </Text>
-              <View style={styles.dateLineWrap}>
-                <Text style={styles.fieldValue}>Dátum:</Text>
-                <View style={styles.dateLine} />
-              </View>
-            </View>
-          </View>
-        </View>
+        <PdfSignatures
+          company={c}
+          signedAt={data.signedAt}
+          client={{
+            displayName: k.displayName,
+            street: k.street,
+            postalCode: k.postalCode,
+            city: k.city,
+          }}
+          supplierLabel="Dodávateľ opravy"
+        />
 
         <PdfFooter company={c} />
       </Page>
