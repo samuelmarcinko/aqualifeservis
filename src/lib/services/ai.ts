@@ -116,9 +116,16 @@ async function callGemini(parts: GeminiPart[]): Promise<AiProtocolDraft> {
     } catch {
       /* ignore */
     }
-    if (res.status === 400 && /API key/i.test(detail))
+    if (res.status === 400 && /API[_ ]?key|api key not valid/i.test(detail))
       throw new Error("Neplatný API kľúč pre AI.");
-    if (res.status === 429) throw new Error("Prekročený limit AI (skúste o chvíľu).");
+    if (res.status === 404)
+      throw new Error(
+        `Model „${model}" nie je dostupný pre tento kľúč. Skúste iný (napr. gemini-2.5-flash alebo gemini-1.5-flash). ${detail}`.trim(),
+      );
+    if (res.status === 429)
+      throw new Error(
+        `Kvóta/limit AI (429). Pri novom kľúči to zvyčajne znamená, že model „${model}" nemá na tomto projekte voľnú kvótu — skúste iný model alebo zapnite billing. Detail od Google: ${detail || "—"}`,
+      );
     throw new Error(`AI služba zlyhala (${res.status}). ${detail}`.trim());
   }
 
