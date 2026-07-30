@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import type { CompanySettings, SmtpSettings } from "@/generated/prisma";
+import type { CompanySettings, SmtpSettings, AiSettings } from "@/generated/prisma";
 
 export const BRANDING_CACHE_TAG = "branding";
 
@@ -60,6 +60,27 @@ export async function getSmtpSettings(): Promise<SmtpSettings> {
   const existing = await prisma.smtpSettings.findUnique({ where: { id: "smtp" } });
   if (existing) return existing;
   return prisma.smtpSettings.create({ data: { id: "smtp" } });
+}
+
+export async function getAiSettings(): Promise<AiSettings> {
+  const existing = await prisma.aiSettings.findUnique({ where: { id: "ai" } });
+  if (existing) return existing;
+  return prisma.aiSettings.create({ data: { id: "ai" } });
+}
+
+export function toSafeAi(ai: AiSettings) {
+  return {
+    provider: ai.provider,
+    model: ai.model,
+    enabled: ai.enabled,
+    hasKey: !!ai.apiKeyEnc,
+  };
+}
+
+/** Whether the AI assistant is usable (enabled + key present). */
+export async function isAiReady(): Promise<boolean> {
+  const ai = await getAiSettings();
+  return ai.enabled && !!ai.apiKeyEnc;
 }
 
 /**

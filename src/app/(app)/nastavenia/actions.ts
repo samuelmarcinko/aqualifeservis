@@ -8,7 +8,9 @@ import {
   companySettingsSchema,
   smtpSettingsSchema,
   testEmailSchema,
+  aiSettingsSchema,
 } from "@/lib/validation";
+import { generateDraftFromText } from "@/lib/services/ai";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 import { encryptSecret } from "@/lib/services/crypto";
 import { getCompanySettings, getSmtpSettings } from "@/lib/services/settings";
@@ -102,6 +104,42 @@ export async function removeStamp(): Promise<ActionResult> {
       data: { stampUrl: null, stampBlobPath: null },
     });
     revalidatePath("/nastavenia");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function saveAiSettings(input: unknown): Promise<ActionResult> {
+  try {
+    await assertSuperAdmin();
+    const parsed = aiSettingsSchema.safeParse(input);
+    if (!parsed.success)
+      return fail("Skontrolujte zadané údaje.", parsed.error.flatten().fieldErrors);
+    const d = parsed.data;
+    const data: Record<string, unknown> = { enabled: d.enabled, model: d.model, provider: "gemini" };
+    if (d.apiKey && d.apiKey.trim().length > 0) {
+      data.apiKeyEnc = encryptSecret(d.apiKey.trim());
+    }
+    await prisma.aiSettings.upsert({
+      where: { id: "ai" },
+      update: data,
+      create: { id: "ai", ...data },
+    });
+    revalidatePath("/nastavenia");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function testAi(): Promise<ActionResult> {
+  try {
+    await assertSuperAdmin();
+    const draft = await generateDraftFromText(
+      "Vymenil som poškodený sifón pod vaňou, spravil tlakovú skúšku, doprava 20 km.",
+    );
+    if (!draft || Object.keys(draft).length === 0) return fail("AI nevrátila výsledok.");
     return ok(null);
   } catch (e) {
     return fail(toSafeError(e));

@@ -2,7 +2,18 @@
 
 import { revalidatePath } from "next/cache";
 import { assertUser } from "@/lib/session";
-import { protocolSchema, sendDocumentSchema, zodErrorMessage } from "@/lib/validation";
+import {
+  protocolSchema,
+  sendDocumentSchema,
+  zodErrorMessage,
+  aiTextSchema,
+  aiAudioSchema,
+} from "@/lib/validation";
+import {
+  generateDraftFromText,
+  generateDraftFromAudio,
+  type AiProtocolDraft,
+} from "@/lib/services/ai";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 import {
   createProtocol,
@@ -107,6 +118,32 @@ export async function deleteProtocolsAction(ids: string[]): Promise<ActionResult
     await deleteProtocols(ids, user.id);
     revalidatePath("/protokoly");
     return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+// --- AI assistant ----------------------------------------------------------
+
+export async function aiDraftFromText(input: unknown): Promise<ActionResult<AiProtocolDraft>> {
+  try {
+    await assertUser();
+    const parsed = aiTextSchema.safeParse(input);
+    if (!parsed.success) return fail(zodErrorMessage(parsed.error));
+    const draft = await generateDraftFromText(parsed.data.text);
+    return ok(draft);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function aiDraftFromAudio(input: unknown): Promise<ActionResult<AiProtocolDraft>> {
+  try {
+    await assertUser();
+    const parsed = aiAudioSchema.safeParse(input);
+    if (!parsed.success) return fail(zodErrorMessage(parsed.error));
+    const draft = await generateDraftFromAudio(parsed.data.data, parsed.data.mimeType);
+    return ok(draft);
   } catch (e) {
     return fail(toSafeError(e));
   }

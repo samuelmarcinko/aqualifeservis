@@ -6,6 +6,8 @@ import { useToast } from "@/components/ui/toast";
 import { ItemAutocomplete } from "@/components/editor/item-autocomplete";
 import { DEFAULT_UNITS } from "@/lib/constants";
 import { saveProtocol } from "./actions";
+import { ProtocolAiAssistant } from "./protocol-ai-assistant";
+import type { AiProtocolDraft } from "@/lib/services/ai";
 
 interface CustomerAddress {
   id: string;
@@ -63,10 +65,12 @@ export function ProtocolEditor({
   customers,
   preselectCustomerId,
   initial,
+  aiEnabled,
 }: {
   customers: CustomerOption[];
   preselectCustomerId?: string;
   initial?: ProtocolEditorInitial;
+  aiEnabled?: boolean;
 }) {
   const router = useRouter();
   const { toast } = useToast();
@@ -135,6 +139,43 @@ export function ProtocolEditor({
     setWorkItems((p) => p.map((w) => (w.key === key ? { ...w, ...patch } : w)));
   }
 
+  // Merge an AI-generated draft into the form (only fills where AI provided a
+  // value; never wipes existing input). Work items are appended.
+  function applyAiDraft(d: AiProtocolDraft) {
+    const isIso = (v?: string) => !!v && /^\d{4}-\d{2}-\d{2}$/.test(v);
+    const pick = (v: string | undefined, prev: string) => (v && v.trim() ? v.trim() : prev);
+    setF((prev) => ({
+      ...prev,
+      faultType: pick(d.faultType, prev.faultType),
+      faultCause: pick(d.faultCause, prev.faultCause),
+      faultDescription: pick(d.faultDescription, prev.faultDescription),
+      damageExtent: pick(d.damageExtent, prev.damageExtent),
+      objectNote: pick(d.objectNote, prev.objectNote),
+      insurer: pick(d.insurer, prev.insurer),
+      insuranceContractNumber: pick(d.insuranceContractNumber, prev.insuranceContractNumber),
+      insuranceEventNumber: pick(d.insuranceEventNumber, prev.insuranceEventNumber),
+      faultDate: isIso(d.faultDate) ? d.faultDate! : prev.faultDate,
+      repairDate: isIso(d.repairDate) ? d.repairDate! : prev.repairDate,
+      technicianStatement: pick(d.technicianStatement, prev.technicianStatement),
+      notes: pick(d.notes, prev.notes),
+      recommendations: pick(d.recommendations, prev.recommendations),
+    }));
+    if (d.workItems?.length) {
+      setWorkItems((prev) => [
+        ...prev.filter((w) => w.description.trim()),
+        ...d.workItems!
+          .filter((w) => w.description?.trim())
+          .map((w) => ({
+            key: nk(),
+            description: w.description.trim(),
+            quantity: w.quantity != null ? String(w.quantity) : "",
+            unit: w.unit ?? "",
+            internalNote: "",
+          })),
+      ]);
+    }
+  }
+
   async function submit() {
     setFormError(null);
     if (!f.customerId) {
@@ -171,6 +212,8 @@ export function ProtocolEditor({
 
   return (
     <div className="space-y-6">
+      {aiEnabled && <ProtocolAiAssistant onApply={applyAiDraft} />}
+
       <Section title="1. Identifikácia protokolu">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Field label="Číslo poistnej udalosti">

@@ -1,5 +1,6 @@
 import { requireUser } from "@/lib/session";
 import { getCustomerOptions } from "@/lib/customer-options";
+import { isAiReady } from "@/lib/services/settings";
 import { PageHeader } from "@/components/ui/page";
 import { ProtocolEditor } from "../protocol-editor";
 
@@ -12,11 +13,11 @@ export default async function NewProtocolPage({
 }) {
   await requireUser();
   const sp = await searchParams;
-  const customers = await getCustomerOptions();
+  const [customers, aiEnabled] = await Promise.all([getCustomerOptions(), isAiReady()]);
   return (
     <div>
       <PageHeader title="Nový protokol o oprave" />
-      <ProtocolEditor customers={customers} preselectCustomerId={sp.customerId} />
+      <ProtocolEditor customers={customers} preselectCustomerId={sp.customerId} aiEnabled={aiEnabled} />
     </div>
   );
 }

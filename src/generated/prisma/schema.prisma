@@ -595,6 +595,18 @@ model CompanySettings {
   @@map("company_settings")
 }
 
+model AiSettings {
+  id        String   @id @default("ai")
+  provider  String   @default("gemini")
+  model     String   @default("gemini-2.0-flash")
+  // Encrypted with APP_ENCRYPTION_KEY. Never returned to the browser.
+  apiKeyEnc String?
+  enabled   Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_settings")
+}
+
 model SmtpSettings {
   id          String   @id @default("smtp")
   host        String?

@@ -453,6 +453,15 @@ exports.Prisma.CompanySettingsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AiSettingsScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  model: 'model',
+  apiKeyEnc: 'apiKeyEnc',
+  enabled: 'enabled',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SmtpSettingsScalarFieldEnum = {
   id: 'id',
   host: 'host',
@@ -578,6 +587,7 @@ exports.Prisma.ModelName = {
   EmailLog: 'EmailLog',
   ActivityLog: 'ActivityLog',
   CompanySettings: 'CompanySettings',
+  AiSettings: 'AiSettings',
   SmtpSettings: 'SmtpSettings'
 };
 

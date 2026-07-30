@@ -1,5 +1,11 @@
 import { requireSuperAdmin } from "@/lib/session";
-import { getCompanySettings, getSmtpSettings, toSafeSmtp } from "@/lib/services/settings";
+import {
+  getCompanySettings,
+  getSmtpSettings,
+  toSafeSmtp,
+  getAiSettings,
+  toSafeAi,
+} from "@/lib/services/settings";
 import { PageHeader } from "@/components/ui/page";
 import { SettingsClient } from "./settings-client";
 
@@ -7,8 +13,13 @@ export const dynamic = "force-dynamic";
 
 export default async function SettingsPage() {
   await requireSuperAdmin();
-  const [company, smtp] = await Promise.all([getCompanySettings(), getSmtpSettings()]);
+  const [company, smtp, ai] = await Promise.all([
+    getCompanySettings(),
+    getSmtpSettings(),
+    getAiSettings(),
+  ]);
   const safeSmtp = toSafeSmtp(smtp);
+  const safeAi = toSafeAi(ai);
 
   return (
     <div>
@@ -42,6 +53,7 @@ export default async function SettingsPage() {
           protocolEmailBody: company.protocolEmailBody,
         }}
         smtp={safeSmtp}
+        ai={safeAi}
       />
     </div>
   );

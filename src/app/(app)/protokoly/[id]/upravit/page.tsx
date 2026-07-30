@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 import { getCustomerOptions } from "@/lib/customer-options";
+import { isAiReady } from "@/lib/services/settings";
 import { PageHeader } from "@/components/ui/page";
 import { ProtocolEditor } from "../../protocol-editor";
 
@@ -13,13 +14,14 @@ export default async function EditProtocolPage({ params }: { params: Promise<{ i
   const p = await prisma.repairProtocol.findUnique({ where: { id }, include: { workItems: true } });
   if (!p) notFound();
   if (p.locked) redirect(`/protokoly/${id}`);
-  const customers = await getCustomerOptions();
+  const [customers, aiEnabled] = await Promise.all([getCustomerOptions(), isAiReady()]);
 
   return (
     <div>
       <PageHeader title={`Úprava ${p.number}`} subtitle={p.revision > 1 ? `Revízia ${p.revision}` : undefined} />
       <ProtocolEditor
         customers={customers}
+        aiEnabled={aiEnabled}
         initial={{
           id: p.id,
           customerId: p.customerId,

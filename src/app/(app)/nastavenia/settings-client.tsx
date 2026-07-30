@@ -16,7 +16,16 @@ import {
   deleteAllQuotationsAction,
   deleteAllProtocolsAction,
   resetNumberingAction,
+  saveAiSettings,
+  testAi,
 } from "./actions";
+
+interface SafeAi {
+  provider: string;
+  model: string;
+  enabled: boolean;
+  hasKey: boolean;
+}
 
 interface CompanyForm {
   name: string;
@@ -65,11 +74,20 @@ const TABS = [
   "SMTP",
   "E-mailové šablóny",
   "Používatelia",
+  "AI asistent",
   "Systémové informácie",
   "Údržba",
 ];
 
-export function SettingsClient({ company, smtp }: { company: CompanyForm; smtp: SmtpForm }) {
+export function SettingsClient({
+  company,
+  smtp,
+  ai,
+}: {
+  company: CompanyForm;
+  smtp: SmtpForm;
+  ai: SafeAi;
+}) {
   const [tab, setTab] = useState(0);
   const [c, setC] = useState(company);
   const router = useRouter();
@@ -216,7 +234,9 @@ export function SettingsClient({ company, smtp }: { company: CompanyForm; smtp: 
         </div>
       )}
 
-      {tab === 6 && (
+      {tab === 6 && <AiTab ai={ai} />}
+
+      {tab === 7 && (
         <div className="card space-y-2 p-6 text-sm text-slate-600">
           <Row label="Aplikácia" value="AQUALIFE SERVIS – Evidencia" />
           <Row label="Verzia" value="1.0.0" />
@@ -226,7 +246,85 @@ export function SettingsClient({ company, smtp }: { company: CompanyForm; smtp: 
         </div>
       )}
 
-      {tab === 7 && <DangerZone />}
+      {tab === 8 && <DangerZone />}
+    </div>
+  );
+}
+
+function AiTab({ ai }: { ai: SafeAi }) {
+  const { toast } = useToast();
+  const [enabled, setEnabled] = useState(ai.enabled);
+  const [model, setModel] = useState(ai.model);
+  const [apiKey, setApiKey] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
+
+  async function save() {
+    setSaving(true);
+    const res = await saveAiSettings({ enabled, model, apiKey });
+    setSaving(false);
+    if (res.ok) {
+      toast("AI nastavenia uložené.", "success");
+      setApiKey("");
+    } else toast(res.error, "error");
+  }
+  async function test() {
+    setTesting(true);
+    const res = await testAi();
+    setTesting(false);
+    if (res.ok) toast("AI funguje správne. ✨", "success");
+    else toast(res.error, "error");
+  }
+
+  return (
+    <div className="card space-y-4 p-6">
+      <div>
+        <h3 className="text-sm font-semibold text-slate-700">AI asistent (Google Gemini)</h3>
+        <p className="mt-1 text-xs text-slate-400">
+          Umožňuje z voľného textu alebo hlasového diktovania automaticky vyplniť polia protokolu
+          profesionálnym slovenským textom. API kľúč získate zdarma na{" "}
+          <span className="font-medium">aistudio.google.com</span>.
+        </p>
+      </div>
+
+      <label className="flex items-center gap-2 text-sm text-slate-700">
+        <input type="checkbox" checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
+        Zapnúť AI asistenta
+      </label>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <label className="label">Model</label>
+          <input className="input" value={model} onChange={(e) => setModel(e.target.value)} />
+          <p className="mt-1 text-xs text-slate-400">Napr. gemini-2.0-flash</p>
+        </div>
+        <div>
+          <label className="label">API kľúč</label>
+          <input
+            type="password"
+            className="input"
+            placeholder={ai.hasKey ? "•••••••• (nezmenené)" : "Vložte Gemini API kľúč"}
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
+          />
+          <p className="mt-1 text-xs text-slate-400">Ukladá sa šifrovaný, nikdy sa nezobrazuje.</p>
+        </div>
+      </div>
+
+      <div className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">
+        Upozornenie: pri použití AI sa text/hlas (vrátane údajov klienta) odosiela do služby Google
+        Gemini. Na free tieri môže Google dáta použiť na zlepšovanie modelov — pre reálne klientske
+        dáta zvážte platený tier s garanciou netréningovania.
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+        <button className="btn-primary" onClick={save} disabled={saving}>
+          {saving ? "Ukladám…" : "Uložiť"}
+        </button>
+        <button className="btn-secondary" onClick={test} disabled={testing || (!ai.hasKey && !apiKey)}>
+          {testing ? "Testujem…" : "Test AI"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -221,6 +221,25 @@ export const testEmailSchema = z.object({
 });
 
 // ---------------------------------------------------------------------------
+// AI assistant
+// ---------------------------------------------------------------------------
+
+export const aiSettingsSchema = z.object({
+  enabled: z.boolean().default(false),
+  model: z.string().trim().min(1).max(100).default("gemini-2.0-flash"),
+  apiKey: z.string().max(400).optional(),
+});
+
+export const aiTextSchema = z.object({
+  text: z.string().trim().min(3, "Zadajte dlhší text.").max(20000),
+});
+
+export const aiAudioSchema = z.object({
+  data: z.string().min(10, "Chýba zvukový záznam.").max(28_000_000),
+  mimeType: z.string().trim().min(3).max(80),
+});
+
+// ---------------------------------------------------------------------------
 // Users
 // ---------------------------------------------------------------------------
 
