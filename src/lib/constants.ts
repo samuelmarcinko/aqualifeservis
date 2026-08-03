@@ -95,6 +95,51 @@ export const CATALOG_TYPE_LABELS: Record<string, string> = {
   MATERIAL: "Materiál",
 };
 
+export const RENTAL_STATUS_LABELS: Record<string, string> = {
+  PENDING: "Čaká na schválenie",
+  APPROVED: "Schválená",
+  REJECTED: "Zamietnutá",
+  CANCELLED: "Zrušená",
+};
+
+export const DEFAULT_RENTAL_CUSTOMER_EMAIL = `Dobrý deň,
+
+ďakujeme za Vašu rezerváciu č. {{number}}.
+
+Náradie: {{toolName}}
+Termín: {{startDate}} – {{endDate}}
+Predbežná cena: {{price}}
+
+Vašu rezerváciu spracujeme a potvrdíme e-mailom. V prípade otázok nás kontaktujte.
+
+S pozdravom
+AQUALIFE SERVIS s. r. o.`;
+
+export const DEFAULT_RENTAL_APPROVED_EMAIL = `Dobrý deň,
+
+Vaša rezervácia č. {{number}} bola schválená.
+
+Náradie: {{toolName}}
+Termín: {{startDate}} – {{endDate}}
+Cena: {{price}}
+
+Tešíme sa na Vás. V prípade otázok nás kontaktujte.
+
+S pozdravom
+AQUALIFE SERVIS s. r. o.`;
+
+export const DEFAULT_RENTAL_REJECTED_EMAIL = `Dobrý deň,
+
+ľutujeme, ale Vašu rezerváciu č. {{number}} v požadovanom termíne nie je možné potvrdiť.
+
+Náradie: {{toolName}}
+Termín: {{startDate}} – {{endDate}}
+
+V prípade záujmu o iný termín nás prosím kontaktujte.
+
+S pozdravom
+AQUALIFE SERVIS s. r. o.`;
+
 export const MAX_PHOTOS_PER_PROTOCOL = 20;
 export const MAX_PHOTO_SIZE = 10 * 1024 * 1024; // 10 MB
 export const ALLOWED_PHOTO_TYPES = [

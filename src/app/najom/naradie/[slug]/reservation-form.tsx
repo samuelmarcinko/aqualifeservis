@@ -1,0 +1,200 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { MonthCalendar } from "@/components/rental/month-calendar";
+import { useToast } from "@/components/ui/toast";
+import { formatCurrency, formatDate } from "@/lib/format";
+
+const r2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
+
+function daysInclusive(a: string, b: string): number {
+  const s = new Date(`${a}T00:00:00Z`).getTime();
+  const e = new Date(`${b}T00:00:00Z`).getTime();
+  return Math.max(1, Math.round((e - s) / 86_400_000) + 1);
+}
+
+export function ReservationForm({
+  toolId,
+  toolName,
+  dailyPrice,
+  vatRate,
+  pricePerKm,
+  maxKm,
+  minDays,
+  unavailableDays,
+  terms,
+}: {
+  toolId: string;
+  toolName: string;
+  dailyPrice: number;
+  vatRate: number;
+  pricePerKm: number;
+  maxKm: number;
+  minDays: number;
+  unavailableDays: string[];
+  terms: string;
+}) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const unavailable = useMemo(() => new Set(unavailableDays), [unavailableDays]);
+
+  const [start, setStart] = useState<string | null>(null);
+  const [end, setEnd] = useState<string | null>(null);
+  const [delivery, setDelivery] = useState(false);
+  const [km, setKm] = useState("");
+  const [form, setForm] = useState({
+    customerName: "",
+    customerEmail: "",
+    customerPhone: "",
+    customerCompany: "",
+    deliveryAddress: "",
+    customerNote: "",
+    website: "", // honeypot
+  });
+  const [consent, setConsent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  function rangeHasUnavailable(a: string, b: string): boolean {
+    let cur = new Date(`${a}T00:00:00Z`).getTime();
+    const e = new Date(`${b}T00:00:00Z`).getTime();
+    while (cur <= e) {
+      if (unavailable.has(new Date(cur).toISOString().slice(0, 10))) return true;
+      cur += 86_400_000;
+    }
+    return false;
+  }
+
+  function onDayClick(day: string) {
+    if (!start || (start && end)) {
+      setStart(day);
+      setEnd(null);
+    } else {
+      const [a, b] = day < start ? [day, start] : [start, day];
+      if (rangeHasUnavailable(a, b)) {
+        toast("Vo vybranom rozsahu je obsadený deň. Zvoľte iný termín.", "error");
+        setStart(day);
+        setEnd(null);
+        return;
+      }
+      setStart(a);
+      setEnd(b);
+    }
+  }
+
+  const days = start ? daysInclusive(start, end ?? start) : 0;
+  const price = useMemo(() => {
+    if (!start) return null;
+    const rental = r2(dailyPrice * days);
+    const del = delivery ? r2((Number(km) || 0) * pricePerKm) : 0;
+    const exVat = r2(rental + del);
+    const vat = r2((exVat * vatRate) / 100);
+    return { rental, del, exVat, vat, incl: r2(exVat + vat) };
+  }, [start, days, delivery, km, dailyPrice, pricePerKm, vatRate]);
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [k]: e.target.value });
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!start) return toast("Zvoľte termín v kalendári.", "error");
+    if (days < minDays) return toast(`Minimálna doba prenájmu je ${minDays} dní.`, "error");
+    if (!consent) return toast("Potvrďte súhlas so spracovaním údajov.", "error");
+    if (delivery && Number(km) > maxKm) return toast(`Max. vzdialenosť dovozu je ${maxKm} km.`, "error");
+
+    setSubmitting(true);
+    const res = await fetch("/api/rental/reservation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        toolId,
+        startDate: start,
+        endDate: end ?? start,
+        ...form,
+        deliveryType: delivery ? "DELIVERY" : "PICKUP",
+        deliveryKm: delivery ? Number(km) || 0 : undefined,
+        consent: true,
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    setSubmitting(false);
+    if (res.ok && data.ok) {
+      router.push(`/rezervacia/hotovo?c=${encodeURIComponent(data.number)}`);
+    } else {
+      toast(data.error ?? "Rezerváciu sa nepodarilo odoslať.", "error");
+    }
+  }
+
+  return (
+    <form onSubmit={submit} className="rounded-xl border border-slate-200 bg-white p-5 shadow-card">
+      <h2 className="mb-1 text-lg font-bold text-brand-navy">Rezervovať</h2>
+      <p className="mb-4 text-sm text-slate-500">Vyberte termín a vyplňte kontaktné údaje. Rezerváciu potvrdíme e-mailom.</p>
+
+      <div className="mb-2 rounded-lg border border-slate-100 p-3">
+        <MonthCalendar unavailable={unavailable} rangeStart={start} rangeEnd={end} onDayClick={onDayClick} />
+      </div>
+      <div className="mb-4 text-sm">
+        {start ? (
+          <span className="text-slate-700">
+            Termín: <strong>{formatDate(start)}</strong> – <strong>{formatDate(end ?? start)}</strong> ({days} dní)
+          </span>
+        ) : (
+          <span className="text-slate-400">Kliknite na začiatočný a koncový deň.</span>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <input className="input" placeholder="Meno a priezvisko *" value={form.customerName} onChange={set("customerName")} required />
+        <input className="input" placeholder="Firma (voliteľné)" value={form.customerCompany} onChange={set("customerCompany")} />
+        <input type="email" className="input" placeholder="E-mail *" value={form.customerEmail} onChange={set("customerEmail")} required />
+        <input className="input" placeholder="Telefón *" value={form.customerPhone} onChange={set("customerPhone")} required />
+      </div>
+
+      <label className="mt-3 flex items-center gap-2 text-sm text-slate-700">
+        <input type="checkbox" checked={delivery} onChange={(e) => setDelivery(e.target.checked)} />
+        Dovoz zariadenia ({pricePerKm.toFixed(2)} €/km, do {maxKm} km)
+      </label>
+      {delivery && (
+        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <input type="number" className="input" placeholder="Vzdialenosť (km)" value={km} onChange={(e) => setKm(e.target.value)} />
+          <input className="input sm:col-span-2" placeholder="Adresa dovozu" value={form.deliveryAddress} onChange={set("deliveryAddress")} />
+        </div>
+      )}
+
+      <textarea className="input mt-3" rows={2} placeholder="Poznámka (voliteľné)" value={form.customerNote} onChange={set("customerNote")} />
+
+      {/* Honeypot (hidden from users) */}
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        value={form.website}
+        onChange={set("website")}
+        aria-hidden
+      />
+
+      {price && (
+        <div className="mt-4 rounded-lg bg-slate-50 p-3 text-sm">
+          <div className="flex justify-between text-slate-600"><span>Prenájom ({days} dní)</span><span>{formatCurrency(price.rental)}</span></div>
+          {price.del > 0 && <div className="flex justify-between text-slate-600"><span>Doprava</span><span>{formatCurrency(price.del)}</span></div>}
+          <div className="flex justify-between text-slate-600"><span>DPH {vatRate} %</span><span>{formatCurrency(price.vat)}</span></div>
+          <div className="mt-1 flex justify-between border-t border-slate-200 pt-1 font-bold text-brand-navy">
+            <span>Spolu s DPH</span><span>{formatCurrency(price.incl)}</span>
+          </div>
+        </div>
+      )}
+
+      {terms && <p className="mt-3 whitespace-pre-wrap text-xs text-slate-400">{terms}</p>}
+
+      <label className="mt-3 flex items-start gap-2 text-sm text-slate-600">
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5" />
+        Súhlasím so spracovaním osobných údajov na účely vybavenia rezervácie.
+      </label>
+
+      <button type="submit" className="btn-primary mt-4 w-full" disabled={submitting}>
+        {submitting ? "Odosielam…" : "Odoslať rezerváciu"}
+      </button>
+    </form>
+  );
+}

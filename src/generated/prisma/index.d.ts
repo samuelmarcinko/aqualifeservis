@@ -119,6 +119,31 @@ export type CompanySettings = $Result.DefaultSelection<Prisma.$CompanySettingsPa
  */
 export type AiSettings = $Result.DefaultSelection<Prisma.$AiSettingsPayload>
 /**
+ * Model RentalCategory
+ * 
+ */
+export type RentalCategory = $Result.DefaultSelection<Prisma.$RentalCategoryPayload>
+/**
+ * Model RentalTool
+ * 
+ */
+export type RentalTool = $Result.DefaultSelection<Prisma.$RentalToolPayload>
+/**
+ * Model RentalReservation
+ * 
+ */
+export type RentalReservation = $Result.DefaultSelection<Prisma.$RentalReservationPayload>
+/**
+ * Model RentalBooking
+ * 
+ */
+export type RentalBooking = $Result.DefaultSelection<Prisma.$RentalBookingPayload>
+/**
+ * Model RentalSettings
+ * 
+ */
+export type RentalSettings = $Result.DefaultSelection<Prisma.$RentalSettingsPayload>
+/**
  * Model SmtpSettings
  * 
  */
@@ -155,7 +180,8 @@ export type CatalogItemType = (typeof CatalogItemType)[keyof typeof CatalogItemT
 
 export const SequenceKind: {
   QUOTATION: 'QUOTATION',
-  PROTOCOL: 'PROTOCOL'
+  PROTOCOL: 'PROTOCOL',
+  RENTAL: 'RENTAL'
 };
 
 export type SequenceKind = (typeof SequenceKind)[keyof typeof SequenceKind]
@@ -219,6 +245,32 @@ export const DocumentType: {
 
 export type DocumentType = (typeof DocumentType)[keyof typeof DocumentType]
 
+
+export const RentalDelivery: {
+  PICKUP: 'PICKUP',
+  DELIVERY: 'DELIVERY'
+};
+
+export type RentalDelivery = (typeof RentalDelivery)[keyof typeof RentalDelivery]
+
+
+export const RentalReservationStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type RentalReservationStatus = (typeof RentalReservationStatus)[keyof typeof RentalReservationStatus]
+
+
+export const RentalBookingType: {
+  RESERVATION: 'RESERVATION',
+  BLOCK: 'BLOCK'
+};
+
+export type RentalBookingType = (typeof RentalBookingType)[keyof typeof RentalBookingType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -260,6 +312,18 @@ export const PhotoCategory: typeof $Enums.PhotoCategory
 export type DocumentType = $Enums.DocumentType
 
 export const DocumentType: typeof $Enums.DocumentType
+
+export type RentalDelivery = $Enums.RentalDelivery
+
+export const RentalDelivery: typeof $Enums.RentalDelivery
+
+export type RentalReservationStatus = $Enums.RentalReservationStatus
+
+export const RentalReservationStatus: typeof $Enums.RentalReservationStatus
+
+export type RentalBookingType = $Enums.RentalBookingType
+
+export const RentalBookingType: typeof $Enums.RentalBookingType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -588,6 +652,56 @@ export class PrismaClient<
     * ```
     */
   get aiSettings(): Prisma.AiSettingsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rentalCategory`: Exposes CRUD operations for the **RentalCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalCategories
+    * const rentalCategories = await prisma.rentalCategory.findMany()
+    * ```
+    */
+  get rentalCategory(): Prisma.RentalCategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rentalTool`: Exposes CRUD operations for the **RentalTool** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalTools
+    * const rentalTools = await prisma.rentalTool.findMany()
+    * ```
+    */
+  get rentalTool(): Prisma.RentalToolDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rentalReservation`: Exposes CRUD operations for the **RentalReservation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalReservations
+    * const rentalReservations = await prisma.rentalReservation.findMany()
+    * ```
+    */
+  get rentalReservation(): Prisma.RentalReservationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rentalBooking`: Exposes CRUD operations for the **RentalBooking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalBookings
+    * const rentalBookings = await prisma.rentalBooking.findMany()
+    * ```
+    */
+  get rentalBooking(): Prisma.RentalBookingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rentalSettings`: Exposes CRUD operations for the **RentalSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalSettings
+    * const rentalSettings = await prisma.rentalSettings.findMany()
+    * ```
+    */
+  get rentalSettings(): Prisma.RentalSettingsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.smtpSettings`: Exposes CRUD operations for the **SmtpSettings** model.
@@ -1060,6 +1174,11 @@ export namespace Prisma {
     ActivityLog: 'ActivityLog',
     CompanySettings: 'CompanySettings',
     AiSettings: 'AiSettings',
+    RentalCategory: 'RentalCategory',
+    RentalTool: 'RentalTool',
+    RentalReservation: 'RentalReservation',
+    RentalBooking: 'RentalBooking',
+    RentalSettings: 'RentalSettings',
     SmtpSettings: 'SmtpSettings'
   };
 
@@ -1079,7 +1198,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "customer" | "customerServiceAddress" | "customerNote" | "catalogItem" | "documentSequence" | "quotation" | "quotationItem" | "quotationRevision" | "repairProtocol" | "protocolWorkItem" | "protocolPhoto" | "repairProtocolRevision" | "storedDocument" | "emailLog" | "activityLog" | "companySettings" | "aiSettings" | "smtpSettings"
+      modelProps: "user" | "session" | "account" | "verification" | "customer" | "customerServiceAddress" | "customerNote" | "catalogItem" | "documentSequence" | "quotation" | "quotationItem" | "quotationRevision" | "repairProtocol" | "protocolWorkItem" | "protocolPhoto" | "repairProtocolRevision" | "storedDocument" | "emailLog" | "activityLog" | "companySettings" | "aiSettings" | "rentalCategory" | "rentalTool" | "rentalReservation" | "rentalBooking" | "rentalSettings" | "smtpSettings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2637,6 +2756,376 @@ export namespace Prisma {
           }
         }
       }
+      RentalCategory: {
+        payload: Prisma.$RentalCategoryPayload<ExtArgs>
+        fields: Prisma.RentalCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.RentalCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.RentalCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.RentalCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>
+          }
+          update: {
+            args: Prisma.RentalCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalCategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalCategory>
+          }
+          groupBy: {
+            args: Prisma.RentalCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      RentalTool: {
+        payload: Prisma.$RentalToolPayload<ExtArgs>
+        fields: Prisma.RentalToolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalToolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalToolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalToolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalToolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>
+          }
+          findMany: {
+            args: Prisma.RentalToolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>[]
+          }
+          create: {
+            args: Prisma.RentalToolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>
+          }
+          createMany: {
+            args: Prisma.RentalToolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalToolCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalToolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>
+          }
+          update: {
+            args: Prisma.RentalToolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalToolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalToolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalToolUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalToolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalToolPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalToolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalTool>
+          }
+          groupBy: {
+            args: Prisma.RentalToolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalToolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalToolCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalToolCountAggregateOutputType> | number
+          }
+        }
+      }
+      RentalReservation: {
+        payload: Prisma.$RentalReservationPayload<ExtArgs>
+        fields: Prisma.RentalReservationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalReservationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalReservationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalReservationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalReservationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>
+          }
+          findMany: {
+            args: Prisma.RentalReservationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>[]
+          }
+          create: {
+            args: Prisma.RentalReservationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>
+          }
+          createMany: {
+            args: Prisma.RentalReservationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalReservationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalReservationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>
+          }
+          update: {
+            args: Prisma.RentalReservationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalReservationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalReservationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalReservationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalReservationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalReservationPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalReservationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalReservation>
+          }
+          groupBy: {
+            args: Prisma.RentalReservationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalReservationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalReservationCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalReservationCountAggregateOutputType> | number
+          }
+        }
+      }
+      RentalBooking: {
+        payload: Prisma.$RentalBookingPayload<ExtArgs>
+        fields: Prisma.RentalBookingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalBookingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalBookingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalBookingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalBookingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>
+          }
+          findMany: {
+            args: Prisma.RentalBookingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>[]
+          }
+          create: {
+            args: Prisma.RentalBookingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>
+          }
+          createMany: {
+            args: Prisma.RentalBookingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalBookingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalBookingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>
+          }
+          update: {
+            args: Prisma.RentalBookingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalBookingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalBookingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalBookingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalBookingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalBookingPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalBookingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalBooking>
+          }
+          groupBy: {
+            args: Prisma.RentalBookingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalBookingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalBookingCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalBookingCountAggregateOutputType> | number
+          }
+        }
+      }
+      RentalSettings: {
+        payload: Prisma.$RentalSettingsPayload<ExtArgs>
+        fields: Prisma.RentalSettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalSettingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalSettingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalSettingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalSettingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>
+          }
+          findMany: {
+            args: Prisma.RentalSettingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>[]
+          }
+          create: {
+            args: Prisma.RentalSettingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>
+          }
+          createMany: {
+            args: Prisma.RentalSettingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalSettingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalSettingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>
+          }
+          update: {
+            args: Prisma.RentalSettingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalSettingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalSettingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalSettingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalSettingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalSettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalSettingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalSettings>
+          }
+          groupBy: {
+            args: Prisma.RentalSettingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalSettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalSettingsCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalSettingsCountAggregateOutputType> | number
+          }
+        }
+      }
       SmtpSettings: {
         payload: Prisma.$SmtpSettingsPayload<ExtArgs>
         fields: Prisma.SmtpSettingsFieldRefs
@@ -2828,6 +3317,11 @@ export namespace Prisma {
     activityLog?: ActivityLogOmit
     companySettings?: CompanySettingsOmit
     aiSettings?: AiSettingsOmit
+    rentalCategory?: RentalCategoryOmit
+    rentalTool?: RentalToolOmit
+    rentalReservation?: RentalReservationOmit
+    rentalBooking?: RentalBookingOmit
+    rentalSettings?: RentalSettingsOmit
     smtpSettings?: SmtpSettingsOmit
   }
 
@@ -3164,6 +3658,77 @@ export namespace Prisma {
    */
   export type StoredDocumentCountOutputTypeCountEmailLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmailLogWhereInput
+  }
+
+
+  /**
+   * Count Type RentalCategoryCountOutputType
+   */
+
+  export type RentalCategoryCountOutputType = {
+    tools: number
+  }
+
+  export type RentalCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tools?: boolean | RentalCategoryCountOutputTypeCountToolsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RentalCategoryCountOutputType without action
+   */
+  export type RentalCategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategoryCountOutputType
+     */
+    select?: RentalCategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RentalCategoryCountOutputType without action
+   */
+  export type RentalCategoryCountOutputTypeCountToolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalToolWhereInput
+  }
+
+
+  /**
+   * Count Type RentalToolCountOutputType
+   */
+
+  export type RentalToolCountOutputType = {
+    reservations: number
+    bookings: number
+  }
+
+  export type RentalToolCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reservations?: boolean | RentalToolCountOutputTypeCountReservationsArgs
+    bookings?: boolean | RentalToolCountOutputTypeCountBookingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RentalToolCountOutputType without action
+   */
+  export type RentalToolCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalToolCountOutputType
+     */
+    select?: RentalToolCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RentalToolCountOutputType without action
+   */
+  export type RentalToolCountOutputTypeCountReservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalReservationWhereInput
+  }
+
+  /**
+   * RentalToolCountOutputType without action
+   */
+  export type RentalToolCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalBookingWhereInput
   }
 
 
@@ -28374,6 +28939,6256 @@ export namespace Prisma {
 
 
   /**
+   * Model RentalCategory
+   */
+
+  export type AggregateRentalCategory = {
+    _count: RentalCategoryCountAggregateOutputType | null
+    _avg: RentalCategoryAvgAggregateOutputType | null
+    _sum: RentalCategorySumAggregateOutputType | null
+    _min: RentalCategoryMinAggregateOutputType | null
+    _max: RentalCategoryMaxAggregateOutputType | null
+  }
+
+  export type RentalCategoryAvgAggregateOutputType = {
+    position: number | null
+  }
+
+  export type RentalCategorySumAggregateOutputType = {
+    position: number | null
+  }
+
+  export type RentalCategoryMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    description: string | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalCategoryMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    description: string | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalCategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    description: number
+    imageUrl: number
+    imageBlobPath: number
+    position: number
+    active: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RentalCategoryAvgAggregateInputType = {
+    position?: true
+  }
+
+  export type RentalCategorySumAggregateInputType = {
+    position?: true
+  }
+
+  export type RentalCategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    description?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalCategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    description?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalCategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    description?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RentalCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalCategory to aggregate.
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalCategories to fetch.
+     */
+    orderBy?: RentalCategoryOrderByWithRelationInput | RentalCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalCategories
+    **/
+    _count?: true | RentalCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalCategoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalCategorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalCategoryMaxAggregateInputType
+  }
+
+  export type GetRentalCategoryAggregateType<T extends RentalCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalCategory[P]>
+      : GetScalarType<T[P], AggregateRentalCategory[P]>
+  }
+
+
+
+
+  export type RentalCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalCategoryWhereInput
+    orderBy?: RentalCategoryOrderByWithAggregationInput | RentalCategoryOrderByWithAggregationInput[]
+    by: RentalCategoryScalarFieldEnum[] | RentalCategoryScalarFieldEnum
+    having?: RentalCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalCategoryCountAggregateInputType | true
+    _avg?: RentalCategoryAvgAggregateInputType
+    _sum?: RentalCategorySumAggregateInputType
+    _min?: RentalCategoryMinAggregateInputType
+    _max?: RentalCategoryMaxAggregateInputType
+  }
+
+  export type RentalCategoryGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    description: string | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    position: number
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RentalCategoryCountAggregateOutputType | null
+    _avg: RentalCategoryAvgAggregateOutputType | null
+    _sum: RentalCategorySumAggregateOutputType | null
+    _min: RentalCategoryMinAggregateOutputType | null
+    _max: RentalCategoryMaxAggregateOutputType | null
+  }
+
+  type GetRentalCategoryGroupByPayload<T extends RentalCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tools?: boolean | RentalCategory$toolsArgs<ExtArgs>
+    _count?: boolean | RentalCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalCategory"]>
+
+  export type RentalCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["rentalCategory"]>
+
+  export type RentalCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["rentalCategory"]>
+
+  export type RentalCategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RentalCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "imageUrl" | "imageBlobPath" | "position" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalCategory"]>
+  export type RentalCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tools?: boolean | RentalCategory$toolsArgs<ExtArgs>
+    _count?: boolean | RentalCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RentalCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type RentalCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $RentalCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalCategory"
+    objects: {
+      tools: Prisma.$RentalToolPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      description: string | null
+      imageUrl: string | null
+      imageBlobPath: string | null
+      position: number
+      active: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["rentalCategory"]>
+    composites: {}
+  }
+
+  type RentalCategoryGetPayload<S extends boolean | null | undefined | RentalCategoryDefaultArgs> = $Result.GetResult<Prisma.$RentalCategoryPayload, S>
+
+  type RentalCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalCategoryCountAggregateInputType | true
+    }
+
+  export interface RentalCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalCategory'], meta: { name: 'RentalCategory' } }
+    /**
+     * Find zero or one RentalCategory that matches the filter.
+     * @param {RentalCategoryFindUniqueArgs} args - Arguments to find a RentalCategory
+     * @example
+     * // Get one RentalCategory
+     * const rentalCategory = await prisma.rentalCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalCategoryFindUniqueArgs>(args: SelectSubset<T, RentalCategoryFindUniqueArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalCategory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalCategoryFindUniqueOrThrowArgs} args - Arguments to find a RentalCategory
+     * @example
+     * // Get one RentalCategory
+     * const rentalCategory = await prisma.rentalCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryFindFirstArgs} args - Arguments to find a RentalCategory
+     * @example
+     * // Get one RentalCategory
+     * const rentalCategory = await prisma.rentalCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalCategoryFindFirstArgs>(args?: SelectSubset<T, RentalCategoryFindFirstArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryFindFirstOrThrowArgs} args - Arguments to find a RentalCategory
+     * @example
+     * // Get one RentalCategory
+     * const rentalCategory = await prisma.rentalCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalCategories
+     * const rentalCategories = await prisma.rentalCategory.findMany()
+     * 
+     * // Get first 10 RentalCategories
+     * const rentalCategories = await prisma.rentalCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalCategoryWithIdOnly = await prisma.rentalCategory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalCategoryFindManyArgs>(args?: SelectSubset<T, RentalCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalCategory.
+     * @param {RentalCategoryCreateArgs} args - Arguments to create a RentalCategory.
+     * @example
+     * // Create one RentalCategory
+     * const RentalCategory = await prisma.rentalCategory.create({
+     *   data: {
+     *     // ... data to create a RentalCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalCategoryCreateArgs>(args: SelectSubset<T, RentalCategoryCreateArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalCategories.
+     * @param {RentalCategoryCreateManyArgs} args - Arguments to create many RentalCategories.
+     * @example
+     * // Create many RentalCategories
+     * const rentalCategory = await prisma.rentalCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalCategoryCreateManyArgs>(args?: SelectSubset<T, RentalCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalCategories and returns the data saved in the database.
+     * @param {RentalCategoryCreateManyAndReturnArgs} args - Arguments to create many RentalCategories.
+     * @example
+     * // Create many RentalCategories
+     * const rentalCategory = await prisma.rentalCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalCategories and only return the `id`
+     * const rentalCategoryWithIdOnly = await prisma.rentalCategory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalCategory.
+     * @param {RentalCategoryDeleteArgs} args - Arguments to delete one RentalCategory.
+     * @example
+     * // Delete one RentalCategory
+     * const RentalCategory = await prisma.rentalCategory.delete({
+     *   where: {
+     *     // ... filter to delete one RentalCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalCategoryDeleteArgs>(args: SelectSubset<T, RentalCategoryDeleteArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalCategory.
+     * @param {RentalCategoryUpdateArgs} args - Arguments to update one RentalCategory.
+     * @example
+     * // Update one RentalCategory
+     * const rentalCategory = await prisma.rentalCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalCategoryUpdateArgs>(args: SelectSubset<T, RentalCategoryUpdateArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalCategories.
+     * @param {RentalCategoryDeleteManyArgs} args - Arguments to filter RentalCategories to delete.
+     * @example
+     * // Delete a few RentalCategories
+     * const { count } = await prisma.rentalCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalCategoryDeleteManyArgs>(args?: SelectSubset<T, RentalCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalCategories
+     * const rentalCategory = await prisma.rentalCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalCategoryUpdateManyArgs>(args: SelectSubset<T, RentalCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalCategories and returns the data updated in the database.
+     * @param {RentalCategoryUpdateManyAndReturnArgs} args - Arguments to update many RentalCategories.
+     * @example
+     * // Update many RentalCategories
+     * const rentalCategory = await prisma.rentalCategory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalCategories and only return the `id`
+     * const rentalCategoryWithIdOnly = await prisma.rentalCategory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalCategory.
+     * @param {RentalCategoryUpsertArgs} args - Arguments to update or create a RentalCategory.
+     * @example
+     * // Update or create a RentalCategory
+     * const rentalCategory = await prisma.rentalCategory.upsert({
+     *   create: {
+     *     // ... data to create a RentalCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalCategoryUpsertArgs>(args: SelectSubset<T, RentalCategoryUpsertArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryCountArgs} args - Arguments to filter RentalCategories to count.
+     * @example
+     * // Count the number of RentalCategories
+     * const count = await prisma.rentalCategory.count({
+     *   where: {
+     *     // ... the filter for the RentalCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalCategoryCountArgs>(
+      args?: Subset<T, RentalCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalCategoryAggregateArgs>(args: Subset<T, RentalCategoryAggregateArgs>): Prisma.PrismaPromise<GetRentalCategoryAggregateType<T>>
+
+    /**
+     * Group by RentalCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: RentalCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalCategory model
+   */
+  readonly fields: RentalCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tools<T extends RentalCategory$toolsArgs<ExtArgs> = {}>(args?: Subset<T, RentalCategory$toolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalCategory model
+   */
+  interface RentalCategoryFieldRefs {
+    readonly id: FieldRef<"RentalCategory", 'String'>
+    readonly name: FieldRef<"RentalCategory", 'String'>
+    readonly slug: FieldRef<"RentalCategory", 'String'>
+    readonly description: FieldRef<"RentalCategory", 'String'>
+    readonly imageUrl: FieldRef<"RentalCategory", 'String'>
+    readonly imageBlobPath: FieldRef<"RentalCategory", 'String'>
+    readonly position: FieldRef<"RentalCategory", 'Int'>
+    readonly active: FieldRef<"RentalCategory", 'Boolean'>
+    readonly createdAt: FieldRef<"RentalCategory", 'DateTime'>
+    readonly updatedAt: FieldRef<"RentalCategory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalCategory findUnique
+   */
+  export type RentalCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalCategory to fetch.
+     */
+    where: RentalCategoryWhereUniqueInput
+  }
+
+  /**
+   * RentalCategory findUniqueOrThrow
+   */
+  export type RentalCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalCategory to fetch.
+     */
+    where: RentalCategoryWhereUniqueInput
+  }
+
+  /**
+   * RentalCategory findFirst
+   */
+  export type RentalCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalCategory to fetch.
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalCategories to fetch.
+     */
+    orderBy?: RentalCategoryOrderByWithRelationInput | RentalCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalCategories.
+     */
+    cursor?: RentalCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalCategories.
+     */
+    distinct?: RentalCategoryScalarFieldEnum | RentalCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * RentalCategory findFirstOrThrow
+   */
+  export type RentalCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalCategory to fetch.
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalCategories to fetch.
+     */
+    orderBy?: RentalCategoryOrderByWithRelationInput | RentalCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalCategories.
+     */
+    cursor?: RentalCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalCategories.
+     */
+    distinct?: RentalCategoryScalarFieldEnum | RentalCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * RentalCategory findMany
+   */
+  export type RentalCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalCategories to fetch.
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalCategories to fetch.
+     */
+    orderBy?: RentalCategoryOrderByWithRelationInput | RentalCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalCategories.
+     */
+    cursor?: RentalCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalCategories.
+     */
+    skip?: number
+    distinct?: RentalCategoryScalarFieldEnum | RentalCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * RentalCategory create
+   */
+  export type RentalCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RentalCategory.
+     */
+    data: XOR<RentalCategoryCreateInput, RentalCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * RentalCategory createMany
+   */
+  export type RentalCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalCategories.
+     */
+    data: RentalCategoryCreateManyInput | RentalCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalCategory createManyAndReturn
+   */
+  export type RentalCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalCategories.
+     */
+    data: RentalCategoryCreateManyInput | RentalCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalCategory update
+   */
+  export type RentalCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RentalCategory.
+     */
+    data: XOR<RentalCategoryUpdateInput, RentalCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which RentalCategory to update.
+     */
+    where: RentalCategoryWhereUniqueInput
+  }
+
+  /**
+   * RentalCategory updateMany
+   */
+  export type RentalCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalCategories.
+     */
+    data: XOR<RentalCategoryUpdateManyMutationInput, RentalCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalCategories to update
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * Limit how many RentalCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalCategory updateManyAndReturn
+   */
+  export type RentalCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalCategories.
+     */
+    data: XOR<RentalCategoryUpdateManyMutationInput, RentalCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalCategories to update
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * Limit how many RentalCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalCategory upsert
+   */
+  export type RentalCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RentalCategory to update in case it exists.
+     */
+    where: RentalCategoryWhereUniqueInput
+    /**
+     * In case the RentalCategory found by the `where` argument doesn't exist, create a new RentalCategory with this data.
+     */
+    create: XOR<RentalCategoryCreateInput, RentalCategoryUncheckedCreateInput>
+    /**
+     * In case the RentalCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalCategoryUpdateInput, RentalCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalCategory delete
+   */
+  export type RentalCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+    /**
+     * Filter which RentalCategory to delete.
+     */
+    where: RentalCategoryWhereUniqueInput
+  }
+
+  /**
+   * RentalCategory deleteMany
+   */
+  export type RentalCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalCategories to delete
+     */
+    where?: RentalCategoryWhereInput
+    /**
+     * Limit how many RentalCategories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalCategory.tools
+   */
+  export type RentalCategory$toolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    where?: RentalToolWhereInput
+    orderBy?: RentalToolOrderByWithRelationInput | RentalToolOrderByWithRelationInput[]
+    cursor?: RentalToolWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RentalToolScalarFieldEnum | RentalToolScalarFieldEnum[]
+  }
+
+  /**
+   * RentalCategory without action
+   */
+  export type RentalCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalCategory
+     */
+    select?: RentalCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalCategory
+     */
+    omit?: RentalCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalCategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RentalTool
+   */
+
+  export type AggregateRentalTool = {
+    _count: RentalToolCountAggregateOutputType | null
+    _avg: RentalToolAvgAggregateOutputType | null
+    _sum: RentalToolSumAggregateOutputType | null
+    _min: RentalToolMinAggregateOutputType | null
+    _max: RentalToolMaxAggregateOutputType | null
+  }
+
+  export type RentalToolAvgAggregateOutputType = {
+    dailyPriceExVat: Decimal | null
+    vatRate: Decimal | null
+    quantity: number | null
+    position: number | null
+  }
+
+  export type RentalToolSumAggregateOutputType = {
+    dailyPriceExVat: Decimal | null
+    vatRate: Decimal | null
+    quantity: number | null
+    position: number | null
+  }
+
+  export type RentalToolMinAggregateOutputType = {
+    id: string | null
+    categoryId: string | null
+    name: string | null
+    slug: string | null
+    description: string | null
+    accessories: string | null
+    dailyPriceExVat: Decimal | null
+    vatRate: Decimal | null
+    quantity: number | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalToolMaxAggregateOutputType = {
+    id: string | null
+    categoryId: string | null
+    name: string | null
+    slug: string | null
+    description: string | null
+    accessories: string | null
+    dailyPriceExVat: Decimal | null
+    vatRate: Decimal | null
+    quantity: number | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalToolCountAggregateOutputType = {
+    id: number
+    categoryId: number
+    name: number
+    slug: number
+    description: number
+    accessories: number
+    dailyPriceExVat: number
+    vatRate: number
+    quantity: number
+    imageUrl: number
+    imageBlobPath: number
+    position: number
+    active: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RentalToolAvgAggregateInputType = {
+    dailyPriceExVat?: true
+    vatRate?: true
+    quantity?: true
+    position?: true
+  }
+
+  export type RentalToolSumAggregateInputType = {
+    dailyPriceExVat?: true
+    vatRate?: true
+    quantity?: true
+    position?: true
+  }
+
+  export type RentalToolMinAggregateInputType = {
+    id?: true
+    categoryId?: true
+    name?: true
+    slug?: true
+    description?: true
+    accessories?: true
+    dailyPriceExVat?: true
+    vatRate?: true
+    quantity?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalToolMaxAggregateInputType = {
+    id?: true
+    categoryId?: true
+    name?: true
+    slug?: true
+    description?: true
+    accessories?: true
+    dailyPriceExVat?: true
+    vatRate?: true
+    quantity?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalToolCountAggregateInputType = {
+    id?: true
+    categoryId?: true
+    name?: true
+    slug?: true
+    description?: true
+    accessories?: true
+    dailyPriceExVat?: true
+    vatRate?: true
+    quantity?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RentalToolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalTool to aggregate.
+     */
+    where?: RentalToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalTools to fetch.
+     */
+    orderBy?: RentalToolOrderByWithRelationInput | RentalToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalTools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalTools
+    **/
+    _count?: true | RentalToolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalToolAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalToolSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalToolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalToolMaxAggregateInputType
+  }
+
+  export type GetRentalToolAggregateType<T extends RentalToolAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalTool]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalTool[P]>
+      : GetScalarType<T[P], AggregateRentalTool[P]>
+  }
+
+
+
+
+  export type RentalToolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalToolWhereInput
+    orderBy?: RentalToolOrderByWithAggregationInput | RentalToolOrderByWithAggregationInput[]
+    by: RentalToolScalarFieldEnum[] | RentalToolScalarFieldEnum
+    having?: RentalToolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalToolCountAggregateInputType | true
+    _avg?: RentalToolAvgAggregateInputType
+    _sum?: RentalToolSumAggregateInputType
+    _min?: RentalToolMinAggregateInputType
+    _max?: RentalToolMaxAggregateInputType
+  }
+
+  export type RentalToolGroupByOutputType = {
+    id: string
+    categoryId: string
+    name: string
+    slug: string
+    description: string | null
+    accessories: string | null
+    dailyPriceExVat: Decimal
+    vatRate: Decimal
+    quantity: number
+    imageUrl: string | null
+    imageBlobPath: string | null
+    position: number
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RentalToolCountAggregateOutputType | null
+    _avg: RentalToolAvgAggregateOutputType | null
+    _sum: RentalToolSumAggregateOutputType | null
+    _min: RentalToolMinAggregateOutputType | null
+    _max: RentalToolMaxAggregateOutputType | null
+  }
+
+  type GetRentalToolGroupByPayload<T extends RentalToolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalToolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalToolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalToolGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalToolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalToolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    categoryId?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    accessories?: boolean
+    dailyPriceExVat?: boolean
+    vatRate?: boolean
+    quantity?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
+    reservations?: boolean | RentalTool$reservationsArgs<ExtArgs>
+    bookings?: boolean | RentalTool$bookingsArgs<ExtArgs>
+    _count?: boolean | RentalToolCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalTool"]>
+
+  export type RentalToolSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    categoryId?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    accessories?: boolean
+    dailyPriceExVat?: boolean
+    vatRate?: boolean
+    quantity?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalTool"]>
+
+  export type RentalToolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    categoryId?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    accessories?: boolean
+    dailyPriceExVat?: boolean
+    vatRate?: boolean
+    quantity?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalTool"]>
+
+  export type RentalToolSelectScalar = {
+    id?: boolean
+    categoryId?: boolean
+    name?: boolean
+    slug?: boolean
+    description?: boolean
+    accessories?: boolean
+    dailyPriceExVat?: boolean
+    vatRate?: boolean
+    quantity?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RentalToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "name" | "slug" | "description" | "accessories" | "dailyPriceExVat" | "vatRate" | "quantity" | "imageUrl" | "imageBlobPath" | "position" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalTool"]>
+  export type RentalToolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
+    reservations?: boolean | RentalTool$reservationsArgs<ExtArgs>
+    bookings?: boolean | RentalTool$bookingsArgs<ExtArgs>
+    _count?: boolean | RentalToolCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RentalToolIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
+  }
+  export type RentalToolIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
+  }
+
+  export type $RentalToolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalTool"
+    objects: {
+      category: Prisma.$RentalCategoryPayload<ExtArgs>
+      reservations: Prisma.$RentalReservationPayload<ExtArgs>[]
+      bookings: Prisma.$RentalBookingPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      categoryId: string
+      name: string
+      slug: string
+      description: string | null
+      accessories: string | null
+      dailyPriceExVat: Prisma.Decimal
+      vatRate: Prisma.Decimal
+      quantity: number
+      imageUrl: string | null
+      imageBlobPath: string | null
+      position: number
+      active: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["rentalTool"]>
+    composites: {}
+  }
+
+  type RentalToolGetPayload<S extends boolean | null | undefined | RentalToolDefaultArgs> = $Result.GetResult<Prisma.$RentalToolPayload, S>
+
+  type RentalToolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalToolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalToolCountAggregateInputType | true
+    }
+
+  export interface RentalToolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalTool'], meta: { name: 'RentalTool' } }
+    /**
+     * Find zero or one RentalTool that matches the filter.
+     * @param {RentalToolFindUniqueArgs} args - Arguments to find a RentalTool
+     * @example
+     * // Get one RentalTool
+     * const rentalTool = await prisma.rentalTool.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalToolFindUniqueArgs>(args: SelectSubset<T, RentalToolFindUniqueArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalTool that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalToolFindUniqueOrThrowArgs} args - Arguments to find a RentalTool
+     * @example
+     * // Get one RentalTool
+     * const rentalTool = await prisma.rentalTool.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalToolFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalToolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalTool that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolFindFirstArgs} args - Arguments to find a RentalTool
+     * @example
+     * // Get one RentalTool
+     * const rentalTool = await prisma.rentalTool.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalToolFindFirstArgs>(args?: SelectSubset<T, RentalToolFindFirstArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalTool that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolFindFirstOrThrowArgs} args - Arguments to find a RentalTool
+     * @example
+     * // Get one RentalTool
+     * const rentalTool = await prisma.rentalTool.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalToolFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalToolFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalTools that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalTools
+     * const rentalTools = await prisma.rentalTool.findMany()
+     * 
+     * // Get first 10 RentalTools
+     * const rentalTools = await prisma.rentalTool.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalToolWithIdOnly = await prisma.rentalTool.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalToolFindManyArgs>(args?: SelectSubset<T, RentalToolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalTool.
+     * @param {RentalToolCreateArgs} args - Arguments to create a RentalTool.
+     * @example
+     * // Create one RentalTool
+     * const RentalTool = await prisma.rentalTool.create({
+     *   data: {
+     *     // ... data to create a RentalTool
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalToolCreateArgs>(args: SelectSubset<T, RentalToolCreateArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalTools.
+     * @param {RentalToolCreateManyArgs} args - Arguments to create many RentalTools.
+     * @example
+     * // Create many RentalTools
+     * const rentalTool = await prisma.rentalTool.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalToolCreateManyArgs>(args?: SelectSubset<T, RentalToolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalTools and returns the data saved in the database.
+     * @param {RentalToolCreateManyAndReturnArgs} args - Arguments to create many RentalTools.
+     * @example
+     * // Create many RentalTools
+     * const rentalTool = await prisma.rentalTool.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalTools and only return the `id`
+     * const rentalToolWithIdOnly = await prisma.rentalTool.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalToolCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalToolCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalTool.
+     * @param {RentalToolDeleteArgs} args - Arguments to delete one RentalTool.
+     * @example
+     * // Delete one RentalTool
+     * const RentalTool = await prisma.rentalTool.delete({
+     *   where: {
+     *     // ... filter to delete one RentalTool
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalToolDeleteArgs>(args: SelectSubset<T, RentalToolDeleteArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalTool.
+     * @param {RentalToolUpdateArgs} args - Arguments to update one RentalTool.
+     * @example
+     * // Update one RentalTool
+     * const rentalTool = await prisma.rentalTool.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalToolUpdateArgs>(args: SelectSubset<T, RentalToolUpdateArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalTools.
+     * @param {RentalToolDeleteManyArgs} args - Arguments to filter RentalTools to delete.
+     * @example
+     * // Delete a few RentalTools
+     * const { count } = await prisma.rentalTool.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalToolDeleteManyArgs>(args?: SelectSubset<T, RentalToolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalTools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalTools
+     * const rentalTool = await prisma.rentalTool.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalToolUpdateManyArgs>(args: SelectSubset<T, RentalToolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalTools and returns the data updated in the database.
+     * @param {RentalToolUpdateManyAndReturnArgs} args - Arguments to update many RentalTools.
+     * @example
+     * // Update many RentalTools
+     * const rentalTool = await prisma.rentalTool.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalTools and only return the `id`
+     * const rentalToolWithIdOnly = await prisma.rentalTool.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalToolUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalToolUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalTool.
+     * @param {RentalToolUpsertArgs} args - Arguments to update or create a RentalTool.
+     * @example
+     * // Update or create a RentalTool
+     * const rentalTool = await prisma.rentalTool.upsert({
+     *   create: {
+     *     // ... data to create a RentalTool
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalTool we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalToolUpsertArgs>(args: SelectSubset<T, RentalToolUpsertArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalTools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolCountArgs} args - Arguments to filter RentalTools to count.
+     * @example
+     * // Count the number of RentalTools
+     * const count = await prisma.rentalTool.count({
+     *   where: {
+     *     // ... the filter for the RentalTools we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalToolCountArgs>(
+      args?: Subset<T, RentalToolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalToolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalTool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalToolAggregateArgs>(args: Subset<T, RentalToolAggregateArgs>): Prisma.PrismaPromise<GetRentalToolAggregateType<T>>
+
+    /**
+     * Group by RentalTool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalToolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalToolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalToolGroupByArgs['orderBy'] }
+        : { orderBy?: RentalToolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalToolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalToolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalTool model
+   */
+  readonly fields: RentalToolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalTool.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalToolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    category<T extends RentalCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RentalCategoryDefaultArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reservations<T extends RentalTool$reservationsArgs<ExtArgs> = {}>(args?: Subset<T, RentalTool$reservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bookings<T extends RentalTool$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, RentalTool$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalTool model
+   */
+  interface RentalToolFieldRefs {
+    readonly id: FieldRef<"RentalTool", 'String'>
+    readonly categoryId: FieldRef<"RentalTool", 'String'>
+    readonly name: FieldRef<"RentalTool", 'String'>
+    readonly slug: FieldRef<"RentalTool", 'String'>
+    readonly description: FieldRef<"RentalTool", 'String'>
+    readonly accessories: FieldRef<"RentalTool", 'String'>
+    readonly dailyPriceExVat: FieldRef<"RentalTool", 'Decimal'>
+    readonly vatRate: FieldRef<"RentalTool", 'Decimal'>
+    readonly quantity: FieldRef<"RentalTool", 'Int'>
+    readonly imageUrl: FieldRef<"RentalTool", 'String'>
+    readonly imageBlobPath: FieldRef<"RentalTool", 'String'>
+    readonly position: FieldRef<"RentalTool", 'Int'>
+    readonly active: FieldRef<"RentalTool", 'Boolean'>
+    readonly createdAt: FieldRef<"RentalTool", 'DateTime'>
+    readonly updatedAt: FieldRef<"RentalTool", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalTool findUnique
+   */
+  export type RentalToolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalTool to fetch.
+     */
+    where: RentalToolWhereUniqueInput
+  }
+
+  /**
+   * RentalTool findUniqueOrThrow
+   */
+  export type RentalToolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalTool to fetch.
+     */
+    where: RentalToolWhereUniqueInput
+  }
+
+  /**
+   * RentalTool findFirst
+   */
+  export type RentalToolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalTool to fetch.
+     */
+    where?: RentalToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalTools to fetch.
+     */
+    orderBy?: RentalToolOrderByWithRelationInput | RentalToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalTools.
+     */
+    cursor?: RentalToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalTools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalTools.
+     */
+    distinct?: RentalToolScalarFieldEnum | RentalToolScalarFieldEnum[]
+  }
+
+  /**
+   * RentalTool findFirstOrThrow
+   */
+  export type RentalToolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalTool to fetch.
+     */
+    where?: RentalToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalTools to fetch.
+     */
+    orderBy?: RentalToolOrderByWithRelationInput | RentalToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalTools.
+     */
+    cursor?: RentalToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalTools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalTools.
+     */
+    distinct?: RentalToolScalarFieldEnum | RentalToolScalarFieldEnum[]
+  }
+
+  /**
+   * RentalTool findMany
+   */
+  export type RentalToolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalTools to fetch.
+     */
+    where?: RentalToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalTools to fetch.
+     */
+    orderBy?: RentalToolOrderByWithRelationInput | RentalToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalTools.
+     */
+    cursor?: RentalToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalTools.
+     */
+    skip?: number
+    distinct?: RentalToolScalarFieldEnum | RentalToolScalarFieldEnum[]
+  }
+
+  /**
+   * RentalTool create
+   */
+  export type RentalToolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RentalTool.
+     */
+    data: XOR<RentalToolCreateInput, RentalToolUncheckedCreateInput>
+  }
+
+  /**
+   * RentalTool createMany
+   */
+  export type RentalToolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalTools.
+     */
+    data: RentalToolCreateManyInput | RentalToolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalTool createManyAndReturn
+   */
+  export type RentalToolCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalTools.
+     */
+    data: RentalToolCreateManyInput | RentalToolCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalTool update
+   */
+  export type RentalToolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RentalTool.
+     */
+    data: XOR<RentalToolUpdateInput, RentalToolUncheckedUpdateInput>
+    /**
+     * Choose, which RentalTool to update.
+     */
+    where: RentalToolWhereUniqueInput
+  }
+
+  /**
+   * RentalTool updateMany
+   */
+  export type RentalToolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalTools.
+     */
+    data: XOR<RentalToolUpdateManyMutationInput, RentalToolUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalTools to update
+     */
+    where?: RentalToolWhereInput
+    /**
+     * Limit how many RentalTools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalTool updateManyAndReturn
+   */
+  export type RentalToolUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalTools.
+     */
+    data: XOR<RentalToolUpdateManyMutationInput, RentalToolUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalTools to update
+     */
+    where?: RentalToolWhereInput
+    /**
+     * Limit how many RentalTools to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalTool upsert
+   */
+  export type RentalToolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RentalTool to update in case it exists.
+     */
+    where: RentalToolWhereUniqueInput
+    /**
+     * In case the RentalTool found by the `where` argument doesn't exist, create a new RentalTool with this data.
+     */
+    create: XOR<RentalToolCreateInput, RentalToolUncheckedCreateInput>
+    /**
+     * In case the RentalTool was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalToolUpdateInput, RentalToolUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalTool delete
+   */
+  export type RentalToolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+    /**
+     * Filter which RentalTool to delete.
+     */
+    where: RentalToolWhereUniqueInput
+  }
+
+  /**
+   * RentalTool deleteMany
+   */
+  export type RentalToolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalTools to delete
+     */
+    where?: RentalToolWhereInput
+    /**
+     * Limit how many RentalTools to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalTool.reservations
+   */
+  export type RentalTool$reservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    where?: RentalReservationWhereInput
+    orderBy?: RentalReservationOrderByWithRelationInput | RentalReservationOrderByWithRelationInput[]
+    cursor?: RentalReservationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RentalReservationScalarFieldEnum | RentalReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RentalTool.bookings
+   */
+  export type RentalTool$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    where?: RentalBookingWhereInput
+    orderBy?: RentalBookingOrderByWithRelationInput | RentalBookingOrderByWithRelationInput[]
+    cursor?: RentalBookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RentalBookingScalarFieldEnum | RentalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * RentalTool without action
+   */
+  export type RentalToolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalTool
+     */
+    select?: RentalToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalTool
+     */
+    omit?: RentalToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalToolInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RentalReservation
+   */
+
+  export type AggregateRentalReservation = {
+    _count: RentalReservationCountAggregateOutputType | null
+    _avg: RentalReservationAvgAggregateOutputType | null
+    _sum: RentalReservationSumAggregateOutputType | null
+    _min: RentalReservationMinAggregateOutputType | null
+    _max: RentalReservationMaxAggregateOutputType | null
+  }
+
+  export type RentalReservationAvgAggregateOutputType = {
+    year: number | null
+    seq: number | null
+    deliveryKm: number | null
+    days: number | null
+    rentalExVat: Decimal | null
+    deliveryExVat: Decimal | null
+    vatAmount: Decimal | null
+    priceInclVat: Decimal | null
+  }
+
+  export type RentalReservationSumAggregateOutputType = {
+    year: number | null
+    seq: number | null
+    deliveryKm: number | null
+    days: number | null
+    rentalExVat: Decimal | null
+    deliveryExVat: Decimal | null
+    vatAmount: Decimal | null
+    priceInclVat: Decimal | null
+  }
+
+  export type RentalReservationMinAggregateOutputType = {
+    id: string | null
+    number: string | null
+    year: number | null
+    seq: number | null
+    toolId: string | null
+    customerName: string | null
+    customerEmail: string | null
+    customerPhone: string | null
+    customerCompany: string | null
+    customerNote: string | null
+    deliveryType: $Enums.RentalDelivery | null
+    deliveryKm: number | null
+    deliveryAddress: string | null
+    startDate: Date | null
+    endDate: Date | null
+    days: number | null
+    rentalExVat: Decimal | null
+    deliveryExVat: Decimal | null
+    vatAmount: Decimal | null
+    priceInclVat: Decimal | null
+    status: $Enums.RentalReservationStatus | null
+    adminNote: string | null
+    decidedById: string | null
+    decidedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalReservationMaxAggregateOutputType = {
+    id: string | null
+    number: string | null
+    year: number | null
+    seq: number | null
+    toolId: string | null
+    customerName: string | null
+    customerEmail: string | null
+    customerPhone: string | null
+    customerCompany: string | null
+    customerNote: string | null
+    deliveryType: $Enums.RentalDelivery | null
+    deliveryKm: number | null
+    deliveryAddress: string | null
+    startDate: Date | null
+    endDate: Date | null
+    days: number | null
+    rentalExVat: Decimal | null
+    deliveryExVat: Decimal | null
+    vatAmount: Decimal | null
+    priceInclVat: Decimal | null
+    status: $Enums.RentalReservationStatus | null
+    adminNote: string | null
+    decidedById: string | null
+    decidedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalReservationCountAggregateOutputType = {
+    id: number
+    number: number
+    year: number
+    seq: number
+    toolId: number
+    toolSnapshot: number
+    customerName: number
+    customerEmail: number
+    customerPhone: number
+    customerCompany: number
+    customerNote: number
+    deliveryType: number
+    deliveryKm: number
+    deliveryAddress: number
+    startDate: number
+    endDate: number
+    days: number
+    rentalExVat: number
+    deliveryExVat: number
+    vatAmount: number
+    priceInclVat: number
+    status: number
+    adminNote: number
+    decidedById: number
+    decidedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RentalReservationAvgAggregateInputType = {
+    year?: true
+    seq?: true
+    deliveryKm?: true
+    days?: true
+    rentalExVat?: true
+    deliveryExVat?: true
+    vatAmount?: true
+    priceInclVat?: true
+  }
+
+  export type RentalReservationSumAggregateInputType = {
+    year?: true
+    seq?: true
+    deliveryKm?: true
+    days?: true
+    rentalExVat?: true
+    deliveryExVat?: true
+    vatAmount?: true
+    priceInclVat?: true
+  }
+
+  export type RentalReservationMinAggregateInputType = {
+    id?: true
+    number?: true
+    year?: true
+    seq?: true
+    toolId?: true
+    customerName?: true
+    customerEmail?: true
+    customerPhone?: true
+    customerCompany?: true
+    customerNote?: true
+    deliveryType?: true
+    deliveryKm?: true
+    deliveryAddress?: true
+    startDate?: true
+    endDate?: true
+    days?: true
+    rentalExVat?: true
+    deliveryExVat?: true
+    vatAmount?: true
+    priceInclVat?: true
+    status?: true
+    adminNote?: true
+    decidedById?: true
+    decidedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalReservationMaxAggregateInputType = {
+    id?: true
+    number?: true
+    year?: true
+    seq?: true
+    toolId?: true
+    customerName?: true
+    customerEmail?: true
+    customerPhone?: true
+    customerCompany?: true
+    customerNote?: true
+    deliveryType?: true
+    deliveryKm?: true
+    deliveryAddress?: true
+    startDate?: true
+    endDate?: true
+    days?: true
+    rentalExVat?: true
+    deliveryExVat?: true
+    vatAmount?: true
+    priceInclVat?: true
+    status?: true
+    adminNote?: true
+    decidedById?: true
+    decidedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalReservationCountAggregateInputType = {
+    id?: true
+    number?: true
+    year?: true
+    seq?: true
+    toolId?: true
+    toolSnapshot?: true
+    customerName?: true
+    customerEmail?: true
+    customerPhone?: true
+    customerCompany?: true
+    customerNote?: true
+    deliveryType?: true
+    deliveryKm?: true
+    deliveryAddress?: true
+    startDate?: true
+    endDate?: true
+    days?: true
+    rentalExVat?: true
+    deliveryExVat?: true
+    vatAmount?: true
+    priceInclVat?: true
+    status?: true
+    adminNote?: true
+    decidedById?: true
+    decidedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RentalReservationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalReservation to aggregate.
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalReservations to fetch.
+     */
+    orderBy?: RentalReservationOrderByWithRelationInput | RentalReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalReservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalReservations
+    **/
+    _count?: true | RentalReservationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalReservationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalReservationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalReservationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalReservationMaxAggregateInputType
+  }
+
+  export type GetRentalReservationAggregateType<T extends RentalReservationAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalReservation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalReservation[P]>
+      : GetScalarType<T[P], AggregateRentalReservation[P]>
+  }
+
+
+
+
+  export type RentalReservationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalReservationWhereInput
+    orderBy?: RentalReservationOrderByWithAggregationInput | RentalReservationOrderByWithAggregationInput[]
+    by: RentalReservationScalarFieldEnum[] | RentalReservationScalarFieldEnum
+    having?: RentalReservationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalReservationCountAggregateInputType | true
+    _avg?: RentalReservationAvgAggregateInputType
+    _sum?: RentalReservationSumAggregateInputType
+    _min?: RentalReservationMinAggregateInputType
+    _max?: RentalReservationMaxAggregateInputType
+  }
+
+  export type RentalReservationGroupByOutputType = {
+    id: string
+    number: string
+    year: number
+    seq: number
+    toolId: string
+    toolSnapshot: JsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany: string | null
+    customerNote: string | null
+    deliveryType: $Enums.RentalDelivery
+    deliveryKm: number | null
+    deliveryAddress: string | null
+    startDate: Date
+    endDate: Date
+    days: number
+    rentalExVat: Decimal
+    deliveryExVat: Decimal
+    vatAmount: Decimal
+    priceInclVat: Decimal
+    status: $Enums.RentalReservationStatus
+    adminNote: string | null
+    decidedById: string | null
+    decidedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: RentalReservationCountAggregateOutputType | null
+    _avg: RentalReservationAvgAggregateOutputType | null
+    _sum: RentalReservationSumAggregateOutputType | null
+    _min: RentalReservationMinAggregateOutputType | null
+    _max: RentalReservationMaxAggregateOutputType | null
+  }
+
+  type GetRentalReservationGroupByPayload<T extends RentalReservationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalReservationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalReservationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalReservationGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalReservationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalReservationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    year?: boolean
+    seq?: boolean
+    toolId?: boolean
+    toolSnapshot?: boolean
+    customerName?: boolean
+    customerEmail?: boolean
+    customerPhone?: boolean
+    customerCompany?: boolean
+    customerNote?: boolean
+    deliveryType?: boolean
+    deliveryKm?: boolean
+    deliveryAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    days?: boolean
+    rentalExVat?: boolean
+    deliveryExVat?: boolean
+    vatAmount?: boolean
+    priceInclVat?: boolean
+    status?: boolean
+    adminNote?: boolean
+    decidedById?: boolean
+    decidedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    booking?: boolean | RentalReservation$bookingArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalReservation"]>
+
+  export type RentalReservationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    year?: boolean
+    seq?: boolean
+    toolId?: boolean
+    toolSnapshot?: boolean
+    customerName?: boolean
+    customerEmail?: boolean
+    customerPhone?: boolean
+    customerCompany?: boolean
+    customerNote?: boolean
+    deliveryType?: boolean
+    deliveryKm?: boolean
+    deliveryAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    days?: boolean
+    rentalExVat?: boolean
+    deliveryExVat?: boolean
+    vatAmount?: boolean
+    priceInclVat?: boolean
+    status?: boolean
+    adminNote?: boolean
+    decidedById?: boolean
+    decidedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalReservation"]>
+
+  export type RentalReservationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    year?: boolean
+    seq?: boolean
+    toolId?: boolean
+    toolSnapshot?: boolean
+    customerName?: boolean
+    customerEmail?: boolean
+    customerPhone?: boolean
+    customerCompany?: boolean
+    customerNote?: boolean
+    deliveryType?: boolean
+    deliveryKm?: boolean
+    deliveryAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    days?: boolean
+    rentalExVat?: boolean
+    deliveryExVat?: boolean
+    vatAmount?: boolean
+    priceInclVat?: boolean
+    status?: boolean
+    adminNote?: boolean
+    decidedById?: boolean
+    decidedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalReservation"]>
+
+  export type RentalReservationSelectScalar = {
+    id?: boolean
+    number?: boolean
+    year?: boolean
+    seq?: boolean
+    toolId?: boolean
+    toolSnapshot?: boolean
+    customerName?: boolean
+    customerEmail?: boolean
+    customerPhone?: boolean
+    customerCompany?: boolean
+    customerNote?: boolean
+    deliveryType?: boolean
+    deliveryKm?: boolean
+    deliveryAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    days?: boolean
+    rentalExVat?: boolean
+    deliveryExVat?: boolean
+    vatAmount?: boolean
+    priceInclVat?: boolean
+    status?: boolean
+    adminNote?: boolean
+    decidedById?: boolean
+    decidedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RentalReservationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "year" | "seq" | "toolId" | "toolSnapshot" | "customerName" | "customerEmail" | "customerPhone" | "customerCompany" | "customerNote" | "deliveryType" | "deliveryKm" | "deliveryAddress" | "startDate" | "endDate" | "days" | "rentalExVat" | "deliveryExVat" | "vatAmount" | "priceInclVat" | "status" | "adminNote" | "decidedById" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalReservation"]>
+  export type RentalReservationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    booking?: boolean | RentalReservation$bookingArgs<ExtArgs>
+  }
+  export type RentalReservationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }
+  export type RentalReservationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }
+
+  export type $RentalReservationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalReservation"
+    objects: {
+      tool: Prisma.$RentalToolPayload<ExtArgs>
+      booking: Prisma.$RentalBookingPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      number: string
+      year: number
+      seq: number
+      toolId: string
+      toolSnapshot: Prisma.JsonValue
+      customerName: string
+      customerEmail: string
+      customerPhone: string
+      customerCompany: string | null
+      customerNote: string | null
+      deliveryType: $Enums.RentalDelivery
+      deliveryKm: number | null
+      deliveryAddress: string | null
+      startDate: Date
+      endDate: Date
+      days: number
+      rentalExVat: Prisma.Decimal
+      deliveryExVat: Prisma.Decimal
+      vatAmount: Prisma.Decimal
+      priceInclVat: Prisma.Decimal
+      status: $Enums.RentalReservationStatus
+      adminNote: string | null
+      decidedById: string | null
+      decidedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["rentalReservation"]>
+    composites: {}
+  }
+
+  type RentalReservationGetPayload<S extends boolean | null | undefined | RentalReservationDefaultArgs> = $Result.GetResult<Prisma.$RentalReservationPayload, S>
+
+  type RentalReservationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalReservationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalReservationCountAggregateInputType | true
+    }
+
+  export interface RentalReservationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalReservation'], meta: { name: 'RentalReservation' } }
+    /**
+     * Find zero or one RentalReservation that matches the filter.
+     * @param {RentalReservationFindUniqueArgs} args - Arguments to find a RentalReservation
+     * @example
+     * // Get one RentalReservation
+     * const rentalReservation = await prisma.rentalReservation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalReservationFindUniqueArgs>(args: SelectSubset<T, RentalReservationFindUniqueArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalReservation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalReservationFindUniqueOrThrowArgs} args - Arguments to find a RentalReservation
+     * @example
+     * // Get one RentalReservation
+     * const rentalReservation = await prisma.rentalReservation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalReservationFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalReservationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalReservation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationFindFirstArgs} args - Arguments to find a RentalReservation
+     * @example
+     * // Get one RentalReservation
+     * const rentalReservation = await prisma.rentalReservation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalReservationFindFirstArgs>(args?: SelectSubset<T, RentalReservationFindFirstArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalReservation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationFindFirstOrThrowArgs} args - Arguments to find a RentalReservation
+     * @example
+     * // Get one RentalReservation
+     * const rentalReservation = await prisma.rentalReservation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalReservationFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalReservationFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalReservations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalReservations
+     * const rentalReservations = await prisma.rentalReservation.findMany()
+     * 
+     * // Get first 10 RentalReservations
+     * const rentalReservations = await prisma.rentalReservation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalReservationWithIdOnly = await prisma.rentalReservation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalReservationFindManyArgs>(args?: SelectSubset<T, RentalReservationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalReservation.
+     * @param {RentalReservationCreateArgs} args - Arguments to create a RentalReservation.
+     * @example
+     * // Create one RentalReservation
+     * const RentalReservation = await prisma.rentalReservation.create({
+     *   data: {
+     *     // ... data to create a RentalReservation
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalReservationCreateArgs>(args: SelectSubset<T, RentalReservationCreateArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalReservations.
+     * @param {RentalReservationCreateManyArgs} args - Arguments to create many RentalReservations.
+     * @example
+     * // Create many RentalReservations
+     * const rentalReservation = await prisma.rentalReservation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalReservationCreateManyArgs>(args?: SelectSubset<T, RentalReservationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalReservations and returns the data saved in the database.
+     * @param {RentalReservationCreateManyAndReturnArgs} args - Arguments to create many RentalReservations.
+     * @example
+     * // Create many RentalReservations
+     * const rentalReservation = await prisma.rentalReservation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalReservations and only return the `id`
+     * const rentalReservationWithIdOnly = await prisma.rentalReservation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalReservationCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalReservationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalReservation.
+     * @param {RentalReservationDeleteArgs} args - Arguments to delete one RentalReservation.
+     * @example
+     * // Delete one RentalReservation
+     * const RentalReservation = await prisma.rentalReservation.delete({
+     *   where: {
+     *     // ... filter to delete one RentalReservation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalReservationDeleteArgs>(args: SelectSubset<T, RentalReservationDeleteArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalReservation.
+     * @param {RentalReservationUpdateArgs} args - Arguments to update one RentalReservation.
+     * @example
+     * // Update one RentalReservation
+     * const rentalReservation = await prisma.rentalReservation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalReservationUpdateArgs>(args: SelectSubset<T, RentalReservationUpdateArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalReservations.
+     * @param {RentalReservationDeleteManyArgs} args - Arguments to filter RentalReservations to delete.
+     * @example
+     * // Delete a few RentalReservations
+     * const { count } = await prisma.rentalReservation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalReservationDeleteManyArgs>(args?: SelectSubset<T, RentalReservationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalReservations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalReservations
+     * const rentalReservation = await prisma.rentalReservation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalReservationUpdateManyArgs>(args: SelectSubset<T, RentalReservationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalReservations and returns the data updated in the database.
+     * @param {RentalReservationUpdateManyAndReturnArgs} args - Arguments to update many RentalReservations.
+     * @example
+     * // Update many RentalReservations
+     * const rentalReservation = await prisma.rentalReservation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalReservations and only return the `id`
+     * const rentalReservationWithIdOnly = await prisma.rentalReservation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalReservationUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalReservationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalReservation.
+     * @param {RentalReservationUpsertArgs} args - Arguments to update or create a RentalReservation.
+     * @example
+     * // Update or create a RentalReservation
+     * const rentalReservation = await prisma.rentalReservation.upsert({
+     *   create: {
+     *     // ... data to create a RentalReservation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalReservation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalReservationUpsertArgs>(args: SelectSubset<T, RentalReservationUpsertArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalReservations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationCountArgs} args - Arguments to filter RentalReservations to count.
+     * @example
+     * // Count the number of RentalReservations
+     * const count = await prisma.rentalReservation.count({
+     *   where: {
+     *     // ... the filter for the RentalReservations we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalReservationCountArgs>(
+      args?: Subset<T, RentalReservationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalReservationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalReservation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalReservationAggregateArgs>(args: Subset<T, RentalReservationAggregateArgs>): Prisma.PrismaPromise<GetRentalReservationAggregateType<T>>
+
+    /**
+     * Group by RentalReservation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalReservationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalReservationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalReservationGroupByArgs['orderBy'] }
+        : { orderBy?: RentalReservationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalReservationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalReservationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalReservation model
+   */
+  readonly fields: RentalReservationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalReservation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalReservationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tool<T extends RentalToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RentalToolDefaultArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    booking<T extends RentalReservation$bookingArgs<ExtArgs> = {}>(args?: Subset<T, RentalReservation$bookingArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalReservation model
+   */
+  interface RentalReservationFieldRefs {
+    readonly id: FieldRef<"RentalReservation", 'String'>
+    readonly number: FieldRef<"RentalReservation", 'String'>
+    readonly year: FieldRef<"RentalReservation", 'Int'>
+    readonly seq: FieldRef<"RentalReservation", 'Int'>
+    readonly toolId: FieldRef<"RentalReservation", 'String'>
+    readonly toolSnapshot: FieldRef<"RentalReservation", 'Json'>
+    readonly customerName: FieldRef<"RentalReservation", 'String'>
+    readonly customerEmail: FieldRef<"RentalReservation", 'String'>
+    readonly customerPhone: FieldRef<"RentalReservation", 'String'>
+    readonly customerCompany: FieldRef<"RentalReservation", 'String'>
+    readonly customerNote: FieldRef<"RentalReservation", 'String'>
+    readonly deliveryType: FieldRef<"RentalReservation", 'RentalDelivery'>
+    readonly deliveryKm: FieldRef<"RentalReservation", 'Int'>
+    readonly deliveryAddress: FieldRef<"RentalReservation", 'String'>
+    readonly startDate: FieldRef<"RentalReservation", 'DateTime'>
+    readonly endDate: FieldRef<"RentalReservation", 'DateTime'>
+    readonly days: FieldRef<"RentalReservation", 'Int'>
+    readonly rentalExVat: FieldRef<"RentalReservation", 'Decimal'>
+    readonly deliveryExVat: FieldRef<"RentalReservation", 'Decimal'>
+    readonly vatAmount: FieldRef<"RentalReservation", 'Decimal'>
+    readonly priceInclVat: FieldRef<"RentalReservation", 'Decimal'>
+    readonly status: FieldRef<"RentalReservation", 'RentalReservationStatus'>
+    readonly adminNote: FieldRef<"RentalReservation", 'String'>
+    readonly decidedById: FieldRef<"RentalReservation", 'String'>
+    readonly decidedAt: FieldRef<"RentalReservation", 'DateTime'>
+    readonly createdAt: FieldRef<"RentalReservation", 'DateTime'>
+    readonly updatedAt: FieldRef<"RentalReservation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalReservation findUnique
+   */
+  export type RentalReservationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalReservation to fetch.
+     */
+    where: RentalReservationWhereUniqueInput
+  }
+
+  /**
+   * RentalReservation findUniqueOrThrow
+   */
+  export type RentalReservationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalReservation to fetch.
+     */
+    where: RentalReservationWhereUniqueInput
+  }
+
+  /**
+   * RentalReservation findFirst
+   */
+  export type RentalReservationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalReservation to fetch.
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalReservations to fetch.
+     */
+    orderBy?: RentalReservationOrderByWithRelationInput | RentalReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalReservations.
+     */
+    cursor?: RentalReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalReservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalReservations.
+     */
+    distinct?: RentalReservationScalarFieldEnum | RentalReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RentalReservation findFirstOrThrow
+   */
+  export type RentalReservationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalReservation to fetch.
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalReservations to fetch.
+     */
+    orderBy?: RentalReservationOrderByWithRelationInput | RentalReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalReservations.
+     */
+    cursor?: RentalReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalReservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalReservations.
+     */
+    distinct?: RentalReservationScalarFieldEnum | RentalReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RentalReservation findMany
+   */
+  export type RentalReservationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalReservations to fetch.
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalReservations to fetch.
+     */
+    orderBy?: RentalReservationOrderByWithRelationInput | RentalReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalReservations.
+     */
+    cursor?: RentalReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalReservations.
+     */
+    skip?: number
+    distinct?: RentalReservationScalarFieldEnum | RentalReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RentalReservation create
+   */
+  export type RentalReservationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RentalReservation.
+     */
+    data: XOR<RentalReservationCreateInput, RentalReservationUncheckedCreateInput>
+  }
+
+  /**
+   * RentalReservation createMany
+   */
+  export type RentalReservationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalReservations.
+     */
+    data: RentalReservationCreateManyInput | RentalReservationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalReservation createManyAndReturn
+   */
+  export type RentalReservationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalReservations.
+     */
+    data: RentalReservationCreateManyInput | RentalReservationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalReservation update
+   */
+  export type RentalReservationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RentalReservation.
+     */
+    data: XOR<RentalReservationUpdateInput, RentalReservationUncheckedUpdateInput>
+    /**
+     * Choose, which RentalReservation to update.
+     */
+    where: RentalReservationWhereUniqueInput
+  }
+
+  /**
+   * RentalReservation updateMany
+   */
+  export type RentalReservationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalReservations.
+     */
+    data: XOR<RentalReservationUpdateManyMutationInput, RentalReservationUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalReservations to update
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * Limit how many RentalReservations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalReservation updateManyAndReturn
+   */
+  export type RentalReservationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalReservations.
+     */
+    data: XOR<RentalReservationUpdateManyMutationInput, RentalReservationUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalReservations to update
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * Limit how many RentalReservations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalReservation upsert
+   */
+  export type RentalReservationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RentalReservation to update in case it exists.
+     */
+    where: RentalReservationWhereUniqueInput
+    /**
+     * In case the RentalReservation found by the `where` argument doesn't exist, create a new RentalReservation with this data.
+     */
+    create: XOR<RentalReservationCreateInput, RentalReservationUncheckedCreateInput>
+    /**
+     * In case the RentalReservation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalReservationUpdateInput, RentalReservationUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalReservation delete
+   */
+  export type RentalReservationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    /**
+     * Filter which RentalReservation to delete.
+     */
+    where: RentalReservationWhereUniqueInput
+  }
+
+  /**
+   * RentalReservation deleteMany
+   */
+  export type RentalReservationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalReservations to delete
+     */
+    where?: RentalReservationWhereInput
+    /**
+     * Limit how many RentalReservations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalReservation.booking
+   */
+  export type RentalReservation$bookingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    where?: RentalBookingWhereInput
+  }
+
+  /**
+   * RentalReservation without action
+   */
+  export type RentalReservationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RentalBooking
+   */
+
+  export type AggregateRentalBooking = {
+    _count: RentalBookingCountAggregateOutputType | null
+    _avg: RentalBookingAvgAggregateOutputType | null
+    _sum: RentalBookingSumAggregateOutputType | null
+    _min: RentalBookingMinAggregateOutputType | null
+    _max: RentalBookingMaxAggregateOutputType | null
+  }
+
+  export type RentalBookingAvgAggregateOutputType = {
+    units: number | null
+  }
+
+  export type RentalBookingSumAggregateOutputType = {
+    units: number | null
+  }
+
+  export type RentalBookingMinAggregateOutputType = {
+    id: string | null
+    toolId: string | null
+    startDate: Date | null
+    endDate: Date | null
+    units: number | null
+    type: $Enums.RentalBookingType | null
+    reservationId: string | null
+    note: string | null
+    createdById: string | null
+    createdAt: Date | null
+  }
+
+  export type RentalBookingMaxAggregateOutputType = {
+    id: string | null
+    toolId: string | null
+    startDate: Date | null
+    endDate: Date | null
+    units: number | null
+    type: $Enums.RentalBookingType | null
+    reservationId: string | null
+    note: string | null
+    createdById: string | null
+    createdAt: Date | null
+  }
+
+  export type RentalBookingCountAggregateOutputType = {
+    id: number
+    toolId: number
+    startDate: number
+    endDate: number
+    units: number
+    type: number
+    reservationId: number
+    note: number
+    createdById: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RentalBookingAvgAggregateInputType = {
+    units?: true
+  }
+
+  export type RentalBookingSumAggregateInputType = {
+    units?: true
+  }
+
+  export type RentalBookingMinAggregateInputType = {
+    id?: true
+    toolId?: true
+    startDate?: true
+    endDate?: true
+    units?: true
+    type?: true
+    reservationId?: true
+    note?: true
+    createdById?: true
+    createdAt?: true
+  }
+
+  export type RentalBookingMaxAggregateInputType = {
+    id?: true
+    toolId?: true
+    startDate?: true
+    endDate?: true
+    units?: true
+    type?: true
+    reservationId?: true
+    note?: true
+    createdById?: true
+    createdAt?: true
+  }
+
+  export type RentalBookingCountAggregateInputType = {
+    id?: true
+    toolId?: true
+    startDate?: true
+    endDate?: true
+    units?: true
+    type?: true
+    reservationId?: true
+    note?: true
+    createdById?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RentalBookingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalBooking to aggregate.
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalBookings to fetch.
+     */
+    orderBy?: RentalBookingOrderByWithRelationInput | RentalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalBookings
+    **/
+    _count?: true | RentalBookingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalBookingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalBookingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalBookingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalBookingMaxAggregateInputType
+  }
+
+  export type GetRentalBookingAggregateType<T extends RentalBookingAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalBooking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalBooking[P]>
+      : GetScalarType<T[P], AggregateRentalBooking[P]>
+  }
+
+
+
+
+  export type RentalBookingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalBookingWhereInput
+    orderBy?: RentalBookingOrderByWithAggregationInput | RentalBookingOrderByWithAggregationInput[]
+    by: RentalBookingScalarFieldEnum[] | RentalBookingScalarFieldEnum
+    having?: RentalBookingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalBookingCountAggregateInputType | true
+    _avg?: RentalBookingAvgAggregateInputType
+    _sum?: RentalBookingSumAggregateInputType
+    _min?: RentalBookingMinAggregateInputType
+    _max?: RentalBookingMaxAggregateInputType
+  }
+
+  export type RentalBookingGroupByOutputType = {
+    id: string
+    toolId: string
+    startDate: Date
+    endDate: Date
+    units: number
+    type: $Enums.RentalBookingType
+    reservationId: string | null
+    note: string | null
+    createdById: string | null
+    createdAt: Date
+    _count: RentalBookingCountAggregateOutputType | null
+    _avg: RentalBookingAvgAggregateOutputType | null
+    _sum: RentalBookingSumAggregateOutputType | null
+    _min: RentalBookingMinAggregateOutputType | null
+    _max: RentalBookingMaxAggregateOutputType | null
+  }
+
+  type GetRentalBookingGroupByPayload<T extends RentalBookingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalBookingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalBookingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalBookingGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalBookingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalBookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    toolId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    units?: boolean
+    type?: boolean
+    reservationId?: boolean
+    note?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    reservation?: boolean | RentalBooking$reservationArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalBooking"]>
+
+  export type RentalBookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    toolId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    units?: boolean
+    type?: boolean
+    reservationId?: boolean
+    note?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    reservation?: boolean | RentalBooking$reservationArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalBooking"]>
+
+  export type RentalBookingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    toolId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    units?: boolean
+    type?: boolean
+    reservationId?: boolean
+    note?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    reservation?: boolean | RentalBooking$reservationArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalBooking"]>
+
+  export type RentalBookingSelectScalar = {
+    id?: boolean
+    toolId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    units?: boolean
+    type?: boolean
+    reservationId?: boolean
+    note?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+  }
+
+  export type RentalBookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toolId" | "startDate" | "endDate" | "units" | "type" | "reservationId" | "note" | "createdById" | "createdAt", ExtArgs["result"]["rentalBooking"]>
+  export type RentalBookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    reservation?: boolean | RentalBooking$reservationArgs<ExtArgs>
+  }
+  export type RentalBookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    reservation?: boolean | RentalBooking$reservationArgs<ExtArgs>
+  }
+  export type RentalBookingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    reservation?: boolean | RentalBooking$reservationArgs<ExtArgs>
+  }
+
+  export type $RentalBookingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalBooking"
+    objects: {
+      tool: Prisma.$RentalToolPayload<ExtArgs>
+      reservation: Prisma.$RentalReservationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      toolId: string
+      startDate: Date
+      endDate: Date
+      units: number
+      type: $Enums.RentalBookingType
+      reservationId: string | null
+      note: string | null
+      createdById: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["rentalBooking"]>
+    composites: {}
+  }
+
+  type RentalBookingGetPayload<S extends boolean | null | undefined | RentalBookingDefaultArgs> = $Result.GetResult<Prisma.$RentalBookingPayload, S>
+
+  type RentalBookingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalBookingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalBookingCountAggregateInputType | true
+    }
+
+  export interface RentalBookingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalBooking'], meta: { name: 'RentalBooking' } }
+    /**
+     * Find zero or one RentalBooking that matches the filter.
+     * @param {RentalBookingFindUniqueArgs} args - Arguments to find a RentalBooking
+     * @example
+     * // Get one RentalBooking
+     * const rentalBooking = await prisma.rentalBooking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalBookingFindUniqueArgs>(args: SelectSubset<T, RentalBookingFindUniqueArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalBooking that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalBookingFindUniqueOrThrowArgs} args - Arguments to find a RentalBooking
+     * @example
+     * // Get one RentalBooking
+     * const rentalBooking = await prisma.rentalBooking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalBookingFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalBookingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalBooking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingFindFirstArgs} args - Arguments to find a RentalBooking
+     * @example
+     * // Get one RentalBooking
+     * const rentalBooking = await prisma.rentalBooking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalBookingFindFirstArgs>(args?: SelectSubset<T, RentalBookingFindFirstArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalBooking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingFindFirstOrThrowArgs} args - Arguments to find a RentalBooking
+     * @example
+     * // Get one RentalBooking
+     * const rentalBooking = await prisma.rentalBooking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalBookingFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalBookingFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalBookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalBookings
+     * const rentalBookings = await prisma.rentalBooking.findMany()
+     * 
+     * // Get first 10 RentalBookings
+     * const rentalBookings = await prisma.rentalBooking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalBookingWithIdOnly = await prisma.rentalBooking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalBookingFindManyArgs>(args?: SelectSubset<T, RentalBookingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalBooking.
+     * @param {RentalBookingCreateArgs} args - Arguments to create a RentalBooking.
+     * @example
+     * // Create one RentalBooking
+     * const RentalBooking = await prisma.rentalBooking.create({
+     *   data: {
+     *     // ... data to create a RentalBooking
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalBookingCreateArgs>(args: SelectSubset<T, RentalBookingCreateArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalBookings.
+     * @param {RentalBookingCreateManyArgs} args - Arguments to create many RentalBookings.
+     * @example
+     * // Create many RentalBookings
+     * const rentalBooking = await prisma.rentalBooking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalBookingCreateManyArgs>(args?: SelectSubset<T, RentalBookingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalBookings and returns the data saved in the database.
+     * @param {RentalBookingCreateManyAndReturnArgs} args - Arguments to create many RentalBookings.
+     * @example
+     * // Create many RentalBookings
+     * const rentalBooking = await prisma.rentalBooking.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalBookings and only return the `id`
+     * const rentalBookingWithIdOnly = await prisma.rentalBooking.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalBookingCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalBookingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalBooking.
+     * @param {RentalBookingDeleteArgs} args - Arguments to delete one RentalBooking.
+     * @example
+     * // Delete one RentalBooking
+     * const RentalBooking = await prisma.rentalBooking.delete({
+     *   where: {
+     *     // ... filter to delete one RentalBooking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalBookingDeleteArgs>(args: SelectSubset<T, RentalBookingDeleteArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalBooking.
+     * @param {RentalBookingUpdateArgs} args - Arguments to update one RentalBooking.
+     * @example
+     * // Update one RentalBooking
+     * const rentalBooking = await prisma.rentalBooking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalBookingUpdateArgs>(args: SelectSubset<T, RentalBookingUpdateArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalBookings.
+     * @param {RentalBookingDeleteManyArgs} args - Arguments to filter RentalBookings to delete.
+     * @example
+     * // Delete a few RentalBookings
+     * const { count } = await prisma.rentalBooking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalBookingDeleteManyArgs>(args?: SelectSubset<T, RentalBookingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalBookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalBookings
+     * const rentalBooking = await prisma.rentalBooking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalBookingUpdateManyArgs>(args: SelectSubset<T, RentalBookingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalBookings and returns the data updated in the database.
+     * @param {RentalBookingUpdateManyAndReturnArgs} args - Arguments to update many RentalBookings.
+     * @example
+     * // Update many RentalBookings
+     * const rentalBooking = await prisma.rentalBooking.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalBookings and only return the `id`
+     * const rentalBookingWithIdOnly = await prisma.rentalBooking.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalBookingUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalBookingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalBooking.
+     * @param {RentalBookingUpsertArgs} args - Arguments to update or create a RentalBooking.
+     * @example
+     * // Update or create a RentalBooking
+     * const rentalBooking = await prisma.rentalBooking.upsert({
+     *   create: {
+     *     // ... data to create a RentalBooking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalBooking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalBookingUpsertArgs>(args: SelectSubset<T, RentalBookingUpsertArgs<ExtArgs>>): Prisma__RentalBookingClient<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalBookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingCountArgs} args - Arguments to filter RentalBookings to count.
+     * @example
+     * // Count the number of RentalBookings
+     * const count = await prisma.rentalBooking.count({
+     *   where: {
+     *     // ... the filter for the RentalBookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalBookingCountArgs>(
+      args?: Subset<T, RentalBookingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalBookingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalBooking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalBookingAggregateArgs>(args: Subset<T, RentalBookingAggregateArgs>): Prisma.PrismaPromise<GetRentalBookingAggregateType<T>>
+
+    /**
+     * Group by RentalBooking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalBookingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalBookingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalBookingGroupByArgs['orderBy'] }
+        : { orderBy?: RentalBookingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalBookingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalBookingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalBooking model
+   */
+  readonly fields: RentalBookingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalBooking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalBookingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tool<T extends RentalToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RentalToolDefaultArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reservation<T extends RentalBooking$reservationArgs<ExtArgs> = {}>(args?: Subset<T, RentalBooking$reservationArgs<ExtArgs>>): Prisma__RentalReservationClient<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalBooking model
+   */
+  interface RentalBookingFieldRefs {
+    readonly id: FieldRef<"RentalBooking", 'String'>
+    readonly toolId: FieldRef<"RentalBooking", 'String'>
+    readonly startDate: FieldRef<"RentalBooking", 'DateTime'>
+    readonly endDate: FieldRef<"RentalBooking", 'DateTime'>
+    readonly units: FieldRef<"RentalBooking", 'Int'>
+    readonly type: FieldRef<"RentalBooking", 'RentalBookingType'>
+    readonly reservationId: FieldRef<"RentalBooking", 'String'>
+    readonly note: FieldRef<"RentalBooking", 'String'>
+    readonly createdById: FieldRef<"RentalBooking", 'String'>
+    readonly createdAt: FieldRef<"RentalBooking", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalBooking findUnique
+   */
+  export type RentalBookingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalBooking to fetch.
+     */
+    where: RentalBookingWhereUniqueInput
+  }
+
+  /**
+   * RentalBooking findUniqueOrThrow
+   */
+  export type RentalBookingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalBooking to fetch.
+     */
+    where: RentalBookingWhereUniqueInput
+  }
+
+  /**
+   * RentalBooking findFirst
+   */
+  export type RentalBookingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalBooking to fetch.
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalBookings to fetch.
+     */
+    orderBy?: RentalBookingOrderByWithRelationInput | RentalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalBookings.
+     */
+    cursor?: RentalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalBookings.
+     */
+    distinct?: RentalBookingScalarFieldEnum | RentalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * RentalBooking findFirstOrThrow
+   */
+  export type RentalBookingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalBooking to fetch.
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalBookings to fetch.
+     */
+    orderBy?: RentalBookingOrderByWithRelationInput | RentalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalBookings.
+     */
+    cursor?: RentalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalBookings.
+     */
+    distinct?: RentalBookingScalarFieldEnum | RentalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * RentalBooking findMany
+   */
+  export type RentalBookingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalBookings to fetch.
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalBookings to fetch.
+     */
+    orderBy?: RentalBookingOrderByWithRelationInput | RentalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalBookings.
+     */
+    cursor?: RentalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalBookings.
+     */
+    skip?: number
+    distinct?: RentalBookingScalarFieldEnum | RentalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * RentalBooking create
+   */
+  export type RentalBookingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RentalBooking.
+     */
+    data: XOR<RentalBookingCreateInput, RentalBookingUncheckedCreateInput>
+  }
+
+  /**
+   * RentalBooking createMany
+   */
+  export type RentalBookingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalBookings.
+     */
+    data: RentalBookingCreateManyInput | RentalBookingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalBooking createManyAndReturn
+   */
+  export type RentalBookingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalBookings.
+     */
+    data: RentalBookingCreateManyInput | RentalBookingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalBooking update
+   */
+  export type RentalBookingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RentalBooking.
+     */
+    data: XOR<RentalBookingUpdateInput, RentalBookingUncheckedUpdateInput>
+    /**
+     * Choose, which RentalBooking to update.
+     */
+    where: RentalBookingWhereUniqueInput
+  }
+
+  /**
+   * RentalBooking updateMany
+   */
+  export type RentalBookingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalBookings.
+     */
+    data: XOR<RentalBookingUpdateManyMutationInput, RentalBookingUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalBookings to update
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * Limit how many RentalBookings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalBooking updateManyAndReturn
+   */
+  export type RentalBookingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalBookings.
+     */
+    data: XOR<RentalBookingUpdateManyMutationInput, RentalBookingUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalBookings to update
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * Limit how many RentalBookings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalBooking upsert
+   */
+  export type RentalBookingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RentalBooking to update in case it exists.
+     */
+    where: RentalBookingWhereUniqueInput
+    /**
+     * In case the RentalBooking found by the `where` argument doesn't exist, create a new RentalBooking with this data.
+     */
+    create: XOR<RentalBookingCreateInput, RentalBookingUncheckedCreateInput>
+    /**
+     * In case the RentalBooking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalBookingUpdateInput, RentalBookingUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalBooking delete
+   */
+  export type RentalBookingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+    /**
+     * Filter which RentalBooking to delete.
+     */
+    where: RentalBookingWhereUniqueInput
+  }
+
+  /**
+   * RentalBooking deleteMany
+   */
+  export type RentalBookingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalBookings to delete
+     */
+    where?: RentalBookingWhereInput
+    /**
+     * Limit how many RentalBookings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalBooking.reservation
+   */
+  export type RentalBooking$reservationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalReservation
+     */
+    select?: RentalReservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalReservation
+     */
+    omit?: RentalReservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalReservationInclude<ExtArgs> | null
+    where?: RentalReservationWhereInput
+  }
+
+  /**
+   * RentalBooking without action
+   */
+  export type RentalBookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalBooking
+     */
+    select?: RentalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalBooking
+     */
+    omit?: RentalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalBookingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RentalSettings
+   */
+
+  export type AggregateRentalSettings = {
+    _count: RentalSettingsCountAggregateOutputType | null
+    _avg: RentalSettingsAvgAggregateOutputType | null
+    _sum: RentalSettingsSumAggregateOutputType | null
+    _min: RentalSettingsMinAggregateOutputType | null
+    _max: RentalSettingsMaxAggregateOutputType | null
+  }
+
+  export type RentalSettingsAvgAggregateOutputType = {
+    deliveryPricePerKm: Decimal | null
+    maxDeliveryKm: number | null
+    minRentalDays: number | null
+  }
+
+  export type RentalSettingsSumAggregateOutputType = {
+    deliveryPricePerKm: Decimal | null
+    maxDeliveryKm: number | null
+    minRentalDays: number | null
+  }
+
+  export type RentalSettingsMinAggregateOutputType = {
+    id: string | null
+    deliveryPricePerKm: Decimal | null
+    maxDeliveryKm: number | null
+    minRentalDays: number | null
+    publicIntro: string | null
+    termsText: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    ownerNotifyEmail: string | null
+    customerEmailSubject: string | null
+    customerEmailBody: string | null
+    approvedEmailSubject: string | null
+    approvedEmailBody: string | null
+    rejectedEmailSubject: string | null
+    rejectedEmailBody: string | null
+    updatedAt: Date | null
+  }
+
+  export type RentalSettingsMaxAggregateOutputType = {
+    id: string | null
+    deliveryPricePerKm: Decimal | null
+    maxDeliveryKm: number | null
+    minRentalDays: number | null
+    publicIntro: string | null
+    termsText: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    ownerNotifyEmail: string | null
+    customerEmailSubject: string | null
+    customerEmailBody: string | null
+    approvedEmailSubject: string | null
+    approvedEmailBody: string | null
+    rejectedEmailSubject: string | null
+    rejectedEmailBody: string | null
+    updatedAt: Date | null
+  }
+
+  export type RentalSettingsCountAggregateOutputType = {
+    id: number
+    deliveryPricePerKm: number
+    maxDeliveryKm: number
+    minRentalDays: number
+    publicIntro: number
+    termsText: number
+    contactEmail: number
+    contactPhone: number
+    ownerNotifyEmail: number
+    customerEmailSubject: number
+    customerEmailBody: number
+    approvedEmailSubject: number
+    approvedEmailBody: number
+    rejectedEmailSubject: number
+    rejectedEmailBody: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RentalSettingsAvgAggregateInputType = {
+    deliveryPricePerKm?: true
+    maxDeliveryKm?: true
+    minRentalDays?: true
+  }
+
+  export type RentalSettingsSumAggregateInputType = {
+    deliveryPricePerKm?: true
+    maxDeliveryKm?: true
+    minRentalDays?: true
+  }
+
+  export type RentalSettingsMinAggregateInputType = {
+    id?: true
+    deliveryPricePerKm?: true
+    maxDeliveryKm?: true
+    minRentalDays?: true
+    publicIntro?: true
+    termsText?: true
+    contactEmail?: true
+    contactPhone?: true
+    ownerNotifyEmail?: true
+    customerEmailSubject?: true
+    customerEmailBody?: true
+    approvedEmailSubject?: true
+    approvedEmailBody?: true
+    rejectedEmailSubject?: true
+    rejectedEmailBody?: true
+    updatedAt?: true
+  }
+
+  export type RentalSettingsMaxAggregateInputType = {
+    id?: true
+    deliveryPricePerKm?: true
+    maxDeliveryKm?: true
+    minRentalDays?: true
+    publicIntro?: true
+    termsText?: true
+    contactEmail?: true
+    contactPhone?: true
+    ownerNotifyEmail?: true
+    customerEmailSubject?: true
+    customerEmailBody?: true
+    approvedEmailSubject?: true
+    approvedEmailBody?: true
+    rejectedEmailSubject?: true
+    rejectedEmailBody?: true
+    updatedAt?: true
+  }
+
+  export type RentalSettingsCountAggregateInputType = {
+    id?: true
+    deliveryPricePerKm?: true
+    maxDeliveryKm?: true
+    minRentalDays?: true
+    publicIntro?: true
+    termsText?: true
+    contactEmail?: true
+    contactPhone?: true
+    ownerNotifyEmail?: true
+    customerEmailSubject?: true
+    customerEmailBody?: true
+    approvedEmailSubject?: true
+    approvedEmailBody?: true
+    rejectedEmailSubject?: true
+    rejectedEmailBody?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RentalSettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalSettings to aggregate.
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalSettings to fetch.
+     */
+    orderBy?: RentalSettingsOrderByWithRelationInput | RentalSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalSettings
+    **/
+    _count?: true | RentalSettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalSettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalSettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalSettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalSettingsMaxAggregateInputType
+  }
+
+  export type GetRentalSettingsAggregateType<T extends RentalSettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalSettings[P]>
+      : GetScalarType<T[P], AggregateRentalSettings[P]>
+  }
+
+
+
+
+  export type RentalSettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalSettingsWhereInput
+    orderBy?: RentalSettingsOrderByWithAggregationInput | RentalSettingsOrderByWithAggregationInput[]
+    by: RentalSettingsScalarFieldEnum[] | RentalSettingsScalarFieldEnum
+    having?: RentalSettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalSettingsCountAggregateInputType | true
+    _avg?: RentalSettingsAvgAggregateInputType
+    _sum?: RentalSettingsSumAggregateInputType
+    _min?: RentalSettingsMinAggregateInputType
+    _max?: RentalSettingsMaxAggregateInputType
+  }
+
+  export type RentalSettingsGroupByOutputType = {
+    id: string
+    deliveryPricePerKm: Decimal
+    maxDeliveryKm: number
+    minRentalDays: number
+    publicIntro: string | null
+    termsText: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    ownerNotifyEmail: string | null
+    customerEmailSubject: string
+    customerEmailBody: string
+    approvedEmailSubject: string
+    approvedEmailBody: string
+    rejectedEmailSubject: string
+    rejectedEmailBody: string
+    updatedAt: Date
+    _count: RentalSettingsCountAggregateOutputType | null
+    _avg: RentalSettingsAvgAggregateOutputType | null
+    _sum: RentalSettingsSumAggregateOutputType | null
+    _min: RentalSettingsMinAggregateOutputType | null
+    _max: RentalSettingsMaxAggregateOutputType | null
+  }
+
+  type GetRentalSettingsGroupByPayload<T extends RentalSettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalSettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalSettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalSettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalSettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deliveryPricePerKm?: boolean
+    maxDeliveryKm?: boolean
+    minRentalDays?: boolean
+    publicIntro?: boolean
+    termsText?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    ownerNotifyEmail?: boolean
+    customerEmailSubject?: boolean
+    customerEmailBody?: boolean
+    approvedEmailSubject?: boolean
+    approvedEmailBody?: boolean
+    rejectedEmailSubject?: boolean
+    rejectedEmailBody?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["rentalSettings"]>
+
+  export type RentalSettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deliveryPricePerKm?: boolean
+    maxDeliveryKm?: boolean
+    minRentalDays?: boolean
+    publicIntro?: boolean
+    termsText?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    ownerNotifyEmail?: boolean
+    customerEmailSubject?: boolean
+    customerEmailBody?: boolean
+    approvedEmailSubject?: boolean
+    approvedEmailBody?: boolean
+    rejectedEmailSubject?: boolean
+    rejectedEmailBody?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["rentalSettings"]>
+
+  export type RentalSettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deliveryPricePerKm?: boolean
+    maxDeliveryKm?: boolean
+    minRentalDays?: boolean
+    publicIntro?: boolean
+    termsText?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    ownerNotifyEmail?: boolean
+    customerEmailSubject?: boolean
+    customerEmailBody?: boolean
+    approvedEmailSubject?: boolean
+    approvedEmailBody?: boolean
+    rejectedEmailSubject?: boolean
+    rejectedEmailBody?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["rentalSettings"]>
+
+  export type RentalSettingsSelectScalar = {
+    id?: boolean
+    deliveryPricePerKm?: boolean
+    maxDeliveryKm?: boolean
+    minRentalDays?: boolean
+    publicIntro?: boolean
+    termsText?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    ownerNotifyEmail?: boolean
+    customerEmailSubject?: boolean
+    customerEmailBody?: boolean
+    approvedEmailSubject?: boolean
+    approvedEmailBody?: boolean
+    rejectedEmailSubject?: boolean
+    rejectedEmailBody?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RentalSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deliveryPricePerKm" | "maxDeliveryKm" | "minRentalDays" | "publicIntro" | "termsText" | "contactEmail" | "contactPhone" | "ownerNotifyEmail" | "customerEmailSubject" | "customerEmailBody" | "approvedEmailSubject" | "approvedEmailBody" | "rejectedEmailSubject" | "rejectedEmailBody" | "updatedAt", ExtArgs["result"]["rentalSettings"]>
+
+  export type $RentalSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalSettings"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      deliveryPricePerKm: Prisma.Decimal
+      maxDeliveryKm: number
+      minRentalDays: number
+      publicIntro: string | null
+      termsText: string | null
+      contactEmail: string | null
+      contactPhone: string | null
+      ownerNotifyEmail: string | null
+      customerEmailSubject: string
+      customerEmailBody: string
+      approvedEmailSubject: string
+      approvedEmailBody: string
+      rejectedEmailSubject: string
+      rejectedEmailBody: string
+      updatedAt: Date
+    }, ExtArgs["result"]["rentalSettings"]>
+    composites: {}
+  }
+
+  type RentalSettingsGetPayload<S extends boolean | null | undefined | RentalSettingsDefaultArgs> = $Result.GetResult<Prisma.$RentalSettingsPayload, S>
+
+  type RentalSettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalSettingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalSettingsCountAggregateInputType | true
+    }
+
+  export interface RentalSettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalSettings'], meta: { name: 'RentalSettings' } }
+    /**
+     * Find zero or one RentalSettings that matches the filter.
+     * @param {RentalSettingsFindUniqueArgs} args - Arguments to find a RentalSettings
+     * @example
+     * // Get one RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalSettingsFindUniqueArgs>(args: SelectSubset<T, RentalSettingsFindUniqueArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalSettings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalSettingsFindUniqueOrThrowArgs} args - Arguments to find a RentalSettings
+     * @example
+     * // Get one RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalSettingsFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalSettingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsFindFirstArgs} args - Arguments to find a RentalSettings
+     * @example
+     * // Get one RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalSettingsFindFirstArgs>(args?: SelectSubset<T, RentalSettingsFindFirstArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalSettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsFindFirstOrThrowArgs} args - Arguments to find a RentalSettings
+     * @example
+     * // Get one RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalSettingsFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalSettingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.findMany()
+     * 
+     * // Get first 10 RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalSettingsWithIdOnly = await prisma.rentalSettings.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalSettingsFindManyArgs>(args?: SelectSubset<T, RentalSettingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalSettings.
+     * @param {RentalSettingsCreateArgs} args - Arguments to create a RentalSettings.
+     * @example
+     * // Create one RentalSettings
+     * const RentalSettings = await prisma.rentalSettings.create({
+     *   data: {
+     *     // ... data to create a RentalSettings
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalSettingsCreateArgs>(args: SelectSubset<T, RentalSettingsCreateArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalSettings.
+     * @param {RentalSettingsCreateManyArgs} args - Arguments to create many RentalSettings.
+     * @example
+     * // Create many RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalSettingsCreateManyArgs>(args?: SelectSubset<T, RentalSettingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalSettings and returns the data saved in the database.
+     * @param {RentalSettingsCreateManyAndReturnArgs} args - Arguments to create many RentalSettings.
+     * @example
+     * // Create many RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalSettings and only return the `id`
+     * const rentalSettingsWithIdOnly = await prisma.rentalSettings.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalSettingsCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalSettingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalSettings.
+     * @param {RentalSettingsDeleteArgs} args - Arguments to delete one RentalSettings.
+     * @example
+     * // Delete one RentalSettings
+     * const RentalSettings = await prisma.rentalSettings.delete({
+     *   where: {
+     *     // ... filter to delete one RentalSettings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalSettingsDeleteArgs>(args: SelectSubset<T, RentalSettingsDeleteArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalSettings.
+     * @param {RentalSettingsUpdateArgs} args - Arguments to update one RentalSettings.
+     * @example
+     * // Update one RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalSettingsUpdateArgs>(args: SelectSubset<T, RentalSettingsUpdateArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalSettings.
+     * @param {RentalSettingsDeleteManyArgs} args - Arguments to filter RentalSettings to delete.
+     * @example
+     * // Delete a few RentalSettings
+     * const { count } = await prisma.rentalSettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalSettingsDeleteManyArgs>(args?: SelectSubset<T, RentalSettingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalSettingsUpdateManyArgs>(args: SelectSubset<T, RentalSettingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalSettings and returns the data updated in the database.
+     * @param {RentalSettingsUpdateManyAndReturnArgs} args - Arguments to update many RentalSettings.
+     * @example
+     * // Update many RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalSettings and only return the `id`
+     * const rentalSettingsWithIdOnly = await prisma.rentalSettings.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalSettingsUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalSettingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalSettings.
+     * @param {RentalSettingsUpsertArgs} args - Arguments to update or create a RentalSettings.
+     * @example
+     * // Update or create a RentalSettings
+     * const rentalSettings = await prisma.rentalSettings.upsert({
+     *   create: {
+     *     // ... data to create a RentalSettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalSettings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalSettingsUpsertArgs>(args: SelectSubset<T, RentalSettingsUpsertArgs<ExtArgs>>): Prisma__RentalSettingsClient<$Result.GetResult<Prisma.$RentalSettingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsCountArgs} args - Arguments to filter RentalSettings to count.
+     * @example
+     * // Count the number of RentalSettings
+     * const count = await prisma.rentalSettings.count({
+     *   where: {
+     *     // ... the filter for the RentalSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalSettingsCountArgs>(
+      args?: Subset<T, RentalSettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalSettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalSettingsAggregateArgs>(args: Subset<T, RentalSettingsAggregateArgs>): Prisma.PrismaPromise<GetRentalSettingsAggregateType<T>>
+
+    /**
+     * Group by RentalSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalSettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalSettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalSettingsGroupByArgs['orderBy'] }
+        : { orderBy?: RentalSettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalSettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalSettings model
+   */
+  readonly fields: RentalSettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalSettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalSettings model
+   */
+  interface RentalSettingsFieldRefs {
+    readonly id: FieldRef<"RentalSettings", 'String'>
+    readonly deliveryPricePerKm: FieldRef<"RentalSettings", 'Decimal'>
+    readonly maxDeliveryKm: FieldRef<"RentalSettings", 'Int'>
+    readonly minRentalDays: FieldRef<"RentalSettings", 'Int'>
+    readonly publicIntro: FieldRef<"RentalSettings", 'String'>
+    readonly termsText: FieldRef<"RentalSettings", 'String'>
+    readonly contactEmail: FieldRef<"RentalSettings", 'String'>
+    readonly contactPhone: FieldRef<"RentalSettings", 'String'>
+    readonly ownerNotifyEmail: FieldRef<"RentalSettings", 'String'>
+    readonly customerEmailSubject: FieldRef<"RentalSettings", 'String'>
+    readonly customerEmailBody: FieldRef<"RentalSettings", 'String'>
+    readonly approvedEmailSubject: FieldRef<"RentalSettings", 'String'>
+    readonly approvedEmailBody: FieldRef<"RentalSettings", 'String'>
+    readonly rejectedEmailSubject: FieldRef<"RentalSettings", 'String'>
+    readonly rejectedEmailBody: FieldRef<"RentalSettings", 'String'>
+    readonly updatedAt: FieldRef<"RentalSettings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalSettings findUnique
+   */
+  export type RentalSettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which RentalSettings to fetch.
+     */
+    where: RentalSettingsWhereUniqueInput
+  }
+
+  /**
+   * RentalSettings findUniqueOrThrow
+   */
+  export type RentalSettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which RentalSettings to fetch.
+     */
+    where: RentalSettingsWhereUniqueInput
+  }
+
+  /**
+   * RentalSettings findFirst
+   */
+  export type RentalSettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which RentalSettings to fetch.
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalSettings to fetch.
+     */
+    orderBy?: RentalSettingsOrderByWithRelationInput | RentalSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalSettings.
+     */
+    cursor?: RentalSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalSettings.
+     */
+    distinct?: RentalSettingsScalarFieldEnum | RentalSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * RentalSettings findFirstOrThrow
+   */
+  export type RentalSettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which RentalSettings to fetch.
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalSettings to fetch.
+     */
+    orderBy?: RentalSettingsOrderByWithRelationInput | RentalSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalSettings.
+     */
+    cursor?: RentalSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalSettings.
+     */
+    distinct?: RentalSettingsScalarFieldEnum | RentalSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * RentalSettings findMany
+   */
+  export type RentalSettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which RentalSettings to fetch.
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalSettings to fetch.
+     */
+    orderBy?: RentalSettingsOrderByWithRelationInput | RentalSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalSettings.
+     */
+    cursor?: RentalSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalSettings.
+     */
+    skip?: number
+    distinct?: RentalSettingsScalarFieldEnum | RentalSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * RentalSettings create
+   */
+  export type RentalSettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a RentalSettings.
+     */
+    data: XOR<RentalSettingsCreateInput, RentalSettingsUncheckedCreateInput>
+  }
+
+  /**
+   * RentalSettings createMany
+   */
+  export type RentalSettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalSettings.
+     */
+    data: RentalSettingsCreateManyInput | RentalSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalSettings createManyAndReturn
+   */
+  export type RentalSettingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalSettings.
+     */
+    data: RentalSettingsCreateManyInput | RentalSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalSettings update
+   */
+  export type RentalSettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a RentalSettings.
+     */
+    data: XOR<RentalSettingsUpdateInput, RentalSettingsUncheckedUpdateInput>
+    /**
+     * Choose, which RentalSettings to update.
+     */
+    where: RentalSettingsWhereUniqueInput
+  }
+
+  /**
+   * RentalSettings updateMany
+   */
+  export type RentalSettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalSettings.
+     */
+    data: XOR<RentalSettingsUpdateManyMutationInput, RentalSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalSettings to update
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * Limit how many RentalSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalSettings updateManyAndReturn
+   */
+  export type RentalSettingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalSettings.
+     */
+    data: XOR<RentalSettingsUpdateManyMutationInput, RentalSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalSettings to update
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * Limit how many RentalSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalSettings upsert
+   */
+  export type RentalSettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the RentalSettings to update in case it exists.
+     */
+    where: RentalSettingsWhereUniqueInput
+    /**
+     * In case the RentalSettings found by the `where` argument doesn't exist, create a new RentalSettings with this data.
+     */
+    create: XOR<RentalSettingsCreateInput, RentalSettingsUncheckedCreateInput>
+    /**
+     * In case the RentalSettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalSettingsUpdateInput, RentalSettingsUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalSettings delete
+   */
+  export type RentalSettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+    /**
+     * Filter which RentalSettings to delete.
+     */
+    where: RentalSettingsWhereUniqueInput
+  }
+
+  /**
+   * RentalSettings deleteMany
+   */
+  export type RentalSettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalSettings to delete
+     */
+    where?: RentalSettingsWhereInput
+    /**
+     * Limit how many RentalSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalSettings without action
+   */
+  export type RentalSettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalSettings
+     */
+    select?: RentalSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalSettings
+     */
+    omit?: RentalSettingsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model SmtpSettings
    */
 
@@ -29885,6 +36700,114 @@ export namespace Prisma {
   export type AiSettingsScalarFieldEnum = (typeof AiSettingsScalarFieldEnum)[keyof typeof AiSettingsScalarFieldEnum]
 
 
+  export const RentalCategoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    description: 'description',
+    imageUrl: 'imageUrl',
+    imageBlobPath: 'imageBlobPath',
+    position: 'position',
+    active: 'active',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RentalCategoryScalarFieldEnum = (typeof RentalCategoryScalarFieldEnum)[keyof typeof RentalCategoryScalarFieldEnum]
+
+
+  export const RentalToolScalarFieldEnum: {
+    id: 'id',
+    categoryId: 'categoryId',
+    name: 'name',
+    slug: 'slug',
+    description: 'description',
+    accessories: 'accessories',
+    dailyPriceExVat: 'dailyPriceExVat',
+    vatRate: 'vatRate',
+    quantity: 'quantity',
+    imageUrl: 'imageUrl',
+    imageBlobPath: 'imageBlobPath',
+    position: 'position',
+    active: 'active',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RentalToolScalarFieldEnum = (typeof RentalToolScalarFieldEnum)[keyof typeof RentalToolScalarFieldEnum]
+
+
+  export const RentalReservationScalarFieldEnum: {
+    id: 'id',
+    number: 'number',
+    year: 'year',
+    seq: 'seq',
+    toolId: 'toolId',
+    toolSnapshot: 'toolSnapshot',
+    customerName: 'customerName',
+    customerEmail: 'customerEmail',
+    customerPhone: 'customerPhone',
+    customerCompany: 'customerCompany',
+    customerNote: 'customerNote',
+    deliveryType: 'deliveryType',
+    deliveryKm: 'deliveryKm',
+    deliveryAddress: 'deliveryAddress',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    days: 'days',
+    rentalExVat: 'rentalExVat',
+    deliveryExVat: 'deliveryExVat',
+    vatAmount: 'vatAmount',
+    priceInclVat: 'priceInclVat',
+    status: 'status',
+    adminNote: 'adminNote',
+    decidedById: 'decidedById',
+    decidedAt: 'decidedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RentalReservationScalarFieldEnum = (typeof RentalReservationScalarFieldEnum)[keyof typeof RentalReservationScalarFieldEnum]
+
+
+  export const RentalBookingScalarFieldEnum: {
+    id: 'id',
+    toolId: 'toolId',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    units: 'units',
+    type: 'type',
+    reservationId: 'reservationId',
+    note: 'note',
+    createdById: 'createdById',
+    createdAt: 'createdAt'
+  };
+
+  export type RentalBookingScalarFieldEnum = (typeof RentalBookingScalarFieldEnum)[keyof typeof RentalBookingScalarFieldEnum]
+
+
+  export const RentalSettingsScalarFieldEnum: {
+    id: 'id',
+    deliveryPricePerKm: 'deliveryPricePerKm',
+    maxDeliveryKm: 'maxDeliveryKm',
+    minRentalDays: 'minRentalDays',
+    publicIntro: 'publicIntro',
+    termsText: 'termsText',
+    contactEmail: 'contactEmail',
+    contactPhone: 'contactPhone',
+    ownerNotifyEmail: 'ownerNotifyEmail',
+    customerEmailSubject: 'customerEmailSubject',
+    customerEmailBody: 'customerEmailBody',
+    approvedEmailSubject: 'approvedEmailSubject',
+    approvedEmailBody: 'approvedEmailBody',
+    rejectedEmailSubject: 'rejectedEmailSubject',
+    rejectedEmailBody: 'rejectedEmailBody',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RentalSettingsScalarFieldEnum = (typeof RentalSettingsScalarFieldEnum)[keyof typeof RentalSettingsScalarFieldEnum]
+
+
   export const SmtpSettingsScalarFieldEnum: {
     id: 'id',
     host: 'host',
@@ -30168,6 +37091,48 @@ export namespace Prisma {
    * Reference to a field of type 'DocumentType[]'
    */
   export type ListEnumDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RentalDelivery'
+   */
+  export type EnumRentalDeliveryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalDelivery'>
+    
+
+
+  /**
+   * Reference to a field of type 'RentalDelivery[]'
+   */
+  export type ListEnumRentalDeliveryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalDelivery[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RentalReservationStatus'
+   */
+  export type EnumRentalReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalReservationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'RentalReservationStatus[]'
+   */
+  export type ListEnumRentalReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalReservationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RentalBookingType'
+   */
+  export type EnumRentalBookingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalBookingType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RentalBookingType[]'
+   */
+  export type ListEnumRentalBookingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalBookingType[]'>
     
 
 
@@ -32272,6 +39237,565 @@ export namespace Prisma {
     apiKeyEnc?: StringNullableWithAggregatesFilter<"AiSettings"> | string | null
     enabled?: BoolWithAggregatesFilter<"AiSettings"> | boolean
     updatedAt?: DateTimeWithAggregatesFilter<"AiSettings"> | Date | string
+  }
+
+  export type RentalCategoryWhereInput = {
+    AND?: RentalCategoryWhereInput | RentalCategoryWhereInput[]
+    OR?: RentalCategoryWhereInput[]
+    NOT?: RentalCategoryWhereInput | RentalCategoryWhereInput[]
+    id?: StringFilter<"RentalCategory"> | string
+    name?: StringFilter<"RentalCategory"> | string
+    slug?: StringFilter<"RentalCategory"> | string
+    description?: StringNullableFilter<"RentalCategory"> | string | null
+    imageUrl?: StringNullableFilter<"RentalCategory"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalCategory"> | string | null
+    position?: IntFilter<"RentalCategory"> | number
+    active?: BoolFilter<"RentalCategory"> | boolean
+    createdAt?: DateTimeFilter<"RentalCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalCategory"> | Date | string
+    tools?: RentalToolListRelationFilter
+  }
+
+  export type RentalCategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageBlobPath?: SortOrderInput | SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tools?: RentalToolOrderByRelationAggregateInput
+  }
+
+  export type RentalCategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: RentalCategoryWhereInput | RentalCategoryWhereInput[]
+    OR?: RentalCategoryWhereInput[]
+    NOT?: RentalCategoryWhereInput | RentalCategoryWhereInput[]
+    name?: StringFilter<"RentalCategory"> | string
+    description?: StringNullableFilter<"RentalCategory"> | string | null
+    imageUrl?: StringNullableFilter<"RentalCategory"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalCategory"> | string | null
+    position?: IntFilter<"RentalCategory"> | number
+    active?: BoolFilter<"RentalCategory"> | boolean
+    createdAt?: DateTimeFilter<"RentalCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalCategory"> | Date | string
+    tools?: RentalToolListRelationFilter
+  }, "id" | "slug">
+
+  export type RentalCategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageBlobPath?: SortOrderInput | SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RentalCategoryCountOrderByAggregateInput
+    _avg?: RentalCategoryAvgOrderByAggregateInput
+    _max?: RentalCategoryMaxOrderByAggregateInput
+    _min?: RentalCategoryMinOrderByAggregateInput
+    _sum?: RentalCategorySumOrderByAggregateInput
+  }
+
+  export type RentalCategoryScalarWhereWithAggregatesInput = {
+    AND?: RentalCategoryScalarWhereWithAggregatesInput | RentalCategoryScalarWhereWithAggregatesInput[]
+    OR?: RentalCategoryScalarWhereWithAggregatesInput[]
+    NOT?: RentalCategoryScalarWhereWithAggregatesInput | RentalCategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalCategory"> | string
+    name?: StringWithAggregatesFilter<"RentalCategory"> | string
+    slug?: StringWithAggregatesFilter<"RentalCategory"> | string
+    description?: StringNullableWithAggregatesFilter<"RentalCategory"> | string | null
+    imageUrl?: StringNullableWithAggregatesFilter<"RentalCategory"> | string | null
+    imageBlobPath?: StringNullableWithAggregatesFilter<"RentalCategory"> | string | null
+    position?: IntWithAggregatesFilter<"RentalCategory"> | number
+    active?: BoolWithAggregatesFilter<"RentalCategory"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"RentalCategory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RentalCategory"> | Date | string
+  }
+
+  export type RentalToolWhereInput = {
+    AND?: RentalToolWhereInput | RentalToolWhereInput[]
+    OR?: RentalToolWhereInput[]
+    NOT?: RentalToolWhereInput | RentalToolWhereInput[]
+    id?: StringFilter<"RentalTool"> | string
+    categoryId?: StringFilter<"RentalTool"> | string
+    name?: StringFilter<"RentalTool"> | string
+    slug?: StringFilter<"RentalTool"> | string
+    description?: StringNullableFilter<"RentalTool"> | string | null
+    accessories?: StringNullableFilter<"RentalTool"> | string | null
+    dailyPriceExVat?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    quantity?: IntFilter<"RentalTool"> | number
+    imageUrl?: StringNullableFilter<"RentalTool"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalTool"> | string | null
+    position?: IntFilter<"RentalTool"> | number
+    active?: BoolFilter<"RentalTool"> | boolean
+    createdAt?: DateTimeFilter<"RentalTool"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalTool"> | Date | string
+    category?: XOR<RentalCategoryScalarRelationFilter, RentalCategoryWhereInput>
+    reservations?: RentalReservationListRelationFilter
+    bookings?: RentalBookingListRelationFilter
+  }
+
+  export type RentalToolOrderByWithRelationInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    accessories?: SortOrderInput | SortOrder
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageBlobPath?: SortOrderInput | SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    category?: RentalCategoryOrderByWithRelationInput
+    reservations?: RentalReservationOrderByRelationAggregateInput
+    bookings?: RentalBookingOrderByRelationAggregateInput
+  }
+
+  export type RentalToolWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: RentalToolWhereInput | RentalToolWhereInput[]
+    OR?: RentalToolWhereInput[]
+    NOT?: RentalToolWhereInput | RentalToolWhereInput[]
+    categoryId?: StringFilter<"RentalTool"> | string
+    name?: StringFilter<"RentalTool"> | string
+    description?: StringNullableFilter<"RentalTool"> | string | null
+    accessories?: StringNullableFilter<"RentalTool"> | string | null
+    dailyPriceExVat?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    quantity?: IntFilter<"RentalTool"> | number
+    imageUrl?: StringNullableFilter<"RentalTool"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalTool"> | string | null
+    position?: IntFilter<"RentalTool"> | number
+    active?: BoolFilter<"RentalTool"> | boolean
+    createdAt?: DateTimeFilter<"RentalTool"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalTool"> | Date | string
+    category?: XOR<RentalCategoryScalarRelationFilter, RentalCategoryWhereInput>
+    reservations?: RentalReservationListRelationFilter
+    bookings?: RentalBookingListRelationFilter
+  }, "id" | "slug">
+
+  export type RentalToolOrderByWithAggregationInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    accessories?: SortOrderInput | SortOrder
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageBlobPath?: SortOrderInput | SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RentalToolCountOrderByAggregateInput
+    _avg?: RentalToolAvgOrderByAggregateInput
+    _max?: RentalToolMaxOrderByAggregateInput
+    _min?: RentalToolMinOrderByAggregateInput
+    _sum?: RentalToolSumOrderByAggregateInput
+  }
+
+  export type RentalToolScalarWhereWithAggregatesInput = {
+    AND?: RentalToolScalarWhereWithAggregatesInput | RentalToolScalarWhereWithAggregatesInput[]
+    OR?: RentalToolScalarWhereWithAggregatesInput[]
+    NOT?: RentalToolScalarWhereWithAggregatesInput | RentalToolScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalTool"> | string
+    categoryId?: StringWithAggregatesFilter<"RentalTool"> | string
+    name?: StringWithAggregatesFilter<"RentalTool"> | string
+    slug?: StringWithAggregatesFilter<"RentalTool"> | string
+    description?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
+    accessories?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
+    dailyPriceExVat?: DecimalWithAggregatesFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalWithAggregatesFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    quantity?: IntWithAggregatesFilter<"RentalTool"> | number
+    imageUrl?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
+    imageBlobPath?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
+    position?: IntWithAggregatesFilter<"RentalTool"> | number
+    active?: BoolWithAggregatesFilter<"RentalTool"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"RentalTool"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RentalTool"> | Date | string
+  }
+
+  export type RentalReservationWhereInput = {
+    AND?: RentalReservationWhereInput | RentalReservationWhereInput[]
+    OR?: RentalReservationWhereInput[]
+    NOT?: RentalReservationWhereInput | RentalReservationWhereInput[]
+    id?: StringFilter<"RentalReservation"> | string
+    number?: StringFilter<"RentalReservation"> | string
+    year?: IntFilter<"RentalReservation"> | number
+    seq?: IntFilter<"RentalReservation"> | number
+    toolId?: StringFilter<"RentalReservation"> | string
+    toolSnapshot?: JsonFilter<"RentalReservation">
+    customerName?: StringFilter<"RentalReservation"> | string
+    customerEmail?: StringFilter<"RentalReservation"> | string
+    customerPhone?: StringFilter<"RentalReservation"> | string
+    customerCompany?: StringNullableFilter<"RentalReservation"> | string | null
+    customerNote?: StringNullableFilter<"RentalReservation"> | string | null
+    deliveryType?: EnumRentalDeliveryFilter<"RentalReservation"> | $Enums.RentalDelivery
+    deliveryKm?: IntNullableFilter<"RentalReservation"> | number | null
+    deliveryAddress?: StringNullableFilter<"RentalReservation"> | string | null
+    startDate?: DateTimeFilter<"RentalReservation"> | Date | string
+    endDate?: DateTimeFilter<"RentalReservation"> | Date | string
+    days?: IntFilter<"RentalReservation"> | number
+    rentalExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFilter<"RentalReservation"> | $Enums.RentalReservationStatus
+    adminNote?: StringNullableFilter<"RentalReservation"> | string | null
+    decidedById?: StringNullableFilter<"RentalReservation"> | string | null
+    decidedAt?: DateTimeNullableFilter<"RentalReservation"> | Date | string | null
+    createdAt?: DateTimeFilter<"RentalReservation"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalReservation"> | Date | string
+    tool?: XOR<RentalToolScalarRelationFilter, RentalToolWhereInput>
+    booking?: XOR<RentalBookingNullableScalarRelationFilter, RentalBookingWhereInput> | null
+  }
+
+  export type RentalReservationOrderByWithRelationInput = {
+    id?: SortOrder
+    number?: SortOrder
+    year?: SortOrder
+    seq?: SortOrder
+    toolId?: SortOrder
+    toolSnapshot?: SortOrder
+    customerName?: SortOrder
+    customerEmail?: SortOrder
+    customerPhone?: SortOrder
+    customerCompany?: SortOrderInput | SortOrder
+    customerNote?: SortOrderInput | SortOrder
+    deliveryType?: SortOrder
+    deliveryKm?: SortOrderInput | SortOrder
+    deliveryAddress?: SortOrderInput | SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+    status?: SortOrder
+    adminNote?: SortOrderInput | SortOrder
+    decidedById?: SortOrderInput | SortOrder
+    decidedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tool?: RentalToolOrderByWithRelationInput
+    booking?: RentalBookingOrderByWithRelationInput
+  }
+
+  export type RentalReservationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    number?: string
+    AND?: RentalReservationWhereInput | RentalReservationWhereInput[]
+    OR?: RentalReservationWhereInput[]
+    NOT?: RentalReservationWhereInput | RentalReservationWhereInput[]
+    year?: IntFilter<"RentalReservation"> | number
+    seq?: IntFilter<"RentalReservation"> | number
+    toolId?: StringFilter<"RentalReservation"> | string
+    toolSnapshot?: JsonFilter<"RentalReservation">
+    customerName?: StringFilter<"RentalReservation"> | string
+    customerEmail?: StringFilter<"RentalReservation"> | string
+    customerPhone?: StringFilter<"RentalReservation"> | string
+    customerCompany?: StringNullableFilter<"RentalReservation"> | string | null
+    customerNote?: StringNullableFilter<"RentalReservation"> | string | null
+    deliveryType?: EnumRentalDeliveryFilter<"RentalReservation"> | $Enums.RentalDelivery
+    deliveryKm?: IntNullableFilter<"RentalReservation"> | number | null
+    deliveryAddress?: StringNullableFilter<"RentalReservation"> | string | null
+    startDate?: DateTimeFilter<"RentalReservation"> | Date | string
+    endDate?: DateTimeFilter<"RentalReservation"> | Date | string
+    days?: IntFilter<"RentalReservation"> | number
+    rentalExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFilter<"RentalReservation"> | $Enums.RentalReservationStatus
+    adminNote?: StringNullableFilter<"RentalReservation"> | string | null
+    decidedById?: StringNullableFilter<"RentalReservation"> | string | null
+    decidedAt?: DateTimeNullableFilter<"RentalReservation"> | Date | string | null
+    createdAt?: DateTimeFilter<"RentalReservation"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalReservation"> | Date | string
+    tool?: XOR<RentalToolScalarRelationFilter, RentalToolWhereInput>
+    booking?: XOR<RentalBookingNullableScalarRelationFilter, RentalBookingWhereInput> | null
+  }, "id" | "number">
+
+  export type RentalReservationOrderByWithAggregationInput = {
+    id?: SortOrder
+    number?: SortOrder
+    year?: SortOrder
+    seq?: SortOrder
+    toolId?: SortOrder
+    toolSnapshot?: SortOrder
+    customerName?: SortOrder
+    customerEmail?: SortOrder
+    customerPhone?: SortOrder
+    customerCompany?: SortOrderInput | SortOrder
+    customerNote?: SortOrderInput | SortOrder
+    deliveryType?: SortOrder
+    deliveryKm?: SortOrderInput | SortOrder
+    deliveryAddress?: SortOrderInput | SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+    status?: SortOrder
+    adminNote?: SortOrderInput | SortOrder
+    decidedById?: SortOrderInput | SortOrder
+    decidedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RentalReservationCountOrderByAggregateInput
+    _avg?: RentalReservationAvgOrderByAggregateInput
+    _max?: RentalReservationMaxOrderByAggregateInput
+    _min?: RentalReservationMinOrderByAggregateInput
+    _sum?: RentalReservationSumOrderByAggregateInput
+  }
+
+  export type RentalReservationScalarWhereWithAggregatesInput = {
+    AND?: RentalReservationScalarWhereWithAggregatesInput | RentalReservationScalarWhereWithAggregatesInput[]
+    OR?: RentalReservationScalarWhereWithAggregatesInput[]
+    NOT?: RentalReservationScalarWhereWithAggregatesInput | RentalReservationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalReservation"> | string
+    number?: StringWithAggregatesFilter<"RentalReservation"> | string
+    year?: IntWithAggregatesFilter<"RentalReservation"> | number
+    seq?: IntWithAggregatesFilter<"RentalReservation"> | number
+    toolId?: StringWithAggregatesFilter<"RentalReservation"> | string
+    toolSnapshot?: JsonWithAggregatesFilter<"RentalReservation">
+    customerName?: StringWithAggregatesFilter<"RentalReservation"> | string
+    customerEmail?: StringWithAggregatesFilter<"RentalReservation"> | string
+    customerPhone?: StringWithAggregatesFilter<"RentalReservation"> | string
+    customerCompany?: StringNullableWithAggregatesFilter<"RentalReservation"> | string | null
+    customerNote?: StringNullableWithAggregatesFilter<"RentalReservation"> | string | null
+    deliveryType?: EnumRentalDeliveryWithAggregatesFilter<"RentalReservation"> | $Enums.RentalDelivery
+    deliveryKm?: IntNullableWithAggregatesFilter<"RentalReservation"> | number | null
+    deliveryAddress?: StringNullableWithAggregatesFilter<"RentalReservation"> | string | null
+    startDate?: DateTimeWithAggregatesFilter<"RentalReservation"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"RentalReservation"> | Date | string
+    days?: IntWithAggregatesFilter<"RentalReservation"> | number
+    rentalExVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusWithAggregatesFilter<"RentalReservation"> | $Enums.RentalReservationStatus
+    adminNote?: StringNullableWithAggregatesFilter<"RentalReservation"> | string | null
+    decidedById?: StringNullableWithAggregatesFilter<"RentalReservation"> | string | null
+    decidedAt?: DateTimeNullableWithAggregatesFilter<"RentalReservation"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RentalReservation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RentalReservation"> | Date | string
+  }
+
+  export type RentalBookingWhereInput = {
+    AND?: RentalBookingWhereInput | RentalBookingWhereInput[]
+    OR?: RentalBookingWhereInput[]
+    NOT?: RentalBookingWhereInput | RentalBookingWhereInput[]
+    id?: StringFilter<"RentalBooking"> | string
+    toolId?: StringFilter<"RentalBooking"> | string
+    startDate?: DateTimeFilter<"RentalBooking"> | Date | string
+    endDate?: DateTimeFilter<"RentalBooking"> | Date | string
+    units?: IntFilter<"RentalBooking"> | number
+    type?: EnumRentalBookingTypeFilter<"RentalBooking"> | $Enums.RentalBookingType
+    reservationId?: StringNullableFilter<"RentalBooking"> | string | null
+    note?: StringNullableFilter<"RentalBooking"> | string | null
+    createdById?: StringNullableFilter<"RentalBooking"> | string | null
+    createdAt?: DateTimeFilter<"RentalBooking"> | Date | string
+    tool?: XOR<RentalToolScalarRelationFilter, RentalToolWhereInput>
+    reservation?: XOR<RentalReservationNullableScalarRelationFilter, RentalReservationWhereInput> | null
+  }
+
+  export type RentalBookingOrderByWithRelationInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    units?: SortOrder
+    type?: SortOrder
+    reservationId?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tool?: RentalToolOrderByWithRelationInput
+    reservation?: RentalReservationOrderByWithRelationInput
+  }
+
+  export type RentalBookingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    reservationId?: string
+    AND?: RentalBookingWhereInput | RentalBookingWhereInput[]
+    OR?: RentalBookingWhereInput[]
+    NOT?: RentalBookingWhereInput | RentalBookingWhereInput[]
+    toolId?: StringFilter<"RentalBooking"> | string
+    startDate?: DateTimeFilter<"RentalBooking"> | Date | string
+    endDate?: DateTimeFilter<"RentalBooking"> | Date | string
+    units?: IntFilter<"RentalBooking"> | number
+    type?: EnumRentalBookingTypeFilter<"RentalBooking"> | $Enums.RentalBookingType
+    note?: StringNullableFilter<"RentalBooking"> | string | null
+    createdById?: StringNullableFilter<"RentalBooking"> | string | null
+    createdAt?: DateTimeFilter<"RentalBooking"> | Date | string
+    tool?: XOR<RentalToolScalarRelationFilter, RentalToolWhereInput>
+    reservation?: XOR<RentalReservationNullableScalarRelationFilter, RentalReservationWhereInput> | null
+  }, "id" | "reservationId">
+
+  export type RentalBookingOrderByWithAggregationInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    units?: SortOrder
+    type?: SortOrder
+    reservationId?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: RentalBookingCountOrderByAggregateInput
+    _avg?: RentalBookingAvgOrderByAggregateInput
+    _max?: RentalBookingMaxOrderByAggregateInput
+    _min?: RentalBookingMinOrderByAggregateInput
+    _sum?: RentalBookingSumOrderByAggregateInput
+  }
+
+  export type RentalBookingScalarWhereWithAggregatesInput = {
+    AND?: RentalBookingScalarWhereWithAggregatesInput | RentalBookingScalarWhereWithAggregatesInput[]
+    OR?: RentalBookingScalarWhereWithAggregatesInput[]
+    NOT?: RentalBookingScalarWhereWithAggregatesInput | RentalBookingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalBooking"> | string
+    toolId?: StringWithAggregatesFilter<"RentalBooking"> | string
+    startDate?: DateTimeWithAggregatesFilter<"RentalBooking"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"RentalBooking"> | Date | string
+    units?: IntWithAggregatesFilter<"RentalBooking"> | number
+    type?: EnumRentalBookingTypeWithAggregatesFilter<"RentalBooking"> | $Enums.RentalBookingType
+    reservationId?: StringNullableWithAggregatesFilter<"RentalBooking"> | string | null
+    note?: StringNullableWithAggregatesFilter<"RentalBooking"> | string | null
+    createdById?: StringNullableWithAggregatesFilter<"RentalBooking"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RentalBooking"> | Date | string
+  }
+
+  export type RentalSettingsWhereInput = {
+    AND?: RentalSettingsWhereInput | RentalSettingsWhereInput[]
+    OR?: RentalSettingsWhereInput[]
+    NOT?: RentalSettingsWhereInput | RentalSettingsWhereInput[]
+    id?: StringFilter<"RentalSettings"> | string
+    deliveryPricePerKm?: DecimalFilter<"RentalSettings"> | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntFilter<"RentalSettings"> | number
+    minRentalDays?: IntFilter<"RentalSettings"> | number
+    publicIntro?: StringNullableFilter<"RentalSettings"> | string | null
+    termsText?: StringNullableFilter<"RentalSettings"> | string | null
+    contactEmail?: StringNullableFilter<"RentalSettings"> | string | null
+    contactPhone?: StringNullableFilter<"RentalSettings"> | string | null
+    ownerNotifyEmail?: StringNullableFilter<"RentalSettings"> | string | null
+    customerEmailSubject?: StringFilter<"RentalSettings"> | string
+    customerEmailBody?: StringFilter<"RentalSettings"> | string
+    approvedEmailSubject?: StringFilter<"RentalSettings"> | string
+    approvedEmailBody?: StringFilter<"RentalSettings"> | string
+    rejectedEmailSubject?: StringFilter<"RentalSettings"> | string
+    rejectedEmailBody?: StringFilter<"RentalSettings"> | string
+    updatedAt?: DateTimeFilter<"RentalSettings"> | Date | string
+  }
+
+  export type RentalSettingsOrderByWithRelationInput = {
+    id?: SortOrder
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+    publicIntro?: SortOrderInput | SortOrder
+    termsText?: SortOrderInput | SortOrder
+    contactEmail?: SortOrderInput | SortOrder
+    contactPhone?: SortOrderInput | SortOrder
+    ownerNotifyEmail?: SortOrderInput | SortOrder
+    customerEmailSubject?: SortOrder
+    customerEmailBody?: SortOrder
+    approvedEmailSubject?: SortOrder
+    approvedEmailBody?: SortOrder
+    rejectedEmailSubject?: SortOrder
+    rejectedEmailBody?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalSettingsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RentalSettingsWhereInput | RentalSettingsWhereInput[]
+    OR?: RentalSettingsWhereInput[]
+    NOT?: RentalSettingsWhereInput | RentalSettingsWhereInput[]
+    deliveryPricePerKm?: DecimalFilter<"RentalSettings"> | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntFilter<"RentalSettings"> | number
+    minRentalDays?: IntFilter<"RentalSettings"> | number
+    publicIntro?: StringNullableFilter<"RentalSettings"> | string | null
+    termsText?: StringNullableFilter<"RentalSettings"> | string | null
+    contactEmail?: StringNullableFilter<"RentalSettings"> | string | null
+    contactPhone?: StringNullableFilter<"RentalSettings"> | string | null
+    ownerNotifyEmail?: StringNullableFilter<"RentalSettings"> | string | null
+    customerEmailSubject?: StringFilter<"RentalSettings"> | string
+    customerEmailBody?: StringFilter<"RentalSettings"> | string
+    approvedEmailSubject?: StringFilter<"RentalSettings"> | string
+    approvedEmailBody?: StringFilter<"RentalSettings"> | string
+    rejectedEmailSubject?: StringFilter<"RentalSettings"> | string
+    rejectedEmailBody?: StringFilter<"RentalSettings"> | string
+    updatedAt?: DateTimeFilter<"RentalSettings"> | Date | string
+  }, "id">
+
+  export type RentalSettingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+    publicIntro?: SortOrderInput | SortOrder
+    termsText?: SortOrderInput | SortOrder
+    contactEmail?: SortOrderInput | SortOrder
+    contactPhone?: SortOrderInput | SortOrder
+    ownerNotifyEmail?: SortOrderInput | SortOrder
+    customerEmailSubject?: SortOrder
+    customerEmailBody?: SortOrder
+    approvedEmailSubject?: SortOrder
+    approvedEmailBody?: SortOrder
+    rejectedEmailSubject?: SortOrder
+    rejectedEmailBody?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RentalSettingsCountOrderByAggregateInput
+    _avg?: RentalSettingsAvgOrderByAggregateInput
+    _max?: RentalSettingsMaxOrderByAggregateInput
+    _min?: RentalSettingsMinOrderByAggregateInput
+    _sum?: RentalSettingsSumOrderByAggregateInput
+  }
+
+  export type RentalSettingsScalarWhereWithAggregatesInput = {
+    AND?: RentalSettingsScalarWhereWithAggregatesInput | RentalSettingsScalarWhereWithAggregatesInput[]
+    OR?: RentalSettingsScalarWhereWithAggregatesInput[]
+    NOT?: RentalSettingsScalarWhereWithAggregatesInput | RentalSettingsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalSettings"> | string
+    deliveryPricePerKm?: DecimalWithAggregatesFilter<"RentalSettings"> | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntWithAggregatesFilter<"RentalSettings"> | number
+    minRentalDays?: IntWithAggregatesFilter<"RentalSettings"> | number
+    publicIntro?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    termsText?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    contactEmail?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    contactPhone?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    ownerNotifyEmail?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    customerEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
+    customerEmailBody?: StringWithAggregatesFilter<"RentalSettings"> | string
+    approvedEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
+    approvedEmailBody?: StringWithAggregatesFilter<"RentalSettings"> | string
+    rejectedEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
+    rejectedEmailBody?: StringWithAggregatesFilter<"RentalSettings"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RentalSettings"> | Date | string
   }
 
   export type SmtpSettingsWhereInput = {
@@ -34791,6 +42315,669 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RentalCategoryCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tools?: RentalToolCreateNestedManyWithoutCategoryInput
+  }
+
+  export type RentalCategoryUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tools?: RentalToolUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type RentalCategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tools?: RentalToolUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type RentalCategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tools?: RentalToolUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type RentalCategoryCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalCategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalCategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalToolCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: RentalCategoryCreateNestedOneWithoutToolsInput
+    reservations?: RentalReservationCreateNestedManyWithoutToolInput
+    bookings?: RentalBookingCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolUncheckedCreateInput = {
+    id?: string
+    categoryId: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
+    bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
+    reservations?: RentalReservationUpdateManyWithoutToolNestedInput
+    bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
+    bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolCreateManyInput = {
+    id?: string
+    categoryId: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalToolUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalToolUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalReservationCreateInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tool: RentalToolCreateNestedOneWithoutReservationsInput
+    booking?: RentalBookingCreateNestedOneWithoutReservationInput
+  }
+
+  export type RentalReservationUncheckedCreateInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolId: string
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    booking?: RentalBookingUncheckedCreateNestedOneWithoutReservationInput
+  }
+
+  export type RentalReservationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tool?: RentalToolUpdateOneRequiredWithoutReservationsNestedInput
+    booking?: RentalBookingUpdateOneWithoutReservationNestedInput
+  }
+
+  export type RentalReservationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolId?: StringFieldUpdateOperationsInput | string
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: RentalBookingUncheckedUpdateOneWithoutReservationNestedInput
+  }
+
+  export type RentalReservationCreateManyInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolId: string
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalReservationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalReservationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolId?: StringFieldUpdateOperationsInput | string
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalBookingCreateInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    tool: RentalToolCreateNestedOneWithoutBookingsInput
+    reservation?: RentalReservationCreateNestedOneWithoutBookingInput
+  }
+
+  export type RentalBookingUncheckedCreateInput = {
+    id?: string
+    toolId: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    reservationId?: string | null
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RentalBookingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tool?: RentalToolUpdateOneRequiredWithoutBookingsNestedInput
+    reservation?: RentalReservationUpdateOneWithoutBookingNestedInput
+  }
+
+  export type RentalBookingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    reservationId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalBookingCreateManyInput = {
+    id?: string
+    toolId: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    reservationId?: string | null
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RentalBookingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalBookingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    reservationId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalSettingsCreateInput = {
+    id?: string
+    deliveryPricePerKm?: Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: number
+    minRentalDays?: number
+    publicIntro?: string | null
+    termsText?: string | null
+    contactEmail?: string | null
+    contactPhone?: string | null
+    ownerNotifyEmail?: string | null
+    customerEmailSubject?: string
+    customerEmailBody?: string
+    approvedEmailSubject?: string
+    approvedEmailBody?: string
+    rejectedEmailSubject?: string
+    rejectedEmailBody?: string
+    updatedAt?: Date | string
+  }
+
+  export type RentalSettingsUncheckedCreateInput = {
+    id?: string
+    deliveryPricePerKm?: Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: number
+    minRentalDays?: number
+    publicIntro?: string | null
+    termsText?: string | null
+    contactEmail?: string | null
+    contactPhone?: string | null
+    ownerNotifyEmail?: string | null
+    customerEmailSubject?: string
+    customerEmailBody?: string
+    approvedEmailSubject?: string
+    approvedEmailBody?: string
+    rejectedEmailSubject?: string
+    rejectedEmailBody?: string
+    updatedAt?: Date | string
+  }
+
+  export type RentalSettingsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryPricePerKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntFieldUpdateOperationsInput | number
+    minRentalDays?: IntFieldUpdateOperationsInput | number
+    publicIntro?: NullableStringFieldUpdateOperationsInput | string | null
+    termsText?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    customerEmailSubject?: StringFieldUpdateOperationsInput | string
+    customerEmailBody?: StringFieldUpdateOperationsInput | string
+    approvedEmailSubject?: StringFieldUpdateOperationsInput | string
+    approvedEmailBody?: StringFieldUpdateOperationsInput | string
+    rejectedEmailSubject?: StringFieldUpdateOperationsInput | string
+    rejectedEmailBody?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalSettingsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryPricePerKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntFieldUpdateOperationsInput | number
+    minRentalDays?: IntFieldUpdateOperationsInput | number
+    publicIntro?: NullableStringFieldUpdateOperationsInput | string | null
+    termsText?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    customerEmailSubject?: StringFieldUpdateOperationsInput | string
+    customerEmailBody?: StringFieldUpdateOperationsInput | string
+    approvedEmailSubject?: StringFieldUpdateOperationsInput | string
+    approvedEmailBody?: StringFieldUpdateOperationsInput | string
+    rejectedEmailSubject?: StringFieldUpdateOperationsInput | string
+    rejectedEmailBody?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalSettingsCreateManyInput = {
+    id?: string
+    deliveryPricePerKm?: Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: number
+    minRentalDays?: number
+    publicIntro?: string | null
+    termsText?: string | null
+    contactEmail?: string | null
+    contactPhone?: string | null
+    ownerNotifyEmail?: string | null
+    customerEmailSubject?: string
+    customerEmailBody?: string
+    approvedEmailSubject?: string
+    approvedEmailBody?: string
+    rejectedEmailSubject?: string
+    rejectedEmailBody?: string
+    updatedAt?: Date | string
+  }
+
+  export type RentalSettingsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryPricePerKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntFieldUpdateOperationsInput | number
+    minRentalDays?: IntFieldUpdateOperationsInput | number
+    publicIntro?: NullableStringFieldUpdateOperationsInput | string | null
+    termsText?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    customerEmailSubject?: StringFieldUpdateOperationsInput | string
+    customerEmailBody?: StringFieldUpdateOperationsInput | string
+    approvedEmailSubject?: StringFieldUpdateOperationsInput | string
+    approvedEmailBody?: StringFieldUpdateOperationsInput | string
+    rejectedEmailSubject?: StringFieldUpdateOperationsInput | string
+    rejectedEmailBody?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalSettingsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryPricePerKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxDeliveryKm?: IntFieldUpdateOperationsInput | number
+    minRentalDays?: IntFieldUpdateOperationsInput | number
+    publicIntro?: NullableStringFieldUpdateOperationsInput | string | null
+    termsText?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    customerEmailSubject?: StringFieldUpdateOperationsInput | string
+    customerEmailBody?: StringFieldUpdateOperationsInput | string
+    approvedEmailSubject?: StringFieldUpdateOperationsInput | string
+    approvedEmailBody?: StringFieldUpdateOperationsInput | string
+    rejectedEmailSubject?: StringFieldUpdateOperationsInput | string
+    rejectedEmailBody?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SmtpSettingsCreateInput = {
     id?: string
     host?: string | null
@@ -36713,6 +44900,475 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type RentalToolListRelationFilter = {
+    every?: RentalToolWhereInput
+    some?: RentalToolWhereInput
+    none?: RentalToolWhereInput
+  }
+
+  export type RentalToolOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RentalCategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalCategoryAvgOrderByAggregateInput = {
+    position?: SortOrder
+  }
+
+  export type RentalCategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalCategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalCategorySumOrderByAggregateInput = {
+    position?: SortOrder
+  }
+
+  export type RentalCategoryScalarRelationFilter = {
+    is?: RentalCategoryWhereInput
+    isNot?: RentalCategoryWhereInput
+  }
+
+  export type RentalReservationListRelationFilter = {
+    every?: RentalReservationWhereInput
+    some?: RentalReservationWhereInput
+    none?: RentalReservationWhereInput
+  }
+
+  export type RentalBookingListRelationFilter = {
+    every?: RentalBookingWhereInput
+    some?: RentalBookingWhereInput
+    none?: RentalBookingWhereInput
+  }
+
+  export type RentalReservationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RentalBookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RentalToolCountOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    accessories?: SortOrder
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalToolAvgOrderByAggregateInput = {
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    position?: SortOrder
+  }
+
+  export type RentalToolMaxOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    accessories?: SortOrder
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalToolMinOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    accessories?: SortOrder
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalToolSumOrderByAggregateInput = {
+    dailyPriceExVat?: SortOrder
+    vatRate?: SortOrder
+    quantity?: SortOrder
+    position?: SortOrder
+  }
+
+  export type EnumRentalDeliveryFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalDelivery | EnumRentalDeliveryFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalDeliveryFilter<$PrismaModel> | $Enums.RentalDelivery
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumRentalReservationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalReservationStatus | EnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalReservationStatusFilter<$PrismaModel> | $Enums.RentalReservationStatus
+  }
+
+  export type RentalToolScalarRelationFilter = {
+    is?: RentalToolWhereInput
+    isNot?: RentalToolWhereInput
+  }
+
+  export type RentalBookingNullableScalarRelationFilter = {
+    is?: RentalBookingWhereInput | null
+    isNot?: RentalBookingWhereInput | null
+  }
+
+  export type RentalReservationCountOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    year?: SortOrder
+    seq?: SortOrder
+    toolId?: SortOrder
+    toolSnapshot?: SortOrder
+    customerName?: SortOrder
+    customerEmail?: SortOrder
+    customerPhone?: SortOrder
+    customerCompany?: SortOrder
+    customerNote?: SortOrder
+    deliveryType?: SortOrder
+    deliveryKm?: SortOrder
+    deliveryAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+    status?: SortOrder
+    adminNote?: SortOrder
+    decidedById?: SortOrder
+    decidedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalReservationAvgOrderByAggregateInput = {
+    year?: SortOrder
+    seq?: SortOrder
+    deliveryKm?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+  }
+
+  export type RentalReservationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    year?: SortOrder
+    seq?: SortOrder
+    toolId?: SortOrder
+    customerName?: SortOrder
+    customerEmail?: SortOrder
+    customerPhone?: SortOrder
+    customerCompany?: SortOrder
+    customerNote?: SortOrder
+    deliveryType?: SortOrder
+    deliveryKm?: SortOrder
+    deliveryAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+    status?: SortOrder
+    adminNote?: SortOrder
+    decidedById?: SortOrder
+    decidedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalReservationMinOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    year?: SortOrder
+    seq?: SortOrder
+    toolId?: SortOrder
+    customerName?: SortOrder
+    customerEmail?: SortOrder
+    customerPhone?: SortOrder
+    customerCompany?: SortOrder
+    customerNote?: SortOrder
+    deliveryType?: SortOrder
+    deliveryKm?: SortOrder
+    deliveryAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+    status?: SortOrder
+    adminNote?: SortOrder
+    decidedById?: SortOrder
+    decidedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalReservationSumOrderByAggregateInput = {
+    year?: SortOrder
+    seq?: SortOrder
+    deliveryKm?: SortOrder
+    days?: SortOrder
+    rentalExVat?: SortOrder
+    deliveryExVat?: SortOrder
+    vatAmount?: SortOrder
+    priceInclVat?: SortOrder
+  }
+
+  export type EnumRentalDeliveryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalDelivery | EnumRentalDeliveryFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalDeliveryWithAggregatesFilter<$PrismaModel> | $Enums.RentalDelivery
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRentalDeliveryFilter<$PrismaModel>
+    _max?: NestedEnumRentalDeliveryFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRentalReservationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalReservationStatus | EnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalReservationStatusWithAggregatesFilter<$PrismaModel> | $Enums.RentalReservationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRentalReservationStatusFilter<$PrismaModel>
+    _max?: NestedEnumRentalReservationStatusFilter<$PrismaModel>
+  }
+
+  export type EnumRentalBookingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalBookingType | EnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalBookingTypeFilter<$PrismaModel> | $Enums.RentalBookingType
+  }
+
+  export type RentalReservationNullableScalarRelationFilter = {
+    is?: RentalReservationWhereInput | null
+    isNot?: RentalReservationWhereInput | null
+  }
+
+  export type RentalBookingCountOrderByAggregateInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    units?: SortOrder
+    type?: SortOrder
+    reservationId?: SortOrder
+    note?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RentalBookingAvgOrderByAggregateInput = {
+    units?: SortOrder
+  }
+
+  export type RentalBookingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    units?: SortOrder
+    type?: SortOrder
+    reservationId?: SortOrder
+    note?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RentalBookingMinOrderByAggregateInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    units?: SortOrder
+    type?: SortOrder
+    reservationId?: SortOrder
+    note?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RentalBookingSumOrderByAggregateInput = {
+    units?: SortOrder
+  }
+
+  export type EnumRentalBookingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalBookingType | EnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalBookingTypeWithAggregatesFilter<$PrismaModel> | $Enums.RentalBookingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRentalBookingTypeFilter<$PrismaModel>
+    _max?: NestedEnumRentalBookingTypeFilter<$PrismaModel>
+  }
+
+  export type RentalSettingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+    publicIntro?: SortOrder
+    termsText?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    ownerNotifyEmail?: SortOrder
+    customerEmailSubject?: SortOrder
+    customerEmailBody?: SortOrder
+    approvedEmailSubject?: SortOrder
+    approvedEmailBody?: SortOrder
+    rejectedEmailSubject?: SortOrder
+    rejectedEmailBody?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalSettingsAvgOrderByAggregateInput = {
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+  }
+
+  export type RentalSettingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+    publicIntro?: SortOrder
+    termsText?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    ownerNotifyEmail?: SortOrder
+    customerEmailSubject?: SortOrder
+    customerEmailBody?: SortOrder
+    approvedEmailSubject?: SortOrder
+    approvedEmailBody?: SortOrder
+    rejectedEmailSubject?: SortOrder
+    rejectedEmailBody?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalSettingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+    publicIntro?: SortOrder
+    termsText?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    ownerNotifyEmail?: SortOrder
+    customerEmailSubject?: SortOrder
+    customerEmailBody?: SortOrder
+    approvedEmailSubject?: SortOrder
+    approvedEmailBody?: SortOrder
+    rejectedEmailSubject?: SortOrder
+    rejectedEmailBody?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalSettingsSumOrderByAggregateInput = {
+    deliveryPricePerKm?: SortOrder
+    maxDeliveryKm?: SortOrder
+    minRentalDays?: SortOrder
+  }
+
   export type SmtpSettingsCountOrderByAggregateInput = {
     id?: SortOrder
     host?: SortOrder
@@ -37812,6 +46468,242 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutActivitiesInput, UserUpdateWithoutActivitiesInput>, UserUncheckedUpdateWithoutActivitiesInput>
   }
 
+  export type RentalToolCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<RentalToolCreateWithoutCategoryInput, RentalToolUncheckedCreateWithoutCategoryInput> | RentalToolCreateWithoutCategoryInput[] | RentalToolUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RentalToolCreateOrConnectWithoutCategoryInput | RentalToolCreateOrConnectWithoutCategoryInput[]
+    createMany?: RentalToolCreateManyCategoryInputEnvelope
+    connect?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+  }
+
+  export type RentalToolUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<RentalToolCreateWithoutCategoryInput, RentalToolUncheckedCreateWithoutCategoryInput> | RentalToolCreateWithoutCategoryInput[] | RentalToolUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RentalToolCreateOrConnectWithoutCategoryInput | RentalToolCreateOrConnectWithoutCategoryInput[]
+    createMany?: RentalToolCreateManyCategoryInputEnvelope
+    connect?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+  }
+
+  export type RentalToolUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<RentalToolCreateWithoutCategoryInput, RentalToolUncheckedCreateWithoutCategoryInput> | RentalToolCreateWithoutCategoryInput[] | RentalToolUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RentalToolCreateOrConnectWithoutCategoryInput | RentalToolCreateOrConnectWithoutCategoryInput[]
+    upsert?: RentalToolUpsertWithWhereUniqueWithoutCategoryInput | RentalToolUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: RentalToolCreateManyCategoryInputEnvelope
+    set?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    disconnect?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    delete?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    connect?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    update?: RentalToolUpdateWithWhereUniqueWithoutCategoryInput | RentalToolUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: RentalToolUpdateManyWithWhereWithoutCategoryInput | RentalToolUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: RentalToolScalarWhereInput | RentalToolScalarWhereInput[]
+  }
+
+  export type RentalToolUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<RentalToolCreateWithoutCategoryInput, RentalToolUncheckedCreateWithoutCategoryInput> | RentalToolCreateWithoutCategoryInput[] | RentalToolUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: RentalToolCreateOrConnectWithoutCategoryInput | RentalToolCreateOrConnectWithoutCategoryInput[]
+    upsert?: RentalToolUpsertWithWhereUniqueWithoutCategoryInput | RentalToolUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: RentalToolCreateManyCategoryInputEnvelope
+    set?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    disconnect?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    delete?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    connect?: RentalToolWhereUniqueInput | RentalToolWhereUniqueInput[]
+    update?: RentalToolUpdateWithWhereUniqueWithoutCategoryInput | RentalToolUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: RentalToolUpdateManyWithWhereWithoutCategoryInput | RentalToolUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: RentalToolScalarWhereInput | RentalToolScalarWhereInput[]
+  }
+
+  export type RentalCategoryCreateNestedOneWithoutToolsInput = {
+    create?: XOR<RentalCategoryCreateWithoutToolsInput, RentalCategoryUncheckedCreateWithoutToolsInput>
+    connectOrCreate?: RentalCategoryCreateOrConnectWithoutToolsInput
+    connect?: RentalCategoryWhereUniqueInput
+  }
+
+  export type RentalReservationCreateNestedManyWithoutToolInput = {
+    create?: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput> | RentalReservationCreateWithoutToolInput[] | RentalReservationUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalReservationCreateOrConnectWithoutToolInput | RentalReservationCreateOrConnectWithoutToolInput[]
+    createMany?: RentalReservationCreateManyToolInputEnvelope
+    connect?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+  }
+
+  export type RentalBookingCreateNestedManyWithoutToolInput = {
+    create?: XOR<RentalBookingCreateWithoutToolInput, RentalBookingUncheckedCreateWithoutToolInput> | RentalBookingCreateWithoutToolInput[] | RentalBookingUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutToolInput | RentalBookingCreateOrConnectWithoutToolInput[]
+    createMany?: RentalBookingCreateManyToolInputEnvelope
+    connect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+  }
+
+  export type RentalReservationUncheckedCreateNestedManyWithoutToolInput = {
+    create?: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput> | RentalReservationCreateWithoutToolInput[] | RentalReservationUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalReservationCreateOrConnectWithoutToolInput | RentalReservationCreateOrConnectWithoutToolInput[]
+    createMany?: RentalReservationCreateManyToolInputEnvelope
+    connect?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+  }
+
+  export type RentalBookingUncheckedCreateNestedManyWithoutToolInput = {
+    create?: XOR<RentalBookingCreateWithoutToolInput, RentalBookingUncheckedCreateWithoutToolInput> | RentalBookingCreateWithoutToolInput[] | RentalBookingUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutToolInput | RentalBookingCreateOrConnectWithoutToolInput[]
+    createMany?: RentalBookingCreateManyToolInputEnvelope
+    connect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+  }
+
+  export type RentalCategoryUpdateOneRequiredWithoutToolsNestedInput = {
+    create?: XOR<RentalCategoryCreateWithoutToolsInput, RentalCategoryUncheckedCreateWithoutToolsInput>
+    connectOrCreate?: RentalCategoryCreateOrConnectWithoutToolsInput
+    upsert?: RentalCategoryUpsertWithoutToolsInput
+    connect?: RentalCategoryWhereUniqueInput
+    update?: XOR<XOR<RentalCategoryUpdateToOneWithWhereWithoutToolsInput, RentalCategoryUpdateWithoutToolsInput>, RentalCategoryUncheckedUpdateWithoutToolsInput>
+  }
+
+  export type RentalReservationUpdateManyWithoutToolNestedInput = {
+    create?: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput> | RentalReservationCreateWithoutToolInput[] | RentalReservationUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalReservationCreateOrConnectWithoutToolInput | RentalReservationCreateOrConnectWithoutToolInput[]
+    upsert?: RentalReservationUpsertWithWhereUniqueWithoutToolInput | RentalReservationUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: RentalReservationCreateManyToolInputEnvelope
+    set?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    disconnect?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    delete?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    connect?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    update?: RentalReservationUpdateWithWhereUniqueWithoutToolInput | RentalReservationUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: RentalReservationUpdateManyWithWhereWithoutToolInput | RentalReservationUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: RentalReservationScalarWhereInput | RentalReservationScalarWhereInput[]
+  }
+
+  export type RentalBookingUpdateManyWithoutToolNestedInput = {
+    create?: XOR<RentalBookingCreateWithoutToolInput, RentalBookingUncheckedCreateWithoutToolInput> | RentalBookingCreateWithoutToolInput[] | RentalBookingUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutToolInput | RentalBookingCreateOrConnectWithoutToolInput[]
+    upsert?: RentalBookingUpsertWithWhereUniqueWithoutToolInput | RentalBookingUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: RentalBookingCreateManyToolInputEnvelope
+    set?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    disconnect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    delete?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    connect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    update?: RentalBookingUpdateWithWhereUniqueWithoutToolInput | RentalBookingUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: RentalBookingUpdateManyWithWhereWithoutToolInput | RentalBookingUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: RentalBookingScalarWhereInput | RentalBookingScalarWhereInput[]
+  }
+
+  export type RentalReservationUncheckedUpdateManyWithoutToolNestedInput = {
+    create?: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput> | RentalReservationCreateWithoutToolInput[] | RentalReservationUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalReservationCreateOrConnectWithoutToolInput | RentalReservationCreateOrConnectWithoutToolInput[]
+    upsert?: RentalReservationUpsertWithWhereUniqueWithoutToolInput | RentalReservationUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: RentalReservationCreateManyToolInputEnvelope
+    set?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    disconnect?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    delete?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    connect?: RentalReservationWhereUniqueInput | RentalReservationWhereUniqueInput[]
+    update?: RentalReservationUpdateWithWhereUniqueWithoutToolInput | RentalReservationUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: RentalReservationUpdateManyWithWhereWithoutToolInput | RentalReservationUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: RentalReservationScalarWhereInput | RentalReservationScalarWhereInput[]
+  }
+
+  export type RentalBookingUncheckedUpdateManyWithoutToolNestedInput = {
+    create?: XOR<RentalBookingCreateWithoutToolInput, RentalBookingUncheckedCreateWithoutToolInput> | RentalBookingCreateWithoutToolInput[] | RentalBookingUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutToolInput | RentalBookingCreateOrConnectWithoutToolInput[]
+    upsert?: RentalBookingUpsertWithWhereUniqueWithoutToolInput | RentalBookingUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: RentalBookingCreateManyToolInputEnvelope
+    set?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    disconnect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    delete?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    connect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+    update?: RentalBookingUpdateWithWhereUniqueWithoutToolInput | RentalBookingUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: RentalBookingUpdateManyWithWhereWithoutToolInput | RentalBookingUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: RentalBookingScalarWhereInput | RentalBookingScalarWhereInput[]
+  }
+
+  export type RentalToolCreateNestedOneWithoutReservationsInput = {
+    create?: XOR<RentalToolCreateWithoutReservationsInput, RentalToolUncheckedCreateWithoutReservationsInput>
+    connectOrCreate?: RentalToolCreateOrConnectWithoutReservationsInput
+    connect?: RentalToolWhereUniqueInput
+  }
+
+  export type RentalBookingCreateNestedOneWithoutReservationInput = {
+    create?: XOR<RentalBookingCreateWithoutReservationInput, RentalBookingUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutReservationInput
+    connect?: RentalBookingWhereUniqueInput
+  }
+
+  export type RentalBookingUncheckedCreateNestedOneWithoutReservationInput = {
+    create?: XOR<RentalBookingCreateWithoutReservationInput, RentalBookingUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutReservationInput
+    connect?: RentalBookingWhereUniqueInput
+  }
+
+  export type EnumRentalDeliveryFieldUpdateOperationsInput = {
+    set?: $Enums.RentalDelivery
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumRentalReservationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.RentalReservationStatus
+  }
+
+  export type RentalToolUpdateOneRequiredWithoutReservationsNestedInput = {
+    create?: XOR<RentalToolCreateWithoutReservationsInput, RentalToolUncheckedCreateWithoutReservationsInput>
+    connectOrCreate?: RentalToolCreateOrConnectWithoutReservationsInput
+    upsert?: RentalToolUpsertWithoutReservationsInput
+    connect?: RentalToolWhereUniqueInput
+    update?: XOR<XOR<RentalToolUpdateToOneWithWhereWithoutReservationsInput, RentalToolUpdateWithoutReservationsInput>, RentalToolUncheckedUpdateWithoutReservationsInput>
+  }
+
+  export type RentalBookingUpdateOneWithoutReservationNestedInput = {
+    create?: XOR<RentalBookingCreateWithoutReservationInput, RentalBookingUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutReservationInput
+    upsert?: RentalBookingUpsertWithoutReservationInput
+    disconnect?: RentalBookingWhereInput | boolean
+    delete?: RentalBookingWhereInput | boolean
+    connect?: RentalBookingWhereUniqueInput
+    update?: XOR<XOR<RentalBookingUpdateToOneWithWhereWithoutReservationInput, RentalBookingUpdateWithoutReservationInput>, RentalBookingUncheckedUpdateWithoutReservationInput>
+  }
+
+  export type RentalBookingUncheckedUpdateOneWithoutReservationNestedInput = {
+    create?: XOR<RentalBookingCreateWithoutReservationInput, RentalBookingUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: RentalBookingCreateOrConnectWithoutReservationInput
+    upsert?: RentalBookingUpsertWithoutReservationInput
+    disconnect?: RentalBookingWhereInput | boolean
+    delete?: RentalBookingWhereInput | boolean
+    connect?: RentalBookingWhereUniqueInput
+    update?: XOR<XOR<RentalBookingUpdateToOneWithWhereWithoutReservationInput, RentalBookingUpdateWithoutReservationInput>, RentalBookingUncheckedUpdateWithoutReservationInput>
+  }
+
+  export type RentalToolCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<RentalToolCreateWithoutBookingsInput, RentalToolUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: RentalToolCreateOrConnectWithoutBookingsInput
+    connect?: RentalToolWhereUniqueInput
+  }
+
+  export type RentalReservationCreateNestedOneWithoutBookingInput = {
+    create?: XOR<RentalReservationCreateWithoutBookingInput, RentalReservationUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: RentalReservationCreateOrConnectWithoutBookingInput
+    connect?: RentalReservationWhereUniqueInput
+  }
+
+  export type EnumRentalBookingTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RentalBookingType
+  }
+
+  export type RentalToolUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<RentalToolCreateWithoutBookingsInput, RentalToolUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: RentalToolCreateOrConnectWithoutBookingsInput
+    upsert?: RentalToolUpsertWithoutBookingsInput
+    connect?: RentalToolWhereUniqueInput
+    update?: XOR<XOR<RentalToolUpdateToOneWithWhereWithoutBookingsInput, RentalToolUpdateWithoutBookingsInput>, RentalToolUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type RentalReservationUpdateOneWithoutBookingNestedInput = {
+    create?: XOR<RentalReservationCreateWithoutBookingInput, RentalReservationUncheckedCreateWithoutBookingInput>
+    connectOrCreate?: RentalReservationCreateOrConnectWithoutBookingInput
+    upsert?: RentalReservationUpsertWithoutBookingInput
+    disconnect?: RentalReservationWhereInput | boolean
+    delete?: RentalReservationWhereInput | boolean
+    connect?: RentalReservationWhereUniqueInput
+    update?: XOR<XOR<RentalReservationUpdateToOneWithWhereWithoutBookingInput, RentalReservationUpdateWithoutBookingInput>, RentalReservationUncheckedUpdateWithoutBookingInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -38271,6 +47163,84 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumDocumentTypeNullableFilter<$PrismaModel>
     _max?: NestedEnumDocumentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRentalDeliveryFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalDelivery | EnumRentalDeliveryFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalDeliveryFilter<$PrismaModel> | $Enums.RentalDelivery
+  }
+
+  export type NestedEnumRentalReservationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalReservationStatus | EnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalReservationStatusFilter<$PrismaModel> | $Enums.RentalReservationStatus
+  }
+
+  export type NestedEnumRentalDeliveryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalDelivery | EnumRentalDeliveryFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalDeliveryWithAggregatesFilter<$PrismaModel> | $Enums.RentalDelivery
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRentalDeliveryFilter<$PrismaModel>
+    _max?: NestedEnumRentalDeliveryFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumRentalReservationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalReservationStatus | EnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalReservationStatus[] | ListEnumRentalReservationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalReservationStatusWithAggregatesFilter<$PrismaModel> | $Enums.RentalReservationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRentalReservationStatusFilter<$PrismaModel>
+    _max?: NestedEnumRentalReservationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRentalBookingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalBookingType | EnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalBookingTypeFilter<$PrismaModel> | $Enums.RentalBookingType
+  }
+
+  export type NestedEnumRentalBookingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RentalBookingType | EnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RentalBookingType[] | ListEnumRentalBookingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRentalBookingTypeWithAggregatesFilter<$PrismaModel> | $Enums.RentalBookingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRentalBookingTypeFilter<$PrismaModel>
+    _max?: NestedEnumRentalBookingTypeFilter<$PrismaModel>
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -41531,6 +50501,728 @@ export namespace Prisma {
     emailLogs?: EmailLogUncheckedUpdateManyWithoutSenderNestedInput
   }
 
+  export type RentalToolCreateWithoutCategoryInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reservations?: RentalReservationCreateNestedManyWithoutToolInput
+    bookings?: RentalBookingCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolUncheckedCreateWithoutCategoryInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
+    bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolCreateOrConnectWithoutCategoryInput = {
+    where: RentalToolWhereUniqueInput
+    create: XOR<RentalToolCreateWithoutCategoryInput, RentalToolUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type RentalToolCreateManyCategoryInputEnvelope = {
+    data: RentalToolCreateManyCategoryInput | RentalToolCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RentalToolUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: RentalToolWhereUniqueInput
+    update: XOR<RentalToolUpdateWithoutCategoryInput, RentalToolUncheckedUpdateWithoutCategoryInput>
+    create: XOR<RentalToolCreateWithoutCategoryInput, RentalToolUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type RentalToolUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: RentalToolWhereUniqueInput
+    data: XOR<RentalToolUpdateWithoutCategoryInput, RentalToolUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type RentalToolUpdateManyWithWhereWithoutCategoryInput = {
+    where: RentalToolScalarWhereInput
+    data: XOR<RentalToolUpdateManyMutationInput, RentalToolUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type RentalToolScalarWhereInput = {
+    AND?: RentalToolScalarWhereInput | RentalToolScalarWhereInput[]
+    OR?: RentalToolScalarWhereInput[]
+    NOT?: RentalToolScalarWhereInput | RentalToolScalarWhereInput[]
+    id?: StringFilter<"RentalTool"> | string
+    categoryId?: StringFilter<"RentalTool"> | string
+    name?: StringFilter<"RentalTool"> | string
+    slug?: StringFilter<"RentalTool"> | string
+    description?: StringNullableFilter<"RentalTool"> | string | null
+    accessories?: StringNullableFilter<"RentalTool"> | string | null
+    dailyPriceExVat?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
+    quantity?: IntFilter<"RentalTool"> | number
+    imageUrl?: StringNullableFilter<"RentalTool"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalTool"> | string | null
+    position?: IntFilter<"RentalTool"> | number
+    active?: BoolFilter<"RentalTool"> | boolean
+    createdAt?: DateTimeFilter<"RentalTool"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalTool"> | Date | string
+  }
+
+  export type RentalCategoryCreateWithoutToolsInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalCategoryUncheckedCreateWithoutToolsInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalCategoryCreateOrConnectWithoutToolsInput = {
+    where: RentalCategoryWhereUniqueInput
+    create: XOR<RentalCategoryCreateWithoutToolsInput, RentalCategoryUncheckedCreateWithoutToolsInput>
+  }
+
+  export type RentalReservationCreateWithoutToolInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    booking?: RentalBookingCreateNestedOneWithoutReservationInput
+  }
+
+  export type RentalReservationUncheckedCreateWithoutToolInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    booking?: RentalBookingUncheckedCreateNestedOneWithoutReservationInput
+  }
+
+  export type RentalReservationCreateOrConnectWithoutToolInput = {
+    where: RentalReservationWhereUniqueInput
+    create: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput>
+  }
+
+  export type RentalReservationCreateManyToolInputEnvelope = {
+    data: RentalReservationCreateManyToolInput | RentalReservationCreateManyToolInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RentalBookingCreateWithoutToolInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    reservation?: RentalReservationCreateNestedOneWithoutBookingInput
+  }
+
+  export type RentalBookingUncheckedCreateWithoutToolInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    reservationId?: string | null
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RentalBookingCreateOrConnectWithoutToolInput = {
+    where: RentalBookingWhereUniqueInput
+    create: XOR<RentalBookingCreateWithoutToolInput, RentalBookingUncheckedCreateWithoutToolInput>
+  }
+
+  export type RentalBookingCreateManyToolInputEnvelope = {
+    data: RentalBookingCreateManyToolInput | RentalBookingCreateManyToolInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RentalCategoryUpsertWithoutToolsInput = {
+    update: XOR<RentalCategoryUpdateWithoutToolsInput, RentalCategoryUncheckedUpdateWithoutToolsInput>
+    create: XOR<RentalCategoryCreateWithoutToolsInput, RentalCategoryUncheckedCreateWithoutToolsInput>
+    where?: RentalCategoryWhereInput
+  }
+
+  export type RentalCategoryUpdateToOneWithWhereWithoutToolsInput = {
+    where?: RentalCategoryWhereInput
+    data: XOR<RentalCategoryUpdateWithoutToolsInput, RentalCategoryUncheckedUpdateWithoutToolsInput>
+  }
+
+  export type RentalCategoryUpdateWithoutToolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalCategoryUncheckedUpdateWithoutToolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalReservationUpsertWithWhereUniqueWithoutToolInput = {
+    where: RentalReservationWhereUniqueInput
+    update: XOR<RentalReservationUpdateWithoutToolInput, RentalReservationUncheckedUpdateWithoutToolInput>
+    create: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput>
+  }
+
+  export type RentalReservationUpdateWithWhereUniqueWithoutToolInput = {
+    where: RentalReservationWhereUniqueInput
+    data: XOR<RentalReservationUpdateWithoutToolInput, RentalReservationUncheckedUpdateWithoutToolInput>
+  }
+
+  export type RentalReservationUpdateManyWithWhereWithoutToolInput = {
+    where: RentalReservationScalarWhereInput
+    data: XOR<RentalReservationUpdateManyMutationInput, RentalReservationUncheckedUpdateManyWithoutToolInput>
+  }
+
+  export type RentalReservationScalarWhereInput = {
+    AND?: RentalReservationScalarWhereInput | RentalReservationScalarWhereInput[]
+    OR?: RentalReservationScalarWhereInput[]
+    NOT?: RentalReservationScalarWhereInput | RentalReservationScalarWhereInput[]
+    id?: StringFilter<"RentalReservation"> | string
+    number?: StringFilter<"RentalReservation"> | string
+    year?: IntFilter<"RentalReservation"> | number
+    seq?: IntFilter<"RentalReservation"> | number
+    toolId?: StringFilter<"RentalReservation"> | string
+    toolSnapshot?: JsonFilter<"RentalReservation">
+    customerName?: StringFilter<"RentalReservation"> | string
+    customerEmail?: StringFilter<"RentalReservation"> | string
+    customerPhone?: StringFilter<"RentalReservation"> | string
+    customerCompany?: StringNullableFilter<"RentalReservation"> | string | null
+    customerNote?: StringNullableFilter<"RentalReservation"> | string | null
+    deliveryType?: EnumRentalDeliveryFilter<"RentalReservation"> | $Enums.RentalDelivery
+    deliveryKm?: IntNullableFilter<"RentalReservation"> | number | null
+    deliveryAddress?: StringNullableFilter<"RentalReservation"> | string | null
+    startDate?: DateTimeFilter<"RentalReservation"> | Date | string
+    endDate?: DateTimeFilter<"RentalReservation"> | Date | string
+    days?: IntFilter<"RentalReservation"> | number
+    rentalExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFilter<"RentalReservation"> | $Enums.RentalReservationStatus
+    adminNote?: StringNullableFilter<"RentalReservation"> | string | null
+    decidedById?: StringNullableFilter<"RentalReservation"> | string | null
+    decidedAt?: DateTimeNullableFilter<"RentalReservation"> | Date | string | null
+    createdAt?: DateTimeFilter<"RentalReservation"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalReservation"> | Date | string
+  }
+
+  export type RentalBookingUpsertWithWhereUniqueWithoutToolInput = {
+    where: RentalBookingWhereUniqueInput
+    update: XOR<RentalBookingUpdateWithoutToolInput, RentalBookingUncheckedUpdateWithoutToolInput>
+    create: XOR<RentalBookingCreateWithoutToolInput, RentalBookingUncheckedCreateWithoutToolInput>
+  }
+
+  export type RentalBookingUpdateWithWhereUniqueWithoutToolInput = {
+    where: RentalBookingWhereUniqueInput
+    data: XOR<RentalBookingUpdateWithoutToolInput, RentalBookingUncheckedUpdateWithoutToolInput>
+  }
+
+  export type RentalBookingUpdateManyWithWhereWithoutToolInput = {
+    where: RentalBookingScalarWhereInput
+    data: XOR<RentalBookingUpdateManyMutationInput, RentalBookingUncheckedUpdateManyWithoutToolInput>
+  }
+
+  export type RentalBookingScalarWhereInput = {
+    AND?: RentalBookingScalarWhereInput | RentalBookingScalarWhereInput[]
+    OR?: RentalBookingScalarWhereInput[]
+    NOT?: RentalBookingScalarWhereInput | RentalBookingScalarWhereInput[]
+    id?: StringFilter<"RentalBooking"> | string
+    toolId?: StringFilter<"RentalBooking"> | string
+    startDate?: DateTimeFilter<"RentalBooking"> | Date | string
+    endDate?: DateTimeFilter<"RentalBooking"> | Date | string
+    units?: IntFilter<"RentalBooking"> | number
+    type?: EnumRentalBookingTypeFilter<"RentalBooking"> | $Enums.RentalBookingType
+    reservationId?: StringNullableFilter<"RentalBooking"> | string | null
+    note?: StringNullableFilter<"RentalBooking"> | string | null
+    createdById?: StringNullableFilter<"RentalBooking"> | string | null
+    createdAt?: DateTimeFilter<"RentalBooking"> | Date | string
+  }
+
+  export type RentalToolCreateWithoutReservationsInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: RentalCategoryCreateNestedOneWithoutToolsInput
+    bookings?: RentalBookingCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolUncheckedCreateWithoutReservationsInput = {
+    id?: string
+    categoryId: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolCreateOrConnectWithoutReservationsInput = {
+    where: RentalToolWhereUniqueInput
+    create: XOR<RentalToolCreateWithoutReservationsInput, RentalToolUncheckedCreateWithoutReservationsInput>
+  }
+
+  export type RentalBookingCreateWithoutReservationInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    tool: RentalToolCreateNestedOneWithoutBookingsInput
+  }
+
+  export type RentalBookingUncheckedCreateWithoutReservationInput = {
+    id?: string
+    toolId: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RentalBookingCreateOrConnectWithoutReservationInput = {
+    where: RentalBookingWhereUniqueInput
+    create: XOR<RentalBookingCreateWithoutReservationInput, RentalBookingUncheckedCreateWithoutReservationInput>
+  }
+
+  export type RentalToolUpsertWithoutReservationsInput = {
+    update: XOR<RentalToolUpdateWithoutReservationsInput, RentalToolUncheckedUpdateWithoutReservationsInput>
+    create: XOR<RentalToolCreateWithoutReservationsInput, RentalToolUncheckedCreateWithoutReservationsInput>
+    where?: RentalToolWhereInput
+  }
+
+  export type RentalToolUpdateToOneWithWhereWithoutReservationsInput = {
+    where?: RentalToolWhereInput
+    data: XOR<RentalToolUpdateWithoutReservationsInput, RentalToolUncheckedUpdateWithoutReservationsInput>
+  }
+
+  export type RentalToolUpdateWithoutReservationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
+    bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolUncheckedUpdateWithoutReservationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalBookingUpsertWithoutReservationInput = {
+    update: XOR<RentalBookingUpdateWithoutReservationInput, RentalBookingUncheckedUpdateWithoutReservationInput>
+    create: XOR<RentalBookingCreateWithoutReservationInput, RentalBookingUncheckedCreateWithoutReservationInput>
+    where?: RentalBookingWhereInput
+  }
+
+  export type RentalBookingUpdateToOneWithWhereWithoutReservationInput = {
+    where?: RentalBookingWhereInput
+    data: XOR<RentalBookingUpdateWithoutReservationInput, RentalBookingUncheckedUpdateWithoutReservationInput>
+  }
+
+  export type RentalBookingUpdateWithoutReservationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tool?: RentalToolUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type RentalBookingUncheckedUpdateWithoutReservationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalToolCreateWithoutBookingsInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: RentalCategoryCreateNestedOneWithoutToolsInput
+    reservations?: RentalReservationCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    categoryId: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolCreateOrConnectWithoutBookingsInput = {
+    where: RentalToolWhereUniqueInput
+    create: XOR<RentalToolCreateWithoutBookingsInput, RentalToolUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type RentalReservationCreateWithoutBookingInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tool: RentalToolCreateNestedOneWithoutReservationsInput
+  }
+
+  export type RentalReservationUncheckedCreateWithoutBookingInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolId: string
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalReservationCreateOrConnectWithoutBookingInput = {
+    where: RentalReservationWhereUniqueInput
+    create: XOR<RentalReservationCreateWithoutBookingInput, RentalReservationUncheckedCreateWithoutBookingInput>
+  }
+
+  export type RentalToolUpsertWithoutBookingsInput = {
+    update: XOR<RentalToolUpdateWithoutBookingsInput, RentalToolUncheckedUpdateWithoutBookingsInput>
+    create: XOR<RentalToolCreateWithoutBookingsInput, RentalToolUncheckedCreateWithoutBookingsInput>
+    where?: RentalToolWhereInput
+  }
+
+  export type RentalToolUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: RentalToolWhereInput
+    data: XOR<RentalToolUpdateWithoutBookingsInput, RentalToolUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type RentalToolUpdateWithoutBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
+    reservations?: RentalReservationUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolUncheckedUpdateWithoutBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalReservationUpsertWithoutBookingInput = {
+    update: XOR<RentalReservationUpdateWithoutBookingInput, RentalReservationUncheckedUpdateWithoutBookingInput>
+    create: XOR<RentalReservationCreateWithoutBookingInput, RentalReservationUncheckedCreateWithoutBookingInput>
+    where?: RentalReservationWhereInput
+  }
+
+  export type RentalReservationUpdateToOneWithWhereWithoutBookingInput = {
+    where?: RentalReservationWhereInput
+    data: XOR<RentalReservationUpdateWithoutBookingInput, RentalReservationUncheckedUpdateWithoutBookingInput>
+  }
+
+  export type RentalReservationUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tool?: RentalToolUpdateOneRequiredWithoutReservationsNestedInput
+  }
+
+  export type RentalReservationUncheckedUpdateWithoutBookingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolId?: StringFieldUpdateOperationsInput | string
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateManyUserInput = {
     id?: string
     expiresAt: Date | string
@@ -42534,6 +52226,244 @@ export namespace Prisma {
     success?: BoolFieldUpdateOperationsInput | boolean
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalToolCreateManyCategoryInput = {
+    id?: string
+    name: string
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalToolUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reservations?: RentalReservationUpdateManyWithoutToolNestedInput
+    bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolUncheckedUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
+    bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolUncheckedUpdateManyWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalReservationCreateManyToolInput = {
+    id?: string
+    number: string
+    year: number
+    seq: number
+    toolSnapshot: JsonNullValueInput | InputJsonValue
+    customerName: string
+    customerEmail: string
+    customerPhone: string
+    customerCompany?: string | null
+    customerNote?: string | null
+    deliveryType?: $Enums.RentalDelivery
+    deliveryKm?: number | null
+    deliveryAddress?: string | null
+    startDate: Date | string
+    endDate: Date | string
+    days: number
+    rentalExVat?: Decimal | DecimalJsLike | number | string
+    deliveryExVat?: Decimal | DecimalJsLike | number | string
+    vatAmount?: Decimal | DecimalJsLike | number | string
+    priceInclVat?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.RentalReservationStatus
+    adminNote?: string | null
+    decidedById?: string | null
+    decidedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalBookingCreateManyToolInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    units?: number
+    type?: $Enums.RentalBookingType
+    reservationId?: string | null
+    note?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RentalReservationUpdateWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: RentalBookingUpdateOneWithoutReservationNestedInput
+  }
+
+  export type RentalReservationUncheckedUpdateWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking?: RentalBookingUncheckedUpdateOneWithoutReservationNestedInput
+  }
+
+  export type RentalReservationUncheckedUpdateManyWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    seq?: IntFieldUpdateOperationsInput | number
+    toolSnapshot?: JsonNullValueInput | InputJsonValue
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerEmail?: StringFieldUpdateOperationsInput | string
+    customerPhone?: StringFieldUpdateOperationsInput | string
+    customerCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNote?: NullableStringFieldUpdateOperationsInput | string | null
+    deliveryType?: EnumRentalDeliveryFieldUpdateOperationsInput | $Enums.RentalDelivery
+    deliveryKm?: NullableIntFieldUpdateOperationsInput | number | null
+    deliveryAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: IntFieldUpdateOperationsInput | number
+    rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumRentalReservationStatusFieldUpdateOperationsInput | $Enums.RentalReservationStatus
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedById?: NullableStringFieldUpdateOperationsInput | string | null
+    decidedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalBookingUpdateWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reservation?: RentalReservationUpdateOneWithoutBookingNestedInput
+  }
+
+  export type RentalBookingUncheckedUpdateWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    reservationId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalBookingUncheckedUpdateManyWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    units?: IntFieldUpdateOperationsInput | number
+    type?: EnumRentalBookingTypeFieldUpdateOperationsInput | $Enums.RentalBookingType
+    reservationId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

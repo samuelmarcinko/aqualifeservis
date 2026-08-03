@@ -462,6 +462,99 @@ exports.Prisma.AiSettingsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RentalCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  imageBlobPath: 'imageBlobPath',
+  position: 'position',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RentalToolScalarFieldEnum = {
+  id: 'id',
+  categoryId: 'categoryId',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  accessories: 'accessories',
+  dailyPriceExVat: 'dailyPriceExVat',
+  vatRate: 'vatRate',
+  quantity: 'quantity',
+  imageUrl: 'imageUrl',
+  imageBlobPath: 'imageBlobPath',
+  position: 'position',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RentalReservationScalarFieldEnum = {
+  id: 'id',
+  number: 'number',
+  year: 'year',
+  seq: 'seq',
+  toolId: 'toolId',
+  toolSnapshot: 'toolSnapshot',
+  customerName: 'customerName',
+  customerEmail: 'customerEmail',
+  customerPhone: 'customerPhone',
+  customerCompany: 'customerCompany',
+  customerNote: 'customerNote',
+  deliveryType: 'deliveryType',
+  deliveryKm: 'deliveryKm',
+  deliveryAddress: 'deliveryAddress',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  days: 'days',
+  rentalExVat: 'rentalExVat',
+  deliveryExVat: 'deliveryExVat',
+  vatAmount: 'vatAmount',
+  priceInclVat: 'priceInclVat',
+  status: 'status',
+  adminNote: 'adminNote',
+  decidedById: 'decidedById',
+  decidedAt: 'decidedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RentalBookingScalarFieldEnum = {
+  id: 'id',
+  toolId: 'toolId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  units: 'units',
+  type: 'type',
+  reservationId: 'reservationId',
+  note: 'note',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RentalSettingsScalarFieldEnum = {
+  id: 'id',
+  deliveryPricePerKm: 'deliveryPricePerKm',
+  maxDeliveryKm: 'maxDeliveryKm',
+  minRentalDays: 'minRentalDays',
+  publicIntro: 'publicIntro',
+  termsText: 'termsText',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  ownerNotifyEmail: 'ownerNotifyEmail',
+  customerEmailSubject: 'customerEmailSubject',
+  customerEmailBody: 'customerEmailBody',
+  approvedEmailSubject: 'approvedEmailSubject',
+  approvedEmailBody: 'approvedEmailBody',
+  rejectedEmailSubject: 'rejectedEmailSubject',
+  rejectedEmailBody: 'rejectedEmailBody',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SmtpSettingsScalarFieldEnum = {
   id: 'id',
   host: 'host',
@@ -522,7 +615,8 @@ exports.CatalogItemType = exports.$Enums.CatalogItemType = {
 
 exports.SequenceKind = exports.$Enums.SequenceKind = {
   QUOTATION: 'QUOTATION',
-  PROTOCOL: 'PROTOCOL'
+  PROTOCOL: 'PROTOCOL',
+  RENTAL: 'RENTAL'
 };
 
 exports.QuotationStatus = exports.$Enums.QuotationStatus = {
@@ -566,6 +660,23 @@ exports.DocumentType = exports.$Enums.DocumentType = {
   PROTOCOL: 'PROTOCOL'
 };
 
+exports.RentalDelivery = exports.$Enums.RentalDelivery = {
+  PICKUP: 'PICKUP',
+  DELIVERY: 'DELIVERY'
+};
+
+exports.RentalReservationStatus = exports.$Enums.RentalReservationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.RentalBookingType = exports.$Enums.RentalBookingType = {
+  RESERVATION: 'RESERVATION',
+  BLOCK: 'BLOCK'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
@@ -588,6 +699,11 @@ exports.Prisma.ModelName = {
   ActivityLog: 'ActivityLog',
   CompanySettings: 'CompanySettings',
   AiSettings: 'AiSettings',
+  RentalCategory: 'RentalCategory',
+  RentalTool: 'RentalTool',
+  RentalReservation: 'RentalReservation',
+  RentalBooking: 'RentalBooking',
+  RentalSettings: 'RentalSettings',
   SmtpSettings: 'SmtpSettings'
 };
 

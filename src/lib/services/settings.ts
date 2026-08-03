@@ -1,6 +1,11 @@
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import type { CompanySettings, SmtpSettings, AiSettings } from "@/generated/prisma";
+import type { CompanySettings, SmtpSettings, AiSettings, RentalSettings } from "@/generated/prisma";
+import {
+  DEFAULT_RENTAL_CUSTOMER_EMAIL,
+  DEFAULT_RENTAL_APPROVED_EMAIL,
+  DEFAULT_RENTAL_REJECTED_EMAIL,
+} from "@/lib/constants";
 
 export const BRANDING_CACHE_TAG = "branding";
 
@@ -75,6 +80,19 @@ export function toSafeAi(ai: AiSettings) {
     enabled: ai.enabled,
     hasKey: !!ai.apiKeyEnc,
   };
+}
+
+export async function getRentalSettings(): Promise<RentalSettings> {
+  const existing = await prisma.rentalSettings.findUnique({ where: { id: "rental" } });
+  if (existing) return existing;
+  return prisma.rentalSettings.create({
+    data: {
+      id: "rental",
+      customerEmailBody: DEFAULT_RENTAL_CUSTOMER_EMAIL,
+      approvedEmailBody: DEFAULT_RENTAL_APPROVED_EMAIL,
+      rejectedEmailBody: DEFAULT_RENTAL_REJECTED_EMAIL,
+    },
+  });
 }
 
 /** Whether the AI assistant is usable (enabled + key present). */

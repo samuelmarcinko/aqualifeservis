@@ -46,6 +46,8 @@ export default async function DashboardPage() {
     }),
   ]);
 
+  const pendingRentals = await prisma.rentalReservation.count({ where: { status: "PENDING" } });
+
   const stats = [
     { label: "Aktívni zákazníci", value: activeCustomers, href: "/zakaznici" },
     { label: "Ponuky tento mesiac", value: quotationsThisMonth, href: "/cenove-ponuky" },
@@ -54,6 +56,7 @@ export default async function DashboardPage() {
     { label: "Prijaté ponuky", value: acceptedQuotations, href: "/cenove-ponuky?status=ACCEPTED" },
     { label: "Expirované ponuky", value: openForExpiry.length, href: "/cenove-ponuky" },
     { label: "Protokoly tento mesiac", value: protocolsThisMonth, href: "/protokoly" },
+    { label: "Rezervácie – čakajúce", value: pendingRentals, href: "/pozicovna?status=PENDING" },
   ];
 
   return (
@@ -71,7 +74,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-7">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {stats.map((s) => (
           <Link key={s.label} href={s.href} className="card p-4 transition hover:shadow-cardhover">
             <div className="text-3xl font-bold text-brand-dark">{s.value}</div>

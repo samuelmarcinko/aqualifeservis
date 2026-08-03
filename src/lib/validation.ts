@@ -240,6 +240,83 @@ export const aiAudioSchema = z.object({
 });
 
 // ---------------------------------------------------------------------------
+// Rental (požičovňa)
+// ---------------------------------------------------------------------------
+
+export const rentalCategorySchema = z.object({
+  name: z.string().trim().min(1, "Názov je povinný.").max(200),
+  description: optionalLongStr,
+  position: z.coerce.number().int().min(0).default(0),
+  active: z.boolean().default(true),
+});
+
+export const rentalToolSchema = z.object({
+  categoryId: z.string().min(1, "Kategória je povinná."),
+  name: z.string().trim().min(1, "Názov je povinný.").max(200),
+  description: optionalLongStr,
+  accessories: optionalLongStr,
+  dailyPriceExVat: z.coerce.number().min(0).default(0),
+  vatRate: z.coerce.number().min(0).max(100).default(23),
+  quantity: z.coerce.number().int().min(1).max(999).default(1),
+  position: z.coerce.number().int().min(0).default(0),
+  active: z.boolean().default(true),
+});
+
+export const rentalSettingsSchema = z.object({
+  deliveryPricePerKm: z.coerce.number().min(0),
+  maxDeliveryKm: z.coerce.number().int().min(0).max(10000),
+  minRentalDays: z.coerce.number().int().min(1).max(365),
+  publicIntro: optionalLongStr,
+  termsText: optionalLongStr,
+  contactEmail: z
+    .string()
+    .trim()
+    .email()
+    .optional()
+    .or(z.literal(""))
+    .transform((v) => (v === "" ? undefined : v)),
+  contactPhone: optionalStr,
+  ownerNotifyEmail: z
+    .string()
+    .trim()
+    .email()
+    .optional()
+    .or(z.literal(""))
+    .transform((v) => (v === "" ? undefined : v)),
+  customerEmailSubject: z.string().trim().min(1).max(300),
+  customerEmailBody: z.string().trim().min(1).max(5000),
+  approvedEmailSubject: z.string().trim().min(1).max(300),
+  approvedEmailBody: z.string().trim().min(1).max(5000),
+  rejectedEmailSubject: z.string().trim().min(1).max(300),
+  rejectedEmailBody: z.string().trim().min(1).max(5000),
+});
+
+export const rentalBlockSchema = z.object({
+  toolId: z.string().min(1),
+  startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Neplatný dátum."),
+  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Neplatný dátum."),
+  note: optionalStr,
+});
+
+// Public reservation submission
+export const publicReservationSchema = z.object({
+  toolId: z.string().min(1),
+  startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Zvoľte termín."),
+  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Zvoľte termín."),
+  customerName: z.string().trim().min(2, "Zadajte meno.").max(200),
+  customerEmail: z.string().trim().email("Neplatný e-mail."),
+  customerPhone: z.string().trim().min(6, "Zadajte telefón.").max(40),
+  customerCompany: optionalStr,
+  customerNote: optionalLongStr,
+  deliveryType: z.enum(["PICKUP", "DELIVERY"]).default("PICKUP"),
+  deliveryKm: z.coerce.number().int().min(0).max(10000).optional(),
+  deliveryAddress: optionalStr,
+  consent: z.literal(true, { errorMap: () => ({ message: "Potvrďte súhlas so spracovaním údajov." }) }),
+  // Honeypot — must stay empty.
+  website: z.string().max(0).optional().or(z.literal("")),
+});
+
+// ---------------------------------------------------------------------------
 // Users
 // ---------------------------------------------------------------------------
 

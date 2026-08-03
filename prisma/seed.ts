@@ -4,7 +4,12 @@ import {
   COMPANY_DEFAULTS,
   DEFAULT_PROTOCOL_EMAIL_BODY,
   DEFAULT_QUOTATION_EMAIL_BODY,
+  DEFAULT_RENTAL_CUSTOMER_EMAIL,
+  DEFAULT_RENTAL_APPROVED_EMAIL,
+  DEFAULT_RENTAL_REJECTED_EMAIL,
 } from "../src/lib/constants";
+import { slugify } from "../src/lib/services/rental-core";
+import { RENTAL_SEED } from "./rental-seed-data";
 
 const prisma = new PrismaClient();
 
@@ -92,6 +97,47 @@ async function main() {
     }
   }
   console.log("✔ Ukážkové položky katalógu pripravené.");
+
+  // 5. Rental settings + catalogue (only if empty)
+  await prisma.rentalSettings.upsert({
+    where: { id: "rental" },
+    update: {},
+    create: {
+      id: "rental",
+      customerEmailBody: DEFAULT_RENTAL_CUSTOMER_EMAIL,
+      approvedEmailBody: DEFAULT_RENTAL_APPROVED_EMAIL,
+      rejectedEmailBody: DEFAULT_RENTAL_REJECTED_EMAIL,
+    },
+  });
+
+  const existingCategories = await prisma.rentalCategory.count();
+  if (existingCategories === 0) {
+    let catPos = 0;
+    for (const c of RENTAL_SEED) {
+      const category = await prisma.rentalCategory.create({
+        data: { name: c.category, slug: slugify(c.category), description: c.description, position: catPos++ },
+      });
+      let toolPos = 0;
+      for (const t of c.tools) {
+        await prisma.rentalTool.create({
+          data: {
+            categoryId: category.id,
+            name: t.name,
+            slug: slugify(t.name),
+            description: t.description,
+            accessories: t.accessories?.join("\n"),
+            dailyPriceExVat: t.price,
+            vatRate: 23,
+            quantity: 1,
+            position: toolPos++,
+          },
+        });
+      }
+    }
+    console.log("✔ Požičovňa – kategórie a náradie pripravené.");
+  } else {
+    console.log("✔ Požičovňa už obsahuje kategórie – preskakujem seed.");
+  }
 }
 
 main()

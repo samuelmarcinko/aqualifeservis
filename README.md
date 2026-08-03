@@ -141,6 +141,33 @@ vytvorte druhý účet (ADMIN alebo SUPER_ADMIN).
 
 ---
 
+## Požičovňa náradia (pozicovna.aqualife.sk)
+
+Modul **Požičovňa** má dve časti v jednej aplikácii (rozlíšené podľa domény):
+
+- **Admin** (`portal.aqualife.sk` → sekcia *Požičovňa*): rezervácie
+  (schvaľovanie/zamietnutie), kategórie a náradie (fotky, ceny, počet kusov),
+  kalendár dostupnosti s manuálnym blokovaním termínov, a nastavenia
+  (cena dopravy, e-mailové šablóny) pre SUPER_ADMINa.
+- **Verejný web** (`pozicovna.aqualife.sk`): katalóg kategórií a náradia,
+  moderný kalendár s voľnými/obsadenými dňami, živý prepočet ceny a
+  rezervačný formulár (bez prihlásenia). Rezervácia príde do portálu ako
+  *Čaká na schválenie*; po schválení sa termín automaticky zablokuje.
+
+Smerovanie podľa hostname rieši `src/middleware.ts` (host `pozicovna.*` sa
+prepisuje na interný strom `/najom`). Dostupnosť zohľadňuje počet kusov –
+deň je „obsadený" až keď sú obsadené všetky kusy.
+
+### DNS pre pozicovna.aqualife.sk
+1. Vo Vercel projekte: **Settings → Domains → Add** → `pozicovna.aqualife.sk`.
+2. U registrátora domény pridajte podľa pokynov Vercelu záznam
+   **CNAME** `pozicovna` → `cname.vercel-dns.com`.
+3. Po overení a vydaní certifikátu je verejná požičovňa dostupná; admin ostáva
+   na `portal.aqualife.sk`.
+
+Migrácia `0004_rental` a seed (kategórie + náradie z cenníka AQUALIFE) sa
+aplikujú automaticky pri deployi.
+
 ## Bezpečnosť
 
 - Serverová autentifikácia a autorizácia v každej stránke, akcii aj route
