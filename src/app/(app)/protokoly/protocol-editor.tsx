@@ -145,8 +145,10 @@ export function ProtocolEditor({
     const isIso = (v?: string) => !!v && /^\d{4}-\d{2}-\d{2}$/.test(v);
     const pick = (v: string | undefined, prev: string) => (v && v.trim() ? v.trim() : prev);
 
-    // Try to match a mentioned customer name to the customer list.
-    let matchedCustomerId: string | null = null;
+    // Try to match a mentioned customer name to the customer list, and if a
+    // single match is found, preselect the customer + its default/first
+    // service address (prefilling the object fields).
+    const customerPatch: Record<string, string> = {};
     if (d.customerName?.trim()) {
       const norm = (s: string) =>
         s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
@@ -158,15 +160,28 @@ export function ProtocolEditor({
         const shorter = Math.min(n.length, target.length);
         return shorter >= 4 && (n.includes(target) || target.includes(n));
       });
-      if (matches.length === 1) matchedCustomerId = matches[0]!.id;
-      else if (matches.length === 0)
+      if (matches.length === 1) {
+        const m = matches[0]!;
+        customerPatch.customerId = m.id;
+        const addr = m.addresses[0]; // ordered default-first
+        if (addr) {
+          customerPatch.serviceAddressId = addr.id;
+          customerPatch.objectStreet = addr.street ?? "";
+          customerPatch.objectCity = addr.city ?? "";
+          customerPatch.objectPostalCode = addr.postalCode ?? "";
+          customerPatch.objectType = addr.objectType ?? "";
+          customerPatch.objectApartment = addr.apartment ?? "";
+        } else {
+          customerPatch.serviceAddressId = "";
+        }
+      } else if (matches.length === 0)
         toast(`Zákazník „${d.customerName}“ sa nenašiel v zozname – vyberte ho ručne.`, "info");
       else toast(`Pre „${d.customerName}“ je viac zhôd – vyberte zákazníka ručne.`, "info");
     }
 
     setF((prev) => ({
       ...prev,
-      ...(matchedCustomerId ? { customerId: matchedCustomerId, serviceAddressId: "" } : {}),
+      ...customerPatch,
       faultType: pick(d.faultType, prev.faultType),
       faultCause: pick(d.faultCause, prev.faultCause),
       faultDescription: pick(d.faultDescription, prev.faultDescription),
