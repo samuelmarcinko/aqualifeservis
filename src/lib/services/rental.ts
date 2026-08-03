@@ -16,6 +16,7 @@ import {
   dayToDate,
   type BookingRange,
 } from "./rental-core";
+import { Decimal, round2 } from "./money";
 
 async function getBookingRanges(
   toolId: string,
@@ -230,6 +231,74 @@ export async function deleteReservation(id: string) {
   await prisma.rentalReservation.delete({ where: { id } }); // cascade removes booking
 }
 
+export interface UpdateReservationInput {
+  startDate: string;
+  endDate: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  customerCompany?: string;
+  customerNote?: string;
+  deliveryType: RentalDelivery;
+  deliveryKm?: number | null;
+  deliveryExVat: number;
+  deliveryAddress?: string;
+  adminNote?: string;
+}
+
+/**
+ * Admin edit of a reservation. Rental price stays fixed (days × the tool's
+ * snapshotted daily rate); the admin controls the delivery price and distance.
+ * If the reservation is approved, the linked booking's dates are updated too.
+ */
+export async function updateReservation(id: string, input: UpdateReservationInput) {
+  const r = await prisma.rentalReservation.findUniqueOrThrow({
+    where: { id },
+    include: { booking: true },
+  });
+  if (input.endDate < input.startDate) throw new Error("Dátum konca nemôže byť pred začiatkom.");
+
+  const snap = r.toolSnapshot as unknown as { dailyPriceExVat?: string; vatRate?: string };
+  const daily = new Decimal(snap.dailyPriceExVat ?? 0);
+  const vatRate = new Decimal(snap.vatRate ?? 23);
+  const days = rentalDays(input.startDate, input.endDate);
+  const rentalExVat = round2(daily.times(days));
+  const deliveryExVat = round2(new Decimal(input.deliveryExVat || 0));
+  const exVat = round2(rentalExVat.plus(deliveryExVat));
+  const vat = round2(exVat.times(vatRate).dividedBy(100));
+  const incl = round2(exVat.plus(vat));
+
+  await prisma.$transaction(async (tx) => {
+    await tx.rentalReservation.update({
+      where: { id },
+      data: {
+        startDate: dayToDate(input.startDate),
+        endDate: dayToDate(input.endDate),
+        days,
+        customerName: input.customerName,
+        customerEmail: input.customerEmail,
+        customerPhone: input.customerPhone,
+        customerCompany: input.customerCompany,
+        customerNote: input.customerNote,
+        deliveryType: input.deliveryType,
+        deliveryKm: input.deliveryType === "DELIVERY" ? (input.deliveryKm ?? null) : null,
+        deliveryAddress: input.deliveryType === "DELIVERY" ? input.deliveryAddress : null,
+        rentalExVat,
+        deliveryExVat,
+        vatAmount: vat,
+        priceInclVat: incl,
+        adminNote: input.adminNote,
+      },
+    });
+    if (r.booking) {
+      await tx.rentalBooking.update({
+        where: { id: r.booking.id },
+        data: { startDate: dayToDate(input.startDate), endDate: dayToDate(input.endDate) },
+      });
+    }
+  });
+}
+
 // --- Manual availability blocks -------------------------------------------
 
 export async function createBlock(input: {
@@ -310,15 +379,21 @@ async function notifyOwner(r: RentalReservation, toolName: string) {
   try {
     const [company, settings] = await Promise.all([getCompanySettings(), getRentalSettings()]);
     const to = settings.ownerNotifyEmail?.trim() || company.email;
+    const base = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "";
+    const link = base ? `\n\nOtvoriť v portáli: ${base}/pozicovna?status=PENDING` : "";
+    const deliveryLine =
+      r.deliveryType === "DELIVERY"
+        ? `\nDovoz na adresu: ${r.deliveryAddress ?? "-"}`
+        : "\nOsobný odber";
     const body = `Nová rezervácia z požičovne.
 
 Číslo: ${r.number}
 Náradie: ${toolName}
 Termín: ${formatDate(r.startDate)} – ${formatDate(r.endDate)} (${r.days} dní)
-Zákazník: ${r.customerName}, ${r.customerEmail}, ${r.customerPhone}
+Zákazník: ${r.customerName}, ${r.customerEmail}, ${r.customerPhone}${deliveryLine}
 Cena s DPH: ${formatCurrency(r.priceInclVat)}
 
-Rezerváciu schválite alebo zamietnete v portáli v sekcii Požičovňa.`;
+Rezerváciu schválite alebo zamietnete v portáli v sekcii Požičovňa.${link}`;
     await sendMail({
       to,
       subject: `Nová rezervácia ${r.number} – ${toolName}`,

@@ -46,7 +46,10 @@ export default async function RentalReservationsPage({
           deliveryType: r.deliveryType,
           deliveryKm: r.deliveryKm,
           deliveryAddress: r.deliveryAddress,
+          rentalExVat: r.rentalExVat.toString(),
+          deliveryExVat: r.deliveryExVat.toString(),
           priceInclVat: r.priceInclVat.toString(),
+          adminNote: r.adminNote,
           status: r.status,
           createdAt: r.createdAt.toISOString(),
         }))}

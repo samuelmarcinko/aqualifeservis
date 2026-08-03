@@ -747,6 +747,10 @@ model RentalSettings {
   contactEmail       String?
   contactPhone       String?
   ownerNotifyEmail   String?
+  pickupAddress      String?
+  pickupNote         String?
+  pickupMapEmbed     String?
+  pickupPhotos       Json     @default("[]")
   customerEmailSubject String @default("Prijali sme vašu rezerváciu č. {{number}} – AQUALIFE požičovňa")
   customerEmailBody    String @default("")
   approvedEmailSubject String @default("Rezervácia č. {{number}} bola schválená – AQUALIFE požičovňa")

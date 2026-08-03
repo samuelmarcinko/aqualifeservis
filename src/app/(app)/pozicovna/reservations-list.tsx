@@ -14,6 +14,7 @@ import {
   rejectReservationAction,
   cancelReservationAction,
   deleteReservationAction,
+  updateReservationAction,
 } from "./actions";
 
 interface Reservation {
@@ -31,7 +32,10 @@ interface Reservation {
   deliveryType: string;
   deliveryKm: number | null;
   deliveryAddress: string | null;
+  rentalExVat: string;
+  deliveryExVat: string;
   priceInclVat: string;
+  adminNote: string | null;
   status: string;
   createdAt: string;
 }
@@ -53,6 +57,7 @@ export function ReservationsList({
   const router = useRouter();
   const { toast } = useToast();
   const [detail, setDetail] = useState<Reservation | null>(null);
+  const [editing, setEditing] = useState<Reservation | null>(null);
   const [busy, setBusy] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<Reservation | null>(null);
 
@@ -170,9 +175,25 @@ export function ReservationsList({
             </div>
           </div>
 
+          {detail.adminNote && (
+            <div className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-600">
+              <span className="font-medium">Poznámka admina: </span>{detail.adminNote}
+            </div>
+          )}
+
           <div className="mt-5 flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
             <button className="btn-ghost text-red-600" onClick={() => setConfirmDelete(detail)} disabled={busy}>
               Zmazať
+            </button>
+            <button
+              className="btn-secondary"
+              onClick={() => {
+                setEditing(detail);
+                setDetail(null);
+              }}
+              disabled={busy}
+            >
+              Upraviť
             </button>
             {detail.status === "PENDING" && (
               <>
@@ -205,6 +226,17 @@ export function ReservationsList({
         </Modal>
       )}
 
+      {editing && (
+        <EditReservationModal
+          reservation={editing}
+          onClose={() => setEditing(null)}
+          onSaved={() => {
+            setEditing(null);
+            router.refresh();
+          }}
+        />
+      )}
+
       <ConfirmDialog
         open={!!confirmDelete}
         title="Zmazať rezerváciu?"
@@ -227,5 +259,136 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
       <span className="text-slate-500">{label}</span>
       <span className="text-right font-medium text-slate-800">{value}</span>
     </div>
+  );
+}
+
+function EditReservationModal({
+  reservation,
+  onClose,
+  onSaved,
+}: {
+  reservation: Reservation;
+  onClose: () => void;
+  onSaved: () => void;
+}) {
+  const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+  const [f, setF] = useState({
+    startDate: reservation.startDate.slice(0, 10),
+    endDate: reservation.endDate.slice(0, 10),
+    customerName: reservation.customerName,
+    customerCompany: reservation.customerCompany ?? "",
+    customerEmail: reservation.customerEmail,
+    customerPhone: reservation.customerPhone,
+    delivery: reservation.deliveryType === "DELIVERY",
+    deliveryKm: reservation.deliveryKm != null ? String(reservation.deliveryKm) : "",
+    deliveryExVat: reservation.deliveryExVat,
+    deliveryAddress: reservation.deliveryAddress ?? "",
+    customerNote: reservation.customerNote ?? "",
+    adminNote: reservation.adminNote ?? "",
+  });
+  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setF({ ...f, [k]: e.target.value });
+
+  async function save() {
+    setSaving(true);
+    const res = await updateReservationAction(reservation.id, {
+      startDate: f.startDate,
+      endDate: f.endDate,
+      customerName: f.customerName,
+      customerCompany: f.customerCompany || undefined,
+      customerEmail: f.customerEmail,
+      customerPhone: f.customerPhone,
+      deliveryType: f.delivery ? "DELIVERY" : "PICKUP",
+      deliveryKm: f.delivery && f.deliveryKm ? Number(f.deliveryKm) : undefined,
+      deliveryExVat: f.delivery ? Number(f.deliveryExVat) || 0 : 0,
+      deliveryAddress: f.delivery ? f.deliveryAddress : undefined,
+      customerNote: f.customerNote || undefined,
+      adminNote: f.adminNote || undefined,
+    });
+    setSaving(false);
+    if (res.ok) {
+      toast("Rezervácia upravená.", "success");
+      onSaved();
+    } else toast(res.error, "error");
+  }
+
+  return (
+    <Modal
+      open
+      onClose={onClose}
+      title={`Upraviť ${reservation.number}`}
+      size="lg"
+      footer={
+        <>
+          <button className="btn-secondary" onClick={onClose} disabled={saving}>
+            Zrušiť
+          </button>
+          <button className="btn-primary" onClick={save} disabled={saving}>
+            {saving ? "Ukladám…" : "Uložiť zmeny"}
+          </button>
+        </>
+      }
+    >
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div>
+          <label className="label">Termín od</label>
+          <input type="date" className="input" value={f.startDate} onChange={set("startDate")} />
+        </div>
+        <div>
+          <label className="label">Termín do</label>
+          <input type="date" className="input" value={f.endDate} onChange={set("endDate")} />
+        </div>
+        <div>
+          <label className="label">Meno</label>
+          <input className="input" value={f.customerName} onChange={set("customerName")} />
+        </div>
+        <div>
+          <label className="label">Firma</label>
+          <input className="input" value={f.customerCompany} onChange={set("customerCompany")} />
+        </div>
+        <div>
+          <label className="label">E-mail</label>
+          <input className="input" value={f.customerEmail} onChange={set("customerEmail")} />
+        </div>
+        <div>
+          <label className="label">Telefón</label>
+          <input className="input" value={f.customerPhone} onChange={set("customerPhone")} />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="flex items-center gap-2 text-sm text-slate-700">
+            <input type="checkbox" checked={f.delivery} onChange={(e) => setF({ ...f, delivery: e.target.checked })} />
+            Dovoz na adresu
+          </label>
+        </div>
+        {f.delivery && (
+          <>
+            <div>
+              <label className="label">Vzdialenosť (km)</label>
+              <input type="number" className="input" value={f.deliveryKm} onChange={set("deliveryKm")} />
+            </div>
+            <div>
+              <label className="label">Cena dopravy bez DPH (€)</label>
+              <input type="number" step="0.01" className="input" value={f.deliveryExVat} onChange={set("deliveryExVat")} />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label">Adresa dovozu</label>
+              <input className="input" value={f.deliveryAddress} onChange={set("deliveryAddress")} />
+            </div>
+          </>
+        )}
+        <div className="sm:col-span-2">
+          <label className="label">Poznámka zákazníka</label>
+          <textarea className="input" rows={2} value={f.customerNote} onChange={set("customerNote")} />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="label">Interná poznámka (admin)</label>
+          <textarea className="input" rows={2} value={f.adminNote} onChange={set("adminNote")} />
+        </div>
+        <p className="text-xs text-slate-400 sm:col-span-2">
+          Cena prenájmu sa prepočíta automaticky podľa počtu dní a sadzby náradia. Cenu dopravy zadávate ručne.
+        </p>
+      </div>
+    </Modal>
   );
 }

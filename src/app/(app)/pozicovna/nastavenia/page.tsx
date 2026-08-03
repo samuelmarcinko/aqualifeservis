@@ -24,6 +24,9 @@ export default async function RentalSettingsPage() {
           contactEmail: s.contactEmail ?? "",
           contactPhone: s.contactPhone ?? "",
           ownerNotifyEmail: s.ownerNotifyEmail ?? "",
+          pickupAddress: s.pickupAddress ?? "",
+          pickupNote: s.pickupNote ?? "",
+          pickupMapEmbed: s.pickupMapEmbed ?? "",
           customerEmailSubject: s.customerEmailSubject,
           customerEmailBody: s.customerEmailBody,
           approvedEmailSubject: s.approvedEmailSubject,
@@ -31,6 +34,7 @@ export default async function RentalSettingsPage() {
           rejectedEmailSubject: s.rejectedEmailSubject,
           rejectedEmailBody: s.rejectedEmailBody,
         }}
+        pickupPhotos={((s.pickupPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url)}
       />
     </div>
   );

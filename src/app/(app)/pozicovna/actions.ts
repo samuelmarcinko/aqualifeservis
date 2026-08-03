@@ -8,16 +8,19 @@ import {
   rentalToolSchema,
   rentalBlockSchema,
   rentalSettingsSchema,
+  rentalReservationEditSchema,
   zodErrorMessage,
 } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 import { uploadBlob, deleteBlob } from "@/lib/services/blob";
+import { getRentalSettings } from "@/lib/services/settings";
 import { slugify } from "@/lib/services/rental-core";
 import {
   approveReservation,
   rejectReservation,
   cancelReservation,
   deleteReservation,
+  updateReservation,
   createBlock,
   deleteBooking,
 } from "@/lib/services/rental";
@@ -213,6 +216,23 @@ export async function deleteReservationAction(id: string): Promise<ActionResult>
   }
 }
 
+export async function updateReservationAction(id: string, input: unknown): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const parsed = rentalReservationEditSchema.safeParse(input);
+    if (!parsed.success) return fail(zodErrorMessage(parsed.error));
+    await updateReservation(id, {
+      ...parsed.data,
+      customerCompany: parsed.data.customerCompany,
+      deliveryKm: parsed.data.deliveryKm ?? null,
+    });
+    revalidatePath("/pozicovna");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
 // --- Manual blocks ---------------------------------------------------------
 
 export async function createBlockAction(input: unknown): Promise<ActionResult> {
@@ -252,6 +272,45 @@ export async function saveRentalSettings(input: unknown): Promise<ActionResult> 
       update: d,
       create: { id: "rental", ...d },
     });
+    revalidatePath("/pozicovna/nastavenia");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function uploadPickupPhoto(formData: FormData): Promise<ActionResult> {
+  try {
+    await assertSuperAdmin();
+    const file = formData.get("image");
+    if (!(file instanceof File)) return fail("Chýba súbor.");
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP).");
+    if (file.size > 5 * 1024 * 1024) return fail("Obrázok presahuje 5 MB.");
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const blob = await uploadBlob(`rental/pickup/${file.name}`, buffer, file.type);
+    const settings = await getRentalSettings();
+    const photos = [
+      ...((settings.pickupPhotos as unknown as { url: string; path: string }[]) ?? []),
+      { url: blob.url, path: blob.pathname },
+    ].slice(0, 8);
+    await prisma.rentalSettings.update({ where: { id: "rental" }, data: { pickupPhotos: photos } });
+    revalidatePath("/pozicovna/nastavenia");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deletePickupPhoto(url: string): Promise<ActionResult> {
+  try {
+    await assertSuperAdmin();
+    const settings = await getRentalSettings();
+    const photos = ((settings.pickupPhotos as unknown as { url: string; path: string }[]) ?? []).filter(
+      (p) => p.url !== url,
+    );
+    await deleteBlob(url);
+    await prisma.rentalSettings.update({ where: { id: "rental" }, data: { pickupPhotos: photos } });
     revalidatePath("/pozicovna/nastavenia");
     return ok(null);
   } catch (e) {

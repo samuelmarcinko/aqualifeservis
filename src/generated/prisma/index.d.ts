@@ -34042,6 +34042,9 @@ export namespace Prisma {
     contactEmail: string | null
     contactPhone: string | null
     ownerNotifyEmail: string | null
+    pickupAddress: string | null
+    pickupNote: string | null
+    pickupMapEmbed: string | null
     customerEmailSubject: string | null
     customerEmailBody: string | null
     approvedEmailSubject: string | null
@@ -34061,6 +34064,9 @@ export namespace Prisma {
     contactEmail: string | null
     contactPhone: string | null
     ownerNotifyEmail: string | null
+    pickupAddress: string | null
+    pickupNote: string | null
+    pickupMapEmbed: string | null
     customerEmailSubject: string | null
     customerEmailBody: string | null
     approvedEmailSubject: string | null
@@ -34080,6 +34086,10 @@ export namespace Prisma {
     contactEmail: number
     contactPhone: number
     ownerNotifyEmail: number
+    pickupAddress: number
+    pickupNote: number
+    pickupMapEmbed: number
+    pickupPhotos: number
     customerEmailSubject: number
     customerEmailBody: number
     approvedEmailSubject: number
@@ -34113,6 +34123,9 @@ export namespace Prisma {
     contactEmail?: true
     contactPhone?: true
     ownerNotifyEmail?: true
+    pickupAddress?: true
+    pickupNote?: true
+    pickupMapEmbed?: true
     customerEmailSubject?: true
     customerEmailBody?: true
     approvedEmailSubject?: true
@@ -34132,6 +34145,9 @@ export namespace Prisma {
     contactEmail?: true
     contactPhone?: true
     ownerNotifyEmail?: true
+    pickupAddress?: true
+    pickupNote?: true
+    pickupMapEmbed?: true
     customerEmailSubject?: true
     customerEmailBody?: true
     approvedEmailSubject?: true
@@ -34151,6 +34167,10 @@ export namespace Prisma {
     contactEmail?: true
     contactPhone?: true
     ownerNotifyEmail?: true
+    pickupAddress?: true
+    pickupNote?: true
+    pickupMapEmbed?: true
+    pickupPhotos?: true
     customerEmailSubject?: true
     customerEmailBody?: true
     approvedEmailSubject?: true
@@ -34257,6 +34277,10 @@ export namespace Prisma {
     contactEmail: string | null
     contactPhone: string | null
     ownerNotifyEmail: string | null
+    pickupAddress: string | null
+    pickupNote: string | null
+    pickupMapEmbed: string | null
+    pickupPhotos: JsonValue
     customerEmailSubject: string
     customerEmailBody: string
     approvedEmailSubject: string
@@ -34295,6 +34319,10 @@ export namespace Prisma {
     contactEmail?: boolean
     contactPhone?: boolean
     ownerNotifyEmail?: boolean
+    pickupAddress?: boolean
+    pickupNote?: boolean
+    pickupMapEmbed?: boolean
+    pickupPhotos?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34314,6 +34342,10 @@ export namespace Prisma {
     contactEmail?: boolean
     contactPhone?: boolean
     ownerNotifyEmail?: boolean
+    pickupAddress?: boolean
+    pickupNote?: boolean
+    pickupMapEmbed?: boolean
+    pickupPhotos?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34333,6 +34365,10 @@ export namespace Prisma {
     contactEmail?: boolean
     contactPhone?: boolean
     ownerNotifyEmail?: boolean
+    pickupAddress?: boolean
+    pickupNote?: boolean
+    pickupMapEmbed?: boolean
+    pickupPhotos?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34352,6 +34388,10 @@ export namespace Prisma {
     contactEmail?: boolean
     contactPhone?: boolean
     ownerNotifyEmail?: boolean
+    pickupAddress?: boolean
+    pickupNote?: boolean
+    pickupMapEmbed?: boolean
+    pickupPhotos?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34361,7 +34401,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type RentalSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deliveryPricePerKm" | "maxDeliveryKm" | "minRentalDays" | "publicIntro" | "termsText" | "contactEmail" | "contactPhone" | "ownerNotifyEmail" | "customerEmailSubject" | "customerEmailBody" | "approvedEmailSubject" | "approvedEmailBody" | "rejectedEmailSubject" | "rejectedEmailBody" | "updatedAt", ExtArgs["result"]["rentalSettings"]>
+  export type RentalSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deliveryPricePerKm" | "maxDeliveryKm" | "minRentalDays" | "publicIntro" | "termsText" | "contactEmail" | "contactPhone" | "ownerNotifyEmail" | "pickupAddress" | "pickupNote" | "pickupMapEmbed" | "pickupPhotos" | "customerEmailSubject" | "customerEmailBody" | "approvedEmailSubject" | "approvedEmailBody" | "rejectedEmailSubject" | "rejectedEmailBody" | "updatedAt", ExtArgs["result"]["rentalSettings"]>
 
   export type $RentalSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "RentalSettings"
@@ -34376,6 +34416,10 @@ export namespace Prisma {
       contactEmail: string | null
       contactPhone: string | null
       ownerNotifyEmail: string | null
+      pickupAddress: string | null
+      pickupNote: string | null
+      pickupMapEmbed: string | null
+      pickupPhotos: Prisma.JsonValue
       customerEmailSubject: string
       customerEmailBody: string
       approvedEmailSubject: string
@@ -34815,6 +34859,10 @@ export namespace Prisma {
     readonly contactEmail: FieldRef<"RentalSettings", 'String'>
     readonly contactPhone: FieldRef<"RentalSettings", 'String'>
     readonly ownerNotifyEmail: FieldRef<"RentalSettings", 'String'>
+    readonly pickupAddress: FieldRef<"RentalSettings", 'String'>
+    readonly pickupNote: FieldRef<"RentalSettings", 'String'>
+    readonly pickupMapEmbed: FieldRef<"RentalSettings", 'String'>
+    readonly pickupPhotos: FieldRef<"RentalSettings", 'Json'>
     readonly customerEmailSubject: FieldRef<"RentalSettings", 'String'>
     readonly customerEmailBody: FieldRef<"RentalSettings", 'String'>
     readonly approvedEmailSubject: FieldRef<"RentalSettings", 'String'>
@@ -36796,6 +36844,10 @@ export namespace Prisma {
     contactEmail: 'contactEmail',
     contactPhone: 'contactPhone',
     ownerNotifyEmail: 'ownerNotifyEmail',
+    pickupAddress: 'pickupAddress',
+    pickupNote: 'pickupNote',
+    pickupMapEmbed: 'pickupMapEmbed',
+    pickupPhotos: 'pickupPhotos',
     customerEmailSubject: 'customerEmailSubject',
     customerEmailBody: 'customerEmailBody',
     approvedEmailSubject: 'approvedEmailSubject',
@@ -39702,6 +39754,10 @@ export namespace Prisma {
     contactEmail?: StringNullableFilter<"RentalSettings"> | string | null
     contactPhone?: StringNullableFilter<"RentalSettings"> | string | null
     ownerNotifyEmail?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupAddress?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupNote?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupMapEmbed?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupPhotos?: JsonFilter<"RentalSettings">
     customerEmailSubject?: StringFilter<"RentalSettings"> | string
     customerEmailBody?: StringFilter<"RentalSettings"> | string
     approvedEmailSubject?: StringFilter<"RentalSettings"> | string
@@ -39721,6 +39777,10 @@ export namespace Prisma {
     contactEmail?: SortOrderInput | SortOrder
     contactPhone?: SortOrderInput | SortOrder
     ownerNotifyEmail?: SortOrderInput | SortOrder
+    pickupAddress?: SortOrderInput | SortOrder
+    pickupNote?: SortOrderInput | SortOrder
+    pickupMapEmbed?: SortOrderInput | SortOrder
+    pickupPhotos?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -39743,6 +39803,10 @@ export namespace Prisma {
     contactEmail?: StringNullableFilter<"RentalSettings"> | string | null
     contactPhone?: StringNullableFilter<"RentalSettings"> | string | null
     ownerNotifyEmail?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupAddress?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupNote?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupMapEmbed?: StringNullableFilter<"RentalSettings"> | string | null
+    pickupPhotos?: JsonFilter<"RentalSettings">
     customerEmailSubject?: StringFilter<"RentalSettings"> | string
     customerEmailBody?: StringFilter<"RentalSettings"> | string
     approvedEmailSubject?: StringFilter<"RentalSettings"> | string
@@ -39762,6 +39826,10 @@ export namespace Prisma {
     contactEmail?: SortOrderInput | SortOrder
     contactPhone?: SortOrderInput | SortOrder
     ownerNotifyEmail?: SortOrderInput | SortOrder
+    pickupAddress?: SortOrderInput | SortOrder
+    pickupNote?: SortOrderInput | SortOrder
+    pickupMapEmbed?: SortOrderInput | SortOrder
+    pickupPhotos?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -39789,6 +39857,10 @@ export namespace Prisma {
     contactEmail?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
     contactPhone?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
     ownerNotifyEmail?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    pickupAddress?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    pickupNote?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    pickupMapEmbed?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    pickupPhotos?: JsonWithAggregatesFilter<"RentalSettings">
     customerEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
     customerEmailBody?: StringWithAggregatesFilter<"RentalSettings"> | string
     approvedEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
@@ -42855,6 +42927,10 @@ export namespace Prisma {
     contactEmail?: string | null
     contactPhone?: string | null
     ownerNotifyEmail?: string | null
+    pickupAddress?: string | null
+    pickupNote?: string | null
+    pickupMapEmbed?: string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: string
     customerEmailBody?: string
     approvedEmailSubject?: string
@@ -42874,6 +42950,10 @@ export namespace Prisma {
     contactEmail?: string | null
     contactPhone?: string | null
     ownerNotifyEmail?: string | null
+    pickupAddress?: string | null
+    pickupNote?: string | null
+    pickupMapEmbed?: string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: string
     customerEmailBody?: string
     approvedEmailSubject?: string
@@ -42893,6 +42973,10 @@ export namespace Prisma {
     contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -42912,6 +42996,10 @@ export namespace Prisma {
     contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -42931,6 +43019,10 @@ export namespace Prisma {
     contactEmail?: string | null
     contactPhone?: string | null
     ownerNotifyEmail?: string | null
+    pickupAddress?: string | null
+    pickupNote?: string | null
+    pickupMapEmbed?: string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: string
     customerEmailBody?: string
     approvedEmailSubject?: string
@@ -42950,6 +43042,10 @@ export namespace Prisma {
     contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -42969,6 +43065,10 @@ export namespace Prisma {
     contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     ownerNotifyEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
+    pickupPhotos?: JsonNullValueInput | InputJsonValue
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -45310,6 +45410,10 @@ export namespace Prisma {
     contactEmail?: SortOrder
     contactPhone?: SortOrder
     ownerNotifyEmail?: SortOrder
+    pickupAddress?: SortOrder
+    pickupNote?: SortOrder
+    pickupMapEmbed?: SortOrder
+    pickupPhotos?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -45335,6 +45439,9 @@ export namespace Prisma {
     contactEmail?: SortOrder
     contactPhone?: SortOrder
     ownerNotifyEmail?: SortOrder
+    pickupAddress?: SortOrder
+    pickupNote?: SortOrder
+    pickupMapEmbed?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -45354,6 +45461,9 @@ export namespace Prisma {
     contactEmail?: SortOrder
     contactPhone?: SortOrder
     ownerNotifyEmail?: SortOrder
+    pickupAddress?: SortOrder
+    pickupNote?: SortOrder
+    pickupMapEmbed?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder

@@ -28,8 +28,8 @@ export function wrapEmailHtml(
     .join("");
 
   const logo = company.logoUrl
-    ? `<img src="${company.logoUrl}" alt="${company.name}" height="40" style="height:40px;display:block;" />`
-    : `<span style="font-size:20px;font-weight:800;color:#ffffff;letter-spacing:1px;">AQUALIFE SERVIS</span>`;
+    ? `<img src="${company.logoUrl}" alt="${company.name}" height="44" style="height:44px;display:block;" />`
+    : `<span style="font-size:20px;font-weight:800;color:#114EA9;letter-spacing:1px;">AQUALIFE <span style="color:#2FA0E4;">SERVIS</span></span>`;
 
   return `<!doctype html>
 <html lang="sk"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/></head>
@@ -37,7 +37,8 @@ export function wrapEmailHtml(
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:24px 0;">
 <tr><td align="center">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(17,78,169,0.1);">
-<tr><td style="background:linear-gradient(135deg,#2FA0E4,#114EA9);padding:24px 32px;">${logo}</td></tr>
+<tr><td style="height:5px;line-height:5px;font-size:0;background:#114EA9;">&nbsp;</td></tr>
+<tr><td style="background:#ffffff;padding:22px 32px;border-bottom:1px solid #e2e8f0;">${logo}</td></tr>
 <tr><td style="padding:32px;">
 <h1 style="margin:0 0 18px;font-size:18px;color:#0B2C5E;">${heading}</h1>
 ${paragraphs}

@@ -16,11 +16,8 @@ function daysInclusive(a: string, b: string): number {
 
 export function ReservationForm({
   toolId,
-  toolName,
   dailyPrice,
   vatRate,
-  pricePerKm,
-  maxKm,
   minDays,
   unavailableDays,
   terms,
@@ -42,7 +39,6 @@ export function ReservationForm({
   const [start, setStart] = useState<string | null>(null);
   const [end, setEnd] = useState<string | null>(null);
   const [delivery, setDelivery] = useState(false);
-  const [km, setKm] = useState("");
   const [form, setForm] = useState({
     customerName: "",
     customerEmail: "",
@@ -86,11 +82,9 @@ export function ReservationForm({
   const price = useMemo(() => {
     if (!start) return null;
     const rental = r2(dailyPrice * days);
-    const del = delivery ? r2((Number(km) || 0) * pricePerKm) : 0;
-    const exVat = r2(rental + del);
-    const vat = r2((exVat * vatRate) / 100);
-    return { rental, del, exVat, vat, incl: r2(exVat + vat) };
-  }, [start, days, delivery, km, dailyPrice, pricePerKm, vatRate]);
+    const vat = r2((rental * vatRate) / 100);
+    return { rental, vat, incl: r2(rental + vat) };
+  }, [start, days, dailyPrice, vatRate]);
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm({ ...form, [k]: e.target.value });
@@ -100,7 +94,8 @@ export function ReservationForm({
     if (!start) return toast("Zvoľte termín v kalendári.", "error");
     if (days < minDays) return toast(`Minimálna doba prenájmu je ${minDays} dní.`, "error");
     if (!consent) return toast("Potvrďte súhlas so spracovaním údajov.", "error");
-    if (delivery && Number(km) > maxKm) return toast(`Max. vzdialenosť dovozu je ${maxKm} km.`, "error");
+    if (delivery && !form.deliveryAddress.trim())
+      return toast("Zadajte adresu dovozu.", "error");
 
     setSubmitting(true);
     const res = await fetch("/api/rental/reservation", {
@@ -112,7 +107,6 @@ export function ReservationForm({
         endDate: end ?? start,
         ...form,
         deliveryType: delivery ? "DELIVERY" : "PICKUP",
-        deliveryKm: delivery ? Number(km) || 0 : undefined,
         consent: true,
       }),
     });
@@ -152,12 +146,12 @@ export function ReservationForm({
 
       <label className="mt-3 flex items-center gap-2 text-sm text-slate-700">
         <input type="checkbox" checked={delivery} onChange={(e) => setDelivery(e.target.checked)} />
-        Dovoz zariadenia ({pricePerKm.toFixed(2)} €/km, do {maxKm} km)
+        Mám záujem o dovoz na adresu
       </label>
       {delivery && (
-        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <input type="number" className="input" placeholder="Vzdialenosť (km)" value={km} onChange={(e) => setKm(e.target.value)} />
-          <input className="input sm:col-span-2" placeholder="Adresa dovozu" value={form.deliveryAddress} onChange={set("deliveryAddress")} />
+        <div className="mt-2">
+          <input className="input" placeholder="Adresa dovozu *" value={form.deliveryAddress} onChange={set("deliveryAddress")} />
+          <p className="mt-1 text-xs text-slate-400">Cenu dopravy Vám doplníme a potvrdíme podľa vzdialenosti.</p>
         </div>
       )}
 
@@ -177,11 +171,11 @@ export function ReservationForm({
       {price && (
         <div className="mt-4 rounded-lg bg-slate-50 p-3 text-sm">
           <div className="flex justify-between text-slate-600"><span>Prenájom ({days} dní)</span><span>{formatCurrency(price.rental)}</span></div>
-          {price.del > 0 && <div className="flex justify-between text-slate-600"><span>Doprava</span><span>{formatCurrency(price.del)}</span></div>}
           <div className="flex justify-between text-slate-600"><span>DPH {vatRate} %</span><span>{formatCurrency(price.vat)}</span></div>
           <div className="mt-1 flex justify-between border-t border-slate-200 pt-1 font-bold text-brand-navy">
             <span>Spolu s DPH</span><span>{formatCurrency(price.incl)}</span>
           </div>
+          {delivery && <p className="mt-1 text-xs text-slate-400">+ dovoz (cena bude doplnená)</p>}
         </div>
       )}
 

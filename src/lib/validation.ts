@@ -283,12 +283,30 @@ export const rentalSettingsSchema = z.object({
     .optional()
     .or(z.literal(""))
     .transform((v) => (v === "" ? undefined : v)),
+  pickupAddress: optionalStr,
+  pickupNote: optionalLongStr,
+  pickupMapEmbed: optionalLongStr,
   customerEmailSubject: z.string().trim().min(1).max(300),
   customerEmailBody: z.string().trim().min(1).max(5000),
   approvedEmailSubject: z.string().trim().min(1).max(300),
   approvedEmailBody: z.string().trim().min(1).max(5000),
   rejectedEmailSubject: z.string().trim().min(1).max(300),
   rejectedEmailBody: z.string().trim().min(1).max(5000),
+});
+
+export const rentalReservationEditSchema = z.object({
+  startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Neplatný dátum."),
+  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Neplatný dátum."),
+  customerName: z.string().trim().min(1, "Meno je povinné.").max(200),
+  customerEmail: z.string().trim().email("Neplatný e-mail."),
+  customerPhone: z.string().trim().min(1, "Telefón je povinný.").max(40),
+  customerCompany: optionalStr,
+  customerNote: optionalLongStr,
+  deliveryType: z.enum(["PICKUP", "DELIVERY"]),
+  deliveryKm: z.coerce.number().int().min(0).max(10000).optional().nullable(),
+  deliveryExVat: z.coerce.number().min(0).default(0),
+  deliveryAddress: optionalStr,
+  adminNote: optionalLongStr,
 });
 
 export const rentalBlockSchema = z.object({

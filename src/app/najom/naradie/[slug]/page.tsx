@@ -6,6 +6,7 @@ import { getUnavailableDays } from "@/lib/services/rental";
 import { toDayISO } from "@/lib/services/rental-core";
 import { formatCurrency } from "@/lib/format";
 import { ReservationForm } from "./reservation-form";
+import { PickupInfo } from "./pickup-info";
 
 export const dynamic = "force-dynamic";
 
@@ -65,6 +66,13 @@ export default async function RentalToolPage({
               </ul>
             </div>
           )}
+
+          <PickupInfo
+            address={settings.pickupAddress?.trim() || "Strojnícka 20, 080 06 Prešov"}
+            note={settings.pickupNote}
+            mapEmbed={settings.pickupMapEmbed}
+            photos={((settings.pickupPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url)}
+          />
         </div>
 
         <ReservationForm

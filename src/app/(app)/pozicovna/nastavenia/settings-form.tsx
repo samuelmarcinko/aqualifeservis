@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
-import { saveRentalSettings } from "../actions";
+import { saveRentalSettings, uploadPickupPhoto, deletePickupPhoto } from "../actions";
 
 interface Settings {
   deliveryPricePerKm: string;
@@ -14,6 +14,9 @@ interface Settings {
   contactEmail: string;
   contactPhone: string;
   ownerNotifyEmail: string;
+  pickupAddress: string;
+  pickupNote: string;
+  pickupMapEmbed: string;
   customerEmailSubject: string;
   customerEmailBody: string;
   approvedEmailSubject: string;
@@ -22,11 +25,37 @@ interface Settings {
   rejectedEmailBody: string;
 }
 
-export function RentalSettingsForm({ settings }: { settings: Settings }) {
+export function RentalSettingsForm({
+  settings,
+  pickupPhotos,
+}: {
+  settings: Settings;
+  pickupPhotos: string[];
+}) {
   const router = useRouter();
   const { toast } = useToast();
   const [s, setS] = useState(settings);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  async function uploadPhoto(file: File) {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("image", file);
+    const res = await uploadPickupPhoto(fd);
+    setUploading(false);
+    if (res.ok) {
+      toast("Fotka pridaná.", "success");
+      router.refresh();
+    } else toast(res.error, "error");
+  }
+  async function removePhoto(url: string) {
+    const res = await deletePickupPhoto(url);
+    if (res.ok) {
+      toast("Fotka odstránená.", "success");
+      router.refresh();
+    } else toast(res.error, "error");
+  }
 
   const set =
     (k: keyof Settings) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -79,6 +108,53 @@ export function RentalSettingsForm({ settings }: { settings: Settings }) {
         <div>
           <label className="label">Podmienky prenájmu (zobrazí sa vo formulári)</label>
           <textarea className="input" rows={3} value={s.termsText} onChange={set("termsText")} />
+        </div>
+      </div>
+
+      <div className="card space-y-4 p-6">
+        <h3 className="text-sm font-semibold text-slate-700">Miesto prevzatia náradia (verejný web)</h3>
+        <div>
+          <label className="label">Adresa prevzatia</label>
+          <input className="input" value={s.pickupAddress} onChange={set("pickupAddress")} placeholder="Strojnícka 20, 080 06 Prešov" />
+        </div>
+        <div>
+          <label className="label">Poznámka / inštrukcie</label>
+          <textarea className="input" rows={3} value={s.pickupNote} onChange={set("pickupNote")} placeholder="napr. otváracie hodiny, kontakt, ako sa dostať k prevádzke…" />
+        </div>
+        <div>
+          <label className="label">Google Maps embed URL (voliteľné)</label>
+          <input className="input" value={s.pickupMapEmbed} onChange={set("pickupMapEmbed")} placeholder="Ak necháte prázdne, mapa sa vygeneruje z adresy" />
+          <p className="mt-1 text-xs text-slate-400">Ak necháte prázdne, mapa sa zobrazí automaticky podľa adresy.</p>
+        </div>
+        <div>
+          <label className="label">Fotky miesta prevzatia</label>
+          <div className="flex flex-wrap gap-2">
+            {pickupPhotos.map((url) => (
+              <div key={url} className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt="" className="h-20 w-28 rounded-lg object-cover" />
+                <button
+                  type="button"
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
+                  onClick={() => removePhoto(url)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+            <label className="flex h-20 w-28 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-slate-300 text-xs text-slate-400 hover:border-brand">
+              {uploading ? "Nahrávam…" : "+ Fotka"}
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                hidden
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) uploadPhoto(file);
+                }}
+              />
+            </label>
+          </div>
         </div>
       </div>
 
