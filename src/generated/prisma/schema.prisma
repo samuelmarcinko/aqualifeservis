@@ -597,13 +597,15 @@ model CompanySettings {
 }
 
 model AiSettings {
-  id        String   @id @default("ai")
-  provider  String   @default("gemini")
-  model     String   @default("gemini-flash-latest")
+  id           String   @id @default("ai")
+  provider     String   @default("gemini")
+  model        String   @default("gemini-flash-latest")
   // Encrypted with APP_ENCRYPTION_KEY. Never returned to the browser.
-  apiKeyEnc String?
-  enabled   Boolean  @default(false)
-  updatedAt DateTime @updatedAt
+  apiKeyEnc    String?
+  enabled      Boolean  @default(false)
+  // Optional custom guidance appended to the built-in system prompt.
+  instructions String?
+  updatedAt    DateTime @updatedAt
 
   @@map("ai_settings")
 }

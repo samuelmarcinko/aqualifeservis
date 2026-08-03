@@ -27946,6 +27946,7 @@ export namespace Prisma {
     model: string | null
     apiKeyEnc: string | null
     enabled: boolean | null
+    instructions: string | null
     updatedAt: Date | null
   }
 
@@ -27955,6 +27956,7 @@ export namespace Prisma {
     model: string | null
     apiKeyEnc: string | null
     enabled: boolean | null
+    instructions: string | null
     updatedAt: Date | null
   }
 
@@ -27964,6 +27966,7 @@ export namespace Prisma {
     model: number
     apiKeyEnc: number
     enabled: number
+    instructions: number
     updatedAt: number
     _all: number
   }
@@ -27975,6 +27978,7 @@ export namespace Prisma {
     model?: true
     apiKeyEnc?: true
     enabled?: true
+    instructions?: true
     updatedAt?: true
   }
 
@@ -27984,6 +27988,7 @@ export namespace Prisma {
     model?: true
     apiKeyEnc?: true
     enabled?: true
+    instructions?: true
     updatedAt?: true
   }
 
@@ -27993,6 +27998,7 @@ export namespace Prisma {
     model?: true
     apiKeyEnc?: true
     enabled?: true
+    instructions?: true
     updatedAt?: true
     _all?: true
   }
@@ -28075,6 +28081,7 @@ export namespace Prisma {
     model: string
     apiKeyEnc: string | null
     enabled: boolean
+    instructions: string | null
     updatedAt: Date
     _count: AiSettingsCountAggregateOutputType | null
     _min: AiSettingsMinAggregateOutputType | null
@@ -28101,6 +28108,7 @@ export namespace Prisma {
     model?: boolean
     apiKeyEnc?: boolean
     enabled?: boolean
+    instructions?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["aiSettings"]>
 
@@ -28110,6 +28118,7 @@ export namespace Prisma {
     model?: boolean
     apiKeyEnc?: boolean
     enabled?: boolean
+    instructions?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["aiSettings"]>
 
@@ -28119,6 +28128,7 @@ export namespace Prisma {
     model?: boolean
     apiKeyEnc?: boolean
     enabled?: boolean
+    instructions?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["aiSettings"]>
 
@@ -28128,10 +28138,11 @@ export namespace Prisma {
     model?: boolean
     apiKeyEnc?: boolean
     enabled?: boolean
+    instructions?: boolean
     updatedAt?: boolean
   }
 
-  export type AiSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provider" | "model" | "apiKeyEnc" | "enabled" | "updatedAt", ExtArgs["result"]["aiSettings"]>
+  export type AiSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provider" | "model" | "apiKeyEnc" | "enabled" | "instructions" | "updatedAt", ExtArgs["result"]["aiSettings"]>
 
   export type $AiSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AiSettings"
@@ -28142,6 +28153,7 @@ export namespace Prisma {
       model: string
       apiKeyEnc: string | null
       enabled: boolean
+      instructions: string | null
       updatedAt: Date
     }, ExtArgs["result"]["aiSettings"]>
     composites: {}
@@ -28571,6 +28583,7 @@ export namespace Prisma {
     readonly model: FieldRef<"AiSettings", 'String'>
     readonly apiKeyEnc: FieldRef<"AiSettings", 'String'>
     readonly enabled: FieldRef<"AiSettings", 'Boolean'>
+    readonly instructions: FieldRef<"AiSettings", 'String'>
     readonly updatedAt: FieldRef<"AiSettings", 'DateTime'>
   }
     
@@ -36782,6 +36795,7 @@ export namespace Prisma {
     model: 'model',
     apiKeyEnc: 'apiKeyEnc',
     enabled: 'enabled',
+    instructions: 'instructions',
     updatedAt: 'updatedAt'
   };
 
@@ -39287,6 +39301,7 @@ export namespace Prisma {
     model?: StringFilter<"AiSettings"> | string
     apiKeyEnc?: StringNullableFilter<"AiSettings"> | string | null
     enabled?: BoolFilter<"AiSettings"> | boolean
+    instructions?: StringNullableFilter<"AiSettings"> | string | null
     updatedAt?: DateTimeFilter<"AiSettings"> | Date | string
   }
 
@@ -39296,6 +39311,7 @@ export namespace Prisma {
     model?: SortOrder
     apiKeyEnc?: SortOrderInput | SortOrder
     enabled?: SortOrder
+    instructions?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
   }
 
@@ -39308,6 +39324,7 @@ export namespace Prisma {
     model?: StringFilter<"AiSettings"> | string
     apiKeyEnc?: StringNullableFilter<"AiSettings"> | string | null
     enabled?: BoolFilter<"AiSettings"> | boolean
+    instructions?: StringNullableFilter<"AiSettings"> | string | null
     updatedAt?: DateTimeFilter<"AiSettings"> | Date | string
   }, "id">
 
@@ -39317,6 +39334,7 @@ export namespace Prisma {
     model?: SortOrder
     apiKeyEnc?: SortOrderInput | SortOrder
     enabled?: SortOrder
+    instructions?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
     _count?: AiSettingsCountOrderByAggregateInput
     _max?: AiSettingsMaxOrderByAggregateInput
@@ -39332,6 +39350,7 @@ export namespace Prisma {
     model?: StringWithAggregatesFilter<"AiSettings"> | string
     apiKeyEnc?: StringNullableWithAggregatesFilter<"AiSettings"> | string | null
     enabled?: BoolWithAggregatesFilter<"AiSettings"> | boolean
+    instructions?: StringNullableWithAggregatesFilter<"AiSettings"> | string | null
     updatedAt?: DateTimeWithAggregatesFilter<"AiSettings"> | Date | string
   }
 
@@ -42394,6 +42413,7 @@ export namespace Prisma {
     model?: string
     apiKeyEnc?: string | null
     enabled?: boolean
+    instructions?: string | null
     updatedAt?: Date | string
   }
 
@@ -42403,6 +42423,7 @@ export namespace Prisma {
     model?: string
     apiKeyEnc?: string | null
     enabled?: boolean
+    instructions?: string | null
     updatedAt?: Date | string
   }
 
@@ -42412,6 +42433,7 @@ export namespace Prisma {
     model?: StringFieldUpdateOperationsInput | string
     apiKeyEnc?: NullableStringFieldUpdateOperationsInput | string | null
     enabled?: BoolFieldUpdateOperationsInput | boolean
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42421,6 +42443,7 @@ export namespace Prisma {
     model?: StringFieldUpdateOperationsInput | string
     apiKeyEnc?: NullableStringFieldUpdateOperationsInput | string | null
     enabled?: BoolFieldUpdateOperationsInput | boolean
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42430,6 +42453,7 @@ export namespace Prisma {
     model?: string
     apiKeyEnc?: string | null
     enabled?: boolean
+    instructions?: string | null
     updatedAt?: Date | string
   }
 
@@ -42439,6 +42463,7 @@ export namespace Prisma {
     model?: StringFieldUpdateOperationsInput | string
     apiKeyEnc?: NullableStringFieldUpdateOperationsInput | string | null
     enabled?: BoolFieldUpdateOperationsInput | boolean
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42448,6 +42473,7 @@ export namespace Prisma {
     model?: StringFieldUpdateOperationsInput | string
     apiKeyEnc?: NullableStringFieldUpdateOperationsInput | string | null
     enabled?: BoolFieldUpdateOperationsInput | boolean
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -45071,6 +45097,7 @@ export namespace Prisma {
     model?: SortOrder
     apiKeyEnc?: SortOrder
     enabled?: SortOrder
+    instructions?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -45080,6 +45107,7 @@ export namespace Prisma {
     model?: SortOrder
     apiKeyEnc?: SortOrder
     enabled?: SortOrder
+    instructions?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -45089,6 +45117,7 @@ export namespace Prisma {
     model?: SortOrder
     apiKeyEnc?: SortOrder
     enabled?: SortOrder
+    instructions?: SortOrder
     updatedAt?: SortOrder
   }
 

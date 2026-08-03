@@ -603,6 +603,8 @@ model AiSettings {
   // Encrypted with APP_ENCRYPTION_KEY. Never returned to the browser.
   apiKeyEnc  String?
   enabled    Boolean  @default(false)
+  // Optional custom guidance appended to the built-in system prompt.
+  instructions String?
   updatedAt  DateTime @updatedAt
 
   @@map("ai_settings")

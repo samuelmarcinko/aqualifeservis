@@ -117,7 +117,12 @@ export async function saveAiSettings(input: unknown): Promise<ActionResult> {
     if (!parsed.success)
       return fail("Skontrolujte zadané údaje.", parsed.error.flatten().fieldErrors);
     const d = parsed.data;
-    const data: Record<string, unknown> = { enabled: d.enabled, model: d.model, provider: "gemini" };
+    const data: Record<string, unknown> = {
+      enabled: d.enabled,
+      model: d.model,
+      provider: "gemini",
+      instructions: d.instructions?.trim() ? d.instructions.trim() : null,
+    };
     if (d.apiKey && d.apiKey.trim().length > 0) {
       data.apiKeyEnc = encryptSecret(d.apiKey.trim());
     }

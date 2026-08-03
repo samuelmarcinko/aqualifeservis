@@ -459,6 +459,7 @@ exports.Prisma.AiSettingsScalarFieldEnum = {
   model: 'model',
   apiKeyEnc: 'apiKeyEnc',
   enabled: 'enabled',
+  instructions: 'instructions',
   updatedAt: 'updatedAt'
 };
 

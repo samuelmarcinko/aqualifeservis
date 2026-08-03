@@ -79,6 +79,7 @@ export function toSafeAi(ai: AiSettings) {
     model: ai.model,
     enabled: ai.enabled,
     hasKey: !!ai.apiKeyEnc,
+    instructions: ai.instructions ?? "",
   };
 }
 

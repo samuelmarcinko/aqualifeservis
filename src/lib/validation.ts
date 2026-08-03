@@ -228,6 +228,7 @@ export const aiSettingsSchema = z.object({
   enabled: z.boolean().default(false),
   model: z.string().trim().min(1).max(100).default("gemini-flash-latest"),
   apiKey: z.string().max(400).optional(),
+  instructions: z.string().max(6000).optional(),
 });
 
 export const aiTextSchema = z.object({

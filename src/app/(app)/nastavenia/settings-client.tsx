@@ -25,6 +25,7 @@ interface SafeAi {
   model: string;
   enabled: boolean;
   hasKey: boolean;
+  instructions: string;
 }
 
 interface CompanyForm {
@@ -256,12 +257,13 @@ function AiTab({ ai }: { ai: SafeAi }) {
   const [enabled, setEnabled] = useState(ai.enabled);
   const [model, setModel] = useState(ai.model);
   const [apiKey, setApiKey] = useState("");
+  const [instructions, setInstructions] = useState(ai.instructions);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
 
   async function save() {
     setSaving(true);
-    const res = await saveAiSettings({ enabled, model, apiKey });
+    const res = await saveAiSettings({ enabled, model, apiKey, instructions });
     setSaving(false);
     if (res.ok) {
       toast("AI nastavenia uložené.", "success");
@@ -315,6 +317,21 @@ function AiTab({ ai }: { ai: SafeAi }) {
           />
           <p className="mt-1 text-xs text-slate-400">Ukladá sa šifrovaný, nikdy sa nezobrazuje.</p>
         </div>
+      </div>
+
+      <div>
+        <label className="label">Inštrukcie pre AI (štýl, terminológia, rozsah)</label>
+        <textarea
+          className="input"
+          rows={6}
+          placeholder="napr.: Vystupuj ako skúsený vodoinštalatér. Používaj odbornú terminológiu (DN priemery, tlaková skúška, termovízia…). Popis poruchy a diagnostiky rozpíš podrobne (podklad pre poisťovňu), ostatné polia stručne. Nevymýšľaj fakty."
+          value={instructions}
+          onChange={(e) => setInstructions(e.target.value)}
+        />
+        <p className="mt-1 text-xs text-slate-400">
+          Voliteľné. Doplní sa k zabudovanému promptu a má prednosť pri štýle a terminológii.
+          Ak necháte prázdne, použije sa zabudovaný „profi vodoinštalatér“ prompt.
+        </p>
       </div>
 
       <div className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">
