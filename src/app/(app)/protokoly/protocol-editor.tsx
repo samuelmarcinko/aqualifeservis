@@ -7,6 +7,7 @@ import { ItemAutocomplete } from "@/components/editor/item-autocomplete";
 import { DEFAULT_UNITS } from "@/lib/constants";
 import { saveProtocol } from "./actions";
 import { ProtocolAiAssistant } from "./protocol-ai-assistant";
+import { InlineCustomerModal, type CreatedCustomer } from "./inline-customer-modal";
 import type { AiProtocolDraft } from "@/lib/services/ai";
 
 interface CustomerAddress {
@@ -76,6 +77,9 @@ export function ProtocolEditor({
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [customerList, setCustomerList] = useState(customers);
+  const [newCustomerOpen, setNewCustomerOpen] = useState(false);
+  const [aiCustomer, setAiCustomer] = useState<{ name?: string; phone?: string; email?: string } | null>(null);
   const today = new Date().toISOString().slice(0, 10);
 
   const [f, setF] = useState({
@@ -115,7 +119,28 @@ export function ProtocolEditor({
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setF({ ...f, [k]: e.target.value });
 
-  const selectedCustomer = customers.find((c) => c.id === f.customerId);
+  const selectedCustomer = customerList.find((c) => c.id === f.customerId);
+
+  function handleCustomerCreated(c: CreatedCustomer) {
+    setCustomerList((prev) => [{ id: c.id, name: c.name, addresses: c.addresses }, ...prev]);
+    const addr = c.addresses[0];
+    setF((prev) => ({
+      ...prev,
+      customerId: c.id,
+      serviceAddressId: addr?.id ?? "",
+      ...(addr
+        ? {
+            objectStreet: addr.street ?? "",
+            objectCity: addr.city ?? "",
+            objectPostalCode: addr.postalCode ?? "",
+            objectType: addr.objectType ?? "",
+            objectApartment: addr.apartment ?? "",
+          }
+        : {}),
+    }));
+    setNewCustomerOpen(false);
+    setAiCustomer(null);
+  }
 
   // Selecting a service address prefills the object fields from that address.
   function onSelectAddress(id: string) {
@@ -153,7 +178,7 @@ export function ProtocolEditor({
       const norm = (s: string) =>
         s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
       const target = norm(d.customerName);
-      const matches = customers.filter((c) => {
+      const matches = customerList.filter((c) => {
         const n = norm(c.name);
         if (!n || !target) return false;
         if (n === target) return true;
@@ -174,9 +199,11 @@ export function ProtocolEditor({
         } else {
           customerPatch.serviceAddressId = "";
         }
-      } else if (matches.length === 0)
-        toast(`Zákazník „${d.customerName}“ sa nenašiel v zozname – vyberte ho ručne.`, "info");
-      else toast(`Pre „${d.customerName}“ je viac zhôd – vyberte zákazníka ručne.`, "info");
+      } else if (matches.length === 0) {
+        // Remember the detected details so the "Nový zákazník" modal can prefill them.
+        setAiCustomer({ name: d.customerName, phone: d.customerPhone, email: d.customerEmail });
+        toast(`Zákazník „${d.customerName}“ sa nenašiel – môžete ho vytvoriť tlačidlom „Nový zákazník“.`, "info");
+      } else toast(`Pre „${d.customerName}“ je viac zhôd – vyberte zákazníka ručne.`, "info");
     }
 
     setF((prev) => ({
@@ -248,6 +275,16 @@ export function ProtocolEditor({
 
   return (
     <div className="space-y-6">
+      {newCustomerOpen && (
+        <InlineCustomerModal
+          onClose={() => setNewCustomerOpen(false)}
+          onCreated={handleCustomerCreated}
+          initialName={aiCustomer?.name}
+          initialPhone={aiCustomer?.phone}
+          initialEmail={aiCustomer?.email}
+        />
+      )}
+
       {aiEnabled && <ProtocolAiAssistant onApply={applyAiDraft} />}
 
       <Section title="1. Identifikácia protokolu">
@@ -270,14 +307,19 @@ export function ProtocolEditor({
       <Section title="2. Údaje o klientovi">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Zákazník *">
-            <select className="input" value={f.customerId} onChange={(e) => setF({ ...f, customerId: e.target.value, serviceAddressId: "" })}>
-              <option value="">— vyberte —</option>
-              {customers.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
+            <div className="flex gap-2">
+              <select className="input" value={f.customerId} onChange={(e) => setF({ ...f, customerId: e.target.value, serviceAddressId: "" })}>
+                <option value="">— vyberte —</option>
+                {customerList.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+              <button type="button" className="btn-secondary whitespace-nowrap" onClick={() => setNewCustomerOpen(true)}>
+                + Nový
+              </button>
+            </div>
           </Field>
         </div>
       </Section>

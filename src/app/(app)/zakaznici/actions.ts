@@ -15,7 +15,7 @@ import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
 export async function createCustomer(
   input: unknown,
   address?: unknown,
-): Promise<ActionResult<{ id: string }>> {
+): Promise<ActionResult<{ id: string; name: string; addressId: string | null }>> {
   try {
     const user = await assertUser();
     const parsed = customerSchema.safeParse(input);
@@ -55,13 +55,15 @@ export async function createCustomer(
     });
 
     // Optional first service address created together with the customer.
+    let addressId: string | null = null;
     const addrObj = address as { label?: string } | undefined;
     if (addrObj && typeof addrObj.label === "string" && addrObj.label.trim()) {
       const addrParsed = serviceAddressSchema.safeParse(address);
       if (addrParsed.success) {
-        await prisma.customerServiceAddress.create({
+        const created = await prisma.customerServiceAddress.create({
           data: { ...addrParsed.data, isDefault: true, customerId: customer.id },
         });
+        addressId = created.id;
         await logActivity({
           type: "SERVICE_ADDRESS_CREATED",
           description: `Pridaná servisná adresa „${addrParsed.data.label}“`,
@@ -72,7 +74,7 @@ export async function createCustomer(
     }
 
     revalidatePath("/zakaznici");
-    return ok({ id: customer.id });
+    return ok({ id: customer.id, name: customerDisplayName(customer), addressId });
   } catch (e) {
     return fail(toSafeError(e));
   }
