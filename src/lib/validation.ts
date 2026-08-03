@@ -226,7 +226,7 @@ export const testEmailSchema = z.object({
 
 export const aiSettingsSchema = z.object({
   enabled: z.boolean().default(false),
-  model: z.string().trim().min(1).max(100).default("gemini-2.0-flash"),
+  model: z.string().trim().min(1).max(100).default("gemini-2.5-flash"),
   apiKey: z.string().max(400).optional(),
 });
 
