@@ -6,6 +6,7 @@ import { Modal } from "@/components/ui/modal";
 import { ConfirmDialog } from "@/components/ui/confirm";
 import { useToast } from "@/components/ui/toast";
 import { formatCurrency } from "@/lib/format";
+import type { ActionResult } from "@/lib/action-result";
 import {
   saveCategory,
   deleteCategory,
@@ -354,29 +355,41 @@ function ToolGallery({ toolId, photos }: { toolId: string; photos: string[] }) {
   const router = useRouter();
   const { toast } = useToast();
   const [uploading, setUploading] = useState(false);
+  const [list, setList] = useState(photos);
 
-  async function upload(file: File) {
+  async function upload(files: FileList) {
     setUploading(true);
-    const fd = new FormData();
-    fd.append("image", file);
-    const res = await uploadToolGalleryPhoto(toolId, fd);
+    let failed = "";
+    // Sequential: each upload reads-appends-writes the gallery array, so
+    // parallel uploads would overwrite each other.
+    for (const file of Array.from(files)) {
+      const fd = new FormData();
+      fd.append("image", file);
+      const res = await uploadToolGalleryPhoto(toolId, fd);
+      if (res.ok) setList(res.data.photos);
+      else {
+        failed = res.error;
+        break;
+      }
+    }
     setUploading(false);
-    if (res.ok) {
-      toast("Fotka pridaná do galérie.", "success");
-      router.refresh();
-    } else toast(res.error ?? "Chyba", "error");
+    if (failed) toast(failed, "error");
+    else toast("Fotky pridané do galérie.", "success");
+    router.refresh();
   }
   async function remove(url: string) {
     const res = await deleteToolGalleryPhoto(toolId, url);
-    if (res.ok) router.refresh();
-    else toast(res.error ?? "Chyba", "error");
+    if (res.ok) {
+      setList(res.data.photos);
+      router.refresh();
+    } else toast(res.error, "error");
   }
 
   return (
     <div>
       <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Galéria (ďalšie fotky)</div>
       <div className="flex flex-wrap gap-2">
-        {photos.map((url) => (
+        {list.map((url) => (
           <div key={url} className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={url} alt="" className="h-16 w-16 rounded-lg object-cover" />
@@ -387,7 +400,17 @@ function ToolGallery({ toolId, photos }: { toolId: string; photos: string[] }) {
         ))}
         <label className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-slate-300 text-xs text-slate-400 hover:border-brand">
           {uploading ? "…" : "+"}
-          <input type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }} />
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            multiple
+            hidden
+            onChange={(e) => {
+              const fs = e.target.files;
+              if (fs && fs.length) upload(fs);
+              e.target.value = "";
+            }}
+          />
         </label>
       </div>
     </div>
@@ -398,6 +421,7 @@ function ToolManuals({ toolId, manuals }: { toolId: string; manuals: { url: stri
   const router = useRouter();
   const { toast } = useToast();
   const [uploading, setUploading] = useState(false);
+  const [list, setList] = useState(manuals);
 
   async function upload(file: File) {
     setUploading(true);
@@ -406,21 +430,24 @@ function ToolManuals({ toolId, manuals }: { toolId: string; manuals: { url: stri
     const res = await uploadToolManual(toolId, fd);
     setUploading(false);
     if (res.ok) {
+      setList(res.data.manuals);
       toast("Manuál pridaný.", "success");
       router.refresh();
-    } else toast(res.error ?? "Chyba", "error");
+    } else toast(res.error, "error");
   }
   async function remove(url: string) {
     const res = await deleteToolManual(toolId, url);
-    if (res.ok) router.refresh();
-    else toast(res.error ?? "Chyba", "error");
+    if (res.ok) {
+      setList(res.data.manuals);
+      router.refresh();
+    } else toast(res.error, "error");
   }
 
   return (
     <div>
       <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Manuály (PDF)</div>
       <div className="space-y-1">
-        {manuals.map((m) => (
+        {list.map((m) => (
           <div key={m.url} className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-1.5 text-sm">
             <span className="truncate text-slate-700">📄 {m.name}</span>
             <button type="button" className="text-xs text-red-500 hover:underline" onClick={() => remove(m.url)}>
@@ -491,11 +518,12 @@ function ImageUpload({
   onUpload,
 }: {
   imageUrl: string | null;
-  onUpload: (fd: FormData) => Promise<{ ok: boolean; error?: string }>;
+  onUpload: (fd: FormData) => Promise<ActionResult<{ url: string }>>;
 }) {
   const router = useRouter();
   const { toast } = useToast();
   const [uploading, setUploading] = useState(false);
+  const [img, setImg] = useState(imageUrl);
 
   async function upload(file: File) {
     setUploading(true);
@@ -504,17 +532,18 @@ function ImageUpload({
     const res = await onUpload(fd);
     setUploading(false);
     if (res.ok) {
+      setImg(res.data.url);
       toast("Obrázok nahraný.", "success");
       router.refresh();
-    } else toast(res.error ?? "Chyba", "error");
+    } else toast(res.error, "error");
   }
 
   return (
-    <div className="flex items-center gap-3 border-t border-slate-100 pt-3">
-      <div className="flex h-16 w-24 items-center justify-center overflow-hidden rounded border border-slate-200 bg-slate-50">
-        {imageUrl ? (
+    <div className="flex items-center gap-3">
+      <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded border border-slate-200 bg-slate-50">
+        {img ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl} alt="" className="h-full w-full object-cover" />
+          <img src={img} alt="" className="h-full w-full object-cover" />
         ) : (
           <span className="text-[10px] text-slate-300">Bez fotky</span>
         )}

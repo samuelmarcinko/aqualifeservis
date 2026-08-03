@@ -38,16 +38,22 @@ export function RentalSettingsForm({
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  async function uploadPhoto(file: File) {
+  async function uploadPhoto(files: FileList) {
     setUploading(true);
-    const fd = new FormData();
-    fd.append("image", file);
-    const res = await uploadPickupPhoto(fd);
+    let failed = "";
+    for (const file of Array.from(files)) {
+      const fd = new FormData();
+      fd.append("image", file);
+      const res = await uploadPickupPhoto(fd);
+      if (!res.ok) {
+        failed = res.error;
+        break;
+      }
+    }
     setUploading(false);
-    if (res.ok) {
-      toast("Fotka pridaná.", "success");
-      router.refresh();
-    } else toast(res.error, "error");
+    if (failed) toast(failed, "error");
+    else toast("Fotky pridané.", "success");
+    router.refresh();
   }
   async function removePhoto(url: string) {
     const res = await deletePickupPhoto(url);
@@ -147,10 +153,12 @@ export function RentalSettingsForm({
               <input
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
+                multiple
                 hidden
                 onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) uploadPhoto(file);
+                  const fs = e.target.files;
+                  if (fs && fs.length) uploadPhoto(fs);
+                  e.target.value = "";
                 }}
               />
             </label>

@@ -88,7 +88,10 @@ export async function deleteCategory(id: string): Promise<ActionResult> {
   }
 }
 
-export async function uploadCategoryImage(id: string, formData: FormData): Promise<ActionResult> {
+export async function uploadCategoryImage(
+  id: string,
+  formData: FormData,
+): Promise<ActionResult<{ url: string }>> {
   return uploadImage("category", id, formData);
 }
 
@@ -142,13 +145,19 @@ export async function deleteTool(id: string): Promise<ActionResult> {
   }
 }
 
-export async function uploadToolImage(id: string, formData: FormData): Promise<ActionResult> {
+export async function uploadToolImage(
+  id: string,
+  formData: FormData,
+): Promise<ActionResult<{ url: string }>> {
   return uploadImage("tool", id, formData);
 }
 
 type MediaItem = { url: string; path: string; name?: string };
 
-export async function uploadToolGalleryPhoto(id: string, formData: FormData): Promise<ActionResult> {
+export async function uploadToolGalleryPhoto(
+  id: string,
+  formData: FormData,
+): Promise<ActionResult<{ photos: string[] }>> {
   try {
     await assertUser();
     const file = formData.get("image");
@@ -162,13 +171,16 @@ export async function uploadToolGalleryPhoto(id: string, formData: FormData): Pr
     const gallery = [...((tool.galleryPhotos as unknown as MediaItem[]) ?? []), { url: blob.url, path: blob.pathname }].slice(0, 12);
     await prisma.rentalTool.update({ where: { id }, data: { galleryPhotos: gallery } });
     revalidatePath("/pozicovna/naradie");
-    return ok(null);
+    return ok({ photos: gallery.map((p) => p.url) });
   } catch (e) {
     return fail(toSafeError(e));
   }
 }
 
-export async function deleteToolGalleryPhoto(id: string, url: string): Promise<ActionResult> {
+export async function deleteToolGalleryPhoto(
+  id: string,
+  url: string,
+): Promise<ActionResult<{ photos: string[] }>> {
   try {
     await assertUser();
     const tool = await prisma.rentalTool.findUniqueOrThrow({ where: { id } });
@@ -176,13 +188,18 @@ export async function deleteToolGalleryPhoto(id: string, url: string): Promise<A
     await deleteBlob(url);
     await prisma.rentalTool.update({ where: { id }, data: { galleryPhotos: gallery } });
     revalidatePath("/pozicovna/naradie");
-    return ok(null);
+    return ok({ photos: gallery.map((p) => p.url) });
   } catch (e) {
     return fail(toSafeError(e));
   }
 }
 
-export async function uploadToolManual(id: string, formData: FormData): Promise<ActionResult> {
+type ManualOut = { url: string; name: string };
+
+export async function uploadToolManual(
+  id: string,
+  formData: FormData,
+): Promise<ActionResult<{ manuals: ManualOut[] }>> {
   try {
     await assertUser();
     const file = formData.get("manual");
@@ -198,13 +215,16 @@ export async function uploadToolManual(id: string, formData: FormData): Promise<
     ].slice(0, 12);
     await prisma.rentalTool.update({ where: { id }, data: { manuals } });
     revalidatePath("/pozicovna/naradie");
-    return ok(null);
+    return ok({ manuals: manuals.map((m) => ({ url: m.url, name: m.name ?? "manual.pdf" })) });
   } catch (e) {
     return fail(toSafeError(e));
   }
 }
 
-export async function deleteToolManual(id: string, url: string): Promise<ActionResult> {
+export async function deleteToolManual(
+  id: string,
+  url: string,
+): Promise<ActionResult<{ manuals: ManualOut[] }>> {
   try {
     await assertUser();
     const tool = await prisma.rentalTool.findUniqueOrThrow({ where: { id } });
@@ -212,7 +232,7 @@ export async function deleteToolManual(id: string, url: string): Promise<ActionR
     await deleteBlob(url);
     await prisma.rentalTool.update({ where: { id }, data: { manuals } });
     revalidatePath("/pozicovna/naradie");
-    return ok(null);
+    return ok({ manuals: manuals.map((m) => ({ url: m.url, name: m.name ?? "manual.pdf" })) });
   } catch (e) {
     return fail(toSafeError(e));
   }
@@ -231,7 +251,11 @@ export async function saveToolVideos(id: string, videos: string[]): Promise<Acti
   }
 }
 
-async function uploadImage(kind: "category" | "tool", id: string, formData: FormData): Promise<ActionResult> {
+async function uploadImage(
+  kind: "category" | "tool",
+  id: string,
+  formData: FormData,
+): Promise<ActionResult<{ url: string }>> {
   try {
     await assertUser();
     const file = formData.get("image");
@@ -251,7 +275,7 @@ async function uploadImage(kind: "category" | "tool", id: string, formData: Form
       await prisma.rentalTool.update({ where: { id }, data: { imageUrl: blob.url, imageBlobPath: blob.pathname } });
     }
     revalidatePath("/pozicovna/naradie");
-    return ok(null);
+    return ok({ url: blob.url });
   } catch (e) {
     return fail(toSafeError(e));
   }
@@ -366,7 +390,7 @@ export async function saveRentalSettings(input: unknown): Promise<ActionResult> 
   }
 }
 
-export async function uploadPickupPhoto(formData: FormData): Promise<ActionResult> {
+export async function uploadPickupPhoto(formData: FormData): Promise<ActionResult<{ photos: string[] }>> {
   try {
     await assertSuperAdmin();
     const file = formData.get("image");
@@ -383,13 +407,13 @@ export async function uploadPickupPhoto(formData: FormData): Promise<ActionResul
     ].slice(0, 8);
     await prisma.rentalSettings.update({ where: { id: "rental" }, data: { pickupPhotos: photos } });
     revalidatePath("/pozicovna/nastavenia");
-    return ok(null);
+    return ok({ photos: photos.map((p) => p.url) });
   } catch (e) {
     return fail(toSafeError(e));
   }
 }
 
-export async function deletePickupPhoto(url: string): Promise<ActionResult> {
+export async function deletePickupPhoto(url: string): Promise<ActionResult<{ photos: string[] }>> {
   try {
     await assertSuperAdmin();
     const settings = await getRentalSettings();
@@ -399,7 +423,7 @@ export async function deletePickupPhoto(url: string): Promise<ActionResult> {
     await deleteBlob(url);
     await prisma.rentalSettings.update({ where: { id: "rental" }, data: { pickupPhotos: photos } });
     revalidatePath("/pozicovna/nastavenia");
-    return ok(null);
+    return ok({ photos: photos.map((p) => p.url) });
   } catch (e) {
     return fail(toSafeError(e));
   }
