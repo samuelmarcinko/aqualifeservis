@@ -9,6 +9,7 @@ import {
   rentalBlockSchema,
   rentalSettingsSchema,
   rentalReservationEditSchema,
+  rentalToolVideosSchema,
   zodErrorMessage,
 } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
@@ -102,6 +103,7 @@ export async function saveTool(input: unknown, id?: string): Promise<ActionResul
     const data = {
       categoryId: d.categoryId,
       name: d.name,
+      model: d.model,
       description: d.description,
       accessories: d.accessories,
       dailyPriceExVat: d.dailyPriceExVat,
@@ -142,6 +144,91 @@ export async function deleteTool(id: string): Promise<ActionResult> {
 
 export async function uploadToolImage(id: string, formData: FormData): Promise<ActionResult> {
   return uploadImage("tool", id, formData);
+}
+
+type MediaItem = { url: string; path: string; name?: string };
+
+export async function uploadToolGalleryPhoto(id: string, formData: FormData): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const file = formData.get("image");
+    if (!(file instanceof File)) return fail("Chýba súbor.");
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP).");
+    if (file.size > 5 * 1024 * 1024) return fail("Obrázok presahuje 5 MB.");
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const blob = await uploadBlob(`rental/tool/gallery/${file.name}`, buffer, file.type);
+    const tool = await prisma.rentalTool.findUniqueOrThrow({ where: { id } });
+    const gallery = [...((tool.galleryPhotos as unknown as MediaItem[]) ?? []), { url: blob.url, path: blob.pathname }].slice(0, 12);
+    await prisma.rentalTool.update({ where: { id }, data: { galleryPhotos: gallery } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteToolGalleryPhoto(id: string, url: string): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const tool = await prisma.rentalTool.findUniqueOrThrow({ where: { id } });
+    const gallery = ((tool.galleryPhotos as unknown as MediaItem[]) ?? []).filter((p) => p.url !== url);
+    await deleteBlob(url);
+    await prisma.rentalTool.update({ where: { id }, data: { galleryPhotos: gallery } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function uploadToolManual(id: string, formData: FormData): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const file = formData.get("manual");
+    if (!(file instanceof File)) return fail("Chýba súbor.");
+    if (file.type !== "application/pdf") return fail("Manuál musí byť vo formáte PDF.");
+    if (file.size > 25 * 1024 * 1024) return fail("PDF presahuje 25 MB.");
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const blob = await uploadBlob(`rental/tool/manuals/${file.name}`, buffer, "application/pdf");
+    const tool = await prisma.rentalTool.findUniqueOrThrow({ where: { id } });
+    const manuals = [
+      ...((tool.manuals as unknown as MediaItem[]) ?? []),
+      { url: blob.url, path: blob.pathname, name: file.name },
+    ].slice(0, 12);
+    await prisma.rentalTool.update({ where: { id }, data: { manuals } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteToolManual(id: string, url: string): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const tool = await prisma.rentalTool.findUniqueOrThrow({ where: { id } });
+    const manuals = ((tool.manuals as unknown as MediaItem[]) ?? []).filter((p) => p.url !== url);
+    await deleteBlob(url);
+    await prisma.rentalTool.update({ where: { id }, data: { manuals } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function saveToolVideos(id: string, videos: string[]): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const parsed = rentalToolVideosSchema.safeParse({ videos });
+    if (!parsed.success) return fail(zodErrorMessage(parsed.error));
+    await prisma.rentalTool.update({ where: { id }, data: { videos: parsed.data.videos } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
 }
 
 async function uploadImage(kind: "category" | "tool", id: string, formData: FormData): Promise<ActionResult> {

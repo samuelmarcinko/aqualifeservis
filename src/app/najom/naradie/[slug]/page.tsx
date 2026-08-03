@@ -7,6 +7,8 @@ import { toDayISO } from "@/lib/services/rental-core";
 import { formatCurrency } from "@/lib/format";
 import { ReservationForm } from "./reservation-form";
 import { PickupInfo } from "./pickup-info";
+import { ToolGallery } from "./tool-gallery";
+import { ToolMedia } from "./tool-media";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +34,14 @@ export default async function RentalToolPage({
     .map((s) => s.trim())
     .filter(Boolean);
 
+  const galleryUrls = ((tool.galleryPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url);
+  const images = [tool.imageUrl, ...galleryUrls].filter((u): u is string => !!u);
+  const manuals = ((tool.manuals as unknown as { url: string; name?: string }[]) ?? []).map((m) => ({
+    url: m.url,
+    name: m.name ?? "Manuál.pdf",
+  }));
+  const videos = ((tool.videos as unknown as string[]) ?? []).filter(Boolean);
+
   return (
     <div>
       <Link href={`/kategoria/${tool.category.slug}`} className="text-sm text-brand-dark hover:underline">
@@ -40,16 +50,12 @@ export default async function RentalToolPage({
 
       <div className="mt-3 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div>
-          <div className="mb-4 flex h-72 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-            {tool.imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={tool.imageUrl} alt={tool.name} className="h-full w-full object-cover" />
-            ) : (
-              <span className="text-5xl">🧰</span>
-            )}
+          <div className="mb-4">
+            <ToolGallery images={images} alt={tool.name} />
           </div>
           <h1 className="text-2xl font-bold text-brand-navy">{tool.name}</h1>
-          <div className="mt-1 text-xl font-bold text-brand-dark">
+          {tool.model && <p className="mt-0.5 text-base font-medium text-brand-dark">{tool.model}</p>}
+          <div className="mt-2 text-xl font-bold text-brand-dark">
             {formatCurrency(tool.dailyPriceExVat)} <span className="text-sm font-normal text-slate-400">/ deň bez DPH</span>
           </div>
           {tool.description && <p className="mt-4 whitespace-pre-wrap text-slate-600">{tool.description}</p>}
@@ -73,6 +79,8 @@ export default async function RentalToolPage({
             mapEmbed={settings.pickupMapEmbed}
             photos={((settings.pickupPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url)}
           />
+
+          <ToolMedia videos={videos} manuals={manuals} />
         </div>
 
         <ReservationForm

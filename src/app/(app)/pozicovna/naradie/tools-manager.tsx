@@ -13,11 +13,17 @@ import {
   saveTool,
   deleteTool,
   uploadToolImage,
+  uploadToolGalleryPhoto,
+  deleteToolGalleryPhoto,
+  uploadToolManual,
+  deleteToolManual,
+  saveToolVideos,
 } from "../actions";
 
 interface Tool {
   id: string;
   name: string;
+  model: string | null;
   description: string | null;
   accessories: string | null;
   dailyPriceExVat: string;
@@ -26,6 +32,9 @@ interface Tool {
   position: number;
   active: boolean;
   imageUrl: string | null;
+  galleryPhotos: string[];
+  manuals: { url: string; name: string }[];
+  videos: string[];
 }
 interface Category {
   id: string;
@@ -94,7 +103,7 @@ export function ToolsManager({ categories }: { categories: Category[] }) {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {c.tools.map((t) => (
                     <div key={t.id} className="rounded-lg border border-slate-200 p-3">
-                      <div className="mb-2 flex h-28 items-center justify-center overflow-hidden rounded bg-slate-50">
+                      <div className="mb-2 flex aspect-square items-center justify-center overflow-hidden rounded bg-slate-50">
                         {t.imageUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={t.imageUrl} alt={t.name} className="h-full w-full object-cover" />
@@ -103,7 +112,10 @@ export function ToolsManager({ categories }: { categories: Category[] }) {
                         )}
                       </div>
                       <div className="flex items-start justify-between gap-2">
-                        <div className="font-medium text-slate-800">{t.name}</div>
+                        <div>
+                          <div className="font-medium text-slate-800">{t.name}</div>
+                          {t.model && <div className="text-xs text-slate-400">{t.model}</div>}
+                        </div>
                         {!t.active && <span className="badge bg-slate-200 text-slate-600">Neakt.</span>}
                       </div>
                       <div className="text-sm text-brand-dark">{formatCurrency(t.dailyPriceExVat)} / deň bez DPH</div>
@@ -233,6 +245,7 @@ function ToolModal({
   const [form, setForm] = useState({
     categoryId,
     name: tool?.name ?? "",
+    model: tool?.model ?? "",
     description: tool?.description ?? "",
     accessories: tool?.accessories ?? "",
     dailyPriceExVat: tool?.dailyPriceExVat ?? "0",
@@ -272,8 +285,12 @@ function ToolModal({
     >
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="sm:col-span-2">
-          <label className="label">Názov</label>
-          <input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <label className="label">Základný názov</label>
+          <input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="napr. Mechanická čistička potrubí a odtokov" />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="label">Model (druhý nadpis)</label>
+          <input className="input" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} placeholder={'napr. RIDGID FlexShaft K9-204+ 2"-4" (50-100 mm)'} />
         </div>
         <div>
           <label className="label">Kategória</label>
@@ -313,12 +330,159 @@ function ToolModal({
           <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} /> Aktívne (viditeľné na webe)
         </label>
         {tool && (
-          <div className="sm:col-span-2">
-            <ImageUpload imageUrl={tool.imageUrl} onUpload={(fd) => uploadToolImage(tool.id, fd)} />
+          <div className="space-y-4 border-t border-slate-100 pt-4 sm:col-span-2">
+            <div>
+              <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Hlavná fotka</div>
+              <ImageUpload imageUrl={tool.imageUrl} onUpload={(fd) => uploadToolImage(tool.id, fd)} />
+            </div>
+            <ToolGallery toolId={tool.id} photos={tool.galleryPhotos} />
+            <ToolManuals toolId={tool.id} manuals={tool.manuals} />
+            <ToolVideos toolId={tool.id} videos={tool.videos} />
           </div>
+        )}
+        {!tool && (
+          <p className="text-xs text-slate-400 sm:col-span-2">
+            Fotky, galériu, manuály a videá pridáte po uložení náradia (znova ho otvorte na úpravu).
+          </p>
         )}
       </div>
     </Modal>
+  );
+}
+
+function ToolGallery({ toolId, photos }: { toolId: string; photos: string[] }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [uploading, setUploading] = useState(false);
+
+  async function upload(file: File) {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("image", file);
+    const res = await uploadToolGalleryPhoto(toolId, fd);
+    setUploading(false);
+    if (res.ok) {
+      toast("Fotka pridaná do galérie.", "success");
+      router.refresh();
+    } else toast(res.error ?? "Chyba", "error");
+  }
+  async function remove(url: string) {
+    const res = await deleteToolGalleryPhoto(toolId, url);
+    if (res.ok) router.refresh();
+    else toast(res.error ?? "Chyba", "error");
+  }
+
+  return (
+    <div>
+      <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Galéria (ďalšie fotky)</div>
+      <div className="flex flex-wrap gap-2">
+        {photos.map((url) => (
+          <div key={url} className="relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={url} alt="" className="h-16 w-16 rounded-lg object-cover" />
+            <button type="button" className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white" onClick={() => remove(url)}>
+              ✕
+            </button>
+          </div>
+        ))}
+        <label className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-slate-300 text-xs text-slate-400 hover:border-brand">
+          {uploading ? "…" : "+"}
+          <input type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }} />
+        </label>
+      </div>
+    </div>
+  );
+}
+
+function ToolManuals({ toolId, manuals }: { toolId: string; manuals: { url: string; name: string }[] }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [uploading, setUploading] = useState(false);
+
+  async function upload(file: File) {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("manual", file);
+    const res = await uploadToolManual(toolId, fd);
+    setUploading(false);
+    if (res.ok) {
+      toast("Manuál pridaný.", "success");
+      router.refresh();
+    } else toast(res.error ?? "Chyba", "error");
+  }
+  async function remove(url: string) {
+    const res = await deleteToolManual(toolId, url);
+    if (res.ok) router.refresh();
+    else toast(res.error ?? "Chyba", "error");
+  }
+
+  return (
+    <div>
+      <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Manuály (PDF)</div>
+      <div className="space-y-1">
+        {manuals.map((m) => (
+          <div key={m.url} className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-1.5 text-sm">
+            <span className="truncate text-slate-700">📄 {m.name}</span>
+            <button type="button" className="text-xs text-red-500 hover:underline" onClick={() => remove(m.url)}>
+              Odstrániť
+            </button>
+          </div>
+        ))}
+      </div>
+      <label className="btn-secondary mt-2 inline-flex cursor-pointer text-xs">
+        {uploading ? "Nahrávam…" : "+ Nahrať PDF manuál"}
+        <input type="file" accept="application/pdf" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }} />
+      </label>
+    </div>
+  );
+}
+
+function ToolVideos({ toolId, videos }: { toolId: string; videos: string[] }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [list, setList] = useState<string[]>(videos);
+  const [input, setInput] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  async function persist(next: string[]) {
+    setSaving(true);
+    const res = await saveToolVideos(toolId, next);
+    setSaving(false);
+    if (res.ok) {
+      setList(next);
+      router.refresh();
+    } else toast(res.error ?? "Chyba", "error");
+  }
+
+  return (
+    <div>
+      <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Videá (YouTube odkazy)</div>
+      <div className="space-y-1">
+        {list.map((v) => (
+          <div key={v} className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-1.5 text-sm">
+            <span className="truncate text-slate-700">▶ {v}</span>
+            <button type="button" className="text-xs text-red-500 hover:underline" onClick={() => persist(list.filter((x) => x !== v))} disabled={saving}>
+              Odstrániť
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 flex gap-2">
+        <input className="input text-sm" placeholder="https://www.youtube.com/watch?v=…" value={input} onChange={(e) => setInput(e.target.value)} />
+        <button
+          type="button"
+          className="btn-secondary text-xs"
+          disabled={!input.trim() || saving}
+          onClick={() => {
+            const url = input.trim();
+            if (url) persist([...list, url]);
+            setInput("");
+          }}
+        >
+          Pridať
+        </button>
+      </div>
+    </div>
   );
 }
 

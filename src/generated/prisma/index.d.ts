@@ -30137,6 +30137,7 @@ export namespace Prisma {
     id: string | null
     categoryId: string | null
     name: string | null
+    model: string | null
     slug: string | null
     description: string | null
     accessories: string | null
@@ -30155,6 +30156,7 @@ export namespace Prisma {
     id: string | null
     categoryId: string | null
     name: string | null
+    model: string | null
     slug: string | null
     description: string | null
     accessories: string | null
@@ -30173,9 +30175,13 @@ export namespace Prisma {
     id: number
     categoryId: number
     name: number
+    model: number
     slug: number
     description: number
     accessories: number
+    galleryPhotos: number
+    manuals: number
+    videos: number
     dailyPriceExVat: number
     vatRate: number
     quantity: number
@@ -30207,6 +30213,7 @@ export namespace Prisma {
     id?: true
     categoryId?: true
     name?: true
+    model?: true
     slug?: true
     description?: true
     accessories?: true
@@ -30225,6 +30232,7 @@ export namespace Prisma {
     id?: true
     categoryId?: true
     name?: true
+    model?: true
     slug?: true
     description?: true
     accessories?: true
@@ -30243,9 +30251,13 @@ export namespace Prisma {
     id?: true
     categoryId?: true
     name?: true
+    model?: true
     slug?: true
     description?: true
     accessories?: true
+    galleryPhotos?: true
+    manuals?: true
+    videos?: true
     dailyPriceExVat?: true
     vatRate?: true
     quantity?: true
@@ -30348,9 +30360,13 @@ export namespace Prisma {
     id: string
     categoryId: string
     name: string
+    model: string | null
     slug: string
     description: string | null
     accessories: string | null
+    galleryPhotos: JsonValue
+    manuals: JsonValue
+    videos: JsonValue
     dailyPriceExVat: Decimal
     vatRate: Decimal
     quantity: number
@@ -30385,9 +30401,13 @@ export namespace Prisma {
     id?: boolean
     categoryId?: boolean
     name?: boolean
+    model?: boolean
     slug?: boolean
     description?: boolean
     accessories?: boolean
+    galleryPhotos?: boolean
+    manuals?: boolean
+    videos?: boolean
     dailyPriceExVat?: boolean
     vatRate?: boolean
     quantity?: boolean
@@ -30407,9 +30427,13 @@ export namespace Prisma {
     id?: boolean
     categoryId?: boolean
     name?: boolean
+    model?: boolean
     slug?: boolean
     description?: boolean
     accessories?: boolean
+    galleryPhotos?: boolean
+    manuals?: boolean
+    videos?: boolean
     dailyPriceExVat?: boolean
     vatRate?: boolean
     quantity?: boolean
@@ -30426,9 +30450,13 @@ export namespace Prisma {
     id?: boolean
     categoryId?: boolean
     name?: boolean
+    model?: boolean
     slug?: boolean
     description?: boolean
     accessories?: boolean
+    galleryPhotos?: boolean
+    manuals?: boolean
+    videos?: boolean
     dailyPriceExVat?: boolean
     vatRate?: boolean
     quantity?: boolean
@@ -30445,9 +30473,13 @@ export namespace Prisma {
     id?: boolean
     categoryId?: boolean
     name?: boolean
+    model?: boolean
     slug?: boolean
     description?: boolean
     accessories?: boolean
+    galleryPhotos?: boolean
+    manuals?: boolean
+    videos?: boolean
     dailyPriceExVat?: boolean
     vatRate?: boolean
     quantity?: boolean
@@ -30459,7 +30491,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type RentalToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "name" | "slug" | "description" | "accessories" | "dailyPriceExVat" | "vatRate" | "quantity" | "imageUrl" | "imageBlobPath" | "position" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalTool"]>
+  export type RentalToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "name" | "model" | "slug" | "description" | "accessories" | "galleryPhotos" | "manuals" | "videos" | "dailyPriceExVat" | "vatRate" | "quantity" | "imageUrl" | "imageBlobPath" | "position" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalTool"]>
   export type RentalToolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
     reservations?: boolean | RentalTool$reservationsArgs<ExtArgs>
@@ -30484,9 +30516,13 @@ export namespace Prisma {
       id: string
       categoryId: string
       name: string
+      model: string | null
       slug: string
       description: string | null
       accessories: string | null
+      galleryPhotos: Prisma.JsonValue
+      manuals: Prisma.JsonValue
+      videos: Prisma.JsonValue
       dailyPriceExVat: Prisma.Decimal
       vatRate: Prisma.Decimal
       quantity: number
@@ -30925,9 +30961,13 @@ export namespace Prisma {
     readonly id: FieldRef<"RentalTool", 'String'>
     readonly categoryId: FieldRef<"RentalTool", 'String'>
     readonly name: FieldRef<"RentalTool", 'String'>
+    readonly model: FieldRef<"RentalTool", 'String'>
     readonly slug: FieldRef<"RentalTool", 'String'>
     readonly description: FieldRef<"RentalTool", 'String'>
     readonly accessories: FieldRef<"RentalTool", 'String'>
+    readonly galleryPhotos: FieldRef<"RentalTool", 'Json'>
+    readonly manuals: FieldRef<"RentalTool", 'Json'>
+    readonly videos: FieldRef<"RentalTool", 'Json'>
     readonly dailyPriceExVat: FieldRef<"RentalTool", 'Decimal'>
     readonly vatRate: FieldRef<"RentalTool", 'Decimal'>
     readonly quantity: FieldRef<"RentalTool", 'Int'>
@@ -36768,9 +36808,13 @@ export namespace Prisma {
     id: 'id',
     categoryId: 'categoryId',
     name: 'name',
+    model: 'model',
     slug: 'slug',
     description: 'description',
     accessories: 'accessories',
+    galleryPhotos: 'galleryPhotos',
+    manuals: 'manuals',
+    videos: 'videos',
     dailyPriceExVat: 'dailyPriceExVat',
     vatRate: 'vatRate',
     quantity: 'quantity',
@@ -39380,9 +39424,13 @@ export namespace Prisma {
     id?: StringFilter<"RentalTool"> | string
     categoryId?: StringFilter<"RentalTool"> | string
     name?: StringFilter<"RentalTool"> | string
+    model?: StringNullableFilter<"RentalTool"> | string | null
     slug?: StringFilter<"RentalTool"> | string
     description?: StringNullableFilter<"RentalTool"> | string | null
     accessories?: StringNullableFilter<"RentalTool"> | string | null
+    galleryPhotos?: JsonFilter<"RentalTool">
+    manuals?: JsonFilter<"RentalTool">
+    videos?: JsonFilter<"RentalTool">
     dailyPriceExVat?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     quantity?: IntFilter<"RentalTool"> | number
@@ -39401,9 +39449,13 @@ export namespace Prisma {
     id?: SortOrder
     categoryId?: SortOrder
     name?: SortOrder
+    model?: SortOrderInput | SortOrder
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
     accessories?: SortOrderInput | SortOrder
+    galleryPhotos?: SortOrder
+    manuals?: SortOrder
+    videos?: SortOrder
     dailyPriceExVat?: SortOrder
     vatRate?: SortOrder
     quantity?: SortOrder
@@ -39426,8 +39478,12 @@ export namespace Prisma {
     NOT?: RentalToolWhereInput | RentalToolWhereInput[]
     categoryId?: StringFilter<"RentalTool"> | string
     name?: StringFilter<"RentalTool"> | string
+    model?: StringNullableFilter<"RentalTool"> | string | null
     description?: StringNullableFilter<"RentalTool"> | string | null
     accessories?: StringNullableFilter<"RentalTool"> | string | null
+    galleryPhotos?: JsonFilter<"RentalTool">
+    manuals?: JsonFilter<"RentalTool">
+    videos?: JsonFilter<"RentalTool">
     dailyPriceExVat?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     quantity?: IntFilter<"RentalTool"> | number
@@ -39446,9 +39502,13 @@ export namespace Prisma {
     id?: SortOrder
     categoryId?: SortOrder
     name?: SortOrder
+    model?: SortOrderInput | SortOrder
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
     accessories?: SortOrderInput | SortOrder
+    galleryPhotos?: SortOrder
+    manuals?: SortOrder
+    videos?: SortOrder
     dailyPriceExVat?: SortOrder
     vatRate?: SortOrder
     quantity?: SortOrder
@@ -39472,9 +39532,13 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"RentalTool"> | string
     categoryId?: StringWithAggregatesFilter<"RentalTool"> | string
     name?: StringWithAggregatesFilter<"RentalTool"> | string
+    model?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
     slug?: StringWithAggregatesFilter<"RentalTool"> | string
     description?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
     accessories?: StringNullableWithAggregatesFilter<"RentalTool"> | string | null
+    galleryPhotos?: JsonWithAggregatesFilter<"RentalTool">
+    manuals?: JsonWithAggregatesFilter<"RentalTool">
+    videos?: JsonWithAggregatesFilter<"RentalTool">
     dailyPriceExVat?: DecimalWithAggregatesFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalWithAggregatesFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     quantity?: IntWithAggregatesFilter<"RentalTool"> | number
@@ -42485,9 +42549,13 @@ export namespace Prisma {
   export type RentalToolCreateInput = {
     id?: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -42506,9 +42574,13 @@ export namespace Prisma {
     id?: string
     categoryId: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -42525,9 +42597,13 @@ export namespace Prisma {
   export type RentalToolUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -42546,9 +42622,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -42566,9 +42646,13 @@ export namespace Prisma {
     id?: string
     categoryId: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -42583,9 +42667,13 @@ export namespace Prisma {
   export type RentalToolUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -42601,9 +42689,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -45086,9 +45178,13 @@ export namespace Prisma {
     id?: SortOrder
     categoryId?: SortOrder
     name?: SortOrder
+    model?: SortOrder
     slug?: SortOrder
     description?: SortOrder
     accessories?: SortOrder
+    galleryPhotos?: SortOrder
+    manuals?: SortOrder
+    videos?: SortOrder
     dailyPriceExVat?: SortOrder
     vatRate?: SortOrder
     quantity?: SortOrder
@@ -45111,6 +45207,7 @@ export namespace Prisma {
     id?: SortOrder
     categoryId?: SortOrder
     name?: SortOrder
+    model?: SortOrder
     slug?: SortOrder
     description?: SortOrder
     accessories?: SortOrder
@@ -45129,6 +45226,7 @@ export namespace Prisma {
     id?: SortOrder
     categoryId?: SortOrder
     name?: SortOrder
+    model?: SortOrder
     slug?: SortOrder
     description?: SortOrder
     accessories?: SortOrder
@@ -50614,9 +50712,13 @@ export namespace Prisma {
   export type RentalToolCreateWithoutCategoryInput = {
     id?: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -50633,9 +50735,13 @@ export namespace Prisma {
   export type RentalToolUncheckedCreateWithoutCategoryInput = {
     id?: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -50682,9 +50788,13 @@ export namespace Prisma {
     id?: StringFilter<"RentalTool"> | string
     categoryId?: StringFilter<"RentalTool"> | string
     name?: StringFilter<"RentalTool"> | string
+    model?: StringNullableFilter<"RentalTool"> | string | null
     slug?: StringFilter<"RentalTool"> | string
     description?: StringNullableFilter<"RentalTool"> | string | null
     accessories?: StringNullableFilter<"RentalTool"> | string | null
+    galleryPhotos?: JsonFilter<"RentalTool">
+    manuals?: JsonFilter<"RentalTool">
+    videos?: JsonFilter<"RentalTool">
     dailyPriceExVat?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFilter<"RentalTool"> | Decimal | DecimalJsLike | number | string
     quantity?: IntFilter<"RentalTool"> | number
@@ -50952,9 +51062,13 @@ export namespace Prisma {
   export type RentalToolCreateWithoutReservationsInput = {
     id?: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -50972,9 +51086,13 @@ export namespace Prisma {
     id?: string
     categoryId: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -51035,9 +51153,13 @@ export namespace Prisma {
   export type RentalToolUpdateWithoutReservationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -51055,9 +51177,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -51108,9 +51234,13 @@ export namespace Prisma {
   export type RentalToolCreateWithoutBookingsInput = {
     id?: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -51128,9 +51258,13 @@ export namespace Prisma {
     id?: string
     categoryId: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -51227,9 +51361,13 @@ export namespace Prisma {
   export type RentalToolUpdateWithoutBookingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -51247,9 +51385,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -52342,9 +52484,13 @@ export namespace Prisma {
   export type RentalToolCreateManyCategoryInput = {
     id?: string
     name: string
+    model?: string | null
     slug: string
     description?: string | null
     accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: Decimal | DecimalJsLike | number | string
     vatRate?: Decimal | DecimalJsLike | number | string
     quantity?: number
@@ -52359,9 +52505,13 @@ export namespace Prisma {
   export type RentalToolUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -52378,9 +52528,13 @@ export namespace Prisma {
   export type RentalToolUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -52397,9 +52551,13 @@ export namespace Prisma {
   export type RentalToolUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
     dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number

@@ -253,6 +253,7 @@ export const rentalCategorySchema = z.object({
 export const rentalToolSchema = z.object({
   categoryId: z.string().min(1, "Kategória je povinná."),
   name: z.string().trim().min(1, "Názov je povinný.").max(200),
+  model: optionalStr,
   description: optionalLongStr,
   accessories: optionalLongStr,
   dailyPriceExVat: z.coerce.number().min(0).default(0),
@@ -292,6 +293,10 @@ export const rentalSettingsSchema = z.object({
   approvedEmailBody: z.string().trim().min(1).max(5000),
   rejectedEmailSubject: z.string().trim().min(1).max(300),
   rejectedEmailBody: z.string().trim().min(1).max(5000),
+});
+
+export const rentalToolVideosSchema = z.object({
+  videos: z.array(z.string().trim().url("Neplatný odkaz.").max(500)).max(10),
 });
 
 export const rentalReservationEditSchema = z.object({

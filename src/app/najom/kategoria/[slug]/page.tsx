@@ -39,7 +39,7 @@ export default async function RentalCategoryPage({
               href={`/naradie/${t.slug}`}
               className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:shadow-cardhover"
             >
-              <div className="flex h-44 items-center justify-center overflow-hidden bg-slate-100">
+              <div className="flex aspect-square items-center justify-center overflow-hidden bg-slate-100">
                 {t.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={t.imageUrl} alt={t.name} className="h-full w-full object-cover transition group-hover:scale-105" />
@@ -49,6 +49,7 @@ export default async function RentalCategoryPage({
               </div>
               <div className="flex flex-1 flex-col p-4">
                 <h3 className="font-semibold text-brand-navy group-hover:text-brand-dark">{t.name}</h3>
+                {t.model && <p className="text-xs font-medium text-brand">{t.model}</p>}
                 {t.description && <p className="mt-1 line-clamp-2 text-sm text-slate-500">{t.description}</p>}
                 <div className="mt-auto pt-3">
                   <span className="text-lg font-bold text-brand-dark">{formatCurrency(t.dailyPriceExVat)}</span>

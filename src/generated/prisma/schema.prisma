@@ -635,9 +635,13 @@ model RentalTool {
   categoryId      String
   category        RentalCategory @relation(fields: [categoryId], references: [id])
   name            String
+  model           String?
   slug            String         @unique
   description     String?
   accessories     String?
+  galleryPhotos   Json           @default("[]")
+  manuals         Json           @default("[]")
+  videos          Json           @default("[]")
   dailyPriceExVat Decimal        @default(0) @db.Decimal(12, 2)
   vatRate         Decimal        @default(23) @db.Decimal(6, 3)
   quantity        Int            @default(1)

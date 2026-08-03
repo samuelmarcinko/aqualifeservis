@@ -30,6 +30,7 @@ export default async function RentalToolsPage() {
           tools: c.tools.map((t) => ({
             id: t.id,
             name: t.name,
+            model: t.model,
             description: t.description,
             accessories: t.accessories,
             dailyPriceExVat: t.dailyPriceExVat.toString(),
@@ -38,6 +39,9 @@ export default async function RentalToolsPage() {
             position: t.position,
             active: t.active,
             imageUrl: t.imageUrl,
+            galleryPhotos: ((t.galleryPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url),
+            manuals: ((t.manuals as unknown as { url: string; name?: string }[]) ?? []).map((m) => ({ url: m.url, name: m.name ?? "manual.pdf" })),
+            videos: ((t.videos as unknown as string[]) ?? []),
           })),
         }))}
       />
