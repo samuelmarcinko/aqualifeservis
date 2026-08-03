@@ -14,6 +14,9 @@ export interface AiWorkItem {
 }
 
 export interface AiProtocolDraft {
+  customerName?: string;
+  customerPhone?: string;
+  customerEmail?: string;
   faultType?: string;
   faultCause?: string;
   faultDescription?: string;
@@ -50,6 +53,7 @@ OBSAH A ROZSAH:
 - Ostatné polia stručne a vecne.
 
 PRAVIDLÁ:
+- Ak je vo vstupe uvedené meno alebo názov klienta/zákazníka, vlož ho do "customerName" (a "customerPhone"/"customerEmail", ak sú uvedené). Meno napíš tak, ako je vo vstupe, bez ďalších úprav.
 - NEVYMÝŠĽAJ fakty ani čísla. Čo nie je vo vstupe, to VYNECHAJ (nevracaj pole, ani "neuvedené").
 - Dátumy vracaj vo formáte RRRR-MM-DD, len ak sú vo vstupe jednoznačne uvedené.
 - Do "workItems" rozpíš vykonané práce a použitý materiál ako samostatné položky (description povinné; quantity a unit len ak sú zrejmé, napr. "ks", "m", "hod.", "km").
@@ -60,6 +64,9 @@ Odpovedz VÝHRADNE platným JSON podľa poskytnutej schémy, bez akéhokoľvek �
 const RESPONSE_SCHEMA = {
   type: "object",
   properties: {
+    customerName: { type: "string" },
+    customerPhone: { type: "string" },
+    customerEmail: { type: "string" },
     faultType: { type: "string" },
     faultCause: { type: "string" },
     faultDescription: { type: "string" },

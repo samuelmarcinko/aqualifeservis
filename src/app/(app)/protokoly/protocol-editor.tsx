@@ -144,8 +144,29 @@ export function ProtocolEditor({
   function applyAiDraft(d: AiProtocolDraft) {
     const isIso = (v?: string) => !!v && /^\d{4}-\d{2}-\d{2}$/.test(v);
     const pick = (v: string | undefined, prev: string) => (v && v.trim() ? v.trim() : prev);
+
+    // Try to match a mentioned customer name to the customer list.
+    let matchedCustomerId: string | null = null;
+    if (d.customerName?.trim()) {
+      const norm = (s: string) =>
+        s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+      const target = norm(d.customerName);
+      const matches = customers.filter((c) => {
+        const n = norm(c.name);
+        if (!n || !target) return false;
+        if (n === target) return true;
+        const shorter = Math.min(n.length, target.length);
+        return shorter >= 4 && (n.includes(target) || target.includes(n));
+      });
+      if (matches.length === 1) matchedCustomerId = matches[0]!.id;
+      else if (matches.length === 0)
+        toast(`Zákazník „${d.customerName}“ sa nenašiel v zozname – vyberte ho ručne.`, "info");
+      else toast(`Pre „${d.customerName}“ je viac zhôd – vyberte zákazníka ručne.`, "info");
+    }
+
     setF((prev) => ({
       ...prev,
+      ...(matchedCustomerId ? { customerId: matchedCustomerId, serviceAddressId: "" } : {}),
       faultType: pick(d.faultType, prev.faultType),
       faultCause: pick(d.faultCause, prev.faultCause),
       faultDescription: pick(d.faultDescription, prev.faultDescription),
