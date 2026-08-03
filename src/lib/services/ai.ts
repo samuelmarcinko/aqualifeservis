@@ -86,7 +86,7 @@ async function callGemini(parts: GeminiPart[]): Promise<AiProtocolDraft> {
   if (!ai.enabled) throw new Error("AI asistent je vypnutý v nastaveniach.");
   if (!ai.apiKeyEnc) throw new Error("Chýba API kľúč pre AI (nastavte ho v Nastaveniach).");
   const apiKey = decryptSecret(ai.apiKeyEnc);
-  const model = ai.model || "gemini-2.5-flash";
+  const model = ai.model || "gemini-flash-latest";
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
     model,

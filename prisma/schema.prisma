@@ -599,7 +599,7 @@ model CompanySettings {
 model AiSettings {
   id         String   @id @default("ai")
   provider   String   @default("gemini")
-  model      String   @default("gemini-2.5-flash")
+  model      String   @default("gemini-flash-latest")
   // Encrypted with APP_ENCRYPTION_KEY. Never returned to the browser.
   apiKeyEnc  String?
   enabled    Boolean  @default(false)

@@ -297,12 +297,12 @@ function AiTab({ ai }: { ai: SafeAi }) {
           <label className="label">Model</label>
           <input className="input" list="gemini-models" value={model} onChange={(e) => setModel(e.target.value)} />
           <datalist id="gemini-models">
+            <option value="gemini-flash-latest" />
             <option value="gemini-2.5-flash" />
             <option value="gemini-2.5-flash-lite" />
             <option value="gemini-2.5-pro" />
-            <option value="gemini-flash-latest" />
           </datalist>
-          <p className="mt-1 text-xs text-slate-400">Odporúčané: gemini-2.5-flash</p>
+          <p className="mt-1 text-xs text-slate-400">Odporúčané: gemini-flash-latest</p>
         </div>
         <div>
           <label className="label">API kľúč</label>
