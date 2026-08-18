@@ -126,7 +126,7 @@ export default async function RentalToolPage({
         </div>
 
         {/* ── Pravý rail: rezervácia (sticky, nenaťahuje sa) ────── */}
-        <aside className="lg:sticky lg:top-6">
+        <aside className="lg:sticky lg:top-28">
           <ReservationForm
             toolId={tool.id}
             toolName={tool.name}
