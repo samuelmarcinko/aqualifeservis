@@ -5,6 +5,7 @@ import { getRentalSettings } from "@/lib/services/settings";
 import { getUnavailableDays } from "@/lib/services/rental";
 import { toDayISO } from "@/lib/services/rental-core";
 import { formatCurrency } from "@/lib/format";
+import { sanitizeRichText, looksLikeHtml } from "@/lib/sanitize";
 import { ReservationForm } from "./reservation-form";
 import { PickupInfo } from "./pickup-info";
 import { ToolGallery } from "./tool-gallery";
@@ -41,59 +42,103 @@ export default async function RentalToolPage({
     name: m.name ?? "Manuál.pdf",
   }));
   const videos = ((tool.videos as unknown as string[]) ?? []).filter(Boolean);
+  const hasMedia = videos.length > 0 || manuals.length > 0;
 
   return (
     <div>
-      <Link href={`/kategoria/${tool.category.slug}`} className="text-sm text-brand-dark hover:underline">
-        ← {tool.category.name}
+      <Link
+        href={`/kategoria/${tool.category.slug}`}
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-brand-dark"
+      >
+        <span aria-hidden>←</span> {tool.category.name}
       </Link>
 
-      <div className="mt-3 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div>
-          <div className="mb-4">
-            <ToolGallery images={images} alt={tool.name} />
+      <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-10">
+        {/* ── Ľavý stĺpec: galéria + identita + detaily ─────────── */}
+        <div className="min-w-0">
+          <ToolGallery images={images} alt={tool.name} />
+
+          {/* Identita produktu */}
+          <div className="mt-6">
+            <span className="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-dark">
+              {tool.category.name}
+            </span>
+            <h1 className="mt-3 text-2xl font-bold leading-tight text-brand-navy sm:text-3xl">{tool.name}</h1>
+            {tool.model && <p className="mt-1 text-base font-medium text-brand-dark">{tool.model}</p>}
+            <div className="mt-4 flex items-end gap-2">
+              <span className="text-3xl font-bold text-brand-navy">{formatCurrency(tool.dailyPriceExVat)}</span>
+              <span className="pb-1 text-sm font-normal text-slate-400">/ deň bez DPH</span>
+            </div>
           </div>
-          <h1 className="text-2xl font-bold text-brand-navy">{tool.name}</h1>
-          {tool.model && <p className="mt-0.5 text-base font-medium text-brand-dark">{tool.model}</p>}
-          <div className="mt-2 text-xl font-bold text-brand-dark">
-            {formatCurrency(tool.dailyPriceExVat)} <span className="text-sm font-normal text-slate-400">/ deň bez DPH</span>
-          </div>
-          {tool.description && <p className="mt-4 whitespace-pre-wrap text-slate-600">{tool.description}</p>}
+
+          {/* Popis */}
+          {tool.description && (
+            <section className="mt-8">
+              <h2 className="mb-3 text-lg font-semibold text-brand-navy">Popis</h2>
+              {looksLikeHtml(tool.description) ? (
+                <div
+                  className="rich-text text-[15px] leading-relaxed text-slate-600"
+                  dangerouslySetInnerHTML={{ __html: sanitizeRichText(tool.description) }}
+                />
+              ) : (
+                <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-slate-600">{tool.description}</p>
+              )}
+            </section>
+          )}
+
+          {/* Súčasťou prenájmu */}
           {accessories.length > 0 && (
-            <div className="mt-5">
-              <h3 className="mb-2 text-sm font-semibold text-brand-navy">Súčasťou prenájmu je:</h3>
-              <ul className="space-y-1 text-sm text-slate-600">
+            <section className="mt-8">
+              <h2 className="mb-3 text-lg font-semibold text-brand-navy">Súčasťou prenájmu je</h2>
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {accessories.map((a, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="mt-1 text-brand">•</span>
+                  <li
+                    key={i}
+                    className="flex items-start gap-2.5 rounded-lg border border-slate-100 bg-white px-3 py-2.5 text-sm text-slate-700"
+                  >
+                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/10 text-[10px] font-bold text-brand-dark">
+                      ✓
+                    </span>
                     {a}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           )}
 
-          <PickupInfo
-            address={settings.pickupAddress?.trim() || "Strojnícka 20, 080 06 Prešov"}
-            note={settings.pickupNote}
-            mapEmbed={settings.pickupMapEmbed}
-            photos={((settings.pickupPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url)}
-          />
+          {/* Prevzatie */}
+          <div className="mt-8">
+            <PickupInfo
+              address={settings.pickupAddress?.trim() || "Strojnícka 20, 080 06 Prešov"}
+              note={settings.pickupNote}
+              mapEmbed={settings.pickupMapEmbed}
+              photos={((settings.pickupPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url)}
+            />
+          </div>
 
-          <ToolMedia videos={videos} manuals={manuals} />
+          {/* Videá / Manuály */}
+          {hasMedia && (
+            <section className="mt-8">
+              <h2 className="mb-1 text-lg font-semibold text-brand-navy">Videá a dokumenty</h2>
+              <ToolMedia videos={videos} manuals={manuals} />
+            </section>
+          )}
         </div>
 
-        <ReservationForm
-          toolId={tool.id}
-          toolName={tool.name}
-          dailyPrice={Number(tool.dailyPriceExVat)}
-          vatRate={Number(tool.vatRate)}
-          pricePerKm={Number(settings.deliveryPricePerKm)}
-          maxKm={settings.maxDeliveryKm}
-          minDays={settings.minRentalDays}
-          unavailableDays={unavailable}
-          terms={settings.termsText ?? ""}
-        />
+        {/* ── Pravý rail: rezervácia (sticky, nenaťahuje sa) ────── */}
+        <aside className="lg:sticky lg:top-6">
+          <ReservationForm
+            toolId={tool.id}
+            toolName={tool.name}
+            dailyPrice={Number(tool.dailyPriceExVat)}
+            vatRate={Number(tool.vatRate)}
+            pricePerKm={Number(settings.deliveryPricePerKm)}
+            maxKm={settings.maxDeliveryKm}
+            minDays={settings.minRentalDays}
+            unavailableDays={unavailable}
+            terms={settings.termsText ?? ""}
+          />
+        </aside>
       </div>
     </div>
   );

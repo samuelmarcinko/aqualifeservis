@@ -13,6 +13,7 @@ import {
   zodErrorMessage,
 } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
+import { sanitizeRichText } from "@/lib/sanitize";
 import { uploadBlob, deleteBlob } from "@/lib/services/blob";
 import { getRentalSettings } from "@/lib/services/settings";
 import { slugify } from "@/lib/services/rental-core";
@@ -107,7 +108,7 @@ export async function saveTool(input: unknown, id?: string): Promise<ActionResul
       categoryId: d.categoryId,
       name: d.name,
       model: d.model,
-      description: d.description,
+      description: sanitizeRichText(d.description) || null,
       accessories: d.accessories,
       dailyPriceExVat: d.dailyPriceExVat,
       vatRate: d.vatRate,

@@ -73,3 +73,47 @@ body {
 .skeleton {
   @apply animate-pulse rounded bg-slate-200;
 }
+
+/* Rich-text (WYSIWYG output) rendering — used both in the editor and on the
+   public storefront. Kept minimal so it inherits surrounding text colour. */
+.rich-text > :first-child {
+  margin-top: 0;
+}
+.rich-text > :last-child {
+  margin-bottom: 0;
+}
+.rich-text p {
+  margin: 0 0 0.6em;
+}
+.rich-text h3 {
+  @apply text-base font-semibold text-brand-navy;
+  margin: 0.9em 0 0.4em;
+}
+.rich-text h4 {
+  @apply text-sm font-semibold text-slate-700;
+  margin: 0.8em 0 0.3em;
+}
+.rich-text ul {
+  list-style: disc;
+  padding-left: 1.25em;
+  margin: 0 0 0.6em;
+}
+.rich-text ol {
+  list-style: decimal;
+  padding-left: 1.25em;
+  margin: 0 0 0.6em;
+}
+.rich-text li {
+  margin: 0.15em 0;
+}
+.rich-text a {
+  @apply text-brand-dark underline;
+}
+.rich-text strong,
+.rich-text b {
+  font-weight: 600;
+}
+.rich-text blockquote {
+  @apply border-l-2 border-slate-200 pl-3 text-slate-500;
+  margin: 0 0 0.6em;
+}

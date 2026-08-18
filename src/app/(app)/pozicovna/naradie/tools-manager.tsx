@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Modal } from "@/components/ui/modal";
 import { ConfirmDialog } from "@/components/ui/confirm";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { useToast } from "@/components/ui/toast";
 import { formatCurrency } from "@/lib/format";
 import type { ActionResult } from "@/lib/action-result";
@@ -272,7 +273,7 @@ function ToolModal({
       open
       onClose={onClose}
       title={tool ? "Upraviť náradie" : "Nové náradie"}
-      size="lg"
+      size="2xl"
       footer={
         <>
           <button className="btn-secondary" onClick={onClose} disabled={saving}>
@@ -284,68 +285,82 @@ function ToolModal({
         </>
       }
     >
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <div className="sm:col-span-2">
-          <label className="label">Základný názov</label>
-          <input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="napr. Mechanická čistička potrubí a odtokov" />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="label">Model (druhý nadpis)</label>
-          <input className="input" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} placeholder={'napr. RIDGID FlexShaft K9-204+ 2"-4" (50-100 mm)'} />
-        </div>
-        <div>
-          <label className="label">Kategória</label>
-          <select className="input" value={form.categoryId} onChange={(e) => setForm({ ...form, categoryId: e.target.value })}>
-            {categories.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="label">Počet kusov</label>
-          <input type="number" min={1} className="input" value={form.quantity} onChange={(e) => setForm({ ...form, quantity: Number(e.target.value) })} />
-        </div>
-        <div>
-          <label className="label">Cena / deň bez DPH (€)</label>
-          <input type="number" step="0.01" className="input" value={form.dailyPriceExVat} onChange={(e) => setForm({ ...form, dailyPriceExVat: e.target.value })} />
-        </div>
-        <div>
-          <label className="label">Sadzba DPH (%)</label>
-          <input type="number" step="0.001" className="input" value={form.vatRate} onChange={(e) => setForm({ ...form, vatRate: e.target.value })} />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="label">Popis</label>
-          <textarea className="input" rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="label">Príslušenstvo (každé na nový riadok)</label>
-          <textarea className="input" rows={3} value={form.accessories} onChange={(e) => setForm({ ...form, accessories: e.target.value })} placeholder="40-metrová hadica&#10;3 hydrantové hadice&#10;potrebné napojenia" />
-        </div>
-        <div>
-          <label className="label">Poradie</label>
-          <input type="number" className="input w-24" value={form.position} onChange={(e) => setForm({ ...form, position: Number(e.target.value) })} />
-        </div>
-        <label className="flex items-center gap-2 pt-6 text-sm text-slate-600">
-          <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} /> Aktívne (viditeľné na webe)
-        </label>
-        {tool && (
-          <div className="space-y-4 border-t border-slate-100 pt-4 sm:col-span-2">
-            <div>
-              <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Hlavná fotka</div>
-              <ImageUpload imageUrl={tool.imageUrl} onUpload={(fd) => uploadToolImage(tool.id, fd)} />
-            </div>
-            <ToolGallery toolId={tool.id} photos={tool.galleryPhotos} />
-            <ToolManuals toolId={tool.id} manuals={tool.manuals} />
-            <ToolVideos toolId={tool.id} videos={tool.videos} />
+      <div className="grid grid-cols-1 gap-x-8 gap-y-4 lg:grid-cols-2">
+        {/* ── Ľavý stĺpec: údaje ───────────────────────────────── */}
+        <div className="space-y-4">
+          <div>
+            <label className="label">Základný názov</label>
+            <input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="napr. Mechanická čistička potrubí a odtokov" />
           </div>
-        )}
-        {!tool && (
-          <p className="text-xs text-slate-400 sm:col-span-2">
-            Fotky, galériu, manuály a videá pridáte po uložení náradia (znova ho otvorte na úpravu).
-          </p>
-        )}
+          <div>
+            <label className="label">Model (druhý nadpis)</label>
+            <input className="input" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} placeholder={'napr. RIDGID FlexShaft K9-204+ 2"-4" (50-100 mm)'} />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="label">Kategória</label>
+              <select className="input" value={form.categoryId} onChange={(e) => setForm({ ...form, categoryId: e.target.value })}>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="label">Počet kusov</label>
+              <input type="number" min={1} className="input" value={form.quantity} onChange={(e) => setForm({ ...form, quantity: Number(e.target.value) })} />
+            </div>
+            <div>
+              <label className="label">Cena / deň bez DPH (€)</label>
+              <input type="number" step="0.01" className="input" value={form.dailyPriceExVat} onChange={(e) => setForm({ ...form, dailyPriceExVat: e.target.value })} />
+            </div>
+            <div>
+              <label className="label">Sadzba DPH (%)</label>
+              <input type="number" step="0.001" className="input" value={form.vatRate} onChange={(e) => setForm({ ...form, vatRate: e.target.value })} />
+            </div>
+          </div>
+          <div>
+            <label className="label">Popis</label>
+            <RichTextEditor
+              value={form.description}
+              onChange={(html) => setForm({ ...form, description: html })}
+              placeholder="Popíšte náradie, jeho použitie a parametre…"
+            />
+          </div>
+          <div>
+            <label className="label">Príslušenstvo (každé na nový riadok)</label>
+            <textarea className="input" rows={3} value={form.accessories} onChange={(e) => setForm({ ...form, accessories: e.target.value })} placeholder="40-metrová hadica&#10;3 hydrantové hadice&#10;potrebné napojenia" />
+          </div>
+          <div className="flex items-end gap-6">
+            <div>
+              <label className="label">Poradie</label>
+              <input type="number" className="input w-24" value={form.position} onChange={(e) => setForm({ ...form, position: Number(e.target.value) })} />
+            </div>
+            <label className="flex items-center gap-2 pb-2.5 text-sm text-slate-600">
+              <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} /> Aktívne (viditeľné na webe)
+            </label>
+          </div>
+        </div>
+
+        {/* ── Pravý stĺpec: médiá ──────────────────────────────── */}
+        <div className="space-y-5 lg:border-l lg:border-slate-100 lg:pl-8">
+          {tool ? (
+            <>
+              <div>
+                <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Hlavná fotka</div>
+                <ImageUpload imageUrl={tool.imageUrl} onUpload={(fd) => uploadToolImage(tool.id, fd)} />
+              </div>
+              <ToolGallery toolId={tool.id} photos={tool.galleryPhotos} />
+              <ToolManuals toolId={tool.id} manuals={tool.manuals} />
+              <ToolVideos toolId={tool.id} videos={tool.videos} />
+            </>
+          ) : (
+            <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-400">
+              Fotky, galériu, manuály a videá pridáte po uložení náradia (znova ho otvorte na úpravu).
+            </div>
+          )}
+        </div>
       </div>
     </Modal>
   );
