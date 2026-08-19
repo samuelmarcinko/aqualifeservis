@@ -78,16 +78,19 @@ export function ToolsManager({ categories }: { categories: Category[] }) {
           Zatiaľ žiadne kategórie. Vytvorte prvú kategóriu a pridajte do nej náradie.
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-5">
           {categories.map((c) => (
-            <div key={c.id} className="card p-5">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-lg font-semibold text-brand-navy">{c.name}</h3>
+            <div key={c.id} className="card p-4">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <h3 className="text-base font-semibold text-brand-navy">{c.name}</h3>
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
+                    {c.tools.length}
+                  </span>
                   {!c.active && <span className="badge bg-slate-200 text-slate-600">Neaktívna</span>}
                 </div>
-                <div className="flex gap-2">
-                  <button className="btn-secondary py-1 text-xs" onClick={() => setToolModal({ tool: null, categoryId: c.id })}>
+                <div className="flex gap-1">
+                  <button className="btn-primary py-1 text-xs" onClick={() => setToolModal({ tool: null, categoryId: c.id })}>
                     + Náradie
                   </button>
                   <button className="btn-ghost py-1 text-xs" onClick={() => setCatModal(c)}>
@@ -100,33 +103,48 @@ export function ToolsManager({ categories }: { categories: Category[] }) {
               </div>
 
               {c.tools.length === 0 ? (
-                <p className="text-sm text-slate-400">Žiadne náradie v tejto kategórii.</p>
+                <p className="rounded-lg border border-dashed border-slate-200 px-3 py-4 text-center text-sm text-slate-400">
+                  Žiadne náradie v tejto kategórii.
+                </p>
               ) : (
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="divide-y divide-slate-100 overflow-hidden rounded-lg border border-slate-200">
                   {c.tools.map((t) => (
-                    <div key={t.id} className="rounded-lg border border-slate-200 p-3">
-                      <div className="mb-2 flex aspect-square items-center justify-center overflow-hidden rounded bg-slate-50">
+                    <div key={t.id} className="flex items-center gap-3 px-3 py-2 transition hover:bg-slate-50">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-slate-50">
                         {t.imageUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={t.imageUrl} alt={t.name} className="h-full w-full object-cover" />
                         ) : (
-                          <span className="text-xs text-slate-300">Bez fotky</span>
+                          <span className="text-[9px] text-slate-300">Bez fotky</span>
                         )}
                       </div>
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <div className="font-medium text-slate-800">{t.name}</div>
-                          {t.model && <div className="text-xs text-slate-400">{t.model}</div>}
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="truncate text-sm font-medium text-slate-800">{t.name}</span>
+                          {!t.active && <span className="badge shrink-0 bg-slate-200 text-slate-600">Neakt.</span>}
                         </div>
-                        {!t.active && <span className="badge bg-slate-200 text-slate-600">Neakt.</span>}
+                        {t.model && <div className="truncate text-xs text-slate-400">{t.model}</div>}
                       </div>
-                      <div className="text-sm text-brand-dark">{formatCurrency(t.dailyPriceExVat)} / deň bez DPH</div>
-                      <div className="text-xs text-slate-400">Počet ks: {t.quantity}</div>
-                      <div className="mt-2 flex gap-2">
+
+                      <div className="hidden shrink-0 text-right text-sm font-medium text-brand-dark sm:block">
+                        {formatCurrency(t.dailyPriceExVat)}
+                        <span className="block text-[11px] font-normal text-slate-400">/ deň bez DPH</span>
+                      </div>
+
+                      <div className="hidden w-14 shrink-0 text-right text-xs text-slate-500 md:block">
+                        {t.quantity} ks
+                      </div>
+
+                      <div className="flex shrink-0 gap-1">
                         <button className="btn-secondary py-1 text-xs" onClick={() => setToolModal({ tool: t, categoryId: c.id })}>
                           Upraviť
                         </button>
-                        <button className="btn-ghost py-1 text-xs text-red-600" onClick={() => setDel({ kind: "tool", id: t.id, name: t.name })}>
+                        <button
+                          className="btn-ghost px-2 py-1 text-xs text-red-600"
+                          title="Zmazať"
+                          onClick={() => setDel({ kind: "tool", id: t.id, name: t.name })}
+                        >
                           Zmazať
                         </button>
                       </div>
