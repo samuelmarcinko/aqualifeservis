@@ -74,10 +74,10 @@ export function ToolsBrowser({
               href={`/naradie/${t.slug}`}
               className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:shadow-cardhover"
             >
-              <div className="flex aspect-square items-center justify-center overflow-hidden bg-slate-100">
+              <div className="flex aspect-square items-center justify-center overflow-hidden bg-white p-4">
                 {t.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={t.imageUrl} alt={t.name} className="h-full w-full object-cover transition group-hover:scale-105" />
+                  <img src={t.imageUrl} alt={t.name} className="h-full w-full object-contain transition group-hover:scale-105" />
                 ) : (
                   <span className="text-4xl">🧰</span>
                 )}

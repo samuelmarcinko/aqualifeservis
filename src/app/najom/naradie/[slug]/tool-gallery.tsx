@@ -36,10 +36,10 @@ export function ToolGallery({ images, alt }: { images: string[]; alt: string }) 
       <button
         type="button"
         onClick={() => setLightbox(true)}
-        className="block w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100"
+        className="block w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-4"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={main} alt={alt} className="aspect-square w-full object-cover" />
+        <img src={main} alt={alt} className="aspect-square w-full object-contain" />
       </button>
 
       {count > 1 && (

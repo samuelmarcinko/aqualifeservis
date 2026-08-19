@@ -50,10 +50,10 @@ export default async function RentalHome() {
               href={`/naradie?cat=${c.slug}`}
               className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:shadow-cardhover"
             >
-              <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-100">
+              <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-white p-4">
                 {c.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.imageUrl} alt={c.name} className="h-full w-full object-cover transition group-hover:scale-105" />
+                  <img src={c.imageUrl} alt={c.name} className="h-full w-full object-contain transition group-hover:scale-105" />
                 ) : (
                   <span className="text-4xl">🛠️</span>
                 )}

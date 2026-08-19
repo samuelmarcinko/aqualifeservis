@@ -108,7 +108,7 @@ export function PhotoManager({
           <input
             ref={inputRef}
             type="file"
-            accept="image/jpeg,image/png,image/webp"
+            accept="image/jpeg,image/png,image/webp,image/avif"
             multiple
             hidden
             onChange={(e) => e.target.files && handleFiles(e.target.files)}

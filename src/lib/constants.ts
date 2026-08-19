@@ -147,4 +147,5 @@ export const ALLOWED_PHOTO_TYPES = [
   "image/jpg",
   "image/png",
   "image/webp",
+  "image/avif",
 ];

@@ -152,7 +152,7 @@ export function RentalSettingsForm({
               {uploading ? "Nahrávam…" : "+ Fotka"}
               <input
                 type="file"
-                accept="image/png,image/jpeg,image/webp"
+                accept="image/png,image/jpeg,image/webp,image/avif"
                 multiple
                 hidden
                 onChange={(e) => {

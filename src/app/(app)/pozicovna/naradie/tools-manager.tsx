@@ -435,7 +435,7 @@ function ToolGallery({ toolId, photos }: { toolId: string; photos: string[] }) {
           {uploading ? "…" : "+"}
           <input
             type="file"
-            accept="image/png,image/jpeg,image/webp"
+            accept="image/png,image/jpeg,image/webp,image/avif"
             multiple
             hidden
             onChange={(e) => {
@@ -583,7 +583,7 @@ function ImageUpload({
       </div>
       <label className="btn-secondary cursor-pointer text-xs">
         {uploading ? "Nahrávam…" : "Nahrať fotku"}
-        <input type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
+        <input type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
       </label>
     </div>
   );

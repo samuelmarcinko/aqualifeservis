@@ -163,8 +163,8 @@ export async function uploadToolGalleryPhoto(
     await assertUser();
     const file = formData.get("image");
     if (!(file instanceof File)) return fail("Chýba súbor.");
-    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
-      return fail("Nepodporovaný formát (PNG, JPG, WEBP).");
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP, AVIF).");
     if (file.size > 5 * 1024 * 1024) return fail("Obrázok presahuje 5 MB.");
     const buffer = Buffer.from(await file.arrayBuffer());
     const blob = await uploadBlob(`rental/tool/gallery/${file.name}`, buffer, file.type);
@@ -261,8 +261,8 @@ async function uploadImage(
     await assertUser();
     const file = formData.get("image");
     if (!(file instanceof File)) return fail("Chýba súbor.");
-    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
-      return fail("Nepodporovaný formát (PNG, JPG, WEBP).");
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP, AVIF).");
     if (file.size > 5 * 1024 * 1024) return fail("Obrázok presahuje 5 MB.");
     const buffer = Buffer.from(await file.arrayBuffer());
     const blob = await uploadBlob(`rental/${kind}/${file.name}`, buffer, file.type);
@@ -396,8 +396,8 @@ export async function uploadPickupPhoto(formData: FormData): Promise<ActionResul
     await assertSuperAdmin();
     const file = formData.get("image");
     if (!(file instanceof File)) return fail("Chýba súbor.");
-    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
-      return fail("Nepodporovaný formát (PNG, JPG, WEBP).");
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP, AVIF).");
     if (file.size > 5 * 1024 * 1024) return fail("Obrázok presahuje 5 MB.");
     const buffer = Buffer.from(await file.arrayBuffer());
     const blob = await uploadBlob(`rental/pickup/${file.name}`, buffer, file.type);

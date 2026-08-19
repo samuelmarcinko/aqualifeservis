@@ -466,7 +466,7 @@ function StampUploader({ stampUrl }: { stampUrl: string | null }) {
       <div className="flex flex-col gap-2">
         <label className="btn-secondary cursor-pointer">
           {uploading ? "Nahrávam…" : "Nahrať pečiatku"}
-          <input type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
+          <input type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
         </label>
         {stampUrl && (
           <button className="btn-ghost py-1 text-xs text-red-600" onClick={remove}>
@@ -586,9 +586,9 @@ function LogoUploader({ logoUrl }: { logoUrl: string | null }) {
       <div>
         <label className="btn-secondary cursor-pointer">
           {uploading ? "Nahrávam…" : "Nahrať logo"}
-          <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
+          <input type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/svg+xml" hidden onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
         </label>
-        <p className="mt-1 text-xs text-slate-400">PNG, JPG, WEBP, SVG · max 2 MB</p>
+        <p className="mt-1 text-xs text-slate-400">PNG, JPG, WEBP, AVIF, SVG · max 2 MB</p>
       </div>
     </div>
   );

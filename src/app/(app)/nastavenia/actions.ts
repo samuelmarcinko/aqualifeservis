@@ -50,7 +50,7 @@ export async function uploadLogo(formData: FormData): Promise<ActionResult<{ url
     await assertSuperAdmin();
     const file = formData.get("logo");
     if (!(file instanceof File)) return fail("Chýba súbor.");
-    if (!["image/png", "image/jpeg", "image/webp", "image/svg+xml"].includes(file.type))
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif", "image/svg+xml"].includes(file.type))
       return fail("Nepodporovaný formát loga.");
     if (file.size > 2 * 1024 * 1024) return fail("Logo presahuje 2 MB.");
 
@@ -75,8 +75,8 @@ export async function uploadStamp(formData: FormData): Promise<ActionResult<{ ur
     await assertSuperAdmin();
     const file = formData.get("stamp");
     if (!(file instanceof File)) return fail("Chýba súbor.");
-    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
-      return fail("Nepodporovaný formát pečiatky (PNG, JPG, WEBP).");
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type))
+      return fail("Nepodporovaný formát pečiatky (PNG, JPG, WEBP, AVIF).");
     if (file.size > 2 * 1024 * 1024) return fail("Pečiatka presahuje 2 MB.");
 
     const current = await getCompanySettings();
