@@ -2,6 +2,16 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getRentalSettings, getCompanySettings } from "@/lib/services/settings";
 import { ToolCard } from "./tool-card";
+import {
+  BoltIcon,
+  MedalIcon,
+  TruckIcon,
+  ChatIcon,
+  CalendarIcon,
+  CalendarCheckIcon,
+  DocumentIcon,
+  PhoneIcon,
+} from "./icons";
 
 export const dynamic = "force-dynamic";
 
@@ -13,17 +23,17 @@ const WORKER_IMAGE =
   "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=70";
 
 const BENEFITS = [
-  { icon: "⚡", title: "Rýchla rezervácia", text: "Vyberte termín v kalendári a urobte nezáväznú rezerváciu online." },
-  { icon: "🏅", title: "Profesionálna technika", text: "Značkové stroje na čistenie, monitoring a lokalizáciu porúch." },
-  { icon: "🚚", title: "Dovoz na adresu", text: "Náradie vám na požiadanie dovezieme priamo na miesto." },
-  { icon: "💬", title: "Odborné poradenstvo", text: "Poradíme s výberom aj obsluhou. Sme vodoinštalatéri z praxe." },
+  { Icon: BoltIcon, title: "Rýchla rezervácia", text: "Vyberte termín v kalendári a urobte nezáväznú rezerváciu online." },
+  { Icon: MedalIcon, title: "Profesionálna technika", text: "Značkové stroje na čistenie, monitoring a lokalizáciu porúch." },
+  { Icon: TruckIcon, title: "Dovoz na adresu", text: "Náradie vám na požiadanie dovezieme priamo na miesto." },
+  { Icon: ChatIcon, title: "Odborné poradenstvo", text: "Poradíme s výberom aj obsluhou. Sme vodoinštalatéri z praxe." },
 ];
 
 const STEPS = [
-  { n: "1", icon: "🗓️", title: "Vyberte náradie", text: "Prezrite si katalóg a zvoľte stroj, ktorý potrebujete." },
-  { n: "2", icon: "📅", title: "Zvoľte termín", text: "V kalendári kliknite na začiatočný a koncový deň prenájmu." },
-  { n: "3", icon: "📄", title: "Odošlite rezerváciu", text: "Vyplňte kontaktné údaje. Rezervácia je nezáväzná, potvrdíme ju e-mailom." },
-  { n: "4", icon: "🚚", title: "Prevezmite stroj", text: "Náradie si prevezmete na predajni alebo vám ho dovezieme." },
+  { n: "1", Icon: CalendarIcon, title: "Vyberte náradie", text: "Prezrite si katalóg a zvoľte stroj, ktorý potrebujete." },
+  { n: "2", Icon: CalendarCheckIcon, title: "Zvoľte termín", text: "V kalendári kliknite na začiatočný a koncový deň prenájmu." },
+  { n: "3", Icon: DocumentIcon, title: "Odošlite rezerváciu", text: "Vyplňte kontaktné údaje. Rezervácia je nezáväzná, potvrdíme ju e-mailom." },
+  { n: "4", Icon: TruckIcon, title: "Prevezmite stroj", text: "Náradie si prevezmete na predajni alebo vám ho dovezieme." },
 ];
 
 export default async function RentalHome() {
@@ -82,7 +92,7 @@ export default async function RentalHome() {
                 href={`tel:${phone.replace(/\s+/g, "")}`}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
               >
-                <span aria-hidden>📞</span> {phone}
+                <PhoneIcon className="h-4 w-4" /> {phone}
               </a>
             )}
           </div>
@@ -93,7 +103,9 @@ export default async function RentalHome() {
       <section className="relative z-10 -mt-16 grid grid-cols-1 gap-4 sm:-mt-20 sm:grid-cols-2 lg:grid-cols-4">
         {BENEFITS.map((b) => (
           <div key={b.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-cardhover">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-brand/10 text-xl">{b.icon}</div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand-dark">
+              <b.Icon className="h-6 w-6" />
+            </div>
             <h3 className="mt-3 font-semibold text-brand-navy">{b.title}</h3>
             <p className="mt-1 text-sm text-slate-500">{b.text}</p>
           </div>
@@ -173,15 +185,17 @@ export default async function RentalHome() {
         <h2 className="text-2xl font-bold text-brand-navy">Ako prebieha prenájom</h2>
         <p className="mt-1 text-slate-500">Jednoducho a online — v štyroch krokoch.</p>
         <div className="relative mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* connecting line (desktop) */}
-          <div className="absolute left-0 right-0 top-5 hidden h-px bg-slate-200 lg:block" />
+          {/* connecting dashed line (desktop) */}
+          <div className="absolute left-0 right-0 top-5 hidden border-t border-dashed border-slate-300 lg:block" />
           {STEPS.map((s) => (
             <div key={s.n} className="relative">
               <div className="flex items-center gap-3">
                 <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-navy text-lg font-bold text-white">
                   {s.n}
                 </div>
-                <span className="text-2xl">{s.icon}</span>
+                <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-dark ring-1 ring-slate-200">
+                  <s.Icon className="h-5 w-5" />
+                </span>
               </div>
               <h3 className="mt-4 font-semibold text-brand-navy">{s.title}</h3>
               <p className="mt-1 text-sm text-slate-500">{s.text}</p>
@@ -200,8 +214,8 @@ export default async function RentalHome() {
           <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent" />
         </div>
         <div className="relative flex flex-col items-start gap-6 px-6 py-12 sm:flex-row sm:items-center sm:px-10 sm:py-14">
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white text-3xl text-brand-dark shadow-lg">
-            📞
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white text-brand-dark shadow-lg">
+            <PhoneIcon className="h-9 w-9" />
           </div>
           <div className="max-w-xl">
             <h2 className="text-2xl font-bold sm:text-3xl">Potrebujete poradiť s výberom?</h2>
@@ -220,7 +234,7 @@ export default async function RentalHome() {
                   href={`tel:${phone.replace(/\s+/g, "")}`}
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
                 >
-                  <span aria-hidden>📞</span> {phone}
+                  <PhoneIcon className="h-4 w-4" /> {phone}
                 </a>
               )}
             </div>
