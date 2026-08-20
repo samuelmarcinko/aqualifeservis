@@ -47,18 +47,17 @@ export default async function RentalToolPage({
   return (
     <div>
       <Link
-        href={`/kategoria/${tool.category.slug}`}
+        href={`/naradie?cat=${tool.category.slug}`}
         className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-brand-dark"
       >
         <span aria-hidden>←</span> {tool.category.name}
       </Link>
 
-      <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-10">
-        {/* ── Ľavý stĺpec: galéria + identita + detaily ─────────── */}
-        <div className="min-w-0">
+      <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-10">
+        {/* ── A: galéria + identita ───────────────────────────── */}
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">
           <ToolGallery images={images} alt={tool.name} />
 
-          {/* Identita produktu */}
           <div className="mt-6">
             <span className="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-dark">
               {tool.category.name}
@@ -70,10 +69,30 @@ export default async function RentalToolPage({
               <span className="pb-1 text-sm font-normal text-slate-400">/ deň bez DPH</span>
             </div>
           </div>
+        </div>
 
-          {/* Popis */}
+        {/* ── B: rezervácia (na mobile hneď pod fotkou; desktop sticky vpravo) ── */}
+        <aside
+          id="rezervacia"
+          className="mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:sticky lg:top-28"
+        >
+          <ReservationForm
+            toolId={tool.id}
+            toolName={tool.name}
+            dailyPrice={Number(tool.dailyPriceExVat)}
+            vatRate={Number(tool.vatRate)}
+            pricePerKm={Number(settings.deliveryPricePerKm)}
+            maxKm={settings.maxDeliveryKm}
+            minDays={settings.minRentalDays}
+            unavailableDays={unavailable}
+            terms={settings.termsText ?? ""}
+          />
+        </aside>
+
+        {/* ── C: popis, príslušenstvo, prevzatie, médiá ───────── */}
+        <div className="mt-8 min-w-0 lg:col-start-1 lg:row-start-2">
           {tool.description && (
-            <section className="mt-8">
+            <section>
               <h2 className="mb-3 text-lg font-semibold text-brand-navy">Popis</h2>
               {looksLikeHtml(tool.description) ? (
                 <div
@@ -86,7 +105,6 @@ export default async function RentalToolPage({
             </section>
           )}
 
-          {/* Súčasťou prenájmu */}
           {accessories.length > 0 && (
             <section className="mt-8">
               <h2 className="mb-3 text-lg font-semibold text-brand-navy">Súčasťou prenájmu je</h2>
@@ -106,7 +124,6 @@ export default async function RentalToolPage({
             </section>
           )}
 
-          {/* Prevzatie */}
           <div className="mt-8">
             <PickupInfo
               address={settings.pickupAddress?.trim() || "Strojnícka 20, 080 06 Prešov"}
@@ -116,7 +133,6 @@ export default async function RentalToolPage({
             />
           </div>
 
-          {/* Videá / Manuály */}
           {hasMedia && (
             <section className="mt-8">
               <h2 className="mb-1 text-lg font-semibold text-brand-navy">Videá a dokumenty</h2>
@@ -124,21 +140,6 @@ export default async function RentalToolPage({
             </section>
           )}
         </div>
-
-        {/* ── Pravý rail: rezervácia (sticky, nenaťahuje sa) ────── */}
-        <aside className="lg:sticky lg:top-28">
-          <ReservationForm
-            toolId={tool.id}
-            toolName={tool.name}
-            dailyPrice={Number(tool.dailyPriceExVat)}
-            vatRate={Number(tool.vatRate)}
-            pricePerKm={Number(settings.deliveryPricePerKm)}
-            maxKm={settings.maxDeliveryKm}
-            minDays={settings.minRentalDays}
-            unavailableDays={unavailable}
-            terms={settings.termsText ?? ""}
-          />
-        </aside>
       </div>
     </div>
   );

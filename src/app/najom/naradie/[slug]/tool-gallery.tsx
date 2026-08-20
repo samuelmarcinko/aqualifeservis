@@ -36,7 +36,7 @@ export function ToolGallery({ images, alt }: { images: string[]; alt: string }) 
       <button
         type="button"
         onClick={() => setLightbox(true)}
-        className="block w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-4"
+        className="product-frame block w-full rounded-2xl border border-slate-200 p-5"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={main} alt={alt} className="aspect-square w-full object-contain" />
@@ -49,10 +49,10 @@ export function ToolGallery({ images, alt }: { images: string[]; alt: string }) 
               key={i}
               type="button"
               onClick={() => setActive(i)}
-              className={`overflow-hidden rounded-lg border-2 ${i === active ? "border-brand" : "border-transparent"}`}
+              className={`product-frame rounded-lg border-2 p-1 ${i === active ? "border-brand" : "border-slate-200"}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt={`${alt} ${i + 1}`} className="aspect-square w-full object-cover" />
+              <img src={src} alt={`${alt} ${i + 1}`} className="aspect-square w-full object-contain" />
             </button>
           ))}
         </div>

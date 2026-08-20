@@ -74,6 +74,19 @@ body {
   @apply animate-pulse rounded bg-slate-200;
 }
 
+/* Product image frame — a soft neutral gradient tile so product photos that
+   have their own light-grey backgrounds (#F2–F7) blend in seamlessly instead
+   of sitting on a hard white rectangle. Used across the public storefront. */
+.product-frame {
+  @apply flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 to-slate-200/70;
+}
+
+/* Subtle dotted pattern for hero / section backgrounds. */
+.dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 /* Rich-text (WYSIWYG output) rendering — used both in the editor and on the
    public storefront. Kept minimal so it inherits surrounding text colour. */
 .rich-text > :first-child {

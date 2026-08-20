@@ -120,11 +120,17 @@ export function ReservationForm({
   }
 
   return (
-    <form onSubmit={submit} className="rounded-xl border border-slate-200 bg-white p-5 shadow-card">
-      <h2 className="mb-1 text-lg font-bold text-brand-navy">Rezervovať</h2>
+    <form onSubmit={submit} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
+      <div className="mb-3 flex items-baseline justify-between gap-3">
+        <h2 className="text-lg font-bold text-brand-navy">Rezervovať</h2>
+        <div className="text-right">
+          <span className="text-xl font-bold text-brand-dark">{formatCurrency(dailyPrice)}</span>
+          <span className="block text-[11px] text-slate-400">za deň bez DPH</span>
+        </div>
+      </div>
       <p className="mb-4 text-sm text-slate-500">Vyberte termín a vyplňte kontaktné údaje. Rezerváciu potvrdíme e-mailom.</p>
 
-      <div className="mb-2 rounded-lg border border-slate-100 p-3">
+      <div className="mb-2 rounded-xl border border-slate-100 bg-slate-50/50 p-3">
         <MonthCalendar unavailable={unavailable} rangeStart={start} rangeEnd={end} onDayClick={onDayClick} />
       </div>
       <div className="mb-4 text-sm">

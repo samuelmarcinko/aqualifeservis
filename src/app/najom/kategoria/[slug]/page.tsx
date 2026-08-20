@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { formatCurrency } from "@/lib/format";
+import { ToolCard } from "../../tool-card";
 
 export const dynamic = "force-dynamic";
 
@@ -34,29 +34,17 @@ export default async function RentalCategoryPage({
       ) : (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {category.tools.map((t) => (
-            <Link
+            <ToolCard
               key={t.id}
-              href={`/naradie/${t.slug}`}
-              className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:shadow-cardhover"
-            >
-              <div className="flex aspect-square items-center justify-center overflow-hidden bg-white p-4">
-                {t.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={t.imageUrl} alt={t.name} className="h-full w-full object-contain transition group-hover:scale-105" />
-                ) : (
-                  <span className="text-4xl">🧰</span>
-                )}
-              </div>
-              <div className="flex flex-1 flex-col p-4">
-                <h3 className="font-semibold text-brand-navy group-hover:text-brand-dark">{t.name}</h3>
-                {t.model && <p className="text-xs font-medium text-brand">{t.model}</p>}
-                {t.description && <p className="mt-1 line-clamp-2 text-sm text-slate-500">{t.description}</p>}
-                <div className="mt-auto pt-3">
-                  <span className="text-lg font-bold text-brand-dark">{formatCurrency(t.dailyPriceExVat)}</span>
-                  <span className="text-sm text-slate-400"> / deň bez DPH</span>
-                </div>
-              </div>
-            </Link>
+              tool={{
+                slug: t.slug,
+                name: t.name,
+                model: t.model,
+                description: t.description,
+                imageUrl: t.imageUrl,
+                dailyPriceExVat: t.dailyPriceExVat.toString(),
+              }}
+            />
           ))}
         </div>
       )}
