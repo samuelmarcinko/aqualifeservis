@@ -72,7 +72,7 @@ export function MonthCalendar({
 
   return (
     <div className="select-none">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-2 flex items-center justify-between">
         <button
           type="button"
           className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
@@ -114,7 +114,7 @@ export function MonthCalendar({
               disabled={disabled}
               onClick={() => onDayClick?.(day)}
               className={cn(
-                "relative flex h-10 items-center justify-center rounded-lg text-sm transition",
+                "relative flex h-9 items-center justify-center rounded-lg text-sm transition",
                 disabled && "cursor-not-allowed text-slate-300 line-through",
                 !disabled && "hover:bg-brand/10",
                 selected && "bg-brand/15",

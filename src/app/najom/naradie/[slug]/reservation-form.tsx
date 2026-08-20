@@ -121,19 +121,19 @@ export function ReservationForm({
 
   return (
     <form onSubmit={submit} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
-      <div className="mb-3 flex items-baseline justify-between gap-3">
+      <div className="mb-2 flex items-baseline justify-between gap-3">
         <h2 className="text-lg font-bold text-brand-navy">Rezervovať</h2>
         <div className="text-right">
           <span className="text-xl font-bold text-brand-dark">{formatCurrency(dailyPrice)}</span>
           <span className="block text-[11px] text-slate-400">za deň bez DPH</span>
         </div>
       </div>
-      <p className="mb-4 text-sm text-slate-500">Vyberte termín a vyplňte kontaktné údaje. Rezerváciu potvrdíme e-mailom.</p>
+      <p className="mb-3 text-sm text-slate-500">Vyberte termín a vyplňte kontaktné údaje. Rezerváciu potvrdíme e-mailom.</p>
 
-      <div className="mb-2 rounded-xl border border-slate-100 bg-slate-50/50 p-3">
+      <div className="mb-2 rounded-xl border border-slate-100 bg-slate-50/50 p-2">
         <MonthCalendar unavailable={unavailable} rangeStart={start} rangeEnd={end} onDayClick={onDayClick} />
       </div>
-      <div className="mb-4 text-sm">
+      <div className="mb-3 text-sm">
         {start ? (
           <span className="text-slate-700">
             Termín: <strong>{formatDate(start)}</strong> – <strong>{formatDate(end ?? start)}</strong> ({days} dní)
@@ -143,14 +143,14 @@ export function ReservationForm({
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
         <input className="input" placeholder="Meno a priezvisko *" value={form.customerName} onChange={set("customerName")} required />
         <input className="input" placeholder="Firma (voliteľné)" value={form.customerCompany} onChange={set("customerCompany")} />
         <input type="email" className="input" placeholder="E-mail *" value={form.customerEmail} onChange={set("customerEmail")} required />
         <input className="input" placeholder="Telefón *" value={form.customerPhone} onChange={set("customerPhone")} required />
       </div>
 
-      <label className="mt-3 flex items-center gap-2 text-sm text-slate-700">
+      <label className="mt-2.5 flex items-center gap-2 text-sm text-slate-700">
         <input type="checkbox" checked={delivery} onChange={(e) => setDelivery(e.target.checked)} />
         Mám záujem o dovoz na adresu
       </label>
@@ -161,7 +161,7 @@ export function ReservationForm({
         </div>
       )}
 
-      <textarea className="input mt-3" rows={2} placeholder="Poznámka (voliteľné)" value={form.customerNote} onChange={set("customerNote")} />
+      <textarea className="input mt-2.5" rows={2} placeholder="Poznámka (voliteľné)" value={form.customerNote} onChange={set("customerNote")} />
 
       {/* Honeypot (hidden from users) */}
       <input
@@ -175,7 +175,7 @@ export function ReservationForm({
       />
 
       {price && (
-        <div className="mt-4 rounded-lg bg-slate-50 p-3 text-sm">
+        <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm">
           <div className="flex justify-between text-slate-600"><span>Prenájom ({days} dní)</span><span>{formatCurrency(price.rental)}</span></div>
           <div className="flex justify-between text-slate-600"><span>DPH {vatRate} %</span><span>{formatCurrency(price.vat)}</span></div>
           <div className="mt-1 flex justify-between border-t border-slate-200 pt-1 font-bold text-brand-navy">
@@ -185,14 +185,14 @@ export function ReservationForm({
         </div>
       )}
 
-      {terms && <p className="mt-3 whitespace-pre-wrap text-xs text-slate-400">{terms}</p>}
+      {terms && <p className="mt-2.5 whitespace-pre-wrap text-xs text-slate-400">{terms}</p>}
 
-      <label className="mt-3 flex items-start gap-2 text-sm text-slate-600">
+      <label className="mt-2.5 flex items-start gap-2 text-sm text-slate-600">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5" />
         Súhlasím so spracovaním osobných údajov na účely vybavenia rezervácie.
       </label>
 
-      <button type="submit" className="btn-primary mt-4 w-full" disabled={submitting}>
+      <button type="submit" className="btn-primary mt-3 w-full" disabled={submitting}>
         {submitting ? "Odosielam…" : "Odoslať rezerváciu"}
       </button>
     </form>

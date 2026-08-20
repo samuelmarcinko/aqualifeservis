@@ -74,7 +74,7 @@ export default async function RentalToolPage({
         {/* ── B: rezervácia (na mobile hneď pod fotkou; desktop sticky vpravo) ── */}
         <aside
           id="rezervacia"
-          className="mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:sticky lg:top-28"
+          className="mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-0.5"
         >
           <ReservationForm
             toolId={tool.id}
