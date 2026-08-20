@@ -36,7 +36,7 @@ export default async function RentalHome() {
       include: { _count: { select: { tools: { where: { active: true } } } } },
     }),
     prisma.rentalTool.findMany({
-      where: { active: true, category: { active: true } },
+      where: { active: true, category: { active: true }, imageUrl: { not: null } },
       orderBy: [{ position: "asc" }, { name: "asc" }],
       take: 3,
     }),
@@ -49,14 +49,14 @@ export default async function RentalHome() {
     <div className="space-y-16 sm:space-y-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section id="o-nas" className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand to-brand-dark text-white">
-        {/* right image, blended into the blue */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-3/5 lg:block">
+        {/* right image, blended into the blue on its left edge */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 lg:block">
           <div
-            className="h-full w-full opacity-60"
+            className="h-full w-full"
             style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
           />
-          <div className="absolute inset-0 bg-brand-dark/40 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent" />
+          <div className="absolute inset-0 bg-brand/20 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/30 to-transparent" />
         </div>
 
         <div className="relative px-6 pb-28 pt-14 sm:px-10 sm:pb-32 sm:pt-16 lg:px-14 lg:pt-20">
