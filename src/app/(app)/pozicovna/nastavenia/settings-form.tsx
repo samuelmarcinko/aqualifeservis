@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
-import { saveRentalSettings, uploadPickupPhoto, deletePickupPhoto } from "../actions";
+import {
+  saveRentalSettings,
+  uploadPickupPhoto,
+  deletePickupPhoto,
+  uploadHeroImage,
+  deleteHeroImage,
+} from "../actions";
 
 interface Settings {
   deliveryPricePerKm: string;
@@ -17,6 +23,8 @@ interface Settings {
   pickupAddress: string;
   pickupNote: string;
   pickupMapEmbed: string;
+  facebookUrl: string;
+  instagramUrl: string;
   customerEmailSubject: string;
   customerEmailBody: string;
   approvedEmailSubject: string;
@@ -28,15 +36,37 @@ interface Settings {
 export function RentalSettingsForm({
   settings,
   pickupPhotos,
+  heroImageUrl,
 }: {
   settings: Settings;
   pickupPhotos: string[];
+  heroImageUrl: string | null;
 }) {
   const router = useRouter();
   const { toast } = useToast();
   const [s, setS] = useState(settings);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [heroUploading, setHeroUploading] = useState(false);
+
+  async function uploadHero(file: File) {
+    setHeroUploading(true);
+    const fd = new FormData();
+    fd.append("image", file);
+    const res = await uploadHeroImage(fd);
+    setHeroUploading(false);
+    if (res.ok) {
+      toast("Hero obrázok nahraný.", "success");
+      router.refresh();
+    } else toast(res.error, "error");
+  }
+  async function removeHero() {
+    const res = await deleteHeroImage();
+    if (res.ok) {
+      toast("Hero obrázok odstránený.", "success");
+      router.refresh();
+    } else toast(res.error, "error");
+  }
 
   async function uploadPhoto(files: FileList) {
     setUploading(true);
@@ -115,6 +145,55 @@ export function RentalSettingsForm({
           <label className="label">Podmienky prenájmu (zobrazí sa vo formulári)</label>
           <textarea className="input" rows={3} value={s.termsText} onChange={set("termsText")} />
         </div>
+      </div>
+
+      <div className="card space-y-4 p-6">
+        <h3 className="text-sm font-semibold text-slate-700">Vzhľad a sociálne siete (verejný web)</h3>
+        <div>
+          <label className="label">Hlavný obrázok (hero) na úvodnej stránke</label>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="product-frame flex h-24 w-40 items-center justify-center overflow-hidden rounded-lg border border-slate-200">
+              {heroImageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={heroImageUrl} alt="Hero" className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-xs text-slate-400">Bez obrázka</span>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <label className="btn-secondary cursor-pointer text-xs">
+                {heroUploading ? "Nahrávam…" : heroImageUrl ? "Zmeniť obrázok" : "Nahrať obrázok"}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/avif"
+                  hidden
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) uploadHero(f);
+                    e.target.value = "";
+                  }}
+                />
+              </label>
+              {heroImageUrl && (
+                <button type="button" className="btn-ghost text-xs text-red-600" onClick={removeHero}>
+                  Odstrániť
+                </button>
+              )}
+            </div>
+          </div>
+          <p className="mt-1 text-xs text-slate-400">Zobrazí sa v úvodnom banneri. Ak nič nenahráte, použije sa predvolený obrázok. Odporúčaný pomer je na šírku (napr. 1400×900 px).</p>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label className="label">Facebook – odkaz</label>
+            <input className="input" value={s.facebookUrl} onChange={set("facebookUrl")} placeholder="https://www.facebook.com/…" />
+          </div>
+          <div>
+            <label className="label">Instagram – odkaz</label>
+            <input className="input" value={s.instagramUrl} onChange={set("instagramUrl")} placeholder="https://www.instagram.com/…" />
+          </div>
+        </div>
+        <p className="text-xs text-slate-400">Ak necháte prázdne, príslušná ikona sa v pätičke webu nezobrazí.</p>
       </div>
 
       <div className="card space-y-4 p-6">

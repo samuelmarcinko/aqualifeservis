@@ -5,9 +5,9 @@ import { ToolCard } from "./tool-card";
 
 export const dynamic = "force-dynamic";
 
-// Demo images (admin can replace the visuals later). Brand gradients sit
-// underneath so the sections still look intentional if an image fails to load.
-const HERO_IMAGE =
+// Demo fallback images (admin can upload a hero image in rental settings, and
+// the section still looks intentional via the brand gradient if none loads).
+const DEFAULT_HERO_IMAGE =
   "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=1400&q=70";
 const WORKER_IMAGE =
   "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=70";
@@ -43,6 +43,7 @@ export default async function RentalHome() {
   ]);
 
   const phone = settings.contactPhone || company.phone;
+  const heroImage = settings.heroImageUrl || DEFAULT_HERO_IMAGE;
 
   return (
     <div className="space-y-16 sm:space-y-24">
@@ -52,7 +53,7 @@ export default async function RentalHome() {
         <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-3/5 lg:block">
           <div
             className="h-full w-full opacity-60"
-            style={{ backgroundImage: `url(${HERO_IMAGE})`, backgroundSize: "cover", backgroundPosition: "center" }}
+            style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
           />
           <div className="absolute inset-0 bg-brand-dark/40 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent" />

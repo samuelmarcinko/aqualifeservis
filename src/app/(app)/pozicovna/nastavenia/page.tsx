@@ -27,6 +27,8 @@ export default async function RentalSettingsPage() {
           pickupAddress: s.pickupAddress ?? "",
           pickupNote: s.pickupNote ?? "",
           pickupMapEmbed: s.pickupMapEmbed ?? "",
+          facebookUrl: s.facebookUrl ?? "",
+          instagramUrl: s.instagramUrl ?? "",
           customerEmailSubject: s.customerEmailSubject,
           customerEmailBody: s.customerEmailBody,
           approvedEmailSubject: s.approvedEmailSubject,
@@ -35,6 +37,7 @@ export default async function RentalSettingsPage() {
           rejectedEmailBody: s.rejectedEmailBody,
         }}
         pickupPhotos={((s.pickupPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url)}
+        heroImageUrl={s.heroImageUrl ?? null}
       />
     </div>
   );

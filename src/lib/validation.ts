@@ -288,6 +288,22 @@ export const rentalSettingsSchema = z.object({
   pickupAddress: optionalStr,
   pickupNote: optionalLongStr,
   pickupMapEmbed: optionalLongStr,
+  facebookUrl: z
+    .string()
+    .trim()
+    .url("Neplatný odkaz na Facebook.")
+    .max(300)
+    .optional()
+    .or(z.literal(""))
+    .transform((v) => (v === "" ? undefined : v)),
+  instagramUrl: z
+    .string()
+    .trim()
+    .url("Neplatný odkaz na Instagram.")
+    .max(300)
+    .optional()
+    .or(z.literal(""))
+    .transform((v) => (v === "" ? undefined : v)),
   customerEmailSubject: z.string().trim().min(1).max(300),
   customerEmailBody: z.string().trim().min(1).max(5000),
   approvedEmailSubject: z.string().trim().min(1).max(300),

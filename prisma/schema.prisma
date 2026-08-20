@@ -757,6 +757,10 @@ model RentalSettings {
   pickupNote         String?
   pickupMapEmbed     String?
   pickupPhotos       Json     @default("[]")
+  heroImageUrl       String?
+  heroImageBlobPath  String?
+  facebookUrl        String?
+  instagramUrl       String?
   customerEmailSubject String @default("Prijali sme vašu rezerváciu č. {{number}} – AQUALIFE požičovňa")
   customerEmailBody    String @default("")
   approvedEmailSubject String @default("Rezervácia č. {{number}} bola schválená – AQUALIFE požičovňa")

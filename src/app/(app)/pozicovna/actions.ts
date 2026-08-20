@@ -414,6 +414,45 @@ export async function uploadPickupPhoto(formData: FormData): Promise<ActionResul
   }
 }
 
+export async function uploadHeroImage(formData: FormData): Promise<ActionResult<{ url: string }>> {
+  try {
+    await assertSuperAdmin();
+    const file = formData.get("image");
+    if (!(file instanceof File)) return fail("Chýba súbor.");
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP, AVIF).");
+    if (file.size > 8 * 1024 * 1024) return fail("Obrázok presahuje 8 MB.");
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const blob = await uploadBlob(`rental/hero/${file.name}`, buffer, file.type);
+    const current = await getRentalSettings();
+    if (current.heroImageUrl) await deleteBlob(current.heroImageUrl);
+    await prisma.rentalSettings.update({
+      where: { id: "rental" },
+      data: { heroImageUrl: blob.url, heroImageBlobPath: blob.pathname },
+    });
+    revalidatePath("/pozicovna/nastavenia");
+    return ok({ url: blob.url });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteHeroImage(): Promise<ActionResult> {
+  try {
+    await assertSuperAdmin();
+    const current = await getRentalSettings();
+    if (current.heroImageUrl) await deleteBlob(current.heroImageUrl);
+    await prisma.rentalSettings.update({
+      where: { id: "rental" },
+      data: { heroImageUrl: null, heroImageBlobPath: null },
+    });
+    revalidatePath("/pozicovna/nastavenia");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
 export async function deletePickupPhoto(url: string): Promise<ActionResult<{ photos: string[] }>> {
   try {
     await assertSuperAdmin();

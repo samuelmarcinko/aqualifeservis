@@ -34098,6 +34098,10 @@ export namespace Prisma {
     pickupAddress: string | null
     pickupNote: string | null
     pickupMapEmbed: string | null
+    heroImageUrl: string | null
+    heroImageBlobPath: string | null
+    facebookUrl: string | null
+    instagramUrl: string | null
     customerEmailSubject: string | null
     customerEmailBody: string | null
     approvedEmailSubject: string | null
@@ -34120,6 +34124,10 @@ export namespace Prisma {
     pickupAddress: string | null
     pickupNote: string | null
     pickupMapEmbed: string | null
+    heroImageUrl: string | null
+    heroImageBlobPath: string | null
+    facebookUrl: string | null
+    instagramUrl: string | null
     customerEmailSubject: string | null
     customerEmailBody: string | null
     approvedEmailSubject: string | null
@@ -34143,6 +34151,10 @@ export namespace Prisma {
     pickupNote: number
     pickupMapEmbed: number
     pickupPhotos: number
+    heroImageUrl: number
+    heroImageBlobPath: number
+    facebookUrl: number
+    instagramUrl: number
     customerEmailSubject: number
     customerEmailBody: number
     approvedEmailSubject: number
@@ -34179,6 +34191,10 @@ export namespace Prisma {
     pickupAddress?: true
     pickupNote?: true
     pickupMapEmbed?: true
+    heroImageUrl?: true
+    heroImageBlobPath?: true
+    facebookUrl?: true
+    instagramUrl?: true
     customerEmailSubject?: true
     customerEmailBody?: true
     approvedEmailSubject?: true
@@ -34201,6 +34217,10 @@ export namespace Prisma {
     pickupAddress?: true
     pickupNote?: true
     pickupMapEmbed?: true
+    heroImageUrl?: true
+    heroImageBlobPath?: true
+    facebookUrl?: true
+    instagramUrl?: true
     customerEmailSubject?: true
     customerEmailBody?: true
     approvedEmailSubject?: true
@@ -34224,6 +34244,10 @@ export namespace Prisma {
     pickupNote?: true
     pickupMapEmbed?: true
     pickupPhotos?: true
+    heroImageUrl?: true
+    heroImageBlobPath?: true
+    facebookUrl?: true
+    instagramUrl?: true
     customerEmailSubject?: true
     customerEmailBody?: true
     approvedEmailSubject?: true
@@ -34334,6 +34358,10 @@ export namespace Prisma {
     pickupNote: string | null
     pickupMapEmbed: string | null
     pickupPhotos: JsonValue
+    heroImageUrl: string | null
+    heroImageBlobPath: string | null
+    facebookUrl: string | null
+    instagramUrl: string | null
     customerEmailSubject: string
     customerEmailBody: string
     approvedEmailSubject: string
@@ -34376,6 +34404,10 @@ export namespace Prisma {
     pickupNote?: boolean
     pickupMapEmbed?: boolean
     pickupPhotos?: boolean
+    heroImageUrl?: boolean
+    heroImageBlobPath?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34399,6 +34431,10 @@ export namespace Prisma {
     pickupNote?: boolean
     pickupMapEmbed?: boolean
     pickupPhotos?: boolean
+    heroImageUrl?: boolean
+    heroImageBlobPath?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34422,6 +34458,10 @@ export namespace Prisma {
     pickupNote?: boolean
     pickupMapEmbed?: boolean
     pickupPhotos?: boolean
+    heroImageUrl?: boolean
+    heroImageBlobPath?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34445,6 +34485,10 @@ export namespace Prisma {
     pickupNote?: boolean
     pickupMapEmbed?: boolean
     pickupPhotos?: boolean
+    heroImageUrl?: boolean
+    heroImageBlobPath?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
     customerEmailSubject?: boolean
     customerEmailBody?: boolean
     approvedEmailSubject?: boolean
@@ -34454,7 +34498,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type RentalSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deliveryPricePerKm" | "maxDeliveryKm" | "minRentalDays" | "publicIntro" | "termsText" | "contactEmail" | "contactPhone" | "ownerNotifyEmail" | "pickupAddress" | "pickupNote" | "pickupMapEmbed" | "pickupPhotos" | "customerEmailSubject" | "customerEmailBody" | "approvedEmailSubject" | "approvedEmailBody" | "rejectedEmailSubject" | "rejectedEmailBody" | "updatedAt", ExtArgs["result"]["rentalSettings"]>
+  export type RentalSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deliveryPricePerKm" | "maxDeliveryKm" | "minRentalDays" | "publicIntro" | "termsText" | "contactEmail" | "contactPhone" | "ownerNotifyEmail" | "pickupAddress" | "pickupNote" | "pickupMapEmbed" | "pickupPhotos" | "heroImageUrl" | "heroImageBlobPath" | "facebookUrl" | "instagramUrl" | "customerEmailSubject" | "customerEmailBody" | "approvedEmailSubject" | "approvedEmailBody" | "rejectedEmailSubject" | "rejectedEmailBody" | "updatedAt", ExtArgs["result"]["rentalSettings"]>
 
   export type $RentalSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "RentalSettings"
@@ -34473,6 +34517,10 @@ export namespace Prisma {
       pickupNote: string | null
       pickupMapEmbed: string | null
       pickupPhotos: Prisma.JsonValue
+      heroImageUrl: string | null
+      heroImageBlobPath: string | null
+      facebookUrl: string | null
+      instagramUrl: string | null
       customerEmailSubject: string
       customerEmailBody: string
       approvedEmailSubject: string
@@ -34916,6 +34964,10 @@ export namespace Prisma {
     readonly pickupNote: FieldRef<"RentalSettings", 'String'>
     readonly pickupMapEmbed: FieldRef<"RentalSettings", 'String'>
     readonly pickupPhotos: FieldRef<"RentalSettings", 'Json'>
+    readonly heroImageUrl: FieldRef<"RentalSettings", 'String'>
+    readonly heroImageBlobPath: FieldRef<"RentalSettings", 'String'>
+    readonly facebookUrl: FieldRef<"RentalSettings", 'String'>
+    readonly instagramUrl: FieldRef<"RentalSettings", 'String'>
     readonly customerEmailSubject: FieldRef<"RentalSettings", 'String'>
     readonly customerEmailBody: FieldRef<"RentalSettings", 'String'>
     readonly approvedEmailSubject: FieldRef<"RentalSettings", 'String'>
@@ -36906,6 +36958,10 @@ export namespace Prisma {
     pickupNote: 'pickupNote',
     pickupMapEmbed: 'pickupMapEmbed',
     pickupPhotos: 'pickupPhotos',
+    heroImageUrl: 'heroImageUrl',
+    heroImageBlobPath: 'heroImageBlobPath',
+    facebookUrl: 'facebookUrl',
+    instagramUrl: 'instagramUrl',
     customerEmailSubject: 'customerEmailSubject',
     customerEmailBody: 'customerEmailBody',
     approvedEmailSubject: 'approvedEmailSubject',
@@ -39841,6 +39897,10 @@ export namespace Prisma {
     pickupNote?: StringNullableFilter<"RentalSettings"> | string | null
     pickupMapEmbed?: StringNullableFilter<"RentalSettings"> | string | null
     pickupPhotos?: JsonFilter<"RentalSettings">
+    heroImageUrl?: StringNullableFilter<"RentalSettings"> | string | null
+    heroImageBlobPath?: StringNullableFilter<"RentalSettings"> | string | null
+    facebookUrl?: StringNullableFilter<"RentalSettings"> | string | null
+    instagramUrl?: StringNullableFilter<"RentalSettings"> | string | null
     customerEmailSubject?: StringFilter<"RentalSettings"> | string
     customerEmailBody?: StringFilter<"RentalSettings"> | string
     approvedEmailSubject?: StringFilter<"RentalSettings"> | string
@@ -39864,6 +39924,10 @@ export namespace Prisma {
     pickupNote?: SortOrderInput | SortOrder
     pickupMapEmbed?: SortOrderInput | SortOrder
     pickupPhotos?: SortOrder
+    heroImageUrl?: SortOrderInput | SortOrder
+    heroImageBlobPath?: SortOrderInput | SortOrder
+    facebookUrl?: SortOrderInput | SortOrder
+    instagramUrl?: SortOrderInput | SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -39890,6 +39954,10 @@ export namespace Prisma {
     pickupNote?: StringNullableFilter<"RentalSettings"> | string | null
     pickupMapEmbed?: StringNullableFilter<"RentalSettings"> | string | null
     pickupPhotos?: JsonFilter<"RentalSettings">
+    heroImageUrl?: StringNullableFilter<"RentalSettings"> | string | null
+    heroImageBlobPath?: StringNullableFilter<"RentalSettings"> | string | null
+    facebookUrl?: StringNullableFilter<"RentalSettings"> | string | null
+    instagramUrl?: StringNullableFilter<"RentalSettings"> | string | null
     customerEmailSubject?: StringFilter<"RentalSettings"> | string
     customerEmailBody?: StringFilter<"RentalSettings"> | string
     approvedEmailSubject?: StringFilter<"RentalSettings"> | string
@@ -39913,6 +39981,10 @@ export namespace Prisma {
     pickupNote?: SortOrderInput | SortOrder
     pickupMapEmbed?: SortOrderInput | SortOrder
     pickupPhotos?: SortOrder
+    heroImageUrl?: SortOrderInput | SortOrder
+    heroImageBlobPath?: SortOrderInput | SortOrder
+    facebookUrl?: SortOrderInput | SortOrder
+    instagramUrl?: SortOrderInput | SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -39944,6 +40016,10 @@ export namespace Prisma {
     pickupNote?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
     pickupMapEmbed?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
     pickupPhotos?: JsonWithAggregatesFilter<"RentalSettings">
+    heroImageUrl?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    heroImageBlobPath?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    facebookUrl?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
+    instagramUrl?: StringNullableWithAggregatesFilter<"RentalSettings"> | string | null
     customerEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
     customerEmailBody?: StringWithAggregatesFilter<"RentalSettings"> | string
     approvedEmailSubject?: StringWithAggregatesFilter<"RentalSettings"> | string
@@ -43049,6 +43125,10 @@ export namespace Prisma {
     pickupNote?: string | null
     pickupMapEmbed?: string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: string | null
+    heroImageBlobPath?: string | null
+    facebookUrl?: string | null
+    instagramUrl?: string | null
     customerEmailSubject?: string
     customerEmailBody?: string
     approvedEmailSubject?: string
@@ -43072,6 +43152,10 @@ export namespace Prisma {
     pickupNote?: string | null
     pickupMapEmbed?: string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: string | null
+    heroImageBlobPath?: string | null
+    facebookUrl?: string | null
+    instagramUrl?: string | null
     customerEmailSubject?: string
     customerEmailBody?: string
     approvedEmailSubject?: string
@@ -43095,6 +43179,10 @@ export namespace Prisma {
     pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
     pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -43118,6 +43206,10 @@ export namespace Prisma {
     pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
     pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -43141,6 +43233,10 @@ export namespace Prisma {
     pickupNote?: string | null
     pickupMapEmbed?: string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: string | null
+    heroImageBlobPath?: string | null
+    facebookUrl?: string | null
+    instagramUrl?: string | null
     customerEmailSubject?: string
     customerEmailBody?: string
     approvedEmailSubject?: string
@@ -43164,6 +43260,10 @@ export namespace Prisma {
     pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
     pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -43187,6 +43287,10 @@ export namespace Prisma {
     pickupNote?: NullableStringFieldUpdateOperationsInput | string | null
     pickupMapEmbed?: NullableStringFieldUpdateOperationsInput | string | null
     pickupPhotos?: JsonNullValueInput | InputJsonValue
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
     customerEmailSubject?: StringFieldUpdateOperationsInput | string
     customerEmailBody?: StringFieldUpdateOperationsInput | string
     approvedEmailSubject?: StringFieldUpdateOperationsInput | string
@@ -45541,6 +45645,10 @@ export namespace Prisma {
     pickupNote?: SortOrder
     pickupMapEmbed?: SortOrder
     pickupPhotos?: SortOrder
+    heroImageUrl?: SortOrder
+    heroImageBlobPath?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -45569,6 +45677,10 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     pickupNote?: SortOrder
     pickupMapEmbed?: SortOrder
+    heroImageUrl?: SortOrder
+    heroImageBlobPath?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
@@ -45591,6 +45703,10 @@ export namespace Prisma {
     pickupAddress?: SortOrder
     pickupNote?: SortOrder
     pickupMapEmbed?: SortOrder
+    heroImageUrl?: SortOrder
+    heroImageBlobPath?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
     customerEmailSubject?: SortOrder
     customerEmailBody?: SortOrder
     approvedEmailSubject?: SortOrder
