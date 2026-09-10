@@ -54,47 +54,88 @@ export default async function RentalHome() {
 
   const phone = settings.contactPhone || company.phone;
   const heroImage = settings.heroImageUrl || DEFAULT_HERO_IMAGE;
+  const heroSubtitle = settings.heroSubtitle?.trim() || "AQUALIFE SERVIS – Požičovňa";
+  const heroTitle = settings.heroTitle?.trim() || "Požičovňa čistiacej a diagnostickej techniky";
+  const heroIntro =
+    settings.publicIntro?.trim() ||
+    "Profesionálne stroje na čistenie kanalizácií, monitoring potrubia, lokalizáciu porúch a vodoinštalatérske práce. Vyberte náradie, zvoľte termín a rezervujte online.";
 
   return (
     <div className="space-y-16 sm:space-y-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section id="o-nas" className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand to-brand-dark text-white">
-        {/* right image, blended into the blue on its left edge */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 lg:block">
-          <div
-            className="h-full w-full"
-            style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
-          />
-          <div className="absolute inset-0 bg-brand/20 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/30 to-transparent" />
+      <section id="o-nas" className="relative overflow-hidden rounded-3xl bg-brand-navy text-white">
+        {/* animated aurora blobs */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="animate-aurora absolute -left-24 -top-28 h-72 w-72 rounded-full bg-brand/50 blur-3xl" />
+          <div className="animate-aurora absolute right-0 top-6 h-80 w-80 rounded-full bg-brand-dark/60 blur-3xl" style={{ animationDelay: "-6s" }} />
+          <div className="animate-aurora absolute -bottom-20 left-1/3 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl" style={{ animationDelay: "-12s" }} />
         </div>
+        <div aria-hidden className="dot-pattern pointer-events-none absolute inset-0 opacity-20" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand/25 via-transparent to-brand-navy/60" />
 
-        <div className="relative px-6 pb-28 pt-14 sm:px-10 sm:pb-32 sm:pt-16 lg:px-14 lg:pt-20">
-          <span className="text-xs font-semibold uppercase tracking-widest text-white/80">
-            AQUALIFE SERVIS – Požičovňa
-          </span>
-          <h1 className="mt-4 max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
-            Požičovňa čistiacej a diagnostickej techniky
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-white/90 sm:text-lg">
-            {settings.publicIntro ||
-              "Profesionálne stroje na čistenie kanalizácií, monitoring potrubia, lokalizáciu porúch a vodoinštalatérske práce. Vyberte náradie, zvoľte termín a rezervujte online."}
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/naradie"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-brand-dark shadow-lg transition hover:bg-slate-100"
+        <div className="relative grid items-center gap-10 px-6 pb-28 pt-14 sm:px-10 sm:pb-32 sm:pt-16 lg:grid-cols-2 lg:gap-12 lg:px-14 lg:pt-20">
+          {/* Left: copy */}
+          <div>
+            <span
+              className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur"
+              style={{ animationDelay: "0.05s" }}
             >
-              Prezrieť náradie <span aria-hidden>→</span>
-            </Link>
-            {phone && (
-              <a
-                href={`tel:${phone.replace(/\s+/g, "")}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
+              <span className="relative flex h-2 w-2">
+                <span className="animate-pulse-dot absolute inline-flex h-full w-full rounded-full bg-cyan-300" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400" />
+              </span>
+              {heroSubtitle}
+            </span>
+            <h1 className="animate-fade-up mt-5 text-4xl font-bold leading-[1.08] sm:text-5xl lg:text-6xl" style={{ animationDelay: "0.15s" }}>
+              {heroTitle}
+            </h1>
+            <p className="animate-fade-up mt-5 max-w-xl text-base text-white/85 sm:text-lg" style={{ animationDelay: "0.25s" }}>
+              {heroIntro}
+            </p>
+            <div className="animate-fade-up mt-8 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.35s" }}>
+              <Link
+                href="/naradie"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-brand-dark shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-xl"
               >
-                <PhoneIcon className="h-4 w-4" /> {phone}
-              </a>
-            )}
+                Prezrieť náradie <span aria-hidden>→</span>
+              </Link>
+              {phone && (
+                <a
+                  href={`tel:${phone.replace(/\s+/g, "")}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
+                >
+                  <PhoneIcon className="h-4 w-4" /> {phone}
+                </a>
+              )}
+            </div>
+            <div className="animate-fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/75" style={{ animationDelay: "0.45s" }}>
+              {["Online rezervácia", "Dovoz na adresu", "Profesionálna technika"].map((t) => (
+                <span key={t} className="inline-flex items-center gap-1.5">
+                  <span className="text-cyan-300">✓</span> {t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: floating image card */}
+          <div className="animate-fade-up relative hidden lg:block" style={{ animationDelay: "0.3s" }}>
+            <div className="animate-hfloat relative">
+              <div aria-hidden className="absolute -inset-5 rounded-[2.25rem] bg-gradient-to-tr from-brand/40 to-cyan-400/30 blur-2xl" />
+              <div className="hero-shine relative overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur">
+                <div className="overflow-hidden rounded-2xl bg-white">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={heroImage} alt="" className="aspect-[5/4] w-full object-cover" />
+                </div>
+              </div>
+              <div className="animate-hfloat-slow absolute -left-6 top-10 rounded-2xl border border-white/15 bg-white/95 px-4 py-3 text-brand-navy shadow-xl">
+                <div className="text-[11px] font-medium text-slate-500">Rezervácia</div>
+                <div className="text-sm font-bold">Online za 2 minúty</div>
+              </div>
+              <div className="animate-hfloat absolute -right-5 bottom-12 rounded-2xl border border-white/15 bg-brand-dark px-4 py-3 text-white shadow-xl" style={{ animationDelay: "-2.5s" }}>
+                <div className="text-[11px] font-medium text-white/70">Doprava</div>
+                <div className="text-sm font-bold">Dovoz na adresu</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

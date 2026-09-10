@@ -27,6 +27,8 @@ export default async function RentalSettingsPage() {
           pickupAddress: s.pickupAddress ?? "",
           pickupNote: s.pickupNote ?? "",
           pickupMapEmbed: s.pickupMapEmbed ?? "",
+          heroTitle: s.heroTitle ?? "",
+          heroSubtitle: s.heroSubtitle ?? "",
           facebookUrl: s.facebookUrl ?? "",
           instagramUrl: s.instagramUrl ?? "",
           customerEmailSubject: s.customerEmailSubject,

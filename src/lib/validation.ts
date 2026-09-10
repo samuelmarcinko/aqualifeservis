@@ -288,6 +288,8 @@ export const rentalSettingsSchema = z.object({
   pickupAddress: optionalStr,
   pickupNote: optionalLongStr,
   pickupMapEmbed: optionalLongStr,
+  heroTitle: optionalStr,
+  heroSubtitle: optionalStr,
   facebookUrl: z
     .string()
     .trim()

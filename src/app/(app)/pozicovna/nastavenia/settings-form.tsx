@@ -23,6 +23,8 @@ interface Settings {
   pickupAddress: string;
   pickupNote: string;
   pickupMapEmbed: string;
+  heroTitle: string;
+  heroSubtitle: string;
   facebookUrl: string;
   instagramUrl: string;
   customerEmailSubject: string;
@@ -138,10 +140,6 @@ export function RentalSettingsForm({
           </div>
         </div>
         <div>
-          <label className="label">Úvodný text na verejnom webe</label>
-          <textarea className="input" rows={3} value={s.publicIntro} onChange={set("publicIntro")} />
-        </div>
-        <div>
           <label className="label">Podmienky prenájmu (zobrazí sa vo formulári)</label>
           <textarea className="input" rows={3} value={s.termsText} onChange={set("termsText")} />
         </div>
@@ -149,6 +147,24 @@ export function RentalSettingsForm({
 
       <div className="card space-y-4 p-6">
         <h3 className="text-sm font-semibold text-slate-700">Vzhľad a sociálne siete (verejný web)</h3>
+        <div className="rounded-lg border border-slate-100 p-3">
+          <div className="mb-2 text-xs font-semibold uppercase text-slate-500">Hero sekcia (úvodný banner)</div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label className="label">Malý nadpis (nad hlavným)</label>
+              <input className="input" value={s.heroSubtitle} onChange={set("heroSubtitle")} placeholder="AQUALIFE SERVIS – Požičovňa" />
+            </div>
+            <div>
+              <label className="label">Hlavný nadpis (H1)</label>
+              <input className="input" value={s.heroTitle} onChange={set("heroTitle")} placeholder="Požičovňa čistiacej a diagnostickej techniky" />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label className="label">Úvodný text hero sekcie</label>
+            <textarea className="input" rows={2} value={s.publicIntro} onChange={set("publicIntro")} placeholder="Krátky popis pod nadpisom v hero sekcii." />
+            <p className="mt-1 text-xs text-slate-400">Ak polia necháte prázdne, použijú sa predvolené texty.</p>
+          </div>
+        </div>
         <div>
           <label className="label">Hlavný obrázok (hero) na úvodnej stránke</label>
           <div className="flex flex-wrap items-center gap-4">
