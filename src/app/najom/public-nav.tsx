@@ -75,7 +75,7 @@ export function PublicNav({ phone }: { phone?: string }) {
       {/* Mobile dropdown */}
       {open && (
         <div className="absolute inset-x-0 top-full z-30 border-b border-slate-200 bg-white shadow-lg lg:hidden">
-          <div className="mx-auto max-w-6xl space-y-1 px-4 py-3">
+          <div className="mx-auto max-w-[1400px] space-y-1 px-4 py-3">
             {LINKS.map((l) => (
               <Link
                 key={l.href}

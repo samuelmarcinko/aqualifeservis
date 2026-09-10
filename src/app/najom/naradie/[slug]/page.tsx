@@ -80,7 +80,7 @@ export default async function RentalToolPage({
         <span aria-hidden>←</span> {tool.category.name}
       </Link>
 
-      <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-10">
+      <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start lg:gap-10">
         {/* ── A: galéria + identita ───────────────────────────── */}
         <div className="min-w-0 lg:col-start-1 lg:row-start-1">
           <ToolGallery images={images} alt={tool.name} />

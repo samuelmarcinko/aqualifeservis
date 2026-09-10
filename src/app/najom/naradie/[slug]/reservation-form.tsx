@@ -227,8 +227,8 @@ export function ReservationForm({
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="truncate text-sm font-medium text-slate-800">{o.name}</div>
-                        {o.description && <div className="truncate text-xs text-slate-400">{o.description}</div>}
+                        <div className="text-sm font-medium leading-snug text-slate-800">{o.name}</div>
+                        {o.description && <div className="line-clamp-2 text-xs text-slate-400">{o.description}</div>}
                       </div>
                       <div className="shrink-0 text-right">
                         <div className="text-sm font-semibold text-brand-dark">+{formatCurrency(o.dailyPriceExVat)}</div>

@@ -20,7 +20,7 @@ export default async function RentalPublicLayout({ children }: { children: React
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
       <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur-md">
-        <div className="relative mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:h-24 lg:px-6">
+        <div className="relative mx-auto flex h-20 max-w-[1400px] items-center justify-between gap-4 px-4 sm:h-24 lg:px-6">
           <Link href="/" className="flex items-center gap-2.5">
             {company.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -35,10 +35,10 @@ export default async function RentalPublicLayout({ children }: { children: React
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:py-8 lg:px-6">{children}</main>
+      <main className="mx-auto w-full max-w-[1400px] flex-1 px-4 py-6 sm:py-8 lg:px-6">{children}</main>
 
       <footer id="kontakt" className="mt-8 border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-10 text-sm text-slate-500 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-8 px-4 py-10 text-sm text-slate-500 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
           <div className="sm:col-span-2 lg:col-span-1">
             {company.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -111,7 +111,7 @@ export default async function RentalPublicLayout({ children }: { children: React
           </div>
         </div>
         <div className="border-t border-slate-100">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between lg:px-6">
+          <div className="mx-auto flex max-w-[1400px] flex-col gap-1 px-4 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between lg:px-6">
             <span>© {new Date().getFullYear()} {company.name}. Všetky práva vyhradené.</span>
             <span>Rezervácia je nezáväzný dopyt, ktorý potvrdíme.</span>
           </div>
