@@ -396,12 +396,28 @@ async function sendReservationEmail(
 ) {
   try {
     const [company, settings] = await Promise.all([getCompanySettings(), getRentalSettings()]);
+
+    // Itemized accessories block (with per-item and subtotal amounts).
+    const accessoryItems =
+      (r.accessories as unknown as { groupName: string; optionName: string; dailyPriceExVat: string }[] | null) ??
+      [];
+    let accessoriesText = "";
+    if (accessoryItems.length) {
+      const lines = accessoryItems.map((a) => {
+        const daily = new Decimal(a.dailyPriceExVat);
+        const lineTotal = round2(daily.times(r.days));
+        return `• ${a.optionName} (${a.groupName}): ${formatCurrency(daily)} / deň × ${r.days} dní = ${formatCurrency(lineTotal)}`;
+      });
+      accessoriesText = `Príslušenstvo:\n${lines.join("\n")}\nSpolu za príslušenstvo (bez DPH): ${formatCurrency(r.accessoriesExVat)}`;
+    }
+
     const vars = {
       number: r.number,
       toolName,
       startDate: formatDate(r.startDate),
       endDate: formatDate(r.endDate),
       price: formatCurrency(r.priceInclVat),
+      accessories: accessoriesText,
     };
     const subjectTpl =
       kind === "approved"
@@ -421,11 +437,18 @@ async function sendReservationEmail(
         : kind === "rejected"
           ? "Rezervácia"
           : "Prijali sme vašu rezerváciu";
+
+    let body = renderTemplate(bodyTpl, vars);
+    // If the template doesn't place {{accessories}} itself, append the block.
+    if (accessoriesText && !/\{\{accessories\}\}/.test(bodyTpl)) {
+      body = `${body.trimEnd()}\n\n${accessoriesText}`;
+    }
+
     await sendMail({
       to: r.customerEmail,
       subject: renderTemplate(subjectTpl, vars),
-      html: wrapEmailHtml(company, renderTemplate(bodyTpl, vars), heading),
-      text: renderTemplate(bodyTpl, vars),
+      html: wrapEmailHtml(company, body, heading),
+      text: body,
     });
   } catch {
     // Best-effort: don't fail the operation because email delivery failed.

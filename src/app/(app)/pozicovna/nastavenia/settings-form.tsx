@@ -247,7 +247,8 @@ export function RentalSettingsForm({
 
       <div className="card space-y-4 p-6">
         <h3 className="text-sm font-semibold text-slate-700">E-mailové šablóny</h3>
-        <p className="text-xs text-slate-400">Premenné: {"{{number}}, {{toolName}}, {{startDate}}, {{endDate}}, {{price}}"}</p>
+        <p className="text-xs text-slate-400">Premenné: {"{{number}}, {{toolName}}, {{startDate}}, {{endDate}}, {{price}}, {{accessories}}"}</p>
+        <p className="text-xs text-slate-400">Ak {"{{accessories}}"} v šablóne neuvediete, rozpis príslušenstva sa doplní automaticky na koniec.</p>
         <EmailPair label="Prijatie rezervácie (zákazníkovi)" subject={s.customerEmailSubject} body={s.customerEmailBody} onSubject={set("customerEmailSubject")} onBody={set("customerEmailBody")} />
         <EmailPair label="Schválenie" subject={s.approvedEmailSubject} body={s.approvedEmailBody} onSubject={set("approvedEmailSubject")} onBody={set("approvedEmailBody")} />
         <EmailPair label="Zamietnutie" subject={s.rejectedEmailSubject} body={s.rejectedEmailBody} onSubject={set("rejectedEmailSubject")} onBody={set("rejectedEmailBody")} />
