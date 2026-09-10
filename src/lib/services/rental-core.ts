@@ -41,10 +41,13 @@ export interface PriceInput {
   deliveryKm?: number | null;
   pricePerKm: DecimalInput;
   vatRate: DecimalInput;
+  /** Sum of the daily prices of the selected accessories (ex VAT). */
+  accessoriesDailyExVat?: DecimalInput;
 }
 
 export interface RentalPrice {
   rentalExVat: Decimal;
+  accessoriesExVat: Decimal;
   deliveryExVat: Decimal;
   exVat: Decimal;
   vat: Decimal;
@@ -54,13 +57,14 @@ export interface RentalPrice {
 export function computeRentalPrice(input: PriceInput): RentalPrice {
   const daily = new Decimal(input.dailyPriceExVat);
   const rentalExVat = round2(daily.times(input.days));
+  const accessoriesExVat = round2(new Decimal(input.accessoriesDailyExVat ?? 0).times(input.days));
   const deliveryExVat = input.deliveryKm
     ? round2(new Decimal(input.pricePerKm).times(input.deliveryKm))
     : new Decimal(0);
-  const exVat = round2(rentalExVat.plus(deliveryExVat));
+  const exVat = round2(rentalExVat.plus(accessoriesExVat).plus(deliveryExVat));
   const vat = round2(exVat.times(new Decimal(input.vatRate)).dividedBy(100));
   const inclVat = round2(exVat.plus(vat));
-  return { rentalExVat, deliveryExVat, exVat, vat, inclVat };
+  return { rentalExVat, accessoriesExVat, deliveryExVat, exVat, vat, inclVat };
 }
 
 export interface BookingRange {

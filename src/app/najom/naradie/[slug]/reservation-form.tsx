@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { MonthCalendar } from "@/components/rental/month-calendar";
 import { useToast } from "@/components/ui/toast";
 import { formatCurrency, formatDate } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 const r2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 
@@ -14,6 +15,20 @@ function daysInclusive(a: string, b: string): number {
   return Math.max(1, Math.round((e - s) / 86_400_000) + 1);
 }
 
+export interface AccessoryOptionPublic {
+  id: string;
+  name: string;
+  description: string | null;
+  imageUrl: string | null;
+  dailyPriceExVat: number;
+}
+export interface AccessoryGroupPublic {
+  id: string;
+  name: string;
+  required: boolean;
+  options: AccessoryOptionPublic[];
+}
+
 export function ReservationForm({
   toolId,
   dailyPrice,
@@ -21,6 +36,7 @@ export function ReservationForm({
   minDays,
   unavailableDays,
   terms,
+  accessoryGroups = [],
 }: {
   toolId: string;
   toolName: string;
@@ -31,6 +47,7 @@ export function ReservationForm({
   minDays: number;
   unavailableDays: string[];
   terms: string;
+  accessoryGroups?: AccessoryGroupPublic[];
 }) {
   const router = useRouter();
   const { toast } = useToast();
@@ -38,7 +55,30 @@ export function ReservationForm({
 
   const [start, setStart] = useState<string | null>(null);
   const [end, setEnd] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const [delivery, setDelivery] = useState(false);
+
+  function toggleOption(group: AccessoryGroupPublic, optionId: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      const isOn = next.has(optionId);
+      if (group.required) {
+        // single-select: clear the group's other options, then set this one
+        for (const o of group.options) next.delete(o.id);
+        if (!isOn) next.add(optionId);
+      } else {
+        if (isOn) next.delete(optionId);
+        else next.add(optionId);
+      }
+      return next;
+    });
+  }
+
+  const accessoriesDaily = useMemo(() => {
+    let sum = 0;
+    for (const g of accessoryGroups) for (const o of g.options) if (selected.has(o.id)) sum += o.dailyPriceExVat;
+    return sum;
+  }, [accessoryGroups, selected]);
   const [form, setForm] = useState({
     customerName: "",
     customerEmail: "",
@@ -82,9 +122,11 @@ export function ReservationForm({
   const price = useMemo(() => {
     if (!start) return null;
     const rental = r2(dailyPrice * days);
-    const vat = r2((rental * vatRate) / 100);
-    return { rental, vat, incl: r2(rental + vat) };
-  }, [start, days, dailyPrice, vatRate]);
+    const accessories = r2(accessoriesDaily * days);
+    const exVat = r2(rental + accessories);
+    const vat = r2((exVat * vatRate) / 100);
+    return { rental, accessories, vat, incl: r2(exVat + vat) };
+  }, [start, days, dailyPrice, vatRate, accessoriesDaily]);
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm({ ...form, [k]: e.target.value });
@@ -93,6 +135,10 @@ export function ReservationForm({
     e.preventDefault();
     if (!start) return toast("Zvoľte termín v kalendári.", "error");
     if (days < minDays) return toast(`Minimálna doba prenájmu je ${minDays} dní.`, "error");
+    for (const g of accessoryGroups) {
+      if (g.required && !g.options.some((o) => selected.has(o.id)))
+        return toast(`Vyberte príslušenstvo v skupine „${g.name}".`, "error");
+    }
     if (!consent) return toast("Potvrďte súhlas so spracovaním údajov.", "error");
     if (delivery && !form.deliveryAddress.trim())
       return toast("Zadajte adresu dovozu.", "error");
@@ -107,6 +153,7 @@ export function ReservationForm({
         endDate: end ?? start,
         ...form,
         deliveryType: delivery ? "DELIVERY" : "PICKUP",
+        accessoryOptionIds: Array.from(selected),
         consent: true,
       }),
     });
@@ -143,6 +190,68 @@ export function ReservationForm({
         )}
       </div>
 
+      {accessoryGroups.length > 0 && (
+        <div className="mb-3 space-y-3 border-t border-slate-100 pt-3">
+          {accessoryGroups.map((g) => (
+            <div key={g.id}>
+              <div className="mb-1.5 flex items-center gap-2">
+                <span className="text-sm font-semibold text-brand-navy">{g.name}</span>
+                <span
+                  className={cn(
+                    "rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                    g.required ? "bg-brand/10 text-brand-dark" : "bg-slate-100 text-slate-500",
+                  )}
+                >
+                  {g.required ? "povinné" : "voliteľné"}
+                </span>
+              </div>
+              <div className="space-y-1.5">
+                {g.options.map((o) => {
+                  const on = selected.has(o.id);
+                  return (
+                    <button
+                      type="button"
+                      key={o.id}
+                      onClick={() => toggleOption(g, o.id)}
+                      className={cn(
+                        "flex w-full items-center gap-3 rounded-lg border p-2 text-left transition",
+                        on ? "border-brand bg-brand/5" : "border-slate-200 hover:border-slate-300",
+                      )}
+                    >
+                      <div className="product-frame flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded">
+                        {o.imageUrl ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={o.imageUrl} alt={o.name} className="h-full w-full object-contain" />
+                        ) : (
+                          <span className="text-[8px] text-slate-300">bez fotky</span>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-sm font-medium text-slate-800">{o.name}</div>
+                        {o.description && <div className="truncate text-xs text-slate-400">{o.description}</div>}
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <div className="text-sm font-semibold text-brand-dark">+{formatCurrency(o.dailyPriceExVat)}</div>
+                        <div className="text-[10px] text-slate-400">/ deň</div>
+                      </div>
+                      <span
+                        className={cn(
+                          "flex h-5 w-5 shrink-0 items-center justify-center border text-[11px] text-white",
+                          g.required ? "rounded-full" : "rounded",
+                          on ? "border-brand-dark bg-brand-dark" : "border-slate-300 bg-white",
+                        )}
+                      >
+                        {on ? "✓" : ""}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
         <input className="input" placeholder="Meno a priezvisko *" value={form.customerName} onChange={set("customerName")} required />
         <input className="input" placeholder="Firma (voliteľné)" value={form.customerCompany} onChange={set("customerCompany")} />
@@ -177,6 +286,9 @@ export function ReservationForm({
       {price && (
         <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm">
           <div className="flex justify-between text-slate-600"><span>Prenájom ({days} dní)</span><span>{formatCurrency(price.rental)}</span></div>
+          {price.accessories > 0 && (
+            <div className="flex justify-between text-slate-600"><span>Príslušenstvo ({days} dní)</span><span>{formatCurrency(price.accessories)}</span></div>
+          )}
           <div className="flex justify-between text-slate-600"><span>DPH {vatRate} %</span><span>{formatCurrency(price.vat)}</span></div>
           <div className="mt-1 flex justify-between border-t border-slate-200 pt-1 font-bold text-brand-navy">
             <span>Spolu s DPH</span><span>{formatCurrency(price.incl)}</span>

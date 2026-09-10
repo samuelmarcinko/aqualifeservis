@@ -316,6 +316,21 @@ export const rentalToolVideosSchema = z.object({
   videos: z.array(z.string().trim().url("Neplatný odkaz.").max(500)).max(10),
 });
 
+export const rentalAccessoryGroupSchema = z.object({
+  name: z.string().trim().min(1, "Názov skupiny je povinný.").max(120),
+  required: z.boolean().default(false),
+  position: z.coerce.number().int().min(0).default(0),
+  active: z.boolean().default(true),
+});
+
+export const rentalAccessoryOptionSchema = z.object({
+  name: z.string().trim().min(1, "Názov je povinný.").max(160),
+  description: optionalLongStr,
+  dailyPriceExVat: z.coerce.number().min(0).default(0),
+  position: z.coerce.number().int().min(0).default(0),
+  active: z.boolean().default(true),
+});
+
 export const rentalReservationEditSchema = z.object({
   startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Neplatný dátum."),
   endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Neplatný dátum."),
@@ -351,6 +366,7 @@ export const publicReservationSchema = z.object({
   deliveryType: z.enum(["PICKUP", "DELIVERY"]).default("PICKUP"),
   deliveryKm: z.coerce.number().int().min(0).max(10000).optional(),
   deliveryAddress: optionalStr,
+  accessoryOptionIds: z.array(z.string().min(1)).max(30).optional(),
   consent: z.literal(true, { errorMap: () => ({ message: "Potvrďte súhlas so spracovaním údajov." }) }),
   // Honeypot — must stay empty.
   website: z.string().max(0).optional().or(z.literal("")),

@@ -10,6 +10,8 @@ import {
   rentalSettingsSchema,
   rentalReservationEditSchema,
   rentalToolVideosSchema,
+  rentalAccessoryGroupSchema,
+  rentalAccessoryOptionSchema,
   zodErrorMessage,
 } from "@/lib/validation";
 import { ok, fail, toSafeError, type ActionResult } from "@/lib/action-result";
@@ -234,6 +236,109 @@ export async function deleteToolManual(
     await prisma.rentalTool.update({ where: { id }, data: { manuals } });
     revalidatePath("/pozicovna/naradie");
     return ok({ manuals: manuals.map((m) => ({ url: m.url, name: m.name ?? "manual.pdf" })) });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+// --- Accessories (groups + options) ----------------------------------------
+
+export async function saveAccessoryGroup(
+  toolId: string,
+  input: unknown,
+  groupId?: string,
+): Promise<ActionResult<{ id: string }>> {
+  try {
+    await assertUser();
+    const parsed = rentalAccessoryGroupSchema.safeParse(input);
+    if (!parsed.success) return fail(zodErrorMessage(parsed.error));
+    const d = parsed.data;
+    if (groupId) {
+      await prisma.rentalAccessoryGroup.update({ where: { id: groupId }, data: d });
+      revalidatePath("/pozicovna/naradie");
+      return ok({ id: groupId });
+    }
+    const g = await prisma.rentalAccessoryGroup.create({ data: { ...d, toolId } });
+    revalidatePath("/pozicovna/naradie");
+    return ok({ id: g.id });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteAccessoryGroup(groupId: string): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const options = await prisma.rentalAccessoryOption.findMany({
+      where: { groupId },
+      select: { imageUrl: true },
+    });
+    await Promise.all(options.filter((o) => o.imageUrl).map((o) => deleteBlob(o.imageUrl!)));
+    await prisma.rentalAccessoryGroup.delete({ where: { id: groupId } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function saveAccessoryOption(
+  groupId: string,
+  input: unknown,
+  optionId?: string,
+): Promise<ActionResult<{ id: string }>> {
+  try {
+    await assertUser();
+    const parsed = rentalAccessoryOptionSchema.safeParse(input);
+    if (!parsed.success) return fail(zodErrorMessage(parsed.error));
+    const d = parsed.data;
+    if (optionId) {
+      await prisma.rentalAccessoryOption.update({ where: { id: optionId }, data: d });
+      revalidatePath("/pozicovna/naradie");
+      return ok({ id: optionId });
+    }
+    const o = await prisma.rentalAccessoryOption.create({ data: { ...d, groupId } });
+    revalidatePath("/pozicovna/naradie");
+    return ok({ id: o.id });
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function deleteAccessoryOption(optionId: string): Promise<ActionResult> {
+  try {
+    await assertUser();
+    const opt = await prisma.rentalAccessoryOption.findUnique({ where: { id: optionId } });
+    if (opt?.imageUrl) await deleteBlob(opt.imageUrl);
+    await prisma.rentalAccessoryOption.delete({ where: { id: optionId } });
+    revalidatePath("/pozicovna/naradie");
+    return ok(null);
+  } catch (e) {
+    return fail(toSafeError(e));
+  }
+}
+
+export async function uploadAccessoryOptionImage(
+  optionId: string,
+  formData: FormData,
+): Promise<ActionResult<{ url: string }>> {
+  try {
+    await assertUser();
+    const file = formData.get("image");
+    if (!(file instanceof File)) return fail("Chýba súbor.");
+    if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type))
+      return fail("Nepodporovaný formát (PNG, JPG, WEBP, AVIF).");
+    if (file.size > 5 * 1024 * 1024) return fail("Obrázok presahuje 5 MB.");
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const blob = await uploadBlob(`rental/accessory/${file.name}`, buffer, file.type);
+    const cur = await prisma.rentalAccessoryOption.findUnique({ where: { id: optionId } });
+    if (cur?.imageUrl) await deleteBlob(cur.imageUrl);
+    await prisma.rentalAccessoryOption.update({
+      where: { id: optionId },
+      data: { imageUrl: blob.url, imageBlobPath: blob.pathname },
+    });
+    revalidatePath("/pozicovna/naradie");
+    return ok({ url: blob.url });
   } catch (e) {
     return fail(toSafeError(e));
   }

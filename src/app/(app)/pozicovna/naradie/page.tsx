@@ -11,7 +11,17 @@ export default async function RentalToolsPage() {
   const categories = await prisma.rentalCategory.findMany({
     orderBy: [{ position: "asc" }, { name: "asc" }],
     include: {
-      tools: { orderBy: [{ position: "asc" }, { name: "asc" }] },
+      tools: {
+        orderBy: [{ position: "asc" }, { name: "asc" }],
+        include: {
+          accessoryGroups: {
+            orderBy: [{ position: "asc" }, { name: "asc" }],
+            include: {
+              options: { orderBy: [{ position: "asc" }, { name: "asc" }] },
+            },
+          },
+        },
+      },
     },
   });
 
@@ -42,6 +52,22 @@ export default async function RentalToolsPage() {
             galleryPhotos: ((t.galleryPhotos as unknown as { url: string }[]) ?? []).map((p) => p.url),
             manuals: ((t.manuals as unknown as { url: string; name?: string }[]) ?? []).map((m) => ({ url: m.url, name: m.name ?? "manual.pdf" })),
             videos: ((t.videos as unknown as string[]) ?? []),
+            accessoryGroups: t.accessoryGroups.map((g) => ({
+              id: g.id,
+              name: g.name,
+              required: g.required,
+              position: g.position,
+              active: g.active,
+              options: g.options.map((o) => ({
+                id: o.id,
+                name: o.name,
+                description: o.description,
+                imageUrl: o.imageUrl,
+                dailyPriceExVat: o.dailyPriceExVat.toString(),
+                position: o.position,
+                active: o.active,
+              })),
+            })),
           })),
         }))}
       />

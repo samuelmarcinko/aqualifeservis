@@ -656,10 +656,46 @@ model RentalTool {
 
   reservations   RentalReservation[]
   bookings       RentalBooking[]
+  accessoryGroups RentalAccessoryGroup[]
 
   @@index([categoryId])
   @@index([active])
   @@map("rental_tool")
+}
+
+model RentalAccessoryGroup {
+  id        String   @id @default(cuid())
+  toolId    String
+  tool      RentalTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  name      String
+  required  Boolean  @default(false)
+  position  Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  options   RentalAccessoryOption[]
+
+  @@index([toolId])
+  @@map("rental_accessory_group")
+}
+
+model RentalAccessoryOption {
+  id              String   @id @default(cuid())
+  groupId         String
+  group           RentalAccessoryGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  name            String
+  description     String?
+  imageUrl        String?
+  imageBlobPath   String?
+  dailyPriceExVat Decimal  @default(0) @db.Decimal(12, 2)
+  position        Int      @default(0)
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([groupId])
+  @@map("rental_accessory_option")
 }
 
 enum RentalDelivery {
@@ -697,7 +733,9 @@ model RentalReservation {
   endDate        DateTime
   days           Int
 
+  accessories    Json     @default("[]")
   rentalExVat    Decimal  @default(0) @db.Decimal(12, 2)
+  accessoriesExVat Decimal @default(0) @db.Decimal(12, 2)
   deliveryExVat  Decimal  @default(0) @db.Decimal(12, 2)
   vatAmount      Decimal  @default(0) @db.Decimal(12, 2)
   priceInclVat   Decimal  @default(0) @db.Decimal(12, 2)

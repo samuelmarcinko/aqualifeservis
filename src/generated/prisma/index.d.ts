@@ -129,6 +129,16 @@ export type RentalCategory = $Result.DefaultSelection<Prisma.$RentalCategoryPayl
  */
 export type RentalTool = $Result.DefaultSelection<Prisma.$RentalToolPayload>
 /**
+ * Model RentalAccessoryGroup
+ * 
+ */
+export type RentalAccessoryGroup = $Result.DefaultSelection<Prisma.$RentalAccessoryGroupPayload>
+/**
+ * Model RentalAccessoryOption
+ * 
+ */
+export type RentalAccessoryOption = $Result.DefaultSelection<Prisma.$RentalAccessoryOptionPayload>
+/**
  * Model RentalReservation
  * 
  */
@@ -674,6 +684,26 @@ export class PrismaClient<
   get rentalTool(): Prisma.RentalToolDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.rentalAccessoryGroup`: Exposes CRUD operations for the **RentalAccessoryGroup** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalAccessoryGroups
+    * const rentalAccessoryGroups = await prisma.rentalAccessoryGroup.findMany()
+    * ```
+    */
+  get rentalAccessoryGroup(): Prisma.RentalAccessoryGroupDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rentalAccessoryOption`: Exposes CRUD operations for the **RentalAccessoryOption** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RentalAccessoryOptions
+    * const rentalAccessoryOptions = await prisma.rentalAccessoryOption.findMany()
+    * ```
+    */
+  get rentalAccessoryOption(): Prisma.RentalAccessoryOptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.rentalReservation`: Exposes CRUD operations for the **RentalReservation** model.
     * Example usage:
     * ```ts
@@ -1176,6 +1206,8 @@ export namespace Prisma {
     AiSettings: 'AiSettings',
     RentalCategory: 'RentalCategory',
     RentalTool: 'RentalTool',
+    RentalAccessoryGroup: 'RentalAccessoryGroup',
+    RentalAccessoryOption: 'RentalAccessoryOption',
     RentalReservation: 'RentalReservation',
     RentalBooking: 'RentalBooking',
     RentalSettings: 'RentalSettings',
@@ -1198,7 +1230,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "customer" | "customerServiceAddress" | "customerNote" | "catalogItem" | "documentSequence" | "quotation" | "quotationItem" | "quotationRevision" | "repairProtocol" | "protocolWorkItem" | "protocolPhoto" | "repairProtocolRevision" | "storedDocument" | "emailLog" | "activityLog" | "companySettings" | "aiSettings" | "rentalCategory" | "rentalTool" | "rentalReservation" | "rentalBooking" | "rentalSettings" | "smtpSettings"
+      modelProps: "user" | "session" | "account" | "verification" | "customer" | "customerServiceAddress" | "customerNote" | "catalogItem" | "documentSequence" | "quotation" | "quotationItem" | "quotationRevision" | "repairProtocol" | "protocolWorkItem" | "protocolPhoto" | "repairProtocolRevision" | "storedDocument" | "emailLog" | "activityLog" | "companySettings" | "aiSettings" | "rentalCategory" | "rentalTool" | "rentalAccessoryGroup" | "rentalAccessoryOption" | "rentalReservation" | "rentalBooking" | "rentalSettings" | "smtpSettings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2904,6 +2936,154 @@ export namespace Prisma {
           }
         }
       }
+      RentalAccessoryGroup: {
+        payload: Prisma.$RentalAccessoryGroupPayload<ExtArgs>
+        fields: Prisma.RentalAccessoryGroupFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalAccessoryGroupFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalAccessoryGroupFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalAccessoryGroupFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalAccessoryGroupFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>
+          }
+          findMany: {
+            args: Prisma.RentalAccessoryGroupFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>[]
+          }
+          create: {
+            args: Prisma.RentalAccessoryGroupCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>
+          }
+          createMany: {
+            args: Prisma.RentalAccessoryGroupCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalAccessoryGroupCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalAccessoryGroupDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>
+          }
+          update: {
+            args: Prisma.RentalAccessoryGroupUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalAccessoryGroupDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalAccessoryGroupUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalAccessoryGroupUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalAccessoryGroupUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryGroupPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalAccessoryGroupAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalAccessoryGroup>
+          }
+          groupBy: {
+            args: Prisma.RentalAccessoryGroupGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalAccessoryGroupGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalAccessoryGroupCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalAccessoryGroupCountAggregateOutputType> | number
+          }
+        }
+      }
+      RentalAccessoryOption: {
+        payload: Prisma.$RentalAccessoryOptionPayload<ExtArgs>
+        fields: Prisma.RentalAccessoryOptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RentalAccessoryOptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RentalAccessoryOptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>
+          }
+          findFirst: {
+            args: Prisma.RentalAccessoryOptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RentalAccessoryOptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>
+          }
+          findMany: {
+            args: Prisma.RentalAccessoryOptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>[]
+          }
+          create: {
+            args: Prisma.RentalAccessoryOptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>
+          }
+          createMany: {
+            args: Prisma.RentalAccessoryOptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RentalAccessoryOptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>[]
+          }
+          delete: {
+            args: Prisma.RentalAccessoryOptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>
+          }
+          update: {
+            args: Prisma.RentalAccessoryOptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.RentalAccessoryOptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RentalAccessoryOptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RentalAccessoryOptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.RentalAccessoryOptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RentalAccessoryOptionPayload>
+          }
+          aggregate: {
+            args: Prisma.RentalAccessoryOptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRentalAccessoryOption>
+          }
+          groupBy: {
+            args: Prisma.RentalAccessoryOptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RentalAccessoryOptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RentalAccessoryOptionCountArgs<ExtArgs>
+            result: $Utils.Optional<RentalAccessoryOptionCountAggregateOutputType> | number
+          }
+        }
+      }
       RentalReservation: {
         payload: Prisma.$RentalReservationPayload<ExtArgs>
         fields: Prisma.RentalReservationFieldRefs
@@ -3319,6 +3499,8 @@ export namespace Prisma {
     aiSettings?: AiSettingsOmit
     rentalCategory?: RentalCategoryOmit
     rentalTool?: RentalToolOmit
+    rentalAccessoryGroup?: RentalAccessoryGroupOmit
+    rentalAccessoryOption?: RentalAccessoryOptionOmit
     rentalReservation?: RentalReservationOmit
     rentalBooking?: RentalBookingOmit
     rentalSettings?: RentalSettingsOmit
@@ -3699,11 +3881,13 @@ export namespace Prisma {
   export type RentalToolCountOutputType = {
     reservations: number
     bookings: number
+    accessoryGroups: number
   }
 
   export type RentalToolCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reservations?: boolean | RentalToolCountOutputTypeCountReservationsArgs
     bookings?: boolean | RentalToolCountOutputTypeCountBookingsArgs
+    accessoryGroups?: boolean | RentalToolCountOutputTypeCountAccessoryGroupsArgs
   }
 
   // Custom InputTypes
@@ -3729,6 +3913,44 @@ export namespace Prisma {
    */
   export type RentalToolCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RentalBookingWhereInput
+  }
+
+  /**
+   * RentalToolCountOutputType without action
+   */
+  export type RentalToolCountOutputTypeCountAccessoryGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalAccessoryGroupWhereInput
+  }
+
+
+  /**
+   * Count Type RentalAccessoryGroupCountOutputType
+   */
+
+  export type RentalAccessoryGroupCountOutputType = {
+    options: number
+  }
+
+  export type RentalAccessoryGroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    options?: boolean | RentalAccessoryGroupCountOutputTypeCountOptionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RentalAccessoryGroupCountOutputType without action
+   */
+  export type RentalAccessoryGroupCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroupCountOutputType
+     */
+    select?: RentalAccessoryGroupCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RentalAccessoryGroupCountOutputType without action
+   */
+  export type RentalAccessoryGroupCountOutputTypeCountOptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalAccessoryOptionWhereInput
   }
 
 
@@ -30433,6 +30655,7 @@ export namespace Prisma {
     category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
     reservations?: boolean | RentalTool$reservationsArgs<ExtArgs>
     bookings?: boolean | RentalTool$bookingsArgs<ExtArgs>
+    accessoryGroups?: boolean | RentalTool$accessoryGroupsArgs<ExtArgs>
     _count?: boolean | RentalToolCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rentalTool"]>
 
@@ -30509,6 +30732,7 @@ export namespace Prisma {
     category?: boolean | RentalCategoryDefaultArgs<ExtArgs>
     reservations?: boolean | RentalTool$reservationsArgs<ExtArgs>
     bookings?: boolean | RentalTool$bookingsArgs<ExtArgs>
+    accessoryGroups?: boolean | RentalTool$accessoryGroupsArgs<ExtArgs>
     _count?: boolean | RentalToolCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RentalToolIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30524,6 +30748,7 @@ export namespace Prisma {
       category: Prisma.$RentalCategoryPayload<ExtArgs>
       reservations: Prisma.$RentalReservationPayload<ExtArgs>[]
       bookings: Prisma.$RentalBookingPayload<ExtArgs>[]
+      accessoryGroups: Prisma.$RentalAccessoryGroupPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30942,6 +31167,7 @@ export namespace Prisma {
     category<T extends RentalCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RentalCategoryDefaultArgs<ExtArgs>>): Prisma__RentalCategoryClient<$Result.GetResult<Prisma.$RentalCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     reservations<T extends RentalTool$reservationsArgs<ExtArgs> = {}>(args?: Subset<T, RentalTool$reservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends RentalTool$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, RentalTool$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    accessoryGroups<T extends RentalTool$accessoryGroupsArgs<ExtArgs> = {}>(args?: Subset<T, RentalTool$accessoryGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31434,6 +31660,30 @@ export namespace Prisma {
   }
 
   /**
+   * RentalTool.accessoryGroups
+   */
+  export type RentalTool$accessoryGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    where?: RentalAccessoryGroupWhereInput
+    orderBy?: RentalAccessoryGroupOrderByWithRelationInput | RentalAccessoryGroupOrderByWithRelationInput[]
+    cursor?: RentalAccessoryGroupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RentalAccessoryGroupScalarFieldEnum | RentalAccessoryGroupScalarFieldEnum[]
+  }
+
+  /**
    * RentalTool without action
    */
   export type RentalToolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31449,6 +31699,2341 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: RentalToolInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RentalAccessoryGroup
+   */
+
+  export type AggregateRentalAccessoryGroup = {
+    _count: RentalAccessoryGroupCountAggregateOutputType | null
+    _avg: RentalAccessoryGroupAvgAggregateOutputType | null
+    _sum: RentalAccessoryGroupSumAggregateOutputType | null
+    _min: RentalAccessoryGroupMinAggregateOutputType | null
+    _max: RentalAccessoryGroupMaxAggregateOutputType | null
+  }
+
+  export type RentalAccessoryGroupAvgAggregateOutputType = {
+    position: number | null
+  }
+
+  export type RentalAccessoryGroupSumAggregateOutputType = {
+    position: number | null
+  }
+
+  export type RentalAccessoryGroupMinAggregateOutputType = {
+    id: string | null
+    toolId: string | null
+    name: string | null
+    required: boolean | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalAccessoryGroupMaxAggregateOutputType = {
+    id: string | null
+    toolId: string | null
+    name: string | null
+    required: boolean | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalAccessoryGroupCountAggregateOutputType = {
+    id: number
+    toolId: number
+    name: number
+    required: number
+    position: number
+    active: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RentalAccessoryGroupAvgAggregateInputType = {
+    position?: true
+  }
+
+  export type RentalAccessoryGroupSumAggregateInputType = {
+    position?: true
+  }
+
+  export type RentalAccessoryGroupMinAggregateInputType = {
+    id?: true
+    toolId?: true
+    name?: true
+    required?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalAccessoryGroupMaxAggregateInputType = {
+    id?: true
+    toolId?: true
+    name?: true
+    required?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalAccessoryGroupCountAggregateInputType = {
+    id?: true
+    toolId?: true
+    name?: true
+    required?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RentalAccessoryGroupAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalAccessoryGroup to aggregate.
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryGroups to fetch.
+     */
+    orderBy?: RentalAccessoryGroupOrderByWithRelationInput | RentalAccessoryGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalAccessoryGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalAccessoryGroups
+    **/
+    _count?: true | RentalAccessoryGroupCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalAccessoryGroupAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalAccessoryGroupSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalAccessoryGroupMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalAccessoryGroupMaxAggregateInputType
+  }
+
+  export type GetRentalAccessoryGroupAggregateType<T extends RentalAccessoryGroupAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalAccessoryGroup]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalAccessoryGroup[P]>
+      : GetScalarType<T[P], AggregateRentalAccessoryGroup[P]>
+  }
+
+
+
+
+  export type RentalAccessoryGroupGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalAccessoryGroupWhereInput
+    orderBy?: RentalAccessoryGroupOrderByWithAggregationInput | RentalAccessoryGroupOrderByWithAggregationInput[]
+    by: RentalAccessoryGroupScalarFieldEnum[] | RentalAccessoryGroupScalarFieldEnum
+    having?: RentalAccessoryGroupScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalAccessoryGroupCountAggregateInputType | true
+    _avg?: RentalAccessoryGroupAvgAggregateInputType
+    _sum?: RentalAccessoryGroupSumAggregateInputType
+    _min?: RentalAccessoryGroupMinAggregateInputType
+    _max?: RentalAccessoryGroupMaxAggregateInputType
+  }
+
+  export type RentalAccessoryGroupGroupByOutputType = {
+    id: string
+    toolId: string
+    name: string
+    required: boolean
+    position: number
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RentalAccessoryGroupCountAggregateOutputType | null
+    _avg: RentalAccessoryGroupAvgAggregateOutputType | null
+    _sum: RentalAccessoryGroupSumAggregateOutputType | null
+    _min: RentalAccessoryGroupMinAggregateOutputType | null
+    _max: RentalAccessoryGroupMaxAggregateOutputType | null
+  }
+
+  type GetRentalAccessoryGroupGroupByPayload<T extends RentalAccessoryGroupGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalAccessoryGroupGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalAccessoryGroupGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalAccessoryGroupGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalAccessoryGroupGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalAccessoryGroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    toolId?: boolean
+    name?: boolean
+    required?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    options?: boolean | RentalAccessoryGroup$optionsArgs<ExtArgs>
+    _count?: boolean | RentalAccessoryGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalAccessoryGroup"]>
+
+  export type RentalAccessoryGroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    toolId?: boolean
+    name?: boolean
+    required?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalAccessoryGroup"]>
+
+  export type RentalAccessoryGroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    toolId?: boolean
+    name?: boolean
+    required?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalAccessoryGroup"]>
+
+  export type RentalAccessoryGroupSelectScalar = {
+    id?: boolean
+    toolId?: boolean
+    name?: boolean
+    required?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RentalAccessoryGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toolId" | "name" | "required" | "position" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalAccessoryGroup"]>
+  export type RentalAccessoryGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+    options?: boolean | RentalAccessoryGroup$optionsArgs<ExtArgs>
+    _count?: boolean | RentalAccessoryGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RentalAccessoryGroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }
+  export type RentalAccessoryGroupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tool?: boolean | RentalToolDefaultArgs<ExtArgs>
+  }
+
+  export type $RentalAccessoryGroupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalAccessoryGroup"
+    objects: {
+      tool: Prisma.$RentalToolPayload<ExtArgs>
+      options: Prisma.$RentalAccessoryOptionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      toolId: string
+      name: string
+      required: boolean
+      position: number
+      active: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["rentalAccessoryGroup"]>
+    composites: {}
+  }
+
+  type RentalAccessoryGroupGetPayload<S extends boolean | null | undefined | RentalAccessoryGroupDefaultArgs> = $Result.GetResult<Prisma.$RentalAccessoryGroupPayload, S>
+
+  type RentalAccessoryGroupCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalAccessoryGroupFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalAccessoryGroupCountAggregateInputType | true
+    }
+
+  export interface RentalAccessoryGroupDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalAccessoryGroup'], meta: { name: 'RentalAccessoryGroup' } }
+    /**
+     * Find zero or one RentalAccessoryGroup that matches the filter.
+     * @param {RentalAccessoryGroupFindUniqueArgs} args - Arguments to find a RentalAccessoryGroup
+     * @example
+     * // Get one RentalAccessoryGroup
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalAccessoryGroupFindUniqueArgs>(args: SelectSubset<T, RentalAccessoryGroupFindUniqueArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalAccessoryGroup that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalAccessoryGroupFindUniqueOrThrowArgs} args - Arguments to find a RentalAccessoryGroup
+     * @example
+     * // Get one RentalAccessoryGroup
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalAccessoryGroupFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalAccessoryGroupFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalAccessoryGroup that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupFindFirstArgs} args - Arguments to find a RentalAccessoryGroup
+     * @example
+     * // Get one RentalAccessoryGroup
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalAccessoryGroupFindFirstArgs>(args?: SelectSubset<T, RentalAccessoryGroupFindFirstArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalAccessoryGroup that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupFindFirstOrThrowArgs} args - Arguments to find a RentalAccessoryGroup
+     * @example
+     * // Get one RentalAccessoryGroup
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalAccessoryGroupFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalAccessoryGroupFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalAccessoryGroups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalAccessoryGroups
+     * const rentalAccessoryGroups = await prisma.rentalAccessoryGroup.findMany()
+     * 
+     * // Get first 10 RentalAccessoryGroups
+     * const rentalAccessoryGroups = await prisma.rentalAccessoryGroup.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalAccessoryGroupWithIdOnly = await prisma.rentalAccessoryGroup.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalAccessoryGroupFindManyArgs>(args?: SelectSubset<T, RentalAccessoryGroupFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalAccessoryGroup.
+     * @param {RentalAccessoryGroupCreateArgs} args - Arguments to create a RentalAccessoryGroup.
+     * @example
+     * // Create one RentalAccessoryGroup
+     * const RentalAccessoryGroup = await prisma.rentalAccessoryGroup.create({
+     *   data: {
+     *     // ... data to create a RentalAccessoryGroup
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalAccessoryGroupCreateArgs>(args: SelectSubset<T, RentalAccessoryGroupCreateArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalAccessoryGroups.
+     * @param {RentalAccessoryGroupCreateManyArgs} args - Arguments to create many RentalAccessoryGroups.
+     * @example
+     * // Create many RentalAccessoryGroups
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalAccessoryGroupCreateManyArgs>(args?: SelectSubset<T, RentalAccessoryGroupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalAccessoryGroups and returns the data saved in the database.
+     * @param {RentalAccessoryGroupCreateManyAndReturnArgs} args - Arguments to create many RentalAccessoryGroups.
+     * @example
+     * // Create many RentalAccessoryGroups
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalAccessoryGroups and only return the `id`
+     * const rentalAccessoryGroupWithIdOnly = await prisma.rentalAccessoryGroup.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalAccessoryGroupCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalAccessoryGroupCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalAccessoryGroup.
+     * @param {RentalAccessoryGroupDeleteArgs} args - Arguments to delete one RentalAccessoryGroup.
+     * @example
+     * // Delete one RentalAccessoryGroup
+     * const RentalAccessoryGroup = await prisma.rentalAccessoryGroup.delete({
+     *   where: {
+     *     // ... filter to delete one RentalAccessoryGroup
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalAccessoryGroupDeleteArgs>(args: SelectSubset<T, RentalAccessoryGroupDeleteArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalAccessoryGroup.
+     * @param {RentalAccessoryGroupUpdateArgs} args - Arguments to update one RentalAccessoryGroup.
+     * @example
+     * // Update one RentalAccessoryGroup
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalAccessoryGroupUpdateArgs>(args: SelectSubset<T, RentalAccessoryGroupUpdateArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalAccessoryGroups.
+     * @param {RentalAccessoryGroupDeleteManyArgs} args - Arguments to filter RentalAccessoryGroups to delete.
+     * @example
+     * // Delete a few RentalAccessoryGroups
+     * const { count } = await prisma.rentalAccessoryGroup.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalAccessoryGroupDeleteManyArgs>(args?: SelectSubset<T, RentalAccessoryGroupDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalAccessoryGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalAccessoryGroups
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalAccessoryGroupUpdateManyArgs>(args: SelectSubset<T, RentalAccessoryGroupUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalAccessoryGroups and returns the data updated in the database.
+     * @param {RentalAccessoryGroupUpdateManyAndReturnArgs} args - Arguments to update many RentalAccessoryGroups.
+     * @example
+     * // Update many RentalAccessoryGroups
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalAccessoryGroups and only return the `id`
+     * const rentalAccessoryGroupWithIdOnly = await prisma.rentalAccessoryGroup.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalAccessoryGroupUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalAccessoryGroupUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalAccessoryGroup.
+     * @param {RentalAccessoryGroupUpsertArgs} args - Arguments to update or create a RentalAccessoryGroup.
+     * @example
+     * // Update or create a RentalAccessoryGroup
+     * const rentalAccessoryGroup = await prisma.rentalAccessoryGroup.upsert({
+     *   create: {
+     *     // ... data to create a RentalAccessoryGroup
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalAccessoryGroup we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalAccessoryGroupUpsertArgs>(args: SelectSubset<T, RentalAccessoryGroupUpsertArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalAccessoryGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupCountArgs} args - Arguments to filter RentalAccessoryGroups to count.
+     * @example
+     * // Count the number of RentalAccessoryGroups
+     * const count = await prisma.rentalAccessoryGroup.count({
+     *   where: {
+     *     // ... the filter for the RentalAccessoryGroups we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalAccessoryGroupCountArgs>(
+      args?: Subset<T, RentalAccessoryGroupCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalAccessoryGroupCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalAccessoryGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalAccessoryGroupAggregateArgs>(args: Subset<T, RentalAccessoryGroupAggregateArgs>): Prisma.PrismaPromise<GetRentalAccessoryGroupAggregateType<T>>
+
+    /**
+     * Group by RentalAccessoryGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryGroupGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalAccessoryGroupGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalAccessoryGroupGroupByArgs['orderBy'] }
+        : { orderBy?: RentalAccessoryGroupGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalAccessoryGroupGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalAccessoryGroupGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalAccessoryGroup model
+   */
+  readonly fields: RentalAccessoryGroupFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalAccessoryGroup.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalAccessoryGroupClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tool<T extends RentalToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RentalToolDefaultArgs<ExtArgs>>): Prisma__RentalToolClient<$Result.GetResult<Prisma.$RentalToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    options<T extends RentalAccessoryGroup$optionsArgs<ExtArgs> = {}>(args?: Subset<T, RentalAccessoryGroup$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalAccessoryGroup model
+   */
+  interface RentalAccessoryGroupFieldRefs {
+    readonly id: FieldRef<"RentalAccessoryGroup", 'String'>
+    readonly toolId: FieldRef<"RentalAccessoryGroup", 'String'>
+    readonly name: FieldRef<"RentalAccessoryGroup", 'String'>
+    readonly required: FieldRef<"RentalAccessoryGroup", 'Boolean'>
+    readonly position: FieldRef<"RentalAccessoryGroup", 'Int'>
+    readonly active: FieldRef<"RentalAccessoryGroup", 'Boolean'>
+    readonly createdAt: FieldRef<"RentalAccessoryGroup", 'DateTime'>
+    readonly updatedAt: FieldRef<"RentalAccessoryGroup", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalAccessoryGroup findUnique
+   */
+  export type RentalAccessoryGroupFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryGroup to fetch.
+     */
+    where: RentalAccessoryGroupWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryGroup findUniqueOrThrow
+   */
+  export type RentalAccessoryGroupFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryGroup to fetch.
+     */
+    where: RentalAccessoryGroupWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryGroup findFirst
+   */
+  export type RentalAccessoryGroupFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryGroup to fetch.
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryGroups to fetch.
+     */
+    orderBy?: RentalAccessoryGroupOrderByWithRelationInput | RentalAccessoryGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalAccessoryGroups.
+     */
+    cursor?: RentalAccessoryGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalAccessoryGroups.
+     */
+    distinct?: RentalAccessoryGroupScalarFieldEnum | RentalAccessoryGroupScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryGroup findFirstOrThrow
+   */
+  export type RentalAccessoryGroupFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryGroup to fetch.
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryGroups to fetch.
+     */
+    orderBy?: RentalAccessoryGroupOrderByWithRelationInput | RentalAccessoryGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalAccessoryGroups.
+     */
+    cursor?: RentalAccessoryGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalAccessoryGroups.
+     */
+    distinct?: RentalAccessoryGroupScalarFieldEnum | RentalAccessoryGroupScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryGroup findMany
+   */
+  export type RentalAccessoryGroupFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryGroups to fetch.
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryGroups to fetch.
+     */
+    orderBy?: RentalAccessoryGroupOrderByWithRelationInput | RentalAccessoryGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalAccessoryGroups.
+     */
+    cursor?: RentalAccessoryGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryGroups.
+     */
+    skip?: number
+    distinct?: RentalAccessoryGroupScalarFieldEnum | RentalAccessoryGroupScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryGroup create
+   */
+  export type RentalAccessoryGroupCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RentalAccessoryGroup.
+     */
+    data: XOR<RentalAccessoryGroupCreateInput, RentalAccessoryGroupUncheckedCreateInput>
+  }
+
+  /**
+   * RentalAccessoryGroup createMany
+   */
+  export type RentalAccessoryGroupCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalAccessoryGroups.
+     */
+    data: RentalAccessoryGroupCreateManyInput | RentalAccessoryGroupCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalAccessoryGroup createManyAndReturn
+   */
+  export type RentalAccessoryGroupCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalAccessoryGroups.
+     */
+    data: RentalAccessoryGroupCreateManyInput | RentalAccessoryGroupCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalAccessoryGroup update
+   */
+  export type RentalAccessoryGroupUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RentalAccessoryGroup.
+     */
+    data: XOR<RentalAccessoryGroupUpdateInput, RentalAccessoryGroupUncheckedUpdateInput>
+    /**
+     * Choose, which RentalAccessoryGroup to update.
+     */
+    where: RentalAccessoryGroupWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryGroup updateMany
+   */
+  export type RentalAccessoryGroupUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalAccessoryGroups.
+     */
+    data: XOR<RentalAccessoryGroupUpdateManyMutationInput, RentalAccessoryGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalAccessoryGroups to update
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * Limit how many RentalAccessoryGroups to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalAccessoryGroup updateManyAndReturn
+   */
+  export type RentalAccessoryGroupUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalAccessoryGroups.
+     */
+    data: XOR<RentalAccessoryGroupUpdateManyMutationInput, RentalAccessoryGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalAccessoryGroups to update
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * Limit how many RentalAccessoryGroups to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalAccessoryGroup upsert
+   */
+  export type RentalAccessoryGroupUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RentalAccessoryGroup to update in case it exists.
+     */
+    where: RentalAccessoryGroupWhereUniqueInput
+    /**
+     * In case the RentalAccessoryGroup found by the `where` argument doesn't exist, create a new RentalAccessoryGroup with this data.
+     */
+    create: XOR<RentalAccessoryGroupCreateInput, RentalAccessoryGroupUncheckedCreateInput>
+    /**
+     * In case the RentalAccessoryGroup was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalAccessoryGroupUpdateInput, RentalAccessoryGroupUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalAccessoryGroup delete
+   */
+  export type RentalAccessoryGroupDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+    /**
+     * Filter which RentalAccessoryGroup to delete.
+     */
+    where: RentalAccessoryGroupWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryGroup deleteMany
+   */
+  export type RentalAccessoryGroupDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalAccessoryGroups to delete
+     */
+    where?: RentalAccessoryGroupWhereInput
+    /**
+     * Limit how many RentalAccessoryGroups to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalAccessoryGroup.options
+   */
+  export type RentalAccessoryGroup$optionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    where?: RentalAccessoryOptionWhereInput
+    orderBy?: RentalAccessoryOptionOrderByWithRelationInput | RentalAccessoryOptionOrderByWithRelationInput[]
+    cursor?: RentalAccessoryOptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RentalAccessoryOptionScalarFieldEnum | RentalAccessoryOptionScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryGroup without action
+   */
+  export type RentalAccessoryGroupDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryGroup
+     */
+    select?: RentalAccessoryGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryGroup
+     */
+    omit?: RentalAccessoryGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryGroupInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RentalAccessoryOption
+   */
+
+  export type AggregateRentalAccessoryOption = {
+    _count: RentalAccessoryOptionCountAggregateOutputType | null
+    _avg: RentalAccessoryOptionAvgAggregateOutputType | null
+    _sum: RentalAccessoryOptionSumAggregateOutputType | null
+    _min: RentalAccessoryOptionMinAggregateOutputType | null
+    _max: RentalAccessoryOptionMaxAggregateOutputType | null
+  }
+
+  export type RentalAccessoryOptionAvgAggregateOutputType = {
+    dailyPriceExVat: Decimal | null
+    position: number | null
+  }
+
+  export type RentalAccessoryOptionSumAggregateOutputType = {
+    dailyPriceExVat: Decimal | null
+    position: number | null
+  }
+
+  export type RentalAccessoryOptionMinAggregateOutputType = {
+    id: string | null
+    groupId: string | null
+    name: string | null
+    description: string | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    dailyPriceExVat: Decimal | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalAccessoryOptionMaxAggregateOutputType = {
+    id: string | null
+    groupId: string | null
+    name: string | null
+    description: string | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    dailyPriceExVat: Decimal | null
+    position: number | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RentalAccessoryOptionCountAggregateOutputType = {
+    id: number
+    groupId: number
+    name: number
+    description: number
+    imageUrl: number
+    imageBlobPath: number
+    dailyPriceExVat: number
+    position: number
+    active: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RentalAccessoryOptionAvgAggregateInputType = {
+    dailyPriceExVat?: true
+    position?: true
+  }
+
+  export type RentalAccessoryOptionSumAggregateInputType = {
+    dailyPriceExVat?: true
+    position?: true
+  }
+
+  export type RentalAccessoryOptionMinAggregateInputType = {
+    id?: true
+    groupId?: true
+    name?: true
+    description?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    dailyPriceExVat?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalAccessoryOptionMaxAggregateInputType = {
+    id?: true
+    groupId?: true
+    name?: true
+    description?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    dailyPriceExVat?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RentalAccessoryOptionCountAggregateInputType = {
+    id?: true
+    groupId?: true
+    name?: true
+    description?: true
+    imageUrl?: true
+    imageBlobPath?: true
+    dailyPriceExVat?: true
+    position?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RentalAccessoryOptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalAccessoryOption to aggregate.
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryOptions to fetch.
+     */
+    orderBy?: RentalAccessoryOptionOrderByWithRelationInput | RentalAccessoryOptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RentalAccessoryOptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryOptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryOptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RentalAccessoryOptions
+    **/
+    _count?: true | RentalAccessoryOptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RentalAccessoryOptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RentalAccessoryOptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RentalAccessoryOptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RentalAccessoryOptionMaxAggregateInputType
+  }
+
+  export type GetRentalAccessoryOptionAggregateType<T extends RentalAccessoryOptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateRentalAccessoryOption]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRentalAccessoryOption[P]>
+      : GetScalarType<T[P], AggregateRentalAccessoryOption[P]>
+  }
+
+
+
+
+  export type RentalAccessoryOptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RentalAccessoryOptionWhereInput
+    orderBy?: RentalAccessoryOptionOrderByWithAggregationInput | RentalAccessoryOptionOrderByWithAggregationInput[]
+    by: RentalAccessoryOptionScalarFieldEnum[] | RentalAccessoryOptionScalarFieldEnum
+    having?: RentalAccessoryOptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RentalAccessoryOptionCountAggregateInputType | true
+    _avg?: RentalAccessoryOptionAvgAggregateInputType
+    _sum?: RentalAccessoryOptionSumAggregateInputType
+    _min?: RentalAccessoryOptionMinAggregateInputType
+    _max?: RentalAccessoryOptionMaxAggregateInputType
+  }
+
+  export type RentalAccessoryOptionGroupByOutputType = {
+    id: string
+    groupId: string
+    name: string
+    description: string | null
+    imageUrl: string | null
+    imageBlobPath: string | null
+    dailyPriceExVat: Decimal
+    position: number
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RentalAccessoryOptionCountAggregateOutputType | null
+    _avg: RentalAccessoryOptionAvgAggregateOutputType | null
+    _sum: RentalAccessoryOptionSumAggregateOutputType | null
+    _min: RentalAccessoryOptionMinAggregateOutputType | null
+    _max: RentalAccessoryOptionMaxAggregateOutputType | null
+  }
+
+  type GetRentalAccessoryOptionGroupByPayload<T extends RentalAccessoryOptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RentalAccessoryOptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RentalAccessoryOptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RentalAccessoryOptionGroupByOutputType[P]>
+            : GetScalarType<T[P], RentalAccessoryOptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RentalAccessoryOptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    dailyPriceExVat?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    group?: boolean | RentalAccessoryGroupDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalAccessoryOption"]>
+
+  export type RentalAccessoryOptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    dailyPriceExVat?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    group?: boolean | RentalAccessoryGroupDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalAccessoryOption"]>
+
+  export type RentalAccessoryOptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    dailyPriceExVat?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    group?: boolean | RentalAccessoryGroupDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rentalAccessoryOption"]>
+
+  export type RentalAccessoryOptionSelectScalar = {
+    id?: boolean
+    groupId?: boolean
+    name?: boolean
+    description?: boolean
+    imageUrl?: boolean
+    imageBlobPath?: boolean
+    dailyPriceExVat?: boolean
+    position?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RentalAccessoryOptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "groupId" | "name" | "description" | "imageUrl" | "imageBlobPath" | "dailyPriceExVat" | "position" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalAccessoryOption"]>
+  export type RentalAccessoryOptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | RentalAccessoryGroupDefaultArgs<ExtArgs>
+  }
+  export type RentalAccessoryOptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | RentalAccessoryGroupDefaultArgs<ExtArgs>
+  }
+  export type RentalAccessoryOptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | RentalAccessoryGroupDefaultArgs<ExtArgs>
+  }
+
+  export type $RentalAccessoryOptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RentalAccessoryOption"
+    objects: {
+      group: Prisma.$RentalAccessoryGroupPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      groupId: string
+      name: string
+      description: string | null
+      imageUrl: string | null
+      imageBlobPath: string | null
+      dailyPriceExVat: Prisma.Decimal
+      position: number
+      active: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["rentalAccessoryOption"]>
+    composites: {}
+  }
+
+  type RentalAccessoryOptionGetPayload<S extends boolean | null | undefined | RentalAccessoryOptionDefaultArgs> = $Result.GetResult<Prisma.$RentalAccessoryOptionPayload, S>
+
+  type RentalAccessoryOptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RentalAccessoryOptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RentalAccessoryOptionCountAggregateInputType | true
+    }
+
+  export interface RentalAccessoryOptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RentalAccessoryOption'], meta: { name: 'RentalAccessoryOption' } }
+    /**
+     * Find zero or one RentalAccessoryOption that matches the filter.
+     * @param {RentalAccessoryOptionFindUniqueArgs} args - Arguments to find a RentalAccessoryOption
+     * @example
+     * // Get one RentalAccessoryOption
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RentalAccessoryOptionFindUniqueArgs>(args: SelectSubset<T, RentalAccessoryOptionFindUniqueArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RentalAccessoryOption that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RentalAccessoryOptionFindUniqueOrThrowArgs} args - Arguments to find a RentalAccessoryOption
+     * @example
+     * // Get one RentalAccessoryOption
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RentalAccessoryOptionFindUniqueOrThrowArgs>(args: SelectSubset<T, RentalAccessoryOptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalAccessoryOption that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionFindFirstArgs} args - Arguments to find a RentalAccessoryOption
+     * @example
+     * // Get one RentalAccessoryOption
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RentalAccessoryOptionFindFirstArgs>(args?: SelectSubset<T, RentalAccessoryOptionFindFirstArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RentalAccessoryOption that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionFindFirstOrThrowArgs} args - Arguments to find a RentalAccessoryOption
+     * @example
+     * // Get one RentalAccessoryOption
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RentalAccessoryOptionFindFirstOrThrowArgs>(args?: SelectSubset<T, RentalAccessoryOptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RentalAccessoryOptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RentalAccessoryOptions
+     * const rentalAccessoryOptions = await prisma.rentalAccessoryOption.findMany()
+     * 
+     * // Get first 10 RentalAccessoryOptions
+     * const rentalAccessoryOptions = await prisma.rentalAccessoryOption.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rentalAccessoryOptionWithIdOnly = await prisma.rentalAccessoryOption.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RentalAccessoryOptionFindManyArgs>(args?: SelectSubset<T, RentalAccessoryOptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RentalAccessoryOption.
+     * @param {RentalAccessoryOptionCreateArgs} args - Arguments to create a RentalAccessoryOption.
+     * @example
+     * // Create one RentalAccessoryOption
+     * const RentalAccessoryOption = await prisma.rentalAccessoryOption.create({
+     *   data: {
+     *     // ... data to create a RentalAccessoryOption
+     *   }
+     * })
+     * 
+     */
+    create<T extends RentalAccessoryOptionCreateArgs>(args: SelectSubset<T, RentalAccessoryOptionCreateArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RentalAccessoryOptions.
+     * @param {RentalAccessoryOptionCreateManyArgs} args - Arguments to create many RentalAccessoryOptions.
+     * @example
+     * // Create many RentalAccessoryOptions
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RentalAccessoryOptionCreateManyArgs>(args?: SelectSubset<T, RentalAccessoryOptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RentalAccessoryOptions and returns the data saved in the database.
+     * @param {RentalAccessoryOptionCreateManyAndReturnArgs} args - Arguments to create many RentalAccessoryOptions.
+     * @example
+     * // Create many RentalAccessoryOptions
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RentalAccessoryOptions and only return the `id`
+     * const rentalAccessoryOptionWithIdOnly = await prisma.rentalAccessoryOption.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RentalAccessoryOptionCreateManyAndReturnArgs>(args?: SelectSubset<T, RentalAccessoryOptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RentalAccessoryOption.
+     * @param {RentalAccessoryOptionDeleteArgs} args - Arguments to delete one RentalAccessoryOption.
+     * @example
+     * // Delete one RentalAccessoryOption
+     * const RentalAccessoryOption = await prisma.rentalAccessoryOption.delete({
+     *   where: {
+     *     // ... filter to delete one RentalAccessoryOption
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RentalAccessoryOptionDeleteArgs>(args: SelectSubset<T, RentalAccessoryOptionDeleteArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RentalAccessoryOption.
+     * @param {RentalAccessoryOptionUpdateArgs} args - Arguments to update one RentalAccessoryOption.
+     * @example
+     * // Update one RentalAccessoryOption
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RentalAccessoryOptionUpdateArgs>(args: SelectSubset<T, RentalAccessoryOptionUpdateArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RentalAccessoryOptions.
+     * @param {RentalAccessoryOptionDeleteManyArgs} args - Arguments to filter RentalAccessoryOptions to delete.
+     * @example
+     * // Delete a few RentalAccessoryOptions
+     * const { count } = await prisma.rentalAccessoryOption.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RentalAccessoryOptionDeleteManyArgs>(args?: SelectSubset<T, RentalAccessoryOptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalAccessoryOptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RentalAccessoryOptions
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RentalAccessoryOptionUpdateManyArgs>(args: SelectSubset<T, RentalAccessoryOptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RentalAccessoryOptions and returns the data updated in the database.
+     * @param {RentalAccessoryOptionUpdateManyAndReturnArgs} args - Arguments to update many RentalAccessoryOptions.
+     * @example
+     * // Update many RentalAccessoryOptions
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RentalAccessoryOptions and only return the `id`
+     * const rentalAccessoryOptionWithIdOnly = await prisma.rentalAccessoryOption.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RentalAccessoryOptionUpdateManyAndReturnArgs>(args: SelectSubset<T, RentalAccessoryOptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RentalAccessoryOption.
+     * @param {RentalAccessoryOptionUpsertArgs} args - Arguments to update or create a RentalAccessoryOption.
+     * @example
+     * // Update or create a RentalAccessoryOption
+     * const rentalAccessoryOption = await prisma.rentalAccessoryOption.upsert({
+     *   create: {
+     *     // ... data to create a RentalAccessoryOption
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RentalAccessoryOption we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RentalAccessoryOptionUpsertArgs>(args: SelectSubset<T, RentalAccessoryOptionUpsertArgs<ExtArgs>>): Prisma__RentalAccessoryOptionClient<$Result.GetResult<Prisma.$RentalAccessoryOptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RentalAccessoryOptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionCountArgs} args - Arguments to filter RentalAccessoryOptions to count.
+     * @example
+     * // Count the number of RentalAccessoryOptions
+     * const count = await prisma.rentalAccessoryOption.count({
+     *   where: {
+     *     // ... the filter for the RentalAccessoryOptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends RentalAccessoryOptionCountArgs>(
+      args?: Subset<T, RentalAccessoryOptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RentalAccessoryOptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RentalAccessoryOption.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RentalAccessoryOptionAggregateArgs>(args: Subset<T, RentalAccessoryOptionAggregateArgs>): Prisma.PrismaPromise<GetRentalAccessoryOptionAggregateType<T>>
+
+    /**
+     * Group by RentalAccessoryOption.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RentalAccessoryOptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RentalAccessoryOptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RentalAccessoryOptionGroupByArgs['orderBy'] }
+        : { orderBy?: RentalAccessoryOptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RentalAccessoryOptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRentalAccessoryOptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RentalAccessoryOption model
+   */
+  readonly fields: RentalAccessoryOptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RentalAccessoryOption.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RentalAccessoryOptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    group<T extends RentalAccessoryGroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RentalAccessoryGroupDefaultArgs<ExtArgs>>): Prisma__RentalAccessoryGroupClient<$Result.GetResult<Prisma.$RentalAccessoryGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RentalAccessoryOption model
+   */
+  interface RentalAccessoryOptionFieldRefs {
+    readonly id: FieldRef<"RentalAccessoryOption", 'String'>
+    readonly groupId: FieldRef<"RentalAccessoryOption", 'String'>
+    readonly name: FieldRef<"RentalAccessoryOption", 'String'>
+    readonly description: FieldRef<"RentalAccessoryOption", 'String'>
+    readonly imageUrl: FieldRef<"RentalAccessoryOption", 'String'>
+    readonly imageBlobPath: FieldRef<"RentalAccessoryOption", 'String'>
+    readonly dailyPriceExVat: FieldRef<"RentalAccessoryOption", 'Decimal'>
+    readonly position: FieldRef<"RentalAccessoryOption", 'Int'>
+    readonly active: FieldRef<"RentalAccessoryOption", 'Boolean'>
+    readonly createdAt: FieldRef<"RentalAccessoryOption", 'DateTime'>
+    readonly updatedAt: FieldRef<"RentalAccessoryOption", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RentalAccessoryOption findUnique
+   */
+  export type RentalAccessoryOptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryOption to fetch.
+     */
+    where: RentalAccessoryOptionWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryOption findUniqueOrThrow
+   */
+  export type RentalAccessoryOptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryOption to fetch.
+     */
+    where: RentalAccessoryOptionWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryOption findFirst
+   */
+  export type RentalAccessoryOptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryOption to fetch.
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryOptions to fetch.
+     */
+    orderBy?: RentalAccessoryOptionOrderByWithRelationInput | RentalAccessoryOptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalAccessoryOptions.
+     */
+    cursor?: RentalAccessoryOptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryOptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryOptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalAccessoryOptions.
+     */
+    distinct?: RentalAccessoryOptionScalarFieldEnum | RentalAccessoryOptionScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryOption findFirstOrThrow
+   */
+  export type RentalAccessoryOptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryOption to fetch.
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryOptions to fetch.
+     */
+    orderBy?: RentalAccessoryOptionOrderByWithRelationInput | RentalAccessoryOptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RentalAccessoryOptions.
+     */
+    cursor?: RentalAccessoryOptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryOptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryOptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RentalAccessoryOptions.
+     */
+    distinct?: RentalAccessoryOptionScalarFieldEnum | RentalAccessoryOptionScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryOption findMany
+   */
+  export type RentalAccessoryOptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * Filter, which RentalAccessoryOptions to fetch.
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RentalAccessoryOptions to fetch.
+     */
+    orderBy?: RentalAccessoryOptionOrderByWithRelationInput | RentalAccessoryOptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RentalAccessoryOptions.
+     */
+    cursor?: RentalAccessoryOptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RentalAccessoryOptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RentalAccessoryOptions.
+     */
+    skip?: number
+    distinct?: RentalAccessoryOptionScalarFieldEnum | RentalAccessoryOptionScalarFieldEnum[]
+  }
+
+  /**
+   * RentalAccessoryOption create
+   */
+  export type RentalAccessoryOptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RentalAccessoryOption.
+     */
+    data: XOR<RentalAccessoryOptionCreateInput, RentalAccessoryOptionUncheckedCreateInput>
+  }
+
+  /**
+   * RentalAccessoryOption createMany
+   */
+  export type RentalAccessoryOptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RentalAccessoryOptions.
+     */
+    data: RentalAccessoryOptionCreateManyInput | RentalAccessoryOptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RentalAccessoryOption createManyAndReturn
+   */
+  export type RentalAccessoryOptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many RentalAccessoryOptions.
+     */
+    data: RentalAccessoryOptionCreateManyInput | RentalAccessoryOptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalAccessoryOption update
+   */
+  export type RentalAccessoryOptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RentalAccessoryOption.
+     */
+    data: XOR<RentalAccessoryOptionUpdateInput, RentalAccessoryOptionUncheckedUpdateInput>
+    /**
+     * Choose, which RentalAccessoryOption to update.
+     */
+    where: RentalAccessoryOptionWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryOption updateMany
+   */
+  export type RentalAccessoryOptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RentalAccessoryOptions.
+     */
+    data: XOR<RentalAccessoryOptionUpdateManyMutationInput, RentalAccessoryOptionUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalAccessoryOptions to update
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * Limit how many RentalAccessoryOptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalAccessoryOption updateManyAndReturn
+   */
+  export type RentalAccessoryOptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * The data used to update RentalAccessoryOptions.
+     */
+    data: XOR<RentalAccessoryOptionUpdateManyMutationInput, RentalAccessoryOptionUncheckedUpdateManyInput>
+    /**
+     * Filter which RentalAccessoryOptions to update
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * Limit how many RentalAccessoryOptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RentalAccessoryOption upsert
+   */
+  export type RentalAccessoryOptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RentalAccessoryOption to update in case it exists.
+     */
+    where: RentalAccessoryOptionWhereUniqueInput
+    /**
+     * In case the RentalAccessoryOption found by the `where` argument doesn't exist, create a new RentalAccessoryOption with this data.
+     */
+    create: XOR<RentalAccessoryOptionCreateInput, RentalAccessoryOptionUncheckedCreateInput>
+    /**
+     * In case the RentalAccessoryOption was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RentalAccessoryOptionUpdateInput, RentalAccessoryOptionUncheckedUpdateInput>
+  }
+
+  /**
+   * RentalAccessoryOption delete
+   */
+  export type RentalAccessoryOptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
+    /**
+     * Filter which RentalAccessoryOption to delete.
+     */
+    where: RentalAccessoryOptionWhereUniqueInput
+  }
+
+  /**
+   * RentalAccessoryOption deleteMany
+   */
+  export type RentalAccessoryOptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RentalAccessoryOptions to delete
+     */
+    where?: RentalAccessoryOptionWhereInput
+    /**
+     * Limit how many RentalAccessoryOptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RentalAccessoryOption without action
+   */
+  export type RentalAccessoryOptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RentalAccessoryOption
+     */
+    select?: RentalAccessoryOptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RentalAccessoryOption
+     */
+    omit?: RentalAccessoryOptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RentalAccessoryOptionInclude<ExtArgs> | null
   }
 
 
@@ -31470,6 +34055,7 @@ export namespace Prisma {
     deliveryKm: number | null
     days: number | null
     rentalExVat: Decimal | null
+    accessoriesExVat: Decimal | null
     deliveryExVat: Decimal | null
     vatAmount: Decimal | null
     priceInclVat: Decimal | null
@@ -31481,6 +34067,7 @@ export namespace Prisma {
     deliveryKm: number | null
     days: number | null
     rentalExVat: Decimal | null
+    accessoriesExVat: Decimal | null
     deliveryExVat: Decimal | null
     vatAmount: Decimal | null
     priceInclVat: Decimal | null
@@ -31504,6 +34091,7 @@ export namespace Prisma {
     endDate: Date | null
     days: number | null
     rentalExVat: Decimal | null
+    accessoriesExVat: Decimal | null
     deliveryExVat: Decimal | null
     vatAmount: Decimal | null
     priceInclVat: Decimal | null
@@ -31533,6 +34121,7 @@ export namespace Prisma {
     endDate: Date | null
     days: number | null
     rentalExVat: Decimal | null
+    accessoriesExVat: Decimal | null
     deliveryExVat: Decimal | null
     vatAmount: Decimal | null
     priceInclVat: Decimal | null
@@ -31562,7 +34151,9 @@ export namespace Prisma {
     startDate: number
     endDate: number
     days: number
+    accessories: number
     rentalExVat: number
+    accessoriesExVat: number
     deliveryExVat: number
     vatAmount: number
     priceInclVat: number
@@ -31582,6 +34173,7 @@ export namespace Prisma {
     deliveryKm?: true
     days?: true
     rentalExVat?: true
+    accessoriesExVat?: true
     deliveryExVat?: true
     vatAmount?: true
     priceInclVat?: true
@@ -31593,6 +34185,7 @@ export namespace Prisma {
     deliveryKm?: true
     days?: true
     rentalExVat?: true
+    accessoriesExVat?: true
     deliveryExVat?: true
     vatAmount?: true
     priceInclVat?: true
@@ -31616,6 +34209,7 @@ export namespace Prisma {
     endDate?: true
     days?: true
     rentalExVat?: true
+    accessoriesExVat?: true
     deliveryExVat?: true
     vatAmount?: true
     priceInclVat?: true
@@ -31645,6 +34239,7 @@ export namespace Prisma {
     endDate?: true
     days?: true
     rentalExVat?: true
+    accessoriesExVat?: true
     deliveryExVat?: true
     vatAmount?: true
     priceInclVat?: true
@@ -31674,7 +34269,9 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     days?: true
+    accessories?: true
     rentalExVat?: true
+    accessoriesExVat?: true
     deliveryExVat?: true
     vatAmount?: true
     priceInclVat?: true
@@ -31791,7 +34388,9 @@ export namespace Prisma {
     startDate: Date
     endDate: Date
     days: number
+    accessories: JsonValue
     rentalExVat: Decimal
+    accessoriesExVat: Decimal
     deliveryExVat: Decimal
     vatAmount: Decimal
     priceInclVat: Decimal
@@ -31840,7 +34439,9 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     days?: boolean
+    accessories?: boolean
     rentalExVat?: boolean
+    accessoriesExVat?: boolean
     deliveryExVat?: boolean
     vatAmount?: boolean
     priceInclVat?: boolean
@@ -31872,7 +34473,9 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     days?: boolean
+    accessories?: boolean
     rentalExVat?: boolean
+    accessoriesExVat?: boolean
     deliveryExVat?: boolean
     vatAmount?: boolean
     priceInclVat?: boolean
@@ -31903,7 +34506,9 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     days?: boolean
+    accessories?: boolean
     rentalExVat?: boolean
+    accessoriesExVat?: boolean
     deliveryExVat?: boolean
     vatAmount?: boolean
     priceInclVat?: boolean
@@ -31934,7 +34539,9 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     days?: boolean
+    accessories?: boolean
     rentalExVat?: boolean
+    accessoriesExVat?: boolean
     deliveryExVat?: boolean
     vatAmount?: boolean
     priceInclVat?: boolean
@@ -31946,7 +34553,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type RentalReservationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "year" | "seq" | "toolId" | "toolSnapshot" | "customerName" | "customerEmail" | "customerPhone" | "customerCompany" | "customerNote" | "deliveryType" | "deliveryKm" | "deliveryAddress" | "startDate" | "endDate" | "days" | "rentalExVat" | "deliveryExVat" | "vatAmount" | "priceInclVat" | "status" | "adminNote" | "decidedById" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalReservation"]>
+  export type RentalReservationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "year" | "seq" | "toolId" | "toolSnapshot" | "customerName" | "customerEmail" | "customerPhone" | "customerCompany" | "customerNote" | "deliveryType" | "deliveryKm" | "deliveryAddress" | "startDate" | "endDate" | "days" | "accessories" | "rentalExVat" | "accessoriesExVat" | "deliveryExVat" | "vatAmount" | "priceInclVat" | "status" | "adminNote" | "decidedById" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["rentalReservation"]>
   export type RentalReservationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | RentalToolDefaultArgs<ExtArgs>
     booking?: boolean | RentalReservation$bookingArgs<ExtArgs>
@@ -31982,7 +34589,9 @@ export namespace Prisma {
       startDate: Date
       endDate: Date
       days: number
+      accessories: Prisma.JsonValue
       rentalExVat: Prisma.Decimal
+      accessoriesExVat: Prisma.Decimal
       deliveryExVat: Prisma.Decimal
       vatAmount: Prisma.Decimal
       priceInclVat: Prisma.Decimal
@@ -32434,7 +35043,9 @@ export namespace Prisma {
     readonly startDate: FieldRef<"RentalReservation", 'DateTime'>
     readonly endDate: FieldRef<"RentalReservation", 'DateTime'>
     readonly days: FieldRef<"RentalReservation", 'Int'>
+    readonly accessories: FieldRef<"RentalReservation", 'Json'>
     readonly rentalExVat: FieldRef<"RentalReservation", 'Decimal'>
+    readonly accessoriesExVat: FieldRef<"RentalReservation", 'Decimal'>
     readonly deliveryExVat: FieldRef<"RentalReservation", 'Decimal'>
     readonly vatAmount: FieldRef<"RentalReservation", 'Decimal'>
     readonly priceInclVat: FieldRef<"RentalReservation", 'Decimal'>
@@ -36895,6 +39506,37 @@ export namespace Prisma {
   export type RentalToolScalarFieldEnum = (typeof RentalToolScalarFieldEnum)[keyof typeof RentalToolScalarFieldEnum]
 
 
+  export const RentalAccessoryGroupScalarFieldEnum: {
+    id: 'id',
+    toolId: 'toolId',
+    name: 'name',
+    required: 'required',
+    position: 'position',
+    active: 'active',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RentalAccessoryGroupScalarFieldEnum = (typeof RentalAccessoryGroupScalarFieldEnum)[keyof typeof RentalAccessoryGroupScalarFieldEnum]
+
+
+  export const RentalAccessoryOptionScalarFieldEnum: {
+    id: 'id',
+    groupId: 'groupId',
+    name: 'name',
+    description: 'description',
+    imageUrl: 'imageUrl',
+    imageBlobPath: 'imageBlobPath',
+    dailyPriceExVat: 'dailyPriceExVat',
+    position: 'position',
+    active: 'active',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RentalAccessoryOptionScalarFieldEnum = (typeof RentalAccessoryOptionScalarFieldEnum)[keyof typeof RentalAccessoryOptionScalarFieldEnum]
+
+
   export const RentalReservationScalarFieldEnum: {
     id: 'id',
     number: 'number',
@@ -36913,7 +39555,9 @@ export namespace Prisma {
     startDate: 'startDate',
     endDate: 'endDate',
     days: 'days',
+    accessories: 'accessories',
     rentalExVat: 'rentalExVat',
+    accessoriesExVat: 'accessoriesExVat',
     deliveryExVat: 'deliveryExVat',
     vatAmount: 'vatAmount',
     priceInclVat: 'priceInclVat',
@@ -39518,6 +42162,7 @@ export namespace Prisma {
     category?: XOR<RentalCategoryScalarRelationFilter, RentalCategoryWhereInput>
     reservations?: RentalReservationListRelationFilter
     bookings?: RentalBookingListRelationFilter
+    accessoryGroups?: RentalAccessoryGroupListRelationFilter
   }
 
   export type RentalToolOrderByWithRelationInput = {
@@ -39543,6 +42188,7 @@ export namespace Prisma {
     category?: RentalCategoryOrderByWithRelationInput
     reservations?: RentalReservationOrderByRelationAggregateInput
     bookings?: RentalBookingOrderByRelationAggregateInput
+    accessoryGroups?: RentalAccessoryGroupOrderByRelationAggregateInput
   }
 
   export type RentalToolWhereUniqueInput = Prisma.AtLeast<{
@@ -39571,6 +42217,7 @@ export namespace Prisma {
     category?: XOR<RentalCategoryScalarRelationFilter, RentalCategoryWhereInput>
     reservations?: RentalReservationListRelationFilter
     bookings?: RentalBookingListRelationFilter
+    accessoryGroups?: RentalAccessoryGroupListRelationFilter
   }, "id" | "slug">
 
   export type RentalToolOrderByWithAggregationInput = {
@@ -39625,6 +42272,168 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"RentalTool"> | Date | string
   }
 
+  export type RentalAccessoryGroupWhereInput = {
+    AND?: RentalAccessoryGroupWhereInput | RentalAccessoryGroupWhereInput[]
+    OR?: RentalAccessoryGroupWhereInput[]
+    NOT?: RentalAccessoryGroupWhereInput | RentalAccessoryGroupWhereInput[]
+    id?: StringFilter<"RentalAccessoryGroup"> | string
+    toolId?: StringFilter<"RentalAccessoryGroup"> | string
+    name?: StringFilter<"RentalAccessoryGroup"> | string
+    required?: BoolFilter<"RentalAccessoryGroup"> | boolean
+    position?: IntFilter<"RentalAccessoryGroup"> | number
+    active?: BoolFilter<"RentalAccessoryGroup"> | boolean
+    createdAt?: DateTimeFilter<"RentalAccessoryGroup"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalAccessoryGroup"> | Date | string
+    tool?: XOR<RentalToolScalarRelationFilter, RentalToolWhereInput>
+    options?: RentalAccessoryOptionListRelationFilter
+  }
+
+  export type RentalAccessoryGroupOrderByWithRelationInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    name?: SortOrder
+    required?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tool?: RentalToolOrderByWithRelationInput
+    options?: RentalAccessoryOptionOrderByRelationAggregateInput
+  }
+
+  export type RentalAccessoryGroupWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RentalAccessoryGroupWhereInput | RentalAccessoryGroupWhereInput[]
+    OR?: RentalAccessoryGroupWhereInput[]
+    NOT?: RentalAccessoryGroupWhereInput | RentalAccessoryGroupWhereInput[]
+    toolId?: StringFilter<"RentalAccessoryGroup"> | string
+    name?: StringFilter<"RentalAccessoryGroup"> | string
+    required?: BoolFilter<"RentalAccessoryGroup"> | boolean
+    position?: IntFilter<"RentalAccessoryGroup"> | number
+    active?: BoolFilter<"RentalAccessoryGroup"> | boolean
+    createdAt?: DateTimeFilter<"RentalAccessoryGroup"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalAccessoryGroup"> | Date | string
+    tool?: XOR<RentalToolScalarRelationFilter, RentalToolWhereInput>
+    options?: RentalAccessoryOptionListRelationFilter
+  }, "id">
+
+  export type RentalAccessoryGroupOrderByWithAggregationInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    name?: SortOrder
+    required?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RentalAccessoryGroupCountOrderByAggregateInput
+    _avg?: RentalAccessoryGroupAvgOrderByAggregateInput
+    _max?: RentalAccessoryGroupMaxOrderByAggregateInput
+    _min?: RentalAccessoryGroupMinOrderByAggregateInput
+    _sum?: RentalAccessoryGroupSumOrderByAggregateInput
+  }
+
+  export type RentalAccessoryGroupScalarWhereWithAggregatesInput = {
+    AND?: RentalAccessoryGroupScalarWhereWithAggregatesInput | RentalAccessoryGroupScalarWhereWithAggregatesInput[]
+    OR?: RentalAccessoryGroupScalarWhereWithAggregatesInput[]
+    NOT?: RentalAccessoryGroupScalarWhereWithAggregatesInput | RentalAccessoryGroupScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalAccessoryGroup"> | string
+    toolId?: StringWithAggregatesFilter<"RentalAccessoryGroup"> | string
+    name?: StringWithAggregatesFilter<"RentalAccessoryGroup"> | string
+    required?: BoolWithAggregatesFilter<"RentalAccessoryGroup"> | boolean
+    position?: IntWithAggregatesFilter<"RentalAccessoryGroup"> | number
+    active?: BoolWithAggregatesFilter<"RentalAccessoryGroup"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"RentalAccessoryGroup"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RentalAccessoryGroup"> | Date | string
+  }
+
+  export type RentalAccessoryOptionWhereInput = {
+    AND?: RentalAccessoryOptionWhereInput | RentalAccessoryOptionWhereInput[]
+    OR?: RentalAccessoryOptionWhereInput[]
+    NOT?: RentalAccessoryOptionWhereInput | RentalAccessoryOptionWhereInput[]
+    id?: StringFilter<"RentalAccessoryOption"> | string
+    groupId?: StringFilter<"RentalAccessoryOption"> | string
+    name?: StringFilter<"RentalAccessoryOption"> | string
+    description?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    imageUrl?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    dailyPriceExVat?: DecimalFilter<"RentalAccessoryOption"> | Decimal | DecimalJsLike | number | string
+    position?: IntFilter<"RentalAccessoryOption"> | number
+    active?: BoolFilter<"RentalAccessoryOption"> | boolean
+    createdAt?: DateTimeFilter<"RentalAccessoryOption"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalAccessoryOption"> | Date | string
+    group?: XOR<RentalAccessoryGroupScalarRelationFilter, RentalAccessoryGroupWhereInput>
+  }
+
+  export type RentalAccessoryOptionOrderByWithRelationInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageBlobPath?: SortOrderInput | SortOrder
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    group?: RentalAccessoryGroupOrderByWithRelationInput
+  }
+
+  export type RentalAccessoryOptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RentalAccessoryOptionWhereInput | RentalAccessoryOptionWhereInput[]
+    OR?: RentalAccessoryOptionWhereInput[]
+    NOT?: RentalAccessoryOptionWhereInput | RentalAccessoryOptionWhereInput[]
+    groupId?: StringFilter<"RentalAccessoryOption"> | string
+    name?: StringFilter<"RentalAccessoryOption"> | string
+    description?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    imageUrl?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    dailyPriceExVat?: DecimalFilter<"RentalAccessoryOption"> | Decimal | DecimalJsLike | number | string
+    position?: IntFilter<"RentalAccessoryOption"> | number
+    active?: BoolFilter<"RentalAccessoryOption"> | boolean
+    createdAt?: DateTimeFilter<"RentalAccessoryOption"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalAccessoryOption"> | Date | string
+    group?: XOR<RentalAccessoryGroupScalarRelationFilter, RentalAccessoryGroupWhereInput>
+  }, "id">
+
+  export type RentalAccessoryOptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imageBlobPath?: SortOrderInput | SortOrder
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RentalAccessoryOptionCountOrderByAggregateInput
+    _avg?: RentalAccessoryOptionAvgOrderByAggregateInput
+    _max?: RentalAccessoryOptionMaxOrderByAggregateInput
+    _min?: RentalAccessoryOptionMinOrderByAggregateInput
+    _sum?: RentalAccessoryOptionSumOrderByAggregateInput
+  }
+
+  export type RentalAccessoryOptionScalarWhereWithAggregatesInput = {
+    AND?: RentalAccessoryOptionScalarWhereWithAggregatesInput | RentalAccessoryOptionScalarWhereWithAggregatesInput[]
+    OR?: RentalAccessoryOptionScalarWhereWithAggregatesInput[]
+    NOT?: RentalAccessoryOptionScalarWhereWithAggregatesInput | RentalAccessoryOptionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RentalAccessoryOption"> | string
+    groupId?: StringWithAggregatesFilter<"RentalAccessoryOption"> | string
+    name?: StringWithAggregatesFilter<"RentalAccessoryOption"> | string
+    description?: StringNullableWithAggregatesFilter<"RentalAccessoryOption"> | string | null
+    imageUrl?: StringNullableWithAggregatesFilter<"RentalAccessoryOption"> | string | null
+    imageBlobPath?: StringNullableWithAggregatesFilter<"RentalAccessoryOption"> | string | null
+    dailyPriceExVat?: DecimalWithAggregatesFilter<"RentalAccessoryOption"> | Decimal | DecimalJsLike | number | string
+    position?: IntWithAggregatesFilter<"RentalAccessoryOption"> | number
+    active?: BoolWithAggregatesFilter<"RentalAccessoryOption"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"RentalAccessoryOption"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RentalAccessoryOption"> | Date | string
+  }
+
   export type RentalReservationWhereInput = {
     AND?: RentalReservationWhereInput | RentalReservationWhereInput[]
     OR?: RentalReservationWhereInput[]
@@ -39646,7 +42455,9 @@ export namespace Prisma {
     startDate?: DateTimeFilter<"RentalReservation"> | Date | string
     endDate?: DateTimeFilter<"RentalReservation"> | Date | string
     days?: IntFilter<"RentalReservation"> | number
+    accessories?: JsonFilter<"RentalReservation">
     rentalExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
@@ -39678,7 +42489,9 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     days?: SortOrder
+    accessories?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -39713,7 +42526,9 @@ export namespace Prisma {
     startDate?: DateTimeFilter<"RentalReservation"> | Date | string
     endDate?: DateTimeFilter<"RentalReservation"> | Date | string
     days?: IntFilter<"RentalReservation"> | number
+    accessories?: JsonFilter<"RentalReservation">
     rentalExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
@@ -39745,7 +42560,9 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     days?: SortOrder
+    accessories?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -39783,7 +42600,9 @@ export namespace Prisma {
     startDate?: DateTimeWithAggregatesFilter<"RentalReservation"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"RentalReservation"> | Date | string
     days?: IntWithAggregatesFilter<"RentalReservation"> | number
+    accessories?: JsonWithAggregatesFilter<"RentalReservation">
     rentalExVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalWithAggregatesFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
@@ -42670,6 +45489,7 @@ export namespace Prisma {
     category: RentalCategoryCreateNestedOneWithoutToolsInput
     reservations?: RentalReservationCreateNestedManyWithoutToolInput
     bookings?: RentalBookingCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolUncheckedCreateInput = {
@@ -42694,6 +45514,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
     bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolUpdateInput = {
@@ -42718,6 +45539,7 @@ export namespace Prisma {
     category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
     reservations?: RentalReservationUpdateManyWithoutToolNestedInput
     bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUpdateManyWithoutToolNestedInput
   }
 
   export type RentalToolUncheckedUpdateInput = {
@@ -42742,6 +45564,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
     bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedUpdateManyWithoutToolNestedInput
   }
 
   export type RentalToolCreateManyInput = {
@@ -42809,6 +45632,183 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RentalAccessoryGroupCreateInput = {
+    id?: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tool: RentalToolCreateNestedOneWithoutAccessoryGroupsInput
+    options?: RentalAccessoryOptionCreateNestedManyWithoutGroupInput
+  }
+
+  export type RentalAccessoryGroupUncheckedCreateInput = {
+    id?: string
+    toolId: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    options?: RentalAccessoryOptionUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type RentalAccessoryGroupUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tool?: RentalToolUpdateOneRequiredWithoutAccessoryGroupsNestedInput
+    options?: RentalAccessoryOptionUpdateManyWithoutGroupNestedInput
+  }
+
+  export type RentalAccessoryGroupUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    options?: RentalAccessoryOptionUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type RentalAccessoryGroupCreateManyInput = {
+    id?: string
+    toolId: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryGroupUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryGroupUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryOptionCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    group: RentalAccessoryGroupCreateNestedOneWithoutOptionsInput
+  }
+
+  export type RentalAccessoryOptionUncheckedCreateInput = {
+    id?: string
+    groupId: string
+    name: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryOptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: RentalAccessoryGroupUpdateOneRequiredWithoutOptionsNestedInput
+  }
+
+  export type RentalAccessoryOptionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryOptionCreateManyInput = {
+    id?: string
+    groupId: string
+    name: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryOptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryOptionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RentalReservationCreateInput = {
     id?: string
     number: string
@@ -42826,7 +45826,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -42858,7 +45860,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -42888,7 +45892,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -42920,7 +45926,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -42951,7 +45959,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -42980,7 +45990,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -43010,7 +46022,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -45299,11 +48313,21 @@ export namespace Prisma {
     none?: RentalBookingWhereInput
   }
 
+  export type RentalAccessoryGroupListRelationFilter = {
+    every?: RentalAccessoryGroupWhereInput
+    some?: RentalAccessoryGroupWhereInput
+    none?: RentalAccessoryGroupWhereInput
+  }
+
   export type RentalReservationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type RentalBookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RentalAccessoryGroupOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45381,6 +48405,119 @@ export namespace Prisma {
     position?: SortOrder
   }
 
+  export type RentalToolScalarRelationFilter = {
+    is?: RentalToolWhereInput
+    isNot?: RentalToolWhereInput
+  }
+
+  export type RentalAccessoryOptionListRelationFilter = {
+    every?: RentalAccessoryOptionWhereInput
+    some?: RentalAccessoryOptionWhereInput
+    none?: RentalAccessoryOptionWhereInput
+  }
+
+  export type RentalAccessoryOptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RentalAccessoryGroupCountOrderByAggregateInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    name?: SortOrder
+    required?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalAccessoryGroupAvgOrderByAggregateInput = {
+    position?: SortOrder
+  }
+
+  export type RentalAccessoryGroupMaxOrderByAggregateInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    name?: SortOrder
+    required?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalAccessoryGroupMinOrderByAggregateInput = {
+    id?: SortOrder
+    toolId?: SortOrder
+    name?: SortOrder
+    required?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalAccessoryGroupSumOrderByAggregateInput = {
+    position?: SortOrder
+  }
+
+  export type RentalAccessoryGroupScalarRelationFilter = {
+    is?: RentalAccessoryGroupWhereInput
+    isNot?: RentalAccessoryGroupWhereInput
+  }
+
+  export type RentalAccessoryOptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalAccessoryOptionAvgOrderByAggregateInput = {
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+  }
+
+  export type RentalAccessoryOptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalAccessoryOptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    imageUrl?: SortOrder
+    imageBlobPath?: SortOrder
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RentalAccessoryOptionSumOrderByAggregateInput = {
+    dailyPriceExVat?: SortOrder
+    position?: SortOrder
+  }
+
   export type EnumRentalDeliveryFilter<$PrismaModel = never> = {
     equals?: $Enums.RentalDelivery | EnumRentalDeliveryFieldRefInput<$PrismaModel>
     in?: $Enums.RentalDelivery[] | ListEnumRentalDeliveryFieldRefInput<$PrismaModel>
@@ -45406,11 +48543,6 @@ export namespace Prisma {
     not?: NestedEnumRentalReservationStatusFilter<$PrismaModel> | $Enums.RentalReservationStatus
   }
 
-  export type RentalToolScalarRelationFilter = {
-    is?: RentalToolWhereInput
-    isNot?: RentalToolWhereInput
-  }
-
   export type RentalBookingNullableScalarRelationFilter = {
     is?: RentalBookingWhereInput | null
     isNot?: RentalBookingWhereInput | null
@@ -45434,7 +48566,9 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     days?: SortOrder
+    accessories?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -45452,6 +48586,7 @@ export namespace Prisma {
     deliveryKm?: SortOrder
     days?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -45475,6 +48610,7 @@ export namespace Prisma {
     endDate?: SortOrder
     days?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -45504,6 +48640,7 @@ export namespace Prisma {
     endDate?: SortOrder
     days?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -45521,6 +48658,7 @@ export namespace Prisma {
     deliveryKm?: SortOrder
     days?: SortOrder
     rentalExVat?: SortOrder
+    accessoriesExVat?: SortOrder
     deliveryExVat?: SortOrder
     vatAmount?: SortOrder
     priceInclVat?: SortOrder
@@ -46883,6 +50021,13 @@ export namespace Prisma {
     connect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
   }
 
+  export type RentalAccessoryGroupCreateNestedManyWithoutToolInput = {
+    create?: XOR<RentalAccessoryGroupCreateWithoutToolInput, RentalAccessoryGroupUncheckedCreateWithoutToolInput> | RentalAccessoryGroupCreateWithoutToolInput[] | RentalAccessoryGroupUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalAccessoryGroupCreateOrConnectWithoutToolInput | RentalAccessoryGroupCreateOrConnectWithoutToolInput[]
+    createMany?: RentalAccessoryGroupCreateManyToolInputEnvelope
+    connect?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+  }
+
   export type RentalReservationUncheckedCreateNestedManyWithoutToolInput = {
     create?: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput> | RentalReservationCreateWithoutToolInput[] | RentalReservationUncheckedCreateWithoutToolInput[]
     connectOrCreate?: RentalReservationCreateOrConnectWithoutToolInput | RentalReservationCreateOrConnectWithoutToolInput[]
@@ -46895,6 +50040,13 @@ export namespace Prisma {
     connectOrCreate?: RentalBookingCreateOrConnectWithoutToolInput | RentalBookingCreateOrConnectWithoutToolInput[]
     createMany?: RentalBookingCreateManyToolInputEnvelope
     connect?: RentalBookingWhereUniqueInput | RentalBookingWhereUniqueInput[]
+  }
+
+  export type RentalAccessoryGroupUncheckedCreateNestedManyWithoutToolInput = {
+    create?: XOR<RentalAccessoryGroupCreateWithoutToolInput, RentalAccessoryGroupUncheckedCreateWithoutToolInput> | RentalAccessoryGroupCreateWithoutToolInput[] | RentalAccessoryGroupUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalAccessoryGroupCreateOrConnectWithoutToolInput | RentalAccessoryGroupCreateOrConnectWithoutToolInput[]
+    createMany?: RentalAccessoryGroupCreateManyToolInputEnvelope
+    connect?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
   }
 
   export type RentalCategoryUpdateOneRequiredWithoutToolsNestedInput = {
@@ -46933,6 +50085,20 @@ export namespace Prisma {
     deleteMany?: RentalBookingScalarWhereInput | RentalBookingScalarWhereInput[]
   }
 
+  export type RentalAccessoryGroupUpdateManyWithoutToolNestedInput = {
+    create?: XOR<RentalAccessoryGroupCreateWithoutToolInput, RentalAccessoryGroupUncheckedCreateWithoutToolInput> | RentalAccessoryGroupCreateWithoutToolInput[] | RentalAccessoryGroupUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalAccessoryGroupCreateOrConnectWithoutToolInput | RentalAccessoryGroupCreateOrConnectWithoutToolInput[]
+    upsert?: RentalAccessoryGroupUpsertWithWhereUniqueWithoutToolInput | RentalAccessoryGroupUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: RentalAccessoryGroupCreateManyToolInputEnvelope
+    set?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    disconnect?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    delete?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    connect?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    update?: RentalAccessoryGroupUpdateWithWhereUniqueWithoutToolInput | RentalAccessoryGroupUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: RentalAccessoryGroupUpdateManyWithWhereWithoutToolInput | RentalAccessoryGroupUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: RentalAccessoryGroupScalarWhereInput | RentalAccessoryGroupScalarWhereInput[]
+  }
+
   export type RentalReservationUncheckedUpdateManyWithoutToolNestedInput = {
     create?: XOR<RentalReservationCreateWithoutToolInput, RentalReservationUncheckedCreateWithoutToolInput> | RentalReservationCreateWithoutToolInput[] | RentalReservationUncheckedCreateWithoutToolInput[]
     connectOrCreate?: RentalReservationCreateOrConnectWithoutToolInput | RentalReservationCreateOrConnectWithoutToolInput[]
@@ -46959,6 +50125,90 @@ export namespace Prisma {
     update?: RentalBookingUpdateWithWhereUniqueWithoutToolInput | RentalBookingUpdateWithWhereUniqueWithoutToolInput[]
     updateMany?: RentalBookingUpdateManyWithWhereWithoutToolInput | RentalBookingUpdateManyWithWhereWithoutToolInput[]
     deleteMany?: RentalBookingScalarWhereInput | RentalBookingScalarWhereInput[]
+  }
+
+  export type RentalAccessoryGroupUncheckedUpdateManyWithoutToolNestedInput = {
+    create?: XOR<RentalAccessoryGroupCreateWithoutToolInput, RentalAccessoryGroupUncheckedCreateWithoutToolInput> | RentalAccessoryGroupCreateWithoutToolInput[] | RentalAccessoryGroupUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: RentalAccessoryGroupCreateOrConnectWithoutToolInput | RentalAccessoryGroupCreateOrConnectWithoutToolInput[]
+    upsert?: RentalAccessoryGroupUpsertWithWhereUniqueWithoutToolInput | RentalAccessoryGroupUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: RentalAccessoryGroupCreateManyToolInputEnvelope
+    set?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    disconnect?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    delete?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    connect?: RentalAccessoryGroupWhereUniqueInput | RentalAccessoryGroupWhereUniqueInput[]
+    update?: RentalAccessoryGroupUpdateWithWhereUniqueWithoutToolInput | RentalAccessoryGroupUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: RentalAccessoryGroupUpdateManyWithWhereWithoutToolInput | RentalAccessoryGroupUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: RentalAccessoryGroupScalarWhereInput | RentalAccessoryGroupScalarWhereInput[]
+  }
+
+  export type RentalToolCreateNestedOneWithoutAccessoryGroupsInput = {
+    create?: XOR<RentalToolCreateWithoutAccessoryGroupsInput, RentalToolUncheckedCreateWithoutAccessoryGroupsInput>
+    connectOrCreate?: RentalToolCreateOrConnectWithoutAccessoryGroupsInput
+    connect?: RentalToolWhereUniqueInput
+  }
+
+  export type RentalAccessoryOptionCreateNestedManyWithoutGroupInput = {
+    create?: XOR<RentalAccessoryOptionCreateWithoutGroupInput, RentalAccessoryOptionUncheckedCreateWithoutGroupInput> | RentalAccessoryOptionCreateWithoutGroupInput[] | RentalAccessoryOptionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: RentalAccessoryOptionCreateOrConnectWithoutGroupInput | RentalAccessoryOptionCreateOrConnectWithoutGroupInput[]
+    createMany?: RentalAccessoryOptionCreateManyGroupInputEnvelope
+    connect?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+  }
+
+  export type RentalAccessoryOptionUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<RentalAccessoryOptionCreateWithoutGroupInput, RentalAccessoryOptionUncheckedCreateWithoutGroupInput> | RentalAccessoryOptionCreateWithoutGroupInput[] | RentalAccessoryOptionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: RentalAccessoryOptionCreateOrConnectWithoutGroupInput | RentalAccessoryOptionCreateOrConnectWithoutGroupInput[]
+    createMany?: RentalAccessoryOptionCreateManyGroupInputEnvelope
+    connect?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+  }
+
+  export type RentalToolUpdateOneRequiredWithoutAccessoryGroupsNestedInput = {
+    create?: XOR<RentalToolCreateWithoutAccessoryGroupsInput, RentalToolUncheckedCreateWithoutAccessoryGroupsInput>
+    connectOrCreate?: RentalToolCreateOrConnectWithoutAccessoryGroupsInput
+    upsert?: RentalToolUpsertWithoutAccessoryGroupsInput
+    connect?: RentalToolWhereUniqueInput
+    update?: XOR<XOR<RentalToolUpdateToOneWithWhereWithoutAccessoryGroupsInput, RentalToolUpdateWithoutAccessoryGroupsInput>, RentalToolUncheckedUpdateWithoutAccessoryGroupsInput>
+  }
+
+  export type RentalAccessoryOptionUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<RentalAccessoryOptionCreateWithoutGroupInput, RentalAccessoryOptionUncheckedCreateWithoutGroupInput> | RentalAccessoryOptionCreateWithoutGroupInput[] | RentalAccessoryOptionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: RentalAccessoryOptionCreateOrConnectWithoutGroupInput | RentalAccessoryOptionCreateOrConnectWithoutGroupInput[]
+    upsert?: RentalAccessoryOptionUpsertWithWhereUniqueWithoutGroupInput | RentalAccessoryOptionUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: RentalAccessoryOptionCreateManyGroupInputEnvelope
+    set?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    disconnect?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    delete?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    connect?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    update?: RentalAccessoryOptionUpdateWithWhereUniqueWithoutGroupInput | RentalAccessoryOptionUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: RentalAccessoryOptionUpdateManyWithWhereWithoutGroupInput | RentalAccessoryOptionUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: RentalAccessoryOptionScalarWhereInput | RentalAccessoryOptionScalarWhereInput[]
+  }
+
+  export type RentalAccessoryOptionUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<RentalAccessoryOptionCreateWithoutGroupInput, RentalAccessoryOptionUncheckedCreateWithoutGroupInput> | RentalAccessoryOptionCreateWithoutGroupInput[] | RentalAccessoryOptionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: RentalAccessoryOptionCreateOrConnectWithoutGroupInput | RentalAccessoryOptionCreateOrConnectWithoutGroupInput[]
+    upsert?: RentalAccessoryOptionUpsertWithWhereUniqueWithoutGroupInput | RentalAccessoryOptionUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: RentalAccessoryOptionCreateManyGroupInputEnvelope
+    set?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    disconnect?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    delete?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    connect?: RentalAccessoryOptionWhereUniqueInput | RentalAccessoryOptionWhereUniqueInput[]
+    update?: RentalAccessoryOptionUpdateWithWhereUniqueWithoutGroupInput | RentalAccessoryOptionUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: RentalAccessoryOptionUpdateManyWithWhereWithoutGroupInput | RentalAccessoryOptionUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: RentalAccessoryOptionScalarWhereInput | RentalAccessoryOptionScalarWhereInput[]
+  }
+
+  export type RentalAccessoryGroupCreateNestedOneWithoutOptionsInput = {
+    create?: XOR<RentalAccessoryGroupCreateWithoutOptionsInput, RentalAccessoryGroupUncheckedCreateWithoutOptionsInput>
+    connectOrCreate?: RentalAccessoryGroupCreateOrConnectWithoutOptionsInput
+    connect?: RentalAccessoryGroupWhereUniqueInput
+  }
+
+  export type RentalAccessoryGroupUpdateOneRequiredWithoutOptionsNestedInput = {
+    create?: XOR<RentalAccessoryGroupCreateWithoutOptionsInput, RentalAccessoryGroupUncheckedCreateWithoutOptionsInput>
+    connectOrCreate?: RentalAccessoryGroupCreateOrConnectWithoutOptionsInput
+    upsert?: RentalAccessoryGroupUpsertWithoutOptionsInput
+    connect?: RentalAccessoryGroupWhereUniqueInput
+    update?: XOR<XOR<RentalAccessoryGroupUpdateToOneWithWhereWithoutOptionsInput, RentalAccessoryGroupUpdateWithoutOptionsInput>, RentalAccessoryGroupUncheckedUpdateWithoutOptionsInput>
   }
 
   export type RentalToolCreateNestedOneWithoutReservationsInput = {
@@ -50875,6 +54125,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reservations?: RentalReservationCreateNestedManyWithoutToolInput
     bookings?: RentalBookingCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolUncheckedCreateWithoutCategoryInput = {
@@ -50898,6 +54149,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
     bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolCreateOrConnectWithoutCategoryInput = {
@@ -50999,7 +54251,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -51029,7 +54283,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -51083,6 +54339,38 @@ export namespace Prisma {
 
   export type RentalBookingCreateManyToolInputEnvelope = {
     data: RentalBookingCreateManyToolInput | RentalBookingCreateManyToolInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RentalAccessoryGroupCreateWithoutToolInput = {
+    id?: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    options?: RentalAccessoryOptionCreateNestedManyWithoutGroupInput
+  }
+
+  export type RentalAccessoryGroupUncheckedCreateWithoutToolInput = {
+    id?: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    options?: RentalAccessoryOptionUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type RentalAccessoryGroupCreateOrConnectWithoutToolInput = {
+    where: RentalAccessoryGroupWhereUniqueInput
+    create: XOR<RentalAccessoryGroupCreateWithoutToolInput, RentalAccessoryGroupUncheckedCreateWithoutToolInput>
+  }
+
+  export type RentalAccessoryGroupCreateManyToolInputEnvelope = {
+    data: RentalAccessoryGroupCreateManyToolInput | RentalAccessoryGroupCreateManyToolInput[]
     skipDuplicates?: boolean
   }
 
@@ -51160,7 +54448,9 @@ export namespace Prisma {
     startDate?: DateTimeFilter<"RentalReservation"> | Date | string
     endDate?: DateTimeFilter<"RentalReservation"> | Date | string
     days?: IntFilter<"RentalReservation"> | number
+    accessories?: JsonFilter<"RentalReservation">
     rentalExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFilter<"RentalReservation"> | Decimal | DecimalJsLike | number | string
@@ -51204,6 +54494,277 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RentalBooking"> | Date | string
   }
 
+  export type RentalAccessoryGroupUpsertWithWhereUniqueWithoutToolInput = {
+    where: RentalAccessoryGroupWhereUniqueInput
+    update: XOR<RentalAccessoryGroupUpdateWithoutToolInput, RentalAccessoryGroupUncheckedUpdateWithoutToolInput>
+    create: XOR<RentalAccessoryGroupCreateWithoutToolInput, RentalAccessoryGroupUncheckedCreateWithoutToolInput>
+  }
+
+  export type RentalAccessoryGroupUpdateWithWhereUniqueWithoutToolInput = {
+    where: RentalAccessoryGroupWhereUniqueInput
+    data: XOR<RentalAccessoryGroupUpdateWithoutToolInput, RentalAccessoryGroupUncheckedUpdateWithoutToolInput>
+  }
+
+  export type RentalAccessoryGroupUpdateManyWithWhereWithoutToolInput = {
+    where: RentalAccessoryGroupScalarWhereInput
+    data: XOR<RentalAccessoryGroupUpdateManyMutationInput, RentalAccessoryGroupUncheckedUpdateManyWithoutToolInput>
+  }
+
+  export type RentalAccessoryGroupScalarWhereInput = {
+    AND?: RentalAccessoryGroupScalarWhereInput | RentalAccessoryGroupScalarWhereInput[]
+    OR?: RentalAccessoryGroupScalarWhereInput[]
+    NOT?: RentalAccessoryGroupScalarWhereInput | RentalAccessoryGroupScalarWhereInput[]
+    id?: StringFilter<"RentalAccessoryGroup"> | string
+    toolId?: StringFilter<"RentalAccessoryGroup"> | string
+    name?: StringFilter<"RentalAccessoryGroup"> | string
+    required?: BoolFilter<"RentalAccessoryGroup"> | boolean
+    position?: IntFilter<"RentalAccessoryGroup"> | number
+    active?: BoolFilter<"RentalAccessoryGroup"> | boolean
+    createdAt?: DateTimeFilter<"RentalAccessoryGroup"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalAccessoryGroup"> | Date | string
+  }
+
+  export type RentalToolCreateWithoutAccessoryGroupsInput = {
+    id?: string
+    name: string
+    model?: string | null
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: RentalCategoryCreateNestedOneWithoutToolsInput
+    reservations?: RentalReservationCreateNestedManyWithoutToolInput
+    bookings?: RentalBookingCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolUncheckedCreateWithoutAccessoryGroupsInput = {
+    id?: string
+    categoryId: string
+    name: string
+    model?: string | null
+    slug: string
+    description?: string | null
+    accessories?: string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    vatRate?: Decimal | DecimalJsLike | number | string
+    quantity?: number
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
+    bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+  }
+
+  export type RentalToolCreateOrConnectWithoutAccessoryGroupsInput = {
+    where: RentalToolWhereUniqueInput
+    create: XOR<RentalToolCreateWithoutAccessoryGroupsInput, RentalToolUncheckedCreateWithoutAccessoryGroupsInput>
+  }
+
+  export type RentalAccessoryOptionCreateWithoutGroupInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryOptionUncheckedCreateWithoutGroupInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryOptionCreateOrConnectWithoutGroupInput = {
+    where: RentalAccessoryOptionWhereUniqueInput
+    create: XOR<RentalAccessoryOptionCreateWithoutGroupInput, RentalAccessoryOptionUncheckedCreateWithoutGroupInput>
+  }
+
+  export type RentalAccessoryOptionCreateManyGroupInputEnvelope = {
+    data: RentalAccessoryOptionCreateManyGroupInput | RentalAccessoryOptionCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RentalToolUpsertWithoutAccessoryGroupsInput = {
+    update: XOR<RentalToolUpdateWithoutAccessoryGroupsInput, RentalToolUncheckedUpdateWithoutAccessoryGroupsInput>
+    create: XOR<RentalToolCreateWithoutAccessoryGroupsInput, RentalToolUncheckedCreateWithoutAccessoryGroupsInput>
+    where?: RentalToolWhereInput
+  }
+
+  export type RentalToolUpdateToOneWithWhereWithoutAccessoryGroupsInput = {
+    where?: RentalToolWhereInput
+    data: XOR<RentalToolUpdateWithoutAccessoryGroupsInput, RentalToolUncheckedUpdateWithoutAccessoryGroupsInput>
+  }
+
+  export type RentalToolUpdateWithoutAccessoryGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
+    reservations?: RentalReservationUpdateManyWithoutToolNestedInput
+    bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalToolUncheckedUpdateWithoutAccessoryGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    accessories?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryPhotos?: JsonNullValueInput | InputJsonValue
+    manuals?: JsonNullValueInput | InputJsonValue
+    videos?: JsonNullValueInput | InputJsonValue
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    vatRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
+    bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type RentalAccessoryOptionUpsertWithWhereUniqueWithoutGroupInput = {
+    where: RentalAccessoryOptionWhereUniqueInput
+    update: XOR<RentalAccessoryOptionUpdateWithoutGroupInput, RentalAccessoryOptionUncheckedUpdateWithoutGroupInput>
+    create: XOR<RentalAccessoryOptionCreateWithoutGroupInput, RentalAccessoryOptionUncheckedCreateWithoutGroupInput>
+  }
+
+  export type RentalAccessoryOptionUpdateWithWhereUniqueWithoutGroupInput = {
+    where: RentalAccessoryOptionWhereUniqueInput
+    data: XOR<RentalAccessoryOptionUpdateWithoutGroupInput, RentalAccessoryOptionUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type RentalAccessoryOptionUpdateManyWithWhereWithoutGroupInput = {
+    where: RentalAccessoryOptionScalarWhereInput
+    data: XOR<RentalAccessoryOptionUpdateManyMutationInput, RentalAccessoryOptionUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type RentalAccessoryOptionScalarWhereInput = {
+    AND?: RentalAccessoryOptionScalarWhereInput | RentalAccessoryOptionScalarWhereInput[]
+    OR?: RentalAccessoryOptionScalarWhereInput[]
+    NOT?: RentalAccessoryOptionScalarWhereInput | RentalAccessoryOptionScalarWhereInput[]
+    id?: StringFilter<"RentalAccessoryOption"> | string
+    groupId?: StringFilter<"RentalAccessoryOption"> | string
+    name?: StringFilter<"RentalAccessoryOption"> | string
+    description?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    imageUrl?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    imageBlobPath?: StringNullableFilter<"RentalAccessoryOption"> | string | null
+    dailyPriceExVat?: DecimalFilter<"RentalAccessoryOption"> | Decimal | DecimalJsLike | number | string
+    position?: IntFilter<"RentalAccessoryOption"> | number
+    active?: BoolFilter<"RentalAccessoryOption"> | boolean
+    createdAt?: DateTimeFilter<"RentalAccessoryOption"> | Date | string
+    updatedAt?: DateTimeFilter<"RentalAccessoryOption"> | Date | string
+  }
+
+  export type RentalAccessoryGroupCreateWithoutOptionsInput = {
+    id?: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tool: RentalToolCreateNestedOneWithoutAccessoryGroupsInput
+  }
+
+  export type RentalAccessoryGroupUncheckedCreateWithoutOptionsInput = {
+    id?: string
+    toolId: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryGroupCreateOrConnectWithoutOptionsInput = {
+    where: RentalAccessoryGroupWhereUniqueInput
+    create: XOR<RentalAccessoryGroupCreateWithoutOptionsInput, RentalAccessoryGroupUncheckedCreateWithoutOptionsInput>
+  }
+
+  export type RentalAccessoryGroupUpsertWithoutOptionsInput = {
+    update: XOR<RentalAccessoryGroupUpdateWithoutOptionsInput, RentalAccessoryGroupUncheckedUpdateWithoutOptionsInput>
+    create: XOR<RentalAccessoryGroupCreateWithoutOptionsInput, RentalAccessoryGroupUncheckedCreateWithoutOptionsInput>
+    where?: RentalAccessoryGroupWhereInput
+  }
+
+  export type RentalAccessoryGroupUpdateToOneWithWhereWithoutOptionsInput = {
+    where?: RentalAccessoryGroupWhereInput
+    data: XOR<RentalAccessoryGroupUpdateWithoutOptionsInput, RentalAccessoryGroupUncheckedUpdateWithoutOptionsInput>
+  }
+
+  export type RentalAccessoryGroupUpdateWithoutOptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tool?: RentalToolUpdateOneRequiredWithoutAccessoryGroupsNestedInput
+  }
+
+  export type RentalAccessoryGroupUncheckedUpdateWithoutOptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RentalToolCreateWithoutReservationsInput = {
     id?: string
     name: string
@@ -51225,6 +54786,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     category: RentalCategoryCreateNestedOneWithoutToolsInput
     bookings?: RentalBookingCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolUncheckedCreateWithoutReservationsInput = {
@@ -51248,6 +54810,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     bookings?: RentalBookingUncheckedCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolCreateOrConnectWithoutReservationsInput = {
@@ -51316,6 +54879,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
     bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUpdateManyWithoutToolNestedInput
   }
 
   export type RentalToolUncheckedUpdateWithoutReservationsInput = {
@@ -51339,6 +54903,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedUpdateManyWithoutToolNestedInput
   }
 
   export type RentalBookingUpsertWithoutReservationInput = {
@@ -51397,6 +54962,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     category: RentalCategoryCreateNestedOneWithoutToolsInput
     reservations?: RentalReservationCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolUncheckedCreateWithoutBookingsInput = {
@@ -51420,6 +54986,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     reservations?: RentalReservationUncheckedCreateNestedManyWithoutToolInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedCreateNestedManyWithoutToolInput
   }
 
   export type RentalToolCreateOrConnectWithoutBookingsInput = {
@@ -51444,7 +55011,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -51475,7 +55044,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -51524,6 +55095,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: RentalCategoryUpdateOneRequiredWithoutToolsNestedInput
     reservations?: RentalReservationUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUpdateManyWithoutToolNestedInput
   }
 
   export type RentalToolUncheckedUpdateWithoutBookingsInput = {
@@ -51547,6 +55119,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedUpdateManyWithoutToolNestedInput
   }
 
   export type RentalReservationUpsertWithoutBookingInput = {
@@ -51577,7 +55150,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -51608,7 +55183,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -52668,6 +56245,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reservations?: RentalReservationUpdateManyWithoutToolNestedInput
     bookings?: RentalBookingUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUpdateManyWithoutToolNestedInput
   }
 
   export type RentalToolUncheckedUpdateWithoutCategoryInput = {
@@ -52691,6 +56269,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reservations?: RentalReservationUncheckedUpdateManyWithoutToolNestedInput
     bookings?: RentalBookingUncheckedUpdateManyWithoutToolNestedInput
+    accessoryGroups?: RentalAccessoryGroupUncheckedUpdateManyWithoutToolNestedInput
   }
 
   export type RentalToolUncheckedUpdateManyWithoutCategoryInput = {
@@ -52731,7 +56310,9 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     days: number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: Decimal | DecimalJsLike | number | string
     deliveryExVat?: Decimal | DecimalJsLike | number | string
     vatAmount?: Decimal | DecimalJsLike | number | string
     priceInclVat?: Decimal | DecimalJsLike | number | string
@@ -52755,6 +56336,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type RentalAccessoryGroupCreateManyToolInput = {
+    id?: string
+    name: string
+    required?: boolean
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type RentalReservationUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
@@ -52772,7 +56363,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -52802,7 +56395,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -52832,7 +56427,9 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: IntFieldUpdateOperationsInput | number
+    accessories?: JsonNullValueInput | InputJsonValue
     rentalExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    accessoriesExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     deliveryExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     vatAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     priceInclVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -52878,6 +56475,90 @@ export namespace Prisma {
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryGroupUpdateWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    options?: RentalAccessoryOptionUpdateManyWithoutGroupNestedInput
+  }
+
+  export type RentalAccessoryGroupUncheckedUpdateWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    options?: RentalAccessoryOptionUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type RentalAccessoryGroupUncheckedUpdateManyWithoutToolInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    required?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryOptionCreateManyGroupInput = {
+    id?: string
+    name: string
+    description?: string | null
+    imageUrl?: string | null
+    imageBlobPath?: string | null
+    dailyPriceExVat?: Decimal | DecimalJsLike | number | string
+    position?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RentalAccessoryOptionUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryOptionUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RentalAccessoryOptionUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageBlobPath?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyPriceExVat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    position?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

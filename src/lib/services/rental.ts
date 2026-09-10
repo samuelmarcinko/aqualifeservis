@@ -64,8 +64,53 @@ export interface CreateReservationInput {
   deliveryType: RentalDelivery;
   deliveryKm?: number | null;
   deliveryAddress?: string;
+  accessoryOptionIds?: string[];
   startDate: string; // YYYY-MM-DD
   endDate: string;
+}
+
+export interface AccessorySnapshotItem {
+  groupName: string;
+  optionName: string;
+  dailyPriceExVat: string;
+}
+
+/**
+ * Validate the selected accessory options against the tool's accessory groups
+ * and return a snapshot plus the summed daily price. Required groups must have
+ * exactly one selected option; optional groups may have any (0+).
+ */
+async function resolveAccessories(
+  toolId: string,
+  optionIds: string[] | undefined,
+): Promise<{ snapshot: AccessorySnapshotItem[]; dailyExVat: Decimal }> {
+  const groups = await prisma.rentalAccessoryGroup.findMany({
+    where: { toolId, active: true },
+    orderBy: [{ position: "asc" }, { name: "asc" }],
+    include: { options: { where: { active: true }, orderBy: [{ position: "asc" }, { name: "asc" }] } },
+  });
+  const selected = new Set(optionIds ?? []);
+  const snapshot: AccessorySnapshotItem[] = [];
+  let daily = new Decimal(0);
+
+  for (const g of groups) {
+    const chosen = g.options.filter((o) => selected.has(o.id));
+    if (g.required && chosen.length !== 1)
+      throw new Error(`Vyberte príslušenstvo v skupine „${g.name}".`);
+    // Optional groups allow any number (0+) of selected options.
+    for (const o of chosen) {
+      snapshot.push({
+        groupName: g.name,
+        optionName: o.name,
+        dailyPriceExVat: o.dailyPriceExVat.toString(),
+      });
+      daily = daily.plus(new Decimal(o.dailyPriceExVat));
+      selected.delete(o.id);
+    }
+  }
+  // Any leftover ids don't belong to this tool's active options → reject.
+  if (selected.size > 0) throw new Error("Neplatné príslušenstvo.");
+  return { snapshot, dailyExVat: round2(daily) };
 }
 
 export async function createReservation(
@@ -96,18 +141,22 @@ export async function createReservation(
   if (!isRangeAvailable(tool.quantity, ranges, startISO, endISO, 1))
     throw new Error("Vybraný termín už nie je voľný. Zvoľte prosím iný.");
 
+  const accessories = await resolveAccessories(tool.id, input.accessoryOptionIds);
+
   const price = computeRentalPrice({
     dailyPriceExVat: tool.dailyPriceExVat,
     days,
     deliveryKm,
     pricePerKm: settings.deliveryPricePerKm,
     vatRate: tool.vatRate,
+    accessoriesDailyExVat: accessories.dailyExVat,
   });
 
   const snapshot = {
     name: tool.name,
     dailyPriceExVat: tool.dailyPriceExVat.toString(),
     vatRate: tool.vatRate.toString(),
+    accessoriesDailyExVat: accessories.dailyExVat.toString(),
   };
 
   const reservation = await prisma.$transaction(async (tx) => {
@@ -119,6 +168,7 @@ export async function createReservation(
         seq: alloc.seq,
         toolId: tool.id,
         toolSnapshot: snapshot as unknown as Prisma.InputJsonValue,
+        accessories: accessories.snapshot as unknown as Prisma.InputJsonValue,
         customerName: input.customerName,
         customerEmail: input.customerEmail,
         customerPhone: input.customerPhone,
@@ -131,6 +181,7 @@ export async function createReservation(
         endDate: dayToDate(endISO),
         days,
         rentalExVat: price.rentalExVat,
+        accessoriesExVat: price.accessoriesExVat,
         deliveryExVat: price.deliveryExVat,
         vatAmount: price.vat,
         priceInclVat: price.inclVat,
@@ -258,13 +309,18 @@ export async function updateReservation(id: string, input: UpdateReservationInpu
   });
   if (input.endDate < input.startDate) throw new Error("Dátum konca nemôže byť pred začiatkom.");
 
-  const snap = r.toolSnapshot as unknown as { dailyPriceExVat?: string; vatRate?: string };
+  const snap = r.toolSnapshot as unknown as {
+    dailyPriceExVat?: string;
+    vatRate?: string;
+    accessoriesDailyExVat?: string;
+  };
   const daily = new Decimal(snap.dailyPriceExVat ?? 0);
   const vatRate = new Decimal(snap.vatRate ?? 23);
   const days = rentalDays(input.startDate, input.endDate);
   const rentalExVat = round2(daily.times(days));
+  const accessoriesExVat = round2(new Decimal(snap.accessoriesDailyExVat ?? 0).times(days));
   const deliveryExVat = round2(new Decimal(input.deliveryExVat || 0));
-  const exVat = round2(rentalExVat.plus(deliveryExVat));
+  const exVat = round2(rentalExVat.plus(accessoriesExVat).plus(deliveryExVat));
   const vat = round2(exVat.times(vatRate).dividedBy(100));
   const incl = round2(exVat.plus(vat));
 
@@ -284,6 +340,7 @@ export async function updateReservation(id: string, input: UpdateReservationInpu
         deliveryKm: input.deliveryType === "DELIVERY" ? (input.deliveryKm ?? null) : null,
         deliveryAddress: input.deliveryType === "DELIVERY" ? input.deliveryAddress : null,
         rentalExVat,
+        accessoriesExVat,
         deliveryExVat,
         vatAmount: vat,
         priceInclVat: incl,
@@ -385,10 +442,15 @@ async function notifyOwner(r: RentalReservation, toolName: string) {
       r.deliveryType === "DELIVERY"
         ? `\nDovoz na adresu: ${r.deliveryAddress ?? "-"}`
         : "\nOsobný odber";
+    const accessoryItems =
+      (r.accessories as unknown as { groupName: string; optionName: string }[] | null) ?? [];
+    const accessoryLine = accessoryItems.length
+      ? `\nPríslušenstvo: ${accessoryItems.map((a) => `${a.groupName}: ${a.optionName}`).join(", ")}`
+      : "";
     const body = `Nová rezervácia z požičovne.
 
 Číslo: ${r.number}
-Náradie: ${toolName}
+Náradie: ${toolName}${accessoryLine}
 Termín: ${formatDate(r.startDate)} – ${formatDate(r.endDate)} (${r.days} dní)
 Zákazník: ${r.customerName}, ${r.customerEmail}, ${r.customerPhone}${deliveryLine}
 Cena s DPH: ${formatCurrency(r.priceInclVat)}

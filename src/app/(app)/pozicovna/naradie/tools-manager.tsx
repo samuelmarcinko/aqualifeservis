@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Modal } from "@/components/ui/modal";
 import { ConfirmDialog } from "@/components/ui/confirm";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
+import { AccessoryManager, type AccessoryGroup } from "./accessory-manager";
 import { useToast } from "@/components/ui/toast";
 import { formatCurrency } from "@/lib/format";
 import type { ActionResult } from "@/lib/action-result";
@@ -37,6 +38,7 @@ interface Tool {
   galleryPhotos: string[];
   manuals: { url: string; name: string }[];
   videos: string[];
+  accessoryGroups: AccessoryGroup[];
 }
 interface Category {
   id: string;
@@ -372,6 +374,7 @@ function ToolModal({
               <ToolGallery toolId={tool.id} photos={tool.galleryPhotos} />
               <ToolManuals toolId={tool.id} manuals={tool.manuals} />
               <ToolVideos toolId={tool.id} videos={tool.videos} />
+              <AccessoryManager toolId={tool.id} groups={tool.accessoryGroups} />
             </>
           ) : (
             <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-400">

@@ -49,6 +49,11 @@ export default async function RentalReservationsPage({
           rentalExVat: r.rentalExVat.toString(),
           deliveryExVat: r.deliveryExVat.toString(),
           priceInclVat: r.priceInclVat.toString(),
+          accessories: ((r.accessories as unknown as { groupName: string; optionName: string; dailyPriceExVat: string }[]) ?? []).map((a) => ({
+            groupName: a.groupName,
+            optionName: a.optionName,
+            dailyPriceExVat: a.dailyPriceExVat,
+          })),
           adminNote: r.adminNote,
           status: r.status,
           createdAt: r.createdAt.toISOString(),

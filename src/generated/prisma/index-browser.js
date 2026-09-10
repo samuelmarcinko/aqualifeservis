@@ -498,6 +498,31 @@ exports.Prisma.RentalToolScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RentalAccessoryGroupScalarFieldEnum = {
+  id: 'id',
+  toolId: 'toolId',
+  name: 'name',
+  required: 'required',
+  position: 'position',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RentalAccessoryOptionScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  name: 'name',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  imageBlobPath: 'imageBlobPath',
+  dailyPriceExVat: 'dailyPriceExVat',
+  position: 'position',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.RentalReservationScalarFieldEnum = {
   id: 'id',
   number: 'number',
@@ -516,7 +541,9 @@ exports.Prisma.RentalReservationScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   days: 'days',
+  accessories: 'accessories',
   rentalExVat: 'rentalExVat',
+  accessoriesExVat: 'accessoriesExVat',
   deliveryExVat: 'deliveryExVat',
   vatAmount: 'vatAmount',
   priceInclVat: 'priceInclVat',
@@ -714,6 +741,8 @@ exports.Prisma.ModelName = {
   AiSettings: 'AiSettings',
   RentalCategory: 'RentalCategory',
   RentalTool: 'RentalTool',
+  RentalAccessoryGroup: 'RentalAccessoryGroup',
+  RentalAccessoryOption: 'RentalAccessoryOption',
   RentalReservation: 'RentalReservation',
   RentalBooking: 'RentalBooking',
   RentalSettings: 'RentalSettings',

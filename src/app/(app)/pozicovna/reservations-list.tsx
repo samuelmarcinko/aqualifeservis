@@ -35,6 +35,7 @@ interface Reservation {
   rentalExVat: string;
   deliveryExVat: string;
   priceInclVat: string;
+  accessories: { groupName: string; optionName: string; dailyPriceExVat: string }[];
   adminNote: string | null;
   status: string;
   createdAt: string;
@@ -150,6 +151,12 @@ export function ReservationsList({
         <Modal open onClose={() => setDetail(null)} title={`Rezervácia ${detail.number}`} size="lg">
           <div className="space-y-3 text-sm">
             <Row label="Náradie" value={detail.toolName} />
+            {detail.accessories.length > 0 && (
+              <Row
+                label="Príslušenstvo"
+                value={detail.accessories.map((a) => `${a.groupName}: ${a.optionName}`).join(", ")}
+              />
+            )}
             <Row label="Termín" value={`${formatDate(detail.startDate)} – ${formatDate(detail.endDate)} (${detail.days} dní)`} />
             <Row label="Cena s DPH" value={formatCurrency(detail.priceInclVat)} />
             <div className="border-t border-slate-100 pt-3">

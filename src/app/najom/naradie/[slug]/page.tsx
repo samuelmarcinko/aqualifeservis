@@ -21,9 +21,36 @@ export default async function RentalToolPage({
   const { slug } = await params;
   const tool = await prisma.rentalTool.findUnique({
     where: { slug },
-    include: { category: true },
+    include: {
+      category: true,
+      accessoryGroups: {
+        where: { active: true },
+        orderBy: [{ position: "asc" }, { name: "asc" }],
+        include: {
+          options: {
+            where: { active: true },
+            orderBy: [{ position: "asc" }, { name: "asc" }],
+          },
+        },
+      },
+    },
   });
   if (!tool || !tool.active) notFound();
+
+  const accessoryGroups = tool.accessoryGroups
+    .filter((g) => g.options.length > 0)
+    .map((g) => ({
+      id: g.id,
+      name: g.name,
+      required: g.required,
+      options: g.options.map((o) => ({
+        id: o.id,
+        name: o.name,
+        description: o.description,
+        imageUrl: o.imageUrl,
+        dailyPriceExVat: Number(o.dailyPriceExVat),
+      })),
+    }));
 
   const settings = await getRentalSettings();
   const today = toDayISO(new Date());
@@ -86,6 +113,7 @@ export default async function RentalToolPage({
             minDays={settings.minRentalDays}
             unavailableDays={unavailable}
             terms={settings.termsText ?? ""}
+            accessoryGroups={accessoryGroups}
           />
         </aside>
 

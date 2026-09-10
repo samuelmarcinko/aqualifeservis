@@ -57,6 +57,7 @@ export async function POST(req: Request) {
       deliveryType: parsed.data.deliveryType,
       deliveryKm: parsed.data.deliveryKm ?? null,
       deliveryAddress: parsed.data.deliveryAddress,
+      accessoryOptionIds: parsed.data.accessoryOptionIds,
       startDate: parsed.data.startDate,
       endDate: parsed.data.endDate,
     });
