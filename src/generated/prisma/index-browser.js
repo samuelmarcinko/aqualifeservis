@@ -584,6 +584,8 @@ exports.Prisma.RentalSettingsScalarFieldEnum = {
   pickupPhotos: 'pickupPhotos',
   heroImageUrl: 'heroImageUrl',
   heroImageBlobPath: 'heroImageBlobPath',
+  heroTitle: 'heroTitle',
+  heroSubtitle: 'heroSubtitle',
   facebookUrl: 'facebookUrl',
   instagramUrl: 'instagramUrl',
   customerEmailSubject: 'customerEmailSubject',

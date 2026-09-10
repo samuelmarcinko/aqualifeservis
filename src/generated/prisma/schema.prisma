@@ -797,6 +797,8 @@ model RentalSettings {
   pickupPhotos         Json     @default("[]")
   heroImageUrl         String?
   heroImageBlobPath    String?
+  heroTitle            String?
+  heroSubtitle         String?
   facebookUrl          String?
   instagramUrl         String?
   customerEmailSubject String   @default("Prijali sme vašu rezerváciu č. {{number}} – AQUALIFE požičovňa")

@@ -37,7 +37,7 @@ export default async function RentalPublicLayout({ children }: { children: React
 
       <main className="mx-auto w-full max-w-[1400px] flex-1 px-4 py-6 sm:py-8 lg:px-6">{children}</main>
 
-      <footer id="kontakt" className="mt-8 border-t border-slate-200 bg-white">
+      <footer id="kontakt" className="mt-8 scroll-mt-24 border-t border-slate-200 bg-white">
         <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-8 px-4 py-10 text-sm text-slate-500 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
           <div className="sm:col-span-2 lg:col-span-1">
             {company.logoUrl ? (

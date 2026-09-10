@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getRentalSettings, getCompanySettings } from "@/lib/services/settings";
 import { ToolCard } from "./tool-card";
+import { Reveal } from "./reveal";
 import {
   BoltIcon,
   MedalIcon,
@@ -63,7 +64,7 @@ export default async function RentalHome() {
   return (
     <div className="space-y-16 sm:space-y-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section id="o-nas" className="relative overflow-hidden rounded-3xl bg-brand-navy text-white">
+      <section id="o-nas" className="relative scroll-mt-28 overflow-hidden rounded-3xl bg-brand-navy text-white">
         {/* animated aurora blobs */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="animate-aurora absolute -left-24 -top-28 h-72 w-72 rounded-full bg-brand/50 blur-3xl" />
@@ -155,6 +156,7 @@ export default async function RentalHome() {
 
       {/* ── Categories ───────────────────────────────────────── */}
       {categories.length > 0 && (
+        <Reveal>
         <section>
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
@@ -192,10 +194,12 @@ export default async function RentalHome() {
             ))}
           </div>
         </section>
+        </Reveal>
       )}
 
       {/* ── Featured tools ───────────────────────────────────── */}
       {featured.length > 0 && (
+        <Reveal>
         <section>
           <div className="mb-6 flex items-end justify-between gap-4">
             <h2 className="text-2xl font-bold text-brand-navy">Obľúbené náradie</h2>
@@ -219,10 +223,12 @@ export default async function RentalHome() {
             ))}
           </div>
         </section>
+        </Reveal>
       )}
 
       {/* ── How it works ─────────────────────────────────────── */}
-      <section id="ako-to-funguje">
+      <Reveal>
+      <section id="ako-to-funguje" className="scroll-mt-28">
         <h2 className="text-2xl font-bold text-brand-navy">Ako prebieha prenájom</h2>
         <p className="mt-1 text-slate-500">Jednoducho a online — v štyroch krokoch.</p>
         <div className="relative mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -244,8 +250,10 @@ export default async function RentalHome() {
           ))}
         </div>
       </section>
+      </Reveal>
 
       {/* ── CTA band ─────────────────────────────────────────── */}
+      <Reveal>
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand to-brand-dark text-white">
         <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-2/5 lg:block">
           <div
@@ -282,6 +290,7 @@ export default async function RentalHome() {
           </div>
         </div>
       </section>
+      </Reveal>
     </div>
   );
 }
